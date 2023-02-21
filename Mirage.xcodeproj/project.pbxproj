@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4958296CCAD300E2F8E4 /* MirageApp.swift */; };
-		394B495B296CCAD300E2F8E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B495A296CCAD300E2F8E4 /* ContentView.swift */; };
 		394B495D296CCAD400E2F8E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 394B495C296CCAD400E2F8E4 /* Assets.xcassets */; };
 		394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */; };
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
+		9325787229A4F14000523BC0 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325785929A4F14000523BC0 /* Publisher+Extension.swift */; };
+		9325787329A4F14000523BC0 /* Subject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325785A29A4F14000523BC0 /* Subject+Extension.swift */; };
+		9325788429A4F27F00523BC0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325788329A4F27F00523BC0 /* LoginView.swift */; };
+		9325788629A4F33000523BC0 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325788529A4F33000523BC0 /* LoginModel.swift */; };
+		9325788829A4F34300523BC0 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325788729A4F34300523BC0 /* LoginViewModel.swift */; };
+		9325788B29A4F44700523BC0 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 9325788A29A4F44700523BC0 /* Apollo */; };
+		9325788D29A4F44700523BC0 /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 9325788C29A4F44700523BC0 /* ApolloSQLite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +42,6 @@
 /* Begin PBXFileReference section */
 		394B4955296CCAD300E2F8E4 /* Mirage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mirage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4958296CCAD300E2F8E4 /* MirageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageApp.swift; sourceTree = "<group>"; };
-		394B495A296CCAD300E2F8E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		394B495C296CCAD400E2F8E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		394B4965296CCAD400E2F8E4 /* MirageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MirageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +50,11 @@
 		394B4973296CCAD400E2F8E4 /* MirageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITests.swift; sourceTree = "<group>"; };
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		930D1220299A6A2F001A8D72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9325785929A4F14000523BC0 /* Publisher+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Extension.swift"; sourceTree = "<group>"; };
+		9325785A29A4F14000523BC0 /* Subject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subject+Extension.swift"; sourceTree = "<group>"; };
+		9325788329A4F27F00523BC0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9325788529A4F33000523BC0 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		9325788729A4F34300523BC0 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9325788B29A4F44700523BC0 /* Apollo in Frameworks */,
+				9325788D29A4F44700523BC0 /* ApolloSQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,9 +107,9 @@
 		394B4957296CCAD300E2F8E4 /* Mirage */ = {
 			isa = PBXGroup;
 			children = (
+				9325785129A4F14000523BC0 /* Source */,
 				930D1220299A6A2F001A8D72 /* Info.plist */,
 				394B4958296CCAD300E2F8E4 /* MirageApp.swift */,
-				394B495A296CCAD300E2F8E4 /* ContentView.swift */,
 				394B495C296CCAD400E2F8E4 /* Assets.xcassets */,
 				394B495E296CCAD400E2F8E4 /* Preview Content */,
 			);
@@ -129,6 +141,130 @@
 			path = MirageUITests;
 			sourceTree = "<group>";
 		};
+		9325785129A4F14000523BC0 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				9325785229A4F14000523BC0 /* Networking */,
+				9325785629A4F14000523BC0 /* Common */,
+				9325786A29A4F14000523BC0 /* Modules */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		9325785229A4F14000523BC0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9325785329A4F14000523BC0 /* Apollo */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		9325785329A4F14000523BC0 /* Apollo */ = {
+			isa = PBXGroup;
+			children = (
+				9325785429A4F14000523BC0 /* ApolloCore */,
+				9325785529A4F14000523BC0 /* ApolloAPIs */,
+			);
+			path = Apollo;
+			sourceTree = "<group>";
+		};
+		9325785429A4F14000523BC0 /* ApolloCore */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApolloCore;
+			sourceTree = "<group>";
+		};
+		9325785529A4F14000523BC0 /* ApolloAPIs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApolloAPIs;
+			sourceTree = "<group>";
+		};
+		9325785629A4F14000523BC0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9325785729A4F14000523BC0 /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		9325785729A4F14000523BC0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9325785829A4F14000523BC0 /* Combine */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9325785829A4F14000523BC0 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				9325785929A4F14000523BC0 /* Publisher+Extension.swift */,
+				9325785A29A4F14000523BC0 /* Subject+Extension.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
+		9325786A29A4F14000523BC0 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				9325786B29A4F14000523BC0 /* OnBoarding */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		9325786B29A4F14000523BC0 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				9325786C29A4F14000523BC0 /* Source */,
+				9325787129A4F14000523BC0 /* Tests */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		9325786C29A4F14000523BC0 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				9325786D29A4F14000523BC0 /* ViewModel */,
+				9325786E29A4F14000523BC0 /* Model */,
+				9325786F29A4F14000523BC0 /* View */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		9325786D29A4F14000523BC0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9325788729A4F34300523BC0 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9325786E29A4F14000523BC0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9325788529A4F33000523BC0 /* LoginModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9325786F29A4F14000523BC0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9325788329A4F27F00523BC0 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9325787129A4F14000523BC0 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +281,10 @@
 			dependencies = (
 			);
 			name = Mirage;
+			packageProductDependencies = (
+				9325788A29A4F44700523BC0 /* Apollo */,
+				9325788C29A4F44700523BC0 /* ApolloSQLite */,
+			);
 			productName = Mirage;
 			productReference = 394B4955296CCAD300E2F8E4 /* Mirage.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +357,9 @@
 				Base,
 			);
 			mainGroup = 394B494C296CCAD300E2F8E4;
+			packageReferences = (
+				9325788929A4F44700523BC0 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = 394B4956296CCAD300E2F8E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,8 +402,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				394B495B296CCAD300E2F8E4 /* ContentView.swift in Sources */,
+				9325788629A4F33000523BC0 /* LoginModel.swift in Sources */,
+				9325787229A4F14000523BC0 /* Publisher+Extension.swift in Sources */,
+				9325788829A4F34300523BC0 /* LoginViewModel.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
+				9325788429A4F27F00523BC0 /* LoginView.swift in Sources */,
+				9325787329A4F14000523BC0 /* Subject+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +736,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9325788929A4F44700523BC0 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9325788A29A4F44700523BC0 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9325788929A4F44700523BC0 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		9325788C29A4F44700523BC0 /* ApolloSQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9325788929A4F44700523BC0 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloSQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 394B494D296CCAD300E2F8E4 /* Project object */;
 }
