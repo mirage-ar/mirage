@@ -1,0 +1,29 @@
+{
+  "schemaName" : "Mirage/Schema/schema.json",
+  "input" : {
+    "operationSearchPaths" : [
+      "**/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./Mirage/Schema/ApolloGenerated",
+      "moduleType" : {
+        "embeddedInTarget" : {
+          "name" : "Mirage"
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}

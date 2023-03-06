@@ -1,0 +1,135 @@
+#----------------------------------------------------------------------------------
+# Graph Service - GraphQL Schema
+# Mirage (( v0.2.0 ))
+# ---------------------------------------------------------------------------------
+
+type Mira {
+  id: ID!
+  name: String! # not sure if we need this
+  # model properties
+  assetUrl: String!
+  latitude: Float!
+  longitude: Float!
+  elevation: Float!
+  translation: SIMD3! # SIMD3<Float>
+  rotation: Rotation!
+  scalar: Float
+
+  # social properties
+  description: String
+  visits: Int
+  visitors: [User]
+  views: Int
+  replies: [Reply]
+  reactions: [Reaction]
+  shares: Int
+
+  # meta properties
+  user: User!
+  flags: Int!
+}
+
+type Clip {
+  id: ID!
+  name: String! # again not sure if we need
+  assetUrl: String!
+  creator: User!
+  miras: [Mira]
+  reactions: [Reaction]
+  shares: Int
+}
+
+type User {
+  id: ID!
+  phone: String!
+  username: String
+  pfp: String
+  verificationSid: String
+  accessToken: String
+  miras: [Mira]
+  clips: [Clip]
+  replies: [Reply]
+  visits: [Mira]
+  friends: [User] #used to determine who can see your private miras
+}
+
+type SIMD3 {
+  x: Float!
+  y: Float!
+  z: Float!
+}
+
+type Rotation {
+  id: ID!
+  angle: Float!
+  axis: SIMD3!
+}
+
+type Reply {
+  id: ID!
+  creator: User!
+  content: String!
+  mira: Mira
+  clip: Clip
+}
+
+type Reaction {
+  id: ID!
+  creator: User!
+  type: ReactionType!
+  parent: Mira!
+}
+
+enum ReactionType {
+  LIKE
+  LOVE
+  WOW
+  HAHA
+  SAD
+  ANGRY
+}
+
+# can be removed if we don't need it
+type Query {
+  user(input: UserInput!): User
+}
+
+type Mutation {
+  authorizeUser(input: AuthorizationInput!): AuthorizationResult
+  verifyUser(input: VerificationInput!): VerificationResult
+  updateUser(input: UserInput!): User
+}
+
+input AuthorizationInput {
+  phone: String!
+}
+
+input VerificationInput {
+  phone: String!
+  code: String!
+}
+
+input UserInput {
+  id: ID!
+  accessToken: String!
+  username: String
+  pfp: String
+}
+
+type AuthorizationResult {
+  user: User!
+  verificationSid: String!
+  accountStage: AccountStage!
+}
+
+type VerificationResult {
+  user: User!
+  accessToken: String!
+}
+
+enum AccountStage {
+  NEW
+  EXISTING
+}
+
+scalar Date

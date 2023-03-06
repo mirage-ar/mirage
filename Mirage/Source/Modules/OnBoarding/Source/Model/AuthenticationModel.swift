@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct LoginModel {
+struct AuthenticationModel {
     
 }
