@@ -1,5 +1,5 @@
 {
-  "schemaName" : "Mirage/Schema/schema.json",
+  "schemaName" : "MirageAPI",
   "input" : {
     "operationSearchPaths" : [
       "**/*.graphql"

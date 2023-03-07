@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension Mirage/Schema/schema.json {
+public extension MirageAPI {
   enum AccountStage: String, EnumType {
     case new = "NEW"
     case existing = "EXISTING"

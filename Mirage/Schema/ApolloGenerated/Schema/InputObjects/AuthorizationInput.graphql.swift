@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension Mirage/Schema/schema.json {
+public extension MirageAPI {
   struct AuthorizationInput: InputObject {
     public private(set) var __data: InputDict
 

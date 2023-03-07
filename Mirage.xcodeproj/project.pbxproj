@@ -14,7 +14,17 @@
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
 		931472D629AFBFE3007ED805 /* NetworkInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */; };
-		9331C46F29AF6EE600F8EE72 /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 9331C46E29AF6EE600F8EE72 /* Schema */; };
+		931FF5D629B80037002C62AB /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 931FF5C429B80037002C62AB /* schema.graphqls */; };
+		931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */; };
+		931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */; };
+		931FF5D929B80037002C62AB /* AuthorizationResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */; };
+		931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CE29B80037002C62AB /* User.graphql.swift */; };
+		931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CF29B80037002C62AB /* Mutation.graphql.swift */; };
+		931FF5DC29B80037002C62AB /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5D029B80037002C62AB /* SchemaConfiguration.swift */; };
+		931FF5DD29B80037002C62AB /* AuthorizationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */; };
+		931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5D329B80037002C62AB /* SchemaMetadata.graphql.swift */; };
+		931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5D429B80037002C62AB /* MirageAPI.graphql.swift */; };
+		931FF5E029B80037002C62AB /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 931FF5D529B80037002C62AB /* schema.json */; };
 		9331C48A29AF8C0100F8EE72 /* AuthorizeUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9331C47829AF8C0100F8EE72 /* AuthorizeUser.graphql */; };
 		9331C48B29AF8C0100F8EE72 /* ApolloRepositery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C47A29AF8C0100F8EE72 /* ApolloRepositery.swift */; };
 		9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C47F29AF8C0100F8EE72 /* Publisher+Extension.swift */; };
@@ -70,7 +80,17 @@
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		930D1220299A6A2F001A8D72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorProvider.swift; sourceTree = "<group>"; };
-		9331C46E29AF6EE600F8EE72 /* Schema */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schema; sourceTree = "<group>"; };
+		931FF5C429B80037002C62AB /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeUserMutation.graphql.swift; sourceTree = "<group>"; };
+		931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountStage.graphql.swift; sourceTree = "<group>"; };
+		931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationResult.graphql.swift; sourceTree = "<group>"; };
+		931FF5CE29B80037002C62AB /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
+		931FF5CF29B80037002C62AB /* Mutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.graphql.swift; sourceTree = "<group>"; };
+		931FF5D029B80037002C62AB /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
+		931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationInput.graphql.swift; sourceTree = "<group>"; };
+		931FF5D329B80037002C62AB /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
+		931FF5D429B80037002C62AB /* MirageAPI.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MirageAPI.graphql.swift; sourceTree = "<group>"; };
+		931FF5D529B80037002C62AB /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		9331C47829AF8C0100F8EE72 /* AuthorizeUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthorizeUser.graphql; sourceTree = "<group>"; };
 		9331C47A29AF8C0100F8EE72 /* ApolloRepositery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloRepositery.swift; sourceTree = "<group>"; };
 		9331C47F29AF8C0100F8EE72 /* Publisher+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Extension.swift"; sourceTree = "<group>"; };
@@ -145,8 +165,8 @@
 		394B4957296CCAD300E2F8E4 /* Mirage */ = {
 			isa = PBXGroup;
 			children = (
+				931FF5C329B80037002C62AB /* Schema */,
 				9331C47429AF8C0100F8EE72 /* Source */,
-				9331C46E29AF6EE600F8EE72 /* Schema */,
 				930D1220299A6A2F001A8D72 /* Info.plist */,
 				394B4958296CCAD300E2F8E4 /* MirageApp.swift */,
 				394B495C296CCAD400E2F8E4 /* Assets.xcassets */,
@@ -178,6 +198,80 @@
 				394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */,
 			);
 			path = MirageUITests;
+			sourceTree = "<group>";
+		};
+		931FF5C329B80037002C62AB /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5C429B80037002C62AB /* schema.graphqls */,
+				931FF5C529B80037002C62AB /* ApolloGenerated */,
+				931FF5D529B80037002C62AB /* schema.json */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		931FF5C529B80037002C62AB /* ApolloGenerated */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5C629B80037002C62AB /* Operations */,
+				931FF5C929B80037002C62AB /* Schema */,
+				931FF5D429B80037002C62AB /* MirageAPI.graphql.swift */,
+			);
+			path = ApolloGenerated;
+			sourceTree = "<group>";
+		};
+		931FF5C629B80037002C62AB /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5C729B80037002C62AB /* Mutations */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		931FF5C729B80037002C62AB /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */,
+			);
+			path = Mutations;
+			sourceTree = "<group>";
+		};
+		931FF5C929B80037002C62AB /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5CA29B80037002C62AB /* Enums */,
+				931FF5CC29B80037002C62AB /* Objects */,
+				931FF5D029B80037002C62AB /* SchemaConfiguration.swift */,
+				931FF5D129B80037002C62AB /* InputObjects */,
+				931FF5D329B80037002C62AB /* SchemaMetadata.graphql.swift */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		931FF5CA29B80037002C62AB /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		931FF5CC29B80037002C62AB /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */,
+				931FF5CE29B80037002C62AB /* User.graphql.swift */,
+				931FF5CF29B80037002C62AB /* Mutation.graphql.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		931FF5D129B80037002C62AB /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */,
+			);
+			path = InputObjects;
 			sourceTree = "<group>";
 		};
 		9331C47429AF8C0100F8EE72 /* Source */ = {
@@ -484,10 +578,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
+				931FF5E029B80037002C62AB /* schema.json in Resources */,
 				9331C48A29AF8C0100F8EE72 /* AuthorizeUser.graphql in Resources */,
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
 				394B495D296CCAD400E2F8E4 /* Assets.xcassets in Resources */,
-				9331C46F29AF6EE600F8EE72 /* Schema in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,18 +612,27 @@
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
 				93E216A529B6807900EE907D /* AuthenticationRepository.swift in Sources */,
 				93B24F0B29B61BA700CCDDB7 /* AppNotification.swift in Sources */,
+				931FF5DC29B80037002C62AB /* SchemaConfiguration.swift in Sources */,
 				931472D629AFBFE3007ED805 /* NetworkInterceptorProvider.swift in Sources */,
+				931FF5D929B80037002C62AB /* AuthorizationResult.graphql.swift in Sources */,
 				9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
+				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
+				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */,
+				931FF5DD29B80037002C62AB /* AuthorizationInput.graphql.swift in Sources */,
 				93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */,
+				931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */,
+				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
 				9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */,
 				9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */,
+				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,
 				93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */,
+				931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

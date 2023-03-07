@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension Mirage/Schema/schema.json.Objects {
+public extension MirageAPI.Objects {
   static let Mutation = Object(
     typename: "Mutation",
     implementedInterfaces: []
