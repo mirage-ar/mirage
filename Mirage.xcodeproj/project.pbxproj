@@ -14,6 +14,8 @@
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
 		931472D629AFBFE3007ED805 /* NetworkInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */; };
+		93196A4829BA8B620087CFCD /* EnvironmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93196A4729BA8B620087CFCD /* EnvironmentConfig.swift */; };
+		93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93196A4929BA8D280087CFCD /* AppConfiguration.swift */; };
 		931FF5D629B80037002C62AB /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 931FF5C429B80037002C62AB /* schema.graphqls */; };
 		931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */; };
 		931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */; };
@@ -33,6 +35,20 @@
 		9331C49529AF8F2D00F8EE72 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 9331C49429AF8F2D00F8EE72 /* Reachability */; };
 		9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49729AF8FEF00F8EE72 /* NetworkError.swift */; };
 		93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */; };
+		936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */; };
+		936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */; };
+		936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */; };
+		936E7DE029C20A7A0008FBB9 /* Query.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */; };
+		936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */; };
+		936E7DE429C20A870008FBB9 /* UserInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE229C20A870008FBB9 /* UserInput.graphql.swift */; };
+		936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */; };
+		936E7DE729C20EF90008FBB9 /* UpdateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */; };
+		93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */; };
+		93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B729C20133002DA594 /* NavigationElement.swift */; };
+		93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B929C203B9002DA594 /* NavigationRoute.swift */; };
+		93AD50BE29C2087A002DA594 /* UpdateUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BB29C2087A002DA594 /* UpdateUser.graphql */; };
+		93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BC29C2087A002DA594 /* VerifyUser.graphql */; };
+		93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BD29C2087A002DA594 /* GetUser.graphql */; };
 		93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */; };
 		93B24F0329B6152500CCDDB7 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 93B24F0229B6152500CCDDB7 /* KeychainSwift */; };
 		93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0429B6175800CCDDB7 /* AddTokenInterceptor.swift */; };
@@ -80,6 +96,8 @@
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		930D1220299A6A2F001A8D72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorProvider.swift; sourceTree = "<group>"; };
+		93196A4729BA8B620087CFCD /* EnvironmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfig.swift; sourceTree = "<group>"; };
+		93196A4929BA8D280087CFCD /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		931FF5C429B80037002C62AB /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeUserMutation.graphql.swift; sourceTree = "<group>"; };
 		931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountStage.graphql.swift; sourceTree = "<group>"; };
@@ -98,6 +116,20 @@
 		9331C49129AF8C4100F8EE72 /* ReachabilityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityProvider.swift; sourceTree = "<group>"; };
 		9331C49729AF8FEF00F8EE72 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenInterceptor.swift; sourceTree = "<group>"; };
+		936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserMutation.graphql.swift; sourceTree = "<group>"; };
+		936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyUserMutation.graphql.swift; sourceTree = "<group>"; };
+		936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserQuery.graphql.swift; sourceTree = "<group>"; };
+		936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.graphql.swift; sourceTree = "<group>"; };
+		936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationResult.graphql.swift; sourceTree = "<group>"; };
+		936E7DE229C20A870008FBB9 /* UserInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInput.graphql.swift; sourceTree = "<group>"; };
+		936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationInput.graphql.swift; sourceTree = "<group>"; };
+		936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserView.swift; sourceTree = "<group>"; };
+		93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberView.swift; sourceTree = "<group>"; };
+		93AD50B729C20133002DA594 /* NavigationElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationElement.swift; sourceTree = "<group>"; };
+		93AD50B929C203B9002DA594 /* NavigationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoute.swift; sourceTree = "<group>"; };
+		93AD50BB29C2087A002DA594 /* UpdateUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpdateUser.graphql; sourceTree = "<group>"; };
+		93AD50BC29C2087A002DA594 /* VerifyUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VerifyUser.graphql; sourceTree = "<group>"; };
+		93AD50BD29C2087A002DA594 /* GetUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetUser.graphql; sourceTree = "<group>"; };
 		93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainStorage.swift; sourceTree = "<group>"; };
 		93B24F0429B6175800CCDDB7 /* AddTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenInterceptor.swift; sourceTree = "<group>"; };
 		93B24F0729B6182300CCDDB7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -200,12 +232,21 @@
 			path = MirageUITests;
 			sourceTree = "<group>";
 		};
+		93196A4629BA8B120087CFCD /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				93196A4729BA8B620087CFCD /* EnvironmentConfig.swift */,
+				93196A4929BA8D280087CFCD /* AppConfiguration.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		931FF5C329B80037002C62AB /* Schema */ = {
 			isa = PBXGroup;
 			children = (
 				931FF5C429B80037002C62AB /* schema.graphqls */,
-				931FF5C529B80037002C62AB /* ApolloGenerated */,
 				931FF5D529B80037002C62AB /* schema.json */,
+				931FF5C529B80037002C62AB /* ApolloGenerated */,
 			);
 			path = Schema;
 			sourceTree = "<group>";
@@ -223,6 +264,7 @@
 		931FF5C629B80037002C62AB /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				936E7DDB29C20A550008FBB9 /* Queries */,
 				931FF5C729B80037002C62AB /* Mutations */,
 			);
 			path = Operations;
@@ -232,6 +274,8 @@
 			isa = PBXGroup;
 			children = (
 				931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */,
+				936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */,
+				936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */,
 			);
 			path = Mutations;
 			sourceTree = "<group>";
@@ -241,8 +285,8 @@
 			children = (
 				931FF5CA29B80037002C62AB /* Enums */,
 				931FF5CC29B80037002C62AB /* Objects */,
-				931FF5D029B80037002C62AB /* SchemaConfiguration.swift */,
 				931FF5D129B80037002C62AB /* InputObjects */,
+				931FF5D029B80037002C62AB /* SchemaConfiguration.swift */,
 				931FF5D329B80037002C62AB /* SchemaMetadata.graphql.swift */,
 			);
 			path = Schema;
@@ -259,6 +303,8 @@
 		931FF5CC29B80037002C62AB /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */,
+				936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */,
 				931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */,
 				931FF5CE29B80037002C62AB /* User.graphql.swift */,
 				931FF5CF29B80037002C62AB /* Mutation.graphql.swift */,
@@ -270,6 +316,8 @@
 			isa = PBXGroup;
 			children = (
 				931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */,
+				936E7DE229C20A870008FBB9 /* UserInput.graphql.swift */,
+				936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */,
 			);
 			path = InputObjects;
 			sourceTree = "<group>";
@@ -277,6 +325,7 @@
 		9331C47429AF8C0100F8EE72 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				93196A4629BA8B120087CFCD /* Application */,
 				9331C47529AF8C0100F8EE72 /* Networking */,
 				9331C47C29AF8C0100F8EE72 /* Common */,
 				9331C48129AF8C0100F8EE72 /* Modules */,
@@ -308,6 +357,9 @@
 			isa = PBXGroup;
 			children = (
 				9331C47829AF8C0100F8EE72 /* AuthorizeUser.graphql */,
+				93AD50BD29C2087A002DA594 /* GetUser.graphql */,
+				93AD50BB29C2087A002DA594 /* UpdateUser.graphql */,
+				93AD50BC29C2087A002DA594 /* VerifyUser.graphql */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -343,6 +395,7 @@
 		9331C47D29AF8C0100F8EE72 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				93AD50B629C20125002DA594 /* SwiftUI */,
 				93B24F0629B6181100CCDDB7 /* Foundation */,
 				9331C47E29AF8C0100F8EE72 /* Combine */,
 			);
@@ -389,6 +442,23 @@
 				93B24F0429B6175800CCDDB7 /* AddTokenInterceptor.swift */,
 			);
 			path = Interceptors;
+			sourceTree = "<group>";
+		};
+		936E7DDB29C20A550008FBB9 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		93AD50B629C20125002DA594 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				93AD50B729C20133002DA594 /* NavigationElement.swift */,
+				93AD50B929C203B9002DA594 /* NavigationRoute.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		93B24F0629B6181100CCDDB7 /* Foundation */ = {
@@ -455,6 +525,8 @@
 			isa = PBXGroup;
 			children = (
 				93E216A029B6804100EE907D /* AuthenticationView.swift */,
+				93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */,
+				936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -578,11 +650,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
 				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
+				93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */,
 				9331C48A29AF8C0100F8EE72 /* AuthorizeUser.graphql in Resources */,
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
 				394B495D296CCAD400E2F8E4 /* Assets.xcassets in Resources */,
+				93AD50BE29C2087A002DA594 /* UpdateUser.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,19 +683,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				93E216A229B6804100EE907D /* AuthenticationModel.swift in Sources */,
+				936E7DE029C20A7A0008FBB9 /* Query.graphql.swift in Sources */,
 				9331C48B29AF8C0100F8EE72 /* ApolloRepositery.swift in Sources */,
+				936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */,
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
 				93E216A529B6807900EE907D /* AuthenticationRepository.swift in Sources */,
 				93B24F0B29B61BA700CCDDB7 /* AppNotification.swift in Sources */,
+				936E7DE429C20A870008FBB9 /* UserInput.graphql.swift in Sources */,
+				93196A4829BA8B620087CFCD /* EnvironmentConfig.swift in Sources */,
 				931FF5DC29B80037002C62AB /* SchemaConfiguration.swift in Sources */,
 				931472D629AFBFE3007ED805 /* NetworkInterceptorProvider.swift in Sources */,
 				931FF5D929B80037002C62AB /* AuthorizationResult.graphql.swift in Sources */,
 				9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */,
+				936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
+				936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
+				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */,
@@ -628,9 +710,15 @@
 				93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */,
 				931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */,
 				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
+				93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */,
+				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
+				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,
 				9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */,
 				9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */,
+				936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */,
+				93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */,
 				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,
+				936E7DE729C20EF90008FBB9 /* UpdateUserView.swift in Sources */,
 				93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */,
 				931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
@@ -807,8 +895,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -840,6 +930,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -922,6 +1013,387 @@
 			};
 			name = Release;
 		};
+		93196A4B29BA95AF0087CFCD /* DEV */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = DEV;
+		};
+		93196A4C29BA95AF0087CFCD /* DEV */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mirage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "-D DEV";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = DEV;
+		};
+		93196A4D29BA95AF0087CFCD /* DEV */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiigmnt.MirageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mirage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mirage";
+			};
+			name = DEV;
+		};
+		93196A4E29BA95AF0087CFCD /* DEV */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiigmnt.MirageUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mirage;
+			};
+			name = DEV;
+		};
+		93196A4F29BA95BE0087CFCD /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = PROD;
+		};
+		93196A5029BA95BE0087CFCD /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mirage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "-D PROD";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROD;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = PROD;
+		};
+		93196A5129BA95BE0087CFCD /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiigmnt.MirageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mirage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mirage";
+			};
+			name = PROD;
+		};
+		93196A5229BA95BE0087CFCD /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiigmnt.MirageUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mirage;
+			};
+			name = PROD;
+		};
+		93196A5329BA95C40087CFCD /* STAGING */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = STAGING;
+		};
+		93196A5429BA95C40087CFCD /* STAGING */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mirage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "-D STAGING";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = STAGING;
+		};
+		93196A5529BA95C40087CFCD /* STAGING */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiigmnt.MirageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mirage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mirage";
+			};
+			name = STAGING;
+		};
+		93196A5629BA95C40087CFCD /* STAGING */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fiigmnt.MirageUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mirage;
+			};
+			name = STAGING;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -929,7 +1401,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				394B4977296CCAD400E2F8E4 /* Debug */,
+				93196A4B29BA95AF0087CFCD /* DEV */,
 				394B4978296CCAD400E2F8E4 /* Release */,
+				93196A4F29BA95BE0087CFCD /* PROD */,
+				93196A5329BA95C40087CFCD /* STAGING */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -938,7 +1413,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				394B497A296CCAD400E2F8E4 /* Debug */,
+				93196A4C29BA95AF0087CFCD /* DEV */,
 				394B497B296CCAD400E2F8E4 /* Release */,
+				93196A5029BA95BE0087CFCD /* PROD */,
+				93196A5429BA95C40087CFCD /* STAGING */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -947,7 +1425,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				394B497D296CCAD400E2F8E4 /* Debug */,
+				93196A4D29BA95AF0087CFCD /* DEV */,
 				394B497E296CCAD400E2F8E4 /* Release */,
+				93196A5129BA95BE0087CFCD /* PROD */,
+				93196A5529BA95C40087CFCD /* STAGING */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -956,7 +1437,10 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				394B4980296CCAD400E2F8E4 /* Debug */,
+				93196A4E29BA95AF0087CFCD /* DEV */,
 				394B4981296CCAD400E2F8E4 /* Release */,
+				93196A5229BA95BE0087CFCD /* PROD */,
+				93196A5629BA95C40087CFCD /* STAGING */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,0 +1,9 @@
+
+query User($userInput: UserInput!) {
+  user(input: $userInput) {
+    id
+    phone
+        username
+        pfp
+  }
+}

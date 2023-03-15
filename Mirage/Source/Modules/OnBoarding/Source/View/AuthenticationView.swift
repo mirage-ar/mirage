@@ -12,13 +12,22 @@ struct AuthenticationView: View {
     @State var phoneNumber: String
     
     var body: some View {
-        Text("Login with your Number!")
-        TextField("Enter Number", text: $phoneNumber)
-        Button("Login") {
-            guard !viewModel.isLoading, !phoneNumber.removedWhiteSpaces.isEmpty  else {
-                return
+        VStack (alignment: .center, spacing: 10) {
+            Text("Login with your Number!")
+            TextField("Enter Number", text: $phoneNumber)
+                .multilineTextAlignment(.center)
+                
+            Button("Login") {
+                guard !viewModel.isLoading, !phoneNumber.removedWhiteSpaces.isEmpty  else {
+                    return
+                }
+                viewModel.authenticate(number: phoneNumber)
+                if let sid = viewModel.sid {
+                    //push code verification
+                }
             }
-            viewModel.authenticate(number: phoneNumber)
+//            .navigate(to: .onboardingVerifyPhoneNumber(phoneNumer: viewModel.sid ?? ""))
+        
         }
     }
 }

@@ -34,6 +34,8 @@ public extension MirageAPI {
       case "Mutation": return MirageAPI.Objects.Mutation
       case "AuthorizationResult": return MirageAPI.Objects.AuthorizationResult
       case "User": return MirageAPI.Objects.User
+      case "Query": return MirageAPI.Objects.Query
+      case "VerificationResult": return MirageAPI.Objects.VerificationResult
       default: return nil
       }
     }

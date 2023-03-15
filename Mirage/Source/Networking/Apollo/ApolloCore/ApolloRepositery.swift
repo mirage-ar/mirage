@@ -227,13 +227,13 @@ public class ApolloRepository {
                 return
             }
 
-            func perform() {
-                self.client.perform(mutation: mutation, queue: callbackQueue) { response in
-                    let result = self.handleGraphQLResponse(response)
-
-                    promise(result)
-                }
+            self.client.perform(mutation: mutation, queue: callbackQueue) { response in
+                let result = self.handleGraphQLResponse(response)
+                print("response: \(response)")
+                print("res: \(result)")
+                promise(result)
             }
+            
 
         }.eraseToAnyPublisher()
     }
