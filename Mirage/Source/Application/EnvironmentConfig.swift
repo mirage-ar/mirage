@@ -16,8 +16,6 @@ protocol EnvironmentConfig {
     var apiWebSocketEndpoint: String { get }
 }
 
-let url = "https://gpwdv17dp3.execute-api.us-east-1.amazonaws.com/" //temporary
-
 enum MirageConfig: EnvironmentConfig {
     case production
     case staging
@@ -35,7 +33,7 @@ enum MirageConfig: EnvironmentConfig {
             return "https://graph-dev.protocol.im/"
             
         case .development:
-            return url
+            return "https://graph.protocol.im/"
         }
     }
     
@@ -48,7 +46,7 @@ enum MirageConfig: EnvironmentConfig {
             return "wss://graph-dev.protocol.im/"
             
         case .development:
-            return url
+            return "https://graph.protocol.im/"
         }
     }
 }
