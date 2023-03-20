@@ -171,10 +171,13 @@ public class ApolloRepository {
     private func getClient() -> ApolloClient {
         // A split network transport to allow the use of both of the above
         // transports through a single `NetworkTransport` instance.
-        let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-                                                          webSocketNetworkTransport: webSocketTransport)
+        
+        // This code is commited to be used when subscriptions are there
+        //let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+        //                                                webSocketNetworkTransport: webSocketTransport)
 
-        return ApolloClient(networkTransport: splitNetworkTransport,
+        
+        return ApolloClient(networkTransport: normalTransport,
                             store: store)
     }
 
