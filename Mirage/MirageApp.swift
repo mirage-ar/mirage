@@ -11,7 +11,7 @@ import SwiftUI
 struct MirageApp: App {
     var body: some Scene {
         WindowGroup {
-            AuthenticationView(phoneNumber: "")
+            AuthenticationView(phoneNumber: "", isEditing: false)
         }
     }
 }
