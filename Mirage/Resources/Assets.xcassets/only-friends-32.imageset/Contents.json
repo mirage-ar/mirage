@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "only-friends-32.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
