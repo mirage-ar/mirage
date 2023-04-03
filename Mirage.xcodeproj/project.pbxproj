@@ -12,6 +12,7 @@
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
+		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
 		9310E5D229CDCEC5000E6019 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D129CDCEC5000E6019 /* LargeButton.swift */; };
 		9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D329CDCEFF000E6019 /* ButtonStyles.swift */; };
 		9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D529CDD281000E6019 /* View+Extension.swift */; };
@@ -182,6 +183,7 @@
 				93B24F0329B6152500CCDDB7 /* KeychainSwift in Frameworks */,
 				93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */,
 				93E2169829B6687600EE907D /* ApolloWebSocket in Frameworks */,
+				39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */,
 				93E2169429B6687600EE907D /* ApolloAPI in Frameworks */,
 				93E2169629B6687600EE907D /* ApolloSQLite in Frameworks */,
 			);
@@ -696,6 +698,7 @@
 				93E2169529B6687600EE907D /* ApolloSQLite */,
 				93E2169729B6687600EE907D /* ApolloWebSocket */,
 				9310E5DF29D0F4EE000E6019 /* iPhoneNumberField */,
+				39FD214B29DB739F0064FFBF /* MapboxMaps */,
 			);
 			productName = Mirage;
 			productReference = 394B4955296CCAD300E2F8E4 /* Mirage.app */;
@@ -775,6 +778,7 @@
 				93B24F1129B6319E00CCDDB7 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				93E2169029B6687600EE907D /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
+				39FD214A29DB739F0064FFBF /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
 			);
 			productRefGroup = 394B4956296CCAD300E2F8E4 /* Products */;
 			projectDirPath = "";
@@ -1604,6 +1608,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		39FD214A29DB739F0064FFBF /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MojtabaHs/iPhoneNumberField.git";
@@ -1647,6 +1659,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		39FD214B29DB739F0064FFBF /* MapboxMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39FD214A29DB739F0064FFBF /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */;
+			productName = MapboxMaps;
+		};
 		9310E5DF29D0F4EE000E6019 /* iPhoneNumberField */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
