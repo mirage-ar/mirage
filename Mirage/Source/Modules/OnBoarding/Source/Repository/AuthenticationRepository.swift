@@ -25,7 +25,8 @@ extension ApolloRepository: AuthenticationRepository {
         let mutaiton = MirageAPI.AuthorizeUserMutation(authorizeUserInput: input)
         return perform(mutation: mutaiton)
             .map {
-                return $0.authorizeUser?.verificationSid ?? ""
+                //TODO: check in case of failure
+                return $0.authorizeUser?.accountStage.rawValue ?? "UNKNOWN"
             }
             .eraseToAnyPublisher()
 
@@ -44,8 +45,8 @@ extension ApolloRepository: AuthenticationRepository {
     }
 
     public func updateUser(id: String, accessToken: String, userName: String) -> AnyPublisher<(String, String), Error> {
-                
-        let input = MirageAPI.UserInput(id: id, accessToken: accessToken, username: userName ?? "") //?? part is just to avoid error. 
+        
+        let input = MirageAPI.UpdateUserInput(userId: id, accessToken: accessToken) //?? part is just to avoid error.
         let mutaiton = MirageAPI.UpdateUserMutation(updateUserInput: input)
         return perform(mutation: mutaiton)
             .map {
@@ -57,8 +58,8 @@ extension ApolloRepository: AuthenticationRepository {
     
     public func getUser(id: String, accessToken: String) -> AnyPublisher<String, Error> {
                 
-        let input = MirageAPI.UserInput(id: id, accessToken: accessToken)
-        let query = MirageAPI.UserQuery(userInput: input)
+        let input = MirageAPI.AuthorizedQueryInput (userId: id, accessToken: accessToken)
+        let query = MirageAPI.UserQuery(authorizedQueryInput: input)
         return fetch(query: query)
             .map {
                 //TODO: update to user model

@@ -16,7 +16,6 @@ public extension MirageAPI {
               __typename
               id
             }
-            verificationSid
             accountStage
           }
         }
@@ -52,12 +51,10 @@ public extension MirageAPI {
         public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.AuthorizationResult }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("user", User.self),
-          .field("verificationSid", String.self),
           .field("accountStage", GraphQLEnum<MirageAPI.AccountStage>.self),
         ] }
 
         public var user: User { __data["user"] }
-        public var verificationSid: String { __data["verificationSid"] }
         public var accountStage: GraphQLEnum<MirageAPI.AccountStage> { __data["accountStage"] }
 
         /// AuthorizeUser.User

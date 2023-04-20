@@ -1,0 +1,16 @@
+query Map($mapQueryInput: MapQueryInput!) {
+  map(input: $mapQueryInput) {
+    id
+    creator {
+      id
+      pfp
+      username
+    }
+    location {
+      latitude
+      longitude
+    }
+    viewed
+    collected
+  }
+}

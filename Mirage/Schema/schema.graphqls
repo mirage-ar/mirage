@@ -5,99 +5,122 @@
 
 type Mira {
   id: ID!
-  name: String! # not sure if we need this
-  # model properties
-  assetUrl: String!
-  latitude: Float!
-  longitude: Float!
-  elevation: Float!
-  translation: SIMD3! # SIMD3<Float>
-  rotation: Rotation!
-  scalar: Float
-
-  # social properties
-  description: String
-  visits: Int
-  visitors: [User]
-  views: Int
-  replies: [Reply]
-  reactions: [Reaction]
-  shares: Int
-
-  # meta properties
-  user: User!
-  flags: Int!
-}
-
-type Clip {
-  id: ID!
-  name: String! # again not sure if we need
-  assetUrl: String!
   creator: User!
-  miras: [Mira]
-  reactions: [Reaction]
-  shares: Int
+  location: Location!
+  viewed: Boolean!
+  collected: Boolean!
 }
 
 type User {
   id: ID!
-  phone: String!
-  username: String
+  username: String!
+  phone: String
   pfp: String
-  verificationSid: String
+  profileDescription: String
   accessToken: String
+  verificationSid: String
   miras: [Mira]
   clips: [Clip]
-  replies: [Reply]
-  visits: [Mira]
-  friends: [User] #used to determine who can see your private miras
+  collected: [Mira]
+  viewed: [Mira]
+  friends: [User]
+  sentRequests: [User]
+  pendingRequests: [User]
 }
 
-type SIMD3 {
-  x: Float!
-  y: Float!
-  z: Float!
-}
-
-type Rotation {
+type Location {
   id: ID!
-  angle: Float!
-  axis: SIMD3!
+  latitude: Float!
+  longitude: Float!
+  elevation: Float
 }
 
-type Reply {
+type ArMedia {
+  contentType: ContentType!
+  assetUrl: String!
+  shape: Shape!
+  position: Position!
+  modifier: Modifier
+}
+
+type Position {
   id: ID!
-  creator: User!
-  content: String!
+}
+
+type Modifier {
+  id: ID!
+  type: ModifierType!
+  amount: Float!
+}
+
+type Clip {
+  id: ID!
+  assetUrl: String!
+  creator: User
+  contentType: ContentType
   mira: Mira
-  clip: Clip
+  reactions: [Reaction]
+  visibility: Visibility!
+  shares: Int
+}
+
+type Comment {
+  id: ID!
+  content: String!
+  author: User!
 }
 
 type Reaction {
   id: ID!
-  creator: User!
   type: ReactionType!
+  clip: Clip!
+  author: User!
+}
+
+type Settings {
+  id: ID!
+  user: User!
+  Unit: Unit!
+  reactions: Boolean!
+  folowers: Boolean!
+  monuments: Boolean!
+  friendActivity: Boolean!
+  miraProximity: Boolean!
+}
+
+type Flag {
+  id: ID!
+  author: User!
+  type: FlagType!
   parent: Mira!
 }
 
-enum ReactionType {
-  LIKE
-  LOVE
-  WOW
-  HAHA
-  SAD
-  ANGRY
+type Query {
+  user(input: AuthorizedQueryInput!): User
+  map(input: MapQueryInput!): [Mira]
 }
 
-# can be removed if we don't need it
-type Query {
-  user(input: UserInput!): User
+input AuthorizedQueryInput {
+  userId: ID!
+  accessToken: String!
+}
+
+input MapQueryInput {
+  userId: ID!
+  accessToken: String!
+  location: LocationInput!
+  zoomLevel: Int
+}
+
+input LocationInput {
+  latitude: Float!
+  longitude: Float!
 }
 
 type Mutation {
   authorizeUser(input: AuthorizationInput!): AuthorizationResult
   verifyUser(input: VerificationInput!): VerificationResult
-  updateUser(input: UserInput!): User
+  updateUser(input: UpdateUserInput!): User
 }
 
 input AuthorizationInput {
@@ -109,8 +132,8 @@ input VerificationInput {
   code: String!
 }
 
-input UserInput {
-  id: ID!
+input UpdateUserInput {
+  userId: ID!
   accessToken: String!
   username: String
   pfp: String
@@ -118,7 +141,6 @@ input UserInput {
 
 type AuthorizationResult {
   user: User!
-  verificationSid: String!
   accountStage: AccountStage!
 }
 
@@ -127,9 +149,53 @@ type VerificationResult {
   accessToken: String!
 }
 
+enum ContentType {
+  VIDEO
+  PHOTO
+}
+
+enum Shape {
+  PLANE
+  CUBE
+  SPHERE
+}
+
+enum ModifierType {
+  NONE
+  WAVE
+  ROTATE
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+  EXPIRED
+}
+
+enum ReactionType {
+  LIKE
+  LOVE
+  WOW
+  HAHA
+  SAD
+  ANGRY
+}
+
+enum Unit {
+  METRIC
+  IMPERIAL
+}
+
+enum FlagType {
+  INAPPROPRIATE
+  SPAM
+  OTHER
+}
+
 enum AccountStage {
   NEW
   EXISTING
 }
 
 scalar Date
+

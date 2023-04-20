@@ -15,6 +15,7 @@ public enum NavigationRoute {
 
     //MARK: Home
     case homeViewLanding
+    case homeToARCameraView
 
     public var screen: some View {
         Group {
@@ -27,6 +28,8 @@ public enum NavigationRoute {
                 UpdateUserView(accessToken: accessToken, id: id, userName: "")
             case .homeViewLanding:
                 HomeView()
+            case .homeToARCameraView:
+                ARCameraView()
             }
         }
     }

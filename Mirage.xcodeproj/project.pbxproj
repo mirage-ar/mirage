@@ -13,6 +13,11 @@
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
 		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
+		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
+		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
+		9300625329E45E9700816C46 /* ARCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300625229E45E9700816C46 /* ARCameraView.swift */; };
+		9310806929F183C40075C8DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310806829F183C40075C8DC /* HomeViewModel.swift */; };
+		9310806B29F186100075C8DC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310806A29F186100075C8DC /* MapViewModel.swift */; };
 		9310E5D229CDCEC5000E6019 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D129CDCEC5000E6019 /* LargeButton.swift */; };
 		9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D329CDCEFF000E6019 /* ButtonStyles.swift */; };
 		9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D529CDD281000E6019 /* View+Extension.swift */; };
@@ -56,13 +61,20 @@
 		936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */; };
 		936E7DE029C20A7A0008FBB9 /* Query.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */; };
 		936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */; };
-		936E7DE429C20A870008FBB9 /* UserInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE229C20A870008FBB9 /* UserInput.graphql.swift */; };
 		936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */; };
 		936E7DE729C20EF90008FBB9 /* UpdateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */; };
+		9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633429F018C1005B1F3E /* GetMiras.graphql */; };
+		9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633629F01C9B005B1F3E /* UpdateUser.graphql */; };
+		9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */; };
+		9392633D29F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633929F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift */; };
+		9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */; };
+		9392633F29F01FD5005B1F3E /* MapQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633B29F01FD5005B1F3E /* MapQueryInput.graphql.swift */; };
+		9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634029F01FF5005B1F3E /* Location.graphql.swift */; };
+		9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634129F01FF5005B1F3E /* Mira.graphql.swift */; };
+		9392634529F02169005B1F3E /* MapQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634429F02169005B1F3E /* MapQuery.graphql.swift */; };
 		93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */; };
 		93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B729C20133002DA594 /* NavigationElement.swift */; };
 		93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B929C203B9002DA594 /* NavigationRoute.swift */; };
-		93AD50BE29C2087A002DA594 /* UpdateUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BB29C2087A002DA594 /* UpdateUser.graphql */; };
 		93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BC29C2087A002DA594 /* VerifyUser.graphql */; };
 		93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BD29C2087A002DA594 /* GetUser.graphql */; };
 		93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */; };
@@ -73,6 +85,7 @@
 		93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */; };
 		93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */; };
 		93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 93B24F1229B6319E00CCDDB7 /* OrderedCollections */; };
+		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
 		93E2169629B6687600EE907D /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169529B6687600EE907D /* ApolloSQLite */; };
@@ -109,7 +122,12 @@
 		394B496F296CCAD400E2F8E4 /* MirageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MirageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4973296CCAD400E2F8E4 /* MirageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITests.swift; sourceTree = "<group>"; };
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
+		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9300625229E45E9700816C46 /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
 		930D1220299A6A2F001A8D72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9310806829F183C40075C8DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		9310806A29F186100075C8DC /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		9310E5D129CDCEC5000E6019 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		9310E5D329CDCEFF000E6019 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		9310E5D529CDD281000E6019 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -151,13 +169,20 @@
 		936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserQuery.graphql.swift; sourceTree = "<group>"; };
 		936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.graphql.swift; sourceTree = "<group>"; };
 		936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationResult.graphql.swift; sourceTree = "<group>"; };
-		936E7DE229C20A870008FBB9 /* UserInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInput.graphql.swift; sourceTree = "<group>"; };
 		936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationInput.graphql.swift; sourceTree = "<group>"; };
 		936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserView.swift; sourceTree = "<group>"; };
+		9392633429F018C1005B1F3E /* GetMiras.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetMiras.graphql; sourceTree = "<group>"; };
+		9392633629F01C9B005B1F3E /* UpdateUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpdateUser.graphql; sourceTree = "<group>"; };
+		9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationInput.graphql.swift; sourceTree = "<group>"; };
+		9392633929F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedQueryInput.graphql.swift; sourceTree = "<group>"; };
+		9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserInput.graphql.swift; sourceTree = "<group>"; };
+		9392633B29F01FD5005B1F3E /* MapQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapQueryInput.graphql.swift; sourceTree = "<group>"; };
+		9392634029F01FF5005B1F3E /* Location.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.graphql.swift; sourceTree = "<group>"; };
+		9392634129F01FF5005B1F3E /* Mira.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mira.graphql.swift; sourceTree = "<group>"; };
+		9392634429F02169005B1F3E /* MapQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapQuery.graphql.swift; sourceTree = "<group>"; };
 		93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberView.swift; sourceTree = "<group>"; };
 		93AD50B729C20133002DA594 /* NavigationElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationElement.swift; sourceTree = "<group>"; };
 		93AD50B929C203B9002DA594 /* NavigationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoute.swift; sourceTree = "<group>"; };
-		93AD50BB29C2087A002DA594 /* UpdateUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpdateUser.graphql; sourceTree = "<group>"; };
 		93AD50BC29C2087A002DA594 /* VerifyUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VerifyUser.graphql; sourceTree = "<group>"; };
 		93AD50BD29C2087A002DA594 /* GetUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetUser.graphql; sourceTree = "<group>"; };
 		93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainStorage.swift; sourceTree = "<group>"; };
@@ -166,6 +191,7 @@
 		93B24F0A29B61BA700CCDDB7 /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenNetworkRepository.swift; sourceTree = "<group>"; };
+		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		93E216A029B6804100EE907D /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
@@ -265,6 +291,96 @@
 			path = MirageUITests;
 			sourceTree = "<group>";
 		};
+		9300624329E43EA000816C46 /* MapModule */ = {
+			isa = PBXGroup;
+			children = (
+				9300624429E43EA000816C46 /* ViewModel */,
+				9300624529E43EA000816C46 /* Repository */,
+				9300624629E43EA000816C46 /* Model */,
+				9300624729E43EA000816C46 /* View */,
+			);
+			path = MapModule;
+			sourceTree = "<group>";
+		};
+		9300624429E43EA000816C46 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9310806A29F186100075C8DC /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9300624529E43EA000816C46 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				93CB568529F034C700C5C9DB /* MapApolloRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		9300624629E43EA000816C46 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9300624729E43EA000816C46 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9300624829E43EA000816C46 /* MBMapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9300624A29E43F0400816C46 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9300624B29E43F0F00816C46 /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		9300624D29E45E7700816C46 /* ARModule */ = {
+			isa = PBXGroup;
+			children = (
+				9300624E29E45E7700816C46 /* ViewModel */,
+				9300624F29E45E7700816C46 /* Repository */,
+				9300625029E45E7700816C46 /* Model */,
+				9300625129E45E7700816C46 /* View */,
+			);
+			path = ARModule;
+			sourceTree = "<group>";
+		};
+		9300624E29E45E7700816C46 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9300624F29E45E7700816C46 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		9300625029E45E7700816C46 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9300625129E45E7700816C46 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9300625229E45E9700816C46 /* ARCameraView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		9310E5CE29CDCEB7000E6019 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +438,7 @@
 		9310E5E329D10928000E6019 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9310806829F183C40075C8DC /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -444,6 +561,8 @@
 				931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */,
 				931FF5CE29B80037002C62AB /* User.graphql.swift */,
 				931FF5CF29B80037002C62AB /* Mutation.graphql.swift */,
+				9392634029F01FF5005B1F3E /* Location.graphql.swift */,
+				9392634129F01FF5005B1F3E /* Mira.graphql.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -452,7 +571,10 @@
 			isa = PBXGroup;
 			children = (
 				931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */,
-				936E7DE229C20A870008FBB9 /* UserInput.graphql.swift */,
+				9392633929F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift */,
+				9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */,
+				9392633B29F01FD5005B1F3E /* MapQueryInput.graphql.swift */,
+				9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */,
 				936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */,
 			);
 			path = InputObjects;
@@ -492,10 +614,11 @@
 		9331C47729AF8C0100F8EE72 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				9392633429F018C1005B1F3E /* GetMiras.graphql */,
 				9331C47829AF8C0100F8EE72 /* AuthorizeUser.graphql */,
 				93AD50BD29C2087A002DA594 /* GetUser.graphql */,
-				93AD50BB29C2087A002DA594 /* UpdateUser.graphql */,
 				93AD50BC29C2087A002DA594 /* VerifyUser.graphql */,
+				9392633629F01C9B005B1F3E /* UpdateUser.graphql */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -522,6 +645,7 @@
 		9331C47C29AF8C0100F8EE72 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9300624A29E43F0400816C46 /* Managers */,
 				9310E5CE29CDCEB7000E6019 /* Controls */,
 				93B24F0929B61B9D00CCDDB7 /* Constants */,
 				9331C47D29AF8C0100F8EE72 /* Extensions */,
@@ -551,8 +675,10 @@
 		9331C48129AF8C0100F8EE72 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9310E5E129D10928000E6019 /* Home */,
+				9300624D29E45E7700816C46 /* ARModule */,
 				9331C48229AF8C0100F8EE72 /* OnBoarding */,
+				9310E5E129D10928000E6019 /* Home */,
+				9300624329E43EA000816C46 /* MapModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -586,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */,
+				9392634429F02169005B1F3E /* MapQuery.graphql.swift */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -798,6 +925,7 @@
 			files = (
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
+				9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */,
 				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
 				93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */,
@@ -805,7 +933,7 @@
 				9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */,
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
 				9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */,
-				93AD50BE29C2087A002DA594 /* UpdateUser.graphql in Resources */,
+				9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,7 +965,7 @@
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
 				93E216A529B6807900EE907D /* AuthenticationRepository.swift in Sources */,
 				93B24F0B29B61BA700CCDDB7 /* AppNotification.swift in Sources */,
-				936E7DE429C20A870008FBB9 /* UserInput.graphql.swift in Sources */,
+				9300625329E45E9700816C46 /* ARCameraView.swift in Sources */,
 				9318454529CB188700DD07CB /* ColorAsset+Extension.swift in Sources */,
 				93196A4829BA8B620087CFCD /* EnvironmentConfig.swift in Sources */,
 				931FF5DC29B80037002C62AB /* SchemaConfiguration.swift in Sources */,
@@ -847,30 +975,40 @@
 				9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */,
 				936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */,
 				9310E5DD29CDD9A6000E6019 /* ActivityIndicator.swift in Sources */,
+				93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
 				936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
 				9310E5DA29CDD464000E6019 /* Fonts+Extension.swift in Sources */,
+				9310806B29F186100075C8DC /* MapViewModel.swift in Sources */,
 				9310E5EA29D11571000E6019 /* Mira.swift in Sources */,
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
+				9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */,
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
+				9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */,
+				9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */,
 				93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */,
 				9318454129CB183800DD07CB /* Colors.swift in Sources */,
 				9310E5D229CDCEC5000E6019 /* LargeButton.swift in Sources */,
 				931FF5DD29B80037002C62AB /* AuthorizationInput.graphql.swift in Sources */,
+				9310806929F183C40075C8DC /* HomeViewModel.swift in Sources */,
+				9392633F29F01FD5005B1F3E /* MapQueryInput.graphql.swift in Sources */,
 				93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */,
 				931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */,
 				9318454329CB183800DD07CB /* Images.swift in Sources */,
 				9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */,
+				9300624929E43EA000816C46 /* MBMapView.swift in Sources */,
 				9318454229CB183800DD07CB /* Fonts.swift in Sources */,
 				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
 				93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */,
 				9310E5E829D10955000E6019 /* HomeView.swift in Sources */,
+				9392633D29F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift in Sources */,
+				9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */,
 				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
 				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,
 				9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */,
@@ -880,7 +1018,9 @@
 				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,
 				936E7DE729C20EF90008FBB9 /* UpdateUserView.swift in Sources */,
 				93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */,
+				9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */,
 				931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */,
+				9392634529F02169005B1F3E /* MapQuery.graphql.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

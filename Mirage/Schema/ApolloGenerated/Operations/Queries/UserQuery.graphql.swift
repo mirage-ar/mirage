@@ -9,8 +9,8 @@ public extension MirageAPI {
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query User($userInput: UserInput!) {
-          user(input: $userInput) {
+        query User($authorizedQueryInput: AuthorizedQueryInput!) {
+          user(input: $authorizedQueryInput) {
             __typename
             id
             phone
@@ -21,13 +21,13 @@ public extension MirageAPI {
         """#
       ))
 
-    public var userInput: UserInput
+    public var authorizedQueryInput: AuthorizedQueryInput
 
-    public init(userInput: UserInput) {
-      self.userInput = userInput
+    public init(authorizedQueryInput: AuthorizedQueryInput) {
+      self.authorizedQueryInput = authorizedQueryInput
     }
 
-    public var __variables: Variables? { ["userInput": userInput] }
+    public var __variables: Variables? { ["authorizedQueryInput": authorizedQueryInput] }
 
     public struct Data: MirageAPI.SelectionSet {
       public let __data: DataDict
@@ -35,7 +35,7 @@ public extension MirageAPI {
 
       public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("user", User?.self, arguments: ["input": .variable("userInput")]),
+        .field("user", User?.self, arguments: ["input": .variable("authorizedQueryInput")]),
       ] }
 
       public var user: User? { __data["user"] }
@@ -50,14 +50,14 @@ public extension MirageAPI {
         public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
-          .field("phone", String.self),
-          .field("username", String?.self),
+          .field("phone", String?.self),
+          .field("username", String.self),
           .field("pfp", String?.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
-        public var phone: String { __data["phone"] }
-        public var username: String? { __data["username"] }
+        public var phone: String? { __data["phone"] }
+        public var username: String { __data["username"] }
         public var pfp: String? { __data["pfp"] }
       }
     }

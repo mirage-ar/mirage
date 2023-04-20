@@ -35,6 +35,8 @@ public extension MirageAPI {
       case "AuthorizationResult": return MirageAPI.Objects.AuthorizationResult
       case "User": return MirageAPI.Objects.User
       case "Query": return MirageAPI.Objects.Query
+      case "Mira": return MirageAPI.Objects.Mira
+      case "Location": return MirageAPI.Objects.Location
       case "VerificationResult": return MirageAPI.Objects.VerificationResult
       default: return nil
       }

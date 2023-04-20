@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension MirageAPI {
-  struct UserInput: InputObject {
+  struct UpdateUserInput: InputObject {
     public private(set) var __data: InputDict
 
     public init(_ data: InputDict) {
@@ -12,22 +12,22 @@ public extension MirageAPI {
     }
 
     public init(
-      id: ID,
+      userId: ID,
       accessToken: String,
       username: GraphQLNullable<String> = nil,
       pfp: GraphQLNullable<String> = nil
     ) {
       __data = InputDict([
-        "id": id,
+        "userId": userId,
         "accessToken": accessToken,
         "username": username,
         "pfp": pfp
       ])
     }
 
-    public var id: ID {
-      get { __data["id"] }
-      set { __data["id"] = newValue }
+    public var userId: ID {
+      get { __data["userId"] }
+      set { __data["userId"] = newValue }
     }
 
     public var accessToken: String {

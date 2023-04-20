@@ -9,7 +9,7 @@ public extension MirageAPI {
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        mutation UpdateUser($updateUserInput: UserInput!) {
+        mutation UpdateUser($updateUserInput: UpdateUserInput!) {
           updateUser(input: $updateUserInput) {
             __typename
             id
@@ -19,9 +19,9 @@ public extension MirageAPI {
         """#
       ))
 
-    public var updateUserInput: UserInput
+    public var updateUserInput: UpdateUserInput
 
-    public init(updateUserInput: UserInput) {
+    public init(updateUserInput: UpdateUserInput) {
       self.updateUserInput = updateUserInput
     }
 
@@ -48,11 +48,11 @@ public extension MirageAPI {
         public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
-          .field("username", String?.self),
+          .field("username", String.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
-        public var username: String? { __data["username"] }
+        public var username: String { __data["username"] }
       }
     }
   }

@@ -19,13 +19,16 @@ final class AuthenticationViewModel: ObservableObject {
     func authenticate(number: String) {
         authenticationRepository.authenticate(number: number)
             .receive(on: DispatchQueue.main)
-            .receiveAndCancel (receiveOutput: { sid in
-                print("Verficatino ID" + sid)
+            .receiveAndCancel (receiveOutput: { accountStage in
+                print("Verficatino ID \(accountStage)")
                 self.isLoading = false
-                if sid.isEmpty == false {
+                if accountStage == MirageAPI.AccountStage.new.rawValue || accountStage == MirageAPI.AccountStage.new.rawValue {
                     self.authorizeSuccess = true
                 }
+            }, receiveError: { error in
+                print("Error: \(error)")
             })
+    
         
         isLoading = true
         
@@ -40,6 +43,8 @@ final class AuthenticationViewModel: ObservableObject {
                     self.verifyUserSuccess = true
                 }
                 self.isLoading = false
+            }, receiveError: { error in
+                print("Error: \(error)")
             })
         
         isLoading = true
