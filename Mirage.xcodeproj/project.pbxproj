@@ -16,6 +16,7 @@
 		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
 		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
 		9300625329E45E9700816C46 /* ARCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300625229E45E9700816C46 /* ARCameraView.swift */; };
+		930D316B29F841390026B008 /* Fire_Hydrants.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 930D316A29F841390026B008 /* Fire_Hydrants.geojson */; };
 		9310806929F183C40075C8DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310806829F183C40075C8DC /* HomeViewModel.swift */; };
 		9310806B29F186100075C8DC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310806A29F186100075C8DC /* MapViewModel.swift */; };
 		9310E5D229CDCEC5000E6019 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5D129CDCEC5000E6019 /* LargeButton.swift */; };
@@ -126,6 +127,7 @@
 		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9300625229E45E9700816C46 /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
 		930D1220299A6A2F001A8D72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		930D316A29F841390026B008 /* Fire_Hydrants.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fire_Hydrants.geojson; sourceTree = "<group>"; };
 		9310806829F183C40075C8DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		9310806A29F186100075C8DC /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		9310E5D129CDCEC5000E6019 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				9300624829E43EA000816C46 /* MBMapView.swift */,
+				930D316A29F841390026B008 /* Fire_Hydrants.geojson */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 			files = (
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
+				930D316B29F841390026B008 /* Fire_Hydrants.geojson in Resources */,
 				9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */,
 				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,

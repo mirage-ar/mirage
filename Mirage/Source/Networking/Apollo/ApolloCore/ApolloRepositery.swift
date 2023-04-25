@@ -201,12 +201,10 @@ public class ApolloRepository {
                 return
             }
 
-            func fetch() {
-                self.client.fetch(query: query, cachePolicy: cachePolicy, queue: callbackQueue) { response in
-                    let result = self.handleGraphQLResponse(response)
-                    print("Response: \(response)")
-                    promise(result)
-                }
+            self.client.fetch(query: query, cachePolicy: cachePolicy, queue: callbackQueue) { response in
+                let result = self.handleGraphQLResponse(response)
+                print("Response: \(response)")
+                promise(result)
             }
 
 

@@ -9,21 +9,59 @@ import Foundation
 import CoreLocation
 
 struct Mira {
-    let coordinate: CLLocationCoordinate2D
+    let id: String
+    let location: CLLocationCoordinate2D
     let isViewed: Bool
     let isFriend: Bool
-    let colorImageUrl: String
-    let blackImageUrl: String
+    let hasCollected: Bool
+    let creator: Creator
     var imageUrl: String {
         get {
-            return isViewed ? blackImageUrl : colorImageUrl
+            return isViewed ? creator.blackImageUrl : creator.pfp
         }
+    }
+    
+    struct Creator {
+        let id: String
+        let pfp: String
+        let blackImageUrl: String
+        let userName: String
+
+        init(id: String, pfp: String, blackImageUrl: String, userName: String) {
+            self.id = id
+            self.pfp = pfp
+            self.blackImageUrl = blackImageUrl
+            self.userName = userName
+        }
+        init(creator: MirageAPI.MapQuery.Data.Map.Creator?) {
+            id = creator?.id ?? "0"
+            pfp = creator?.pfp ?? "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg"
+            userName = creator?.username ?? ""
+            blackImageUrl = creator?.pfp ?? "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg"
+        }
+
     }
 }
 
 extension Mira {
+    
+    init(map: MirageAPI.MapQuery.Data.Map?) {
+        id = map?.id ?? "0"
+        if let loc = map?.location {
+            location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+        } else {
+            location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        }
+        isViewed = map?.viewed ?? false
+        isFriend = false
+        hasCollected = map?.collected ?? false
+        creator = Creator(creator: map?.creator)
+        
+    }
+}
+extension Mira {
     static func dummyMiras() -> [Mira] {
-
+        
         var coordinates = [CLLocationCoordinate2D]()
         for _ in 0...32 {
             let coord = generateRandomCoordinates(min: 100, max: 1000)
@@ -137,7 +175,9 @@ extension Mira {
         
         var miras = [Mira]()
         for i in 0..<colorImages.count {
-            miras.append(Mira(coordinate: coordinates[i], isViewed: i%2==0, isFriend: i%3==0, colorImageUrl: colorImages[i], blackImageUrl: blackImages[i]))
+            let creator = Mira.Creator(id: "\(i)", pfp: colorImages[i], blackImageUrl: blackImages[i], userName: "\(i)")
+            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, creator: creator)
+            miras.append(mira)
         }
         
         return miras
