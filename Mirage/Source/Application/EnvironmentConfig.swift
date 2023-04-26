@@ -33,7 +33,7 @@ enum MirageConfig: EnvironmentConfig {
             return "https://graph-dev.protocol.im/"
             
         case .development:
-            return "https://graph.protocol.im/"
+            return "https://graph-dev.protocol.im/"
         }
     }
     

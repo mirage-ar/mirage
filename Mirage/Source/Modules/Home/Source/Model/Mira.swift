@@ -8,6 +8,79 @@
 import Foundation
 import CoreLocation
 
+
+let colorImages = [
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-link.png",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/test-image-online.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/online-dummy-image-url.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/live-image-link.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-768x432.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/dummy-user-image-url.jpg",
+    "https://loremflickr.com/cache/resized/4132_5190023274_0573807b54_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_48964327062_c7876681e9_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52706077934_9a3860e070_320_240_nofilter.jpg",
+    "https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/10/file_example_PNG_500kB.png",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-link.png",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/test-image-online.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/online-dummy-image-url.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/live-image-link.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-768x432.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/dummy-user-image-url.jpg",
+    "https://loremflickr.com/cache/resized/4132_5190023274_0573807b54_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_48964327062_c7876681e9_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52706077934_9a3860e070_320_240_nofilter.jpg",
+    "https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/10/file_example_PNG_500kB.png",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-link.png",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/test-image-online.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/online-dummy-image-url.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/live-image-link.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-768x432.jpg",
+    "https://www.pakainfo.com/wp-content/uploads/2021/09/dummy-user-image-url.jpg",
+    "https://loremflickr.com/cache/resized/4132_5190023274_0573807b54_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_48964327062_c7876681e9_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52706077934_9a3860e070_320_240_nofilter.jpg",
+    "https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/10/file_example_PNG_500kB.png"
+]
+
+let blackImages = [
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
+    "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg"
+]
+
 struct Mira {
     let id: String
     let location: CLLocationCoordinate2D
@@ -33,11 +106,12 @@ struct Mira {
             self.blackImageUrl = blackImageUrl
             self.userName = userName
         }
-        init(creator: MirageAPI.MapQuery.Data.Map.Creator?) {
+        init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
+            
             id = creator?.id ?? "0"
-            pfp = creator?.pfp ?? "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg"
+            pfp = creator?.pfp ?? colorImages[Int.random(in: 0..<colorImages.count)]
             userName = creator?.username ?? ""
-            blackImageUrl = creator?.pfp ?? "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg"
+            blackImageUrl = creator?.pfp ?? blackImages[Int.random(in: 0..<blackImages.count)]
         }
 
     }
@@ -45,18 +119,17 @@ struct Mira {
 
 extension Mira {
     
-    init(map: MirageAPI.MapQuery.Data.Map?) {
-        id = map?.id ?? "0"
-        if let loc = map?.location {
+    init(mira: MirageAPI.GetMirasQuery.Data.GetMira?) {
+        id = mira?.id ?? "0"
+        if let loc = mira?.location {
             location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
         } else {
             location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
-        isViewed = map?.viewed ?? false
-        isFriend = false
-        hasCollected = map?.collected ?? false
-        creator = Creator(creator: map?.creator)
-        
+        isViewed = mira?.viewed ?? false
+        isFriend = mira?.isFriend ?? false
+        hasCollected = mira?.collected ?? false
+        creator = Creator(creator: mira?.creator)
     }
 }
 extension Mira {
@@ -101,77 +174,6 @@ extension Mira {
                            CLLocationCoordinate2D(latitude: 40.790610, longitude: -73.915242),
                            CLLocationCoordinate2D(latitude: 40.740610, longitude: -73.935242)
         ]*/
-        let colorImages = [
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-link.png",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/test-image-online.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/online-dummy-image-url.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/live-image-link.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-768x432.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/dummy-user-image-url.jpg",
-            "https://loremflickr.com/cache/resized/4132_5190023274_0573807b54_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_48964327062_c7876681e9_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52706077934_9a3860e070_320_240_nofilter.jpg",
-            "https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/10/file_example_PNG_500kB.png",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-link.png",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/test-image-online.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/online-dummy-image-url.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/live-image-link.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-768x432.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/dummy-user-image-url.jpg",
-            "https://loremflickr.com/cache/resized/4132_5190023274_0573807b54_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_48964327062_c7876681e9_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52706077934_9a3860e070_320_240_nofilter.jpg",
-            "https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/10/file_example_PNG_500kB.png",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/image-url-for-testing.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-link.png",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/test-image-online.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/online-dummy-image-url.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/live-image-link.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-768x432.jpg",
-            "https://www.pakainfo.com/wp-content/uploads/2021/09/dummy-user-image-url.jpg",
-            "https://loremflickr.com/cache/resized/4132_5190023274_0573807b54_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_48964327062_c7876681e9_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52706077934_9a3860e070_320_240_nofilter.jpg",
-            "https://file-examples.com/storage/feee5c69f0643c59da6bf13/2017/10/file_example_PNG_500kB.png"
-        ]
-        
-        let blackImages = [
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_48501044112_b62a220340_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52747367133_bee0e8e81f_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_50735941456_c1d432b10c_320_240_nofilter.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg",
-            "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg"
-        ]
         
         var miras = [Mira]()
         for i in 0..<colorImages.count {

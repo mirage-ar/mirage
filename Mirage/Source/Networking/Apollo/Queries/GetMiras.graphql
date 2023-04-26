@@ -1,5 +1,5 @@
-query Map($mapQueryInput: MapQueryInput!) {
-  map(input: $mapQueryInput) {
+query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
+  getMiras(input: $getMirasQueryInput) {
     id
     creator {
       id
@@ -12,5 +12,6 @@ query Map($mapQueryInput: MapQueryInput!) {
     }
     viewed
     collected
+    isFriend
   }
 }

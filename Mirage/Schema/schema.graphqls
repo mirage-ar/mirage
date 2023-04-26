@@ -9,6 +9,7 @@ type Mira {
   location: Location!
   viewed: Boolean!
   collected: Boolean!
+  isFriend: Boolean!
 }
 
 type User {
@@ -97,7 +98,7 @@ type Flag {
 
 type Query {
   user(input: AuthorizedQueryInput!): User
-  map(input: MapQueryInput!): [Mira]
+  getMiras(input: GetMirasQueryInput!): [Mira]
 }
 
 input AuthorizedQueryInput {
@@ -105,7 +106,7 @@ input AuthorizedQueryInput {
   accessToken: String!
 }
 
-input MapQueryInput {
+input GetMirasQueryInput {
   userId: ID!
   accessToken: String!
   location: LocationInput!
@@ -198,4 +199,3 @@ enum AccountStage {
 }
 
 scalar Date
-
