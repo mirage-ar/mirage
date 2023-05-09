@@ -3,7 +3,8 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
     id
     creator {
       id
-      pfp
+      profileImage
+      profileImageDesaturated
       username
     }
     location {

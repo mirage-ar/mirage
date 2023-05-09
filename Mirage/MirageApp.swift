@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct MirageApp: App {
+    init() {
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.white.color]
+        navBarAppearance.titleTextAttributes = [.foregroundColor: Colors.white.color]
+    }
     var body: some Scene {
         WindowGroup {
             AuthenticationView(phoneNumber: "", isEditing: false)

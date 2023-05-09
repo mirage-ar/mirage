@@ -15,7 +15,8 @@ public extension MirageAPI {
             id
             phone
             username
-            pfp
+            profileImage
+            profileImageDesaturated
           }
         }
         """#
@@ -52,13 +53,15 @@ public extension MirageAPI {
           .field("id", MirageAPI.ID.self),
           .field("phone", String?.self),
           .field("username", String.self),
-          .field("pfp", String?.self),
+          .field("profileImage", String?.self),
+          .field("profileImageDesaturated", String?.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
         public var phone: String? { __data["phone"] }
         public var username: String { __data["username"] }
-        public var pfp: String? { __data["pfp"] }
+        public var profileImage: String? { __data["profileImage"] }
+        public var profileImageDesaturated: String? { __data["profileImageDesaturated"] }
       }
     }
   }

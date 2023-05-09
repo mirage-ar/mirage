@@ -4,6 +4,8 @@ query User($authorizedQueryInput: AuthorizedQueryInput!) {
     id
     phone
         username
-        pfp
+        profileImage
+        profileImageDesaturated
+
   }
 }

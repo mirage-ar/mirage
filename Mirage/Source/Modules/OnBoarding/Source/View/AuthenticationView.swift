@@ -69,6 +69,7 @@ struct AuthenticationView: View {
                 hideKeyboard()
             }
         }
+        .accentColor(Colors.white.swiftUIColor)
     }
 }
 struct AuthenticationView_Previews: PreviewProvider {

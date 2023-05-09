@@ -16,7 +16,8 @@ type User {
   id: ID!
   username: String!
   phone: String
-  pfp: String
+  profileImage: String
+  profileImageDesaturated: String
   profileDescription: String
   accessToken: String
   verificationSid: String
@@ -137,7 +138,7 @@ input UpdateUserInput {
   userId: ID!
   accessToken: String!
   username: String
-  pfp: String
+  profileImage: String
 }
 
 type AuthorizationResult {

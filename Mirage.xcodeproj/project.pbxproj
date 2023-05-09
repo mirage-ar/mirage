@@ -27,6 +27,8 @@
 		9310E5E029D0F4EE000E6019 /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 9310E5DF29D0F4EE000E6019 /* iPhoneNumberField */; };
 		9310E5E829D10955000E6019 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5E729D10955000E6019 /* HomeView.swift */; };
 		9310E5EA29D11571000E6019 /* Mira.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310E5E929D11571000E6019 /* Mira.swift */; };
+		931359B32A03FDAA00A0F5E7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931359B22A03FDAA00A0F5E7 /* UserProfileView.swift */; };
+		931359B72A03FDDB00A0F5E7 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931359B62A03FDDB00A0F5E7 /* UserProfileViewModel.swift */; };
 		931472D629AFBFE3007ED805 /* NetworkInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */; };
 		9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9318452C29CB12A000DD07CB /* Colors.xcassets */; };
 		9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9318452D29CB12A000DD07CB /* Assets.xcassets */; };
@@ -66,6 +68,7 @@
 		936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */; };
 		936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */; };
 		936E7DE729C20EF90008FBB9 /* UpdateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */; };
+		937AD4372A0578600018C33A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937AD4362A0578600018C33A /* User.swift */; };
 		9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633429F018C1005B1F3E /* GetMiras.graphql */; };
 		9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633629F01C9B005B1F3E /* UpdateUser.graphql */; };
 		9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */; };
@@ -73,11 +76,14 @@
 		9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */; };
 		9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634029F01FF5005B1F3E /* Location.graphql.swift */; };
 		9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634129F01FF5005B1F3E /* Mira.graphql.swift */; };
+		93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3872A0A9EE700179536 /* SettingsView.swift */; };
+		93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3892A0A9F7300179536 /* EditProfileView.swift */; };
 		93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */; };
 		93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B729C20133002DA594 /* NavigationElement.swift */; };
 		93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B929C203B9002DA594 /* NavigationRoute.swift */; };
 		93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BC29C2087A002DA594 /* VerifyUser.graphql */; };
 		93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93AD50BD29C2087A002DA594 /* GetUser.graphql */; };
+		93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0936C2A07042F00DCE87F /* UserProfileApolloRepository.swift */; };
 		93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */; };
 		93B24F0329B6152500CCDDB7 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 93B24F0229B6152500CCDDB7 /* KeychainSwift */; };
 		93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0429B6175800CCDDB7 /* AddTokenInterceptor.swift */; };
@@ -137,6 +143,8 @@
 		9310E5DC29CDD9A6000E6019 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		9310E5E729D10955000E6019 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9310E5E929D11571000E6019 /* Mira.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mira.swift; sourceTree = "<group>"; };
+		931359B22A03FDAA00A0F5E7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		931359B62A03FDDB00A0F5E7 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorProvider.swift; sourceTree = "<group>"; };
 		9318452C29CB12A000DD07CB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		9318452D29CB12A000DD07CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 		936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationResult.graphql.swift; sourceTree = "<group>"; };
 		936E7DE329C20A870008FBB9 /* VerificationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationInput.graphql.swift; sourceTree = "<group>"; };
 		936E7DE629C20EF90008FBB9 /* UpdateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserView.swift; sourceTree = "<group>"; };
+		937AD4362A0578600018C33A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9392633429F018C1005B1F3E /* GetMiras.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetMiras.graphql; sourceTree = "<group>"; };
 		9392633629F01C9B005B1F3E /* UpdateUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpdateUser.graphql; sourceTree = "<group>"; };
 		9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationInput.graphql.swift; sourceTree = "<group>"; };
@@ -182,11 +191,14 @@
 		9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserInput.graphql.swift; sourceTree = "<group>"; };
 		9392634029F01FF5005B1F3E /* Location.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.graphql.swift; sourceTree = "<group>"; };
 		9392634129F01FF5005B1F3E /* Mira.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mira.graphql.swift; sourceTree = "<group>"; };
+		93A4D3872A0A9EE700179536 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		93A4D3892A0A9F7300179536 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberView.swift; sourceTree = "<group>"; };
 		93AD50B729C20133002DA594 /* NavigationElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationElement.swift; sourceTree = "<group>"; };
 		93AD50B929C203B9002DA594 /* NavigationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoute.swift; sourceTree = "<group>"; };
 		93AD50BC29C2087A002DA594 /* VerifyUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VerifyUser.graphql; sourceTree = "<group>"; };
 		93AD50BD29C2087A002DA594 /* GetUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetUser.graphql; sourceTree = "<group>"; };
+		93B0936C2A07042F00DCE87F /* UserProfileApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileApolloRepository.swift; sourceTree = "<group>"; };
 		93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainStorage.swift; sourceTree = "<group>"; };
 		93B24F0429B6175800CCDDB7 /* AddTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTokenInterceptor.swift; sourceTree = "<group>"; };
 		93B24F0729B6182300CCDDB7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -323,6 +335,7 @@
 		9300624629E43EA000816C46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9310E5E929D11571000E6019 /* Mira.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -455,7 +468,6 @@
 		9310E5E529D10928000E6019 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9310E5E929D11571000E6019 /* Mira.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -464,6 +476,51 @@
 			isa = PBXGroup;
 			children = (
 				9310E5E729D10955000E6019 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		931359A72A03FD7400A0F5E7 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				931359AD2A03FD7400A0F5E7 /* View */,
+				931359A82A03FD7400A0F5E7 /* ViewModel */,
+				931359AA2A03FD7400A0F5E7 /* Repository */,
+				931359AC2A03FD7400A0F5E7 /* Model */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		931359A82A03FD7400A0F5E7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				931359B62A03FDDB00A0F5E7 /* UserProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		931359AA2A03FD7400A0F5E7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				93B0936C2A07042F00DCE87F /* UserProfileApolloRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		931359AC2A03FD7400A0F5E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				937AD4362A0578600018C33A /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		931359AD2A03FD7400A0F5E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				931359B22A03FDAA00A0F5E7 /* UserProfileView.swift */,
+				93A4D3872A0A9EE700179536 /* SettingsView.swift */,
+				93A4D3892A0A9F7300179536 /* EditProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -679,9 +736,10 @@
 			isa = PBXGroup;
 			children = (
 				9300624D29E45E7700816C46 /* ARModule */,
-				9331C48229AF8C0100F8EE72 /* OnBoarding */,
 				9310E5E129D10928000E6019 /* Home */,
 				9300624329E43EA000816C46 /* MapModule */,
+				9331C48229AF8C0100F8EE72 /* OnBoarding */,
+				931359A72A03FD7400A0F5E7 /* UserProfile */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -991,6 +1049,7 @@
 				93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
+				931359B72A03FDDB00A0F5E7 /* UserProfileViewModel.swift in Sources */,
 				936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
 				9310E5DA29CDD464000E6019 /* Fonts+Extension.swift in Sources */,
@@ -999,12 +1058,15 @@
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
+				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,
 				9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */,
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
 				9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */,
+				93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */,
 				9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */,
+				931359B32A03FDAA00A0F5E7 /* UserProfileView.swift in Sources */,
 				93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */,
 				9318454129CB183800DD07CB /* Colors.swift in Sources */,
 				9310E5D229CDCEC5000E6019 /* LargeButton.swift in Sources */,
@@ -1024,6 +1086,7 @@
 				9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */,
 				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
 				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,
+				93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */,
 				9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */,
 				9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */,
 				936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */,
@@ -1034,6 +1097,7 @@
 				9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */,
 				931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
+				937AD4372A0578600018C33A /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

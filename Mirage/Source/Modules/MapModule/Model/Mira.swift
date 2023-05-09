@@ -90,28 +90,28 @@ struct Mira {
     let creator: Creator
     var imageUrl: String {
         get {
-            return isViewed ? creator.blackImageUrl : creator.pfp
+            return isViewed ? creator.profileImageDesaturated : creator.profileImage
         }
     }
     
     struct Creator {
         let id: String
-        let pfp: String
-        let blackImageUrl: String
+        let profileImage: String
+        let profileImageDesaturated: String
         let userName: String
 
-        init(id: String, pfp: String, blackImageUrl: String, userName: String) {
+        init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
             self.id = id
-            self.pfp = pfp
-            self.blackImageUrl = blackImageUrl
+            self.profileImage = profileImage
+            self.profileImageDesaturated = profileImageDesaturated
             self.userName = userName
         }
         init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
             
             id = creator?.id ?? "0"
-            pfp = creator?.pfp ?? colorImages[Int.random(in: 0..<colorImages.count)]
+            profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
             userName = creator?.username ?? ""
-            blackImageUrl = creator?.pfp ?? blackImages[Int.random(in: 0..<blackImages.count)]
+            profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
         }
 
     }
@@ -177,7 +177,7 @@ extension Mira {
         
         var miras = [Mira]()
         for i in 0..<colorImages.count {
-            let creator = Mira.Creator(id: "\(i)", pfp: colorImages[i], blackImageUrl: blackImages[i], userName: "\(i)")
+            let creator = Mira.Creator(id: "\(i)", profileImage: colorImages[i], profileImageDesaturated: blackImages[i], userName: "\(i)")
             let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, creator: creator)
             miras.append(mira)
         }
@@ -189,8 +189,8 @@ extension Mira {
     
 }
 func generateRandomCoordinates(min: UInt32, max: UInt32)-> CLLocationCoordinate2D {
-    let currentLat: Double = 40.710610319784524
-    let currentLong: Double = -73.91524212298014
+    let currentLat: Double = 40.710610919784524
+    let currentLong: Double = -73.91524282298014
 
     //1 KiloMeter = 0.00900900900901° So, 1 Meter = 0.00900900900901 / 1000
     let meterCord = 0.00900900900901 / 1000

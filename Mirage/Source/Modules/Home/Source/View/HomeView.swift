@@ -16,7 +16,8 @@ struct HomeView: View {
     let miras = Mira.dummyMiras()
     let buttonWidth = 48.0
     @State var showArView = false
-    
+    @State var showProfileView = false
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -24,7 +25,6 @@ struct HomeView: View {
                 ZStack {
                     VStack {
                         HStack{
-                            
                             Button {
                                 print("Button go to Location")
                             } label: {
@@ -52,6 +52,7 @@ struct HomeView: View {
                             VStack {
                                 Button {
                                     print("Button go to profile")
+                                    showProfileView = true
                                 } label: {
                                     AsyncImage(url: URL(string: "https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425__340.png")) { image in
                                             image
@@ -109,7 +110,6 @@ struct HomeView: View {
                                 .background(Colors.g3Grey.just)
                                 .clipShape(Circle())
                                 .padding(.bottom, 50)
-                                .navigate(to: .homeToARCameraView)
                             }
                             .padding(.top, 50)
                             .padding(.trailing, 20)
@@ -123,23 +123,13 @@ struct HomeView: View {
             .navigationDestination(isPresented: $showArView) {
                 NavigationRoute.homeToARCameraView.screen
             }
+            .navigationDestination(isPresented: $showProfileView) {
+                NavigationRoute.myProfile.screen
+            }
 
         }
+        .accentColor(Colors.white.swiftUIColor)
     }
-    
-        
-//        Map(coordinateRegion: $mapRegion, annotationItems: miras) { location in
-//            MapAnnotation(coordinate: location.coordinate) {
-//                NavigationLink {
-//                    Text(location.name)
-//                } label: {
-//                    Circle()
-//                        .stroke(.red, lineWidth: 3)
-//                        .frame(width: 44, height: 44)
-//                }
-//            }
-//        }
-//        .navigationTitle("NY Explorer")
     
 }
 
