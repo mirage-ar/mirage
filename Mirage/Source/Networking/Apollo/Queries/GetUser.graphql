@@ -1,9 +1,12 @@
-
-query User($userInput: UserInput!) {
+query User($userInput: AuthorizedQueryInput!) {
   user(input: $userInput) {
     id
+    username
     phone
-        username
-        pfp
+    profileImage
+    profileImageDesaturated
+    miras {
+      id
+    }
   }
 }

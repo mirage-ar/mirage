@@ -48,6 +48,7 @@ struct AuthenticationView: View {
                             ActivityIndicator(color: Colors.white.just, size: 50)
                         } else {
                             LargeButton(title: "Done") {
+                                viewModel.authorizeSuccess = true // temp for quick navigation
                                 if phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
                                     viewModel.authenticate(number: phoneNumber)
                                 }
@@ -68,6 +69,7 @@ struct AuthenticationView: View {
                 hideKeyboard()
             }
         }
+        .accentColor(Colors.white.swiftUIColor)
     }
 }
 struct AuthenticationView_Previews: PreviewProvider {

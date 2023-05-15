@@ -4,5 +4,14 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>MBXAccessToken</key>
+	<string>pk.eyJ1IjoiZmlpZ21udCIsImEiOiJjbDBkcXRwOHcwOWw0M2RrOWMydjhpN2o3In0.I6nZZg9gLK-ozUy4zRuZdQ</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your precise location is used to calculate turn-by-turn directions, show your location on the map, and help improve the map.</string>
+    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    <dict>
+      <key>LocationAccuracyAuthorizationDescription</key>
+      <string>Please enable precise location. Turn-by-turn directions only work when precise location data is available.</string>
+    </dict>
 </dict>
 </plist>

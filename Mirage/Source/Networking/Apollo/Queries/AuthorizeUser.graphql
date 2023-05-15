@@ -4,7 +4,6 @@ mutation AuthorizeUser($authorizeUserInput: AuthorizationInput!) {
     user {
       id
     }
-    verificationSid
     accountStage
   }
 }

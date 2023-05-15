@@ -54,6 +54,7 @@ internal enum Images {
   internal static let mail24 = ImageAsset(name: "mail-24")
   internal static let mapFilterAll24 = ImageAsset(name: "map-filter-all-24")
   internal static let mapFilterFriends24 = ImageAsset(name: "map-filter-friends-24")
+  internal static let mePin = ImageAsset(name: "me-pin")
   internal static let mic32 = ImageAsset(name: "mic-32")
   internal static let minus16 = ImageAsset(name: "minus-16")
   internal static let modifier32 = ImageAsset(name: "modifier-32")

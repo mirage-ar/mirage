@@ -9,21 +9,26 @@ public extension MirageAPI {
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query User($userInput: UserInput!) {
+        query User($userInput: AuthorizedQueryInput!) {
           user(input: $userInput) {
             __typename
             id
-            phone
             username
-            pfp
+            phone
+            profileImage
+            profileImageDesaturated
+            miras {
+              __typename
+              id
+            }
           }
         }
         """#
       ))
 
-    public var userInput: UserInput
+    public var userInput: AuthorizedQueryInput
 
-    public init(userInput: UserInput) {
+    public init(userInput: AuthorizedQueryInput) {
       self.userInput = userInput
     }
 
@@ -50,15 +55,34 @@ public extension MirageAPI {
         public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
-          .field("phone", String.self),
-          .field("username", String?.self),
-          .field("pfp", String?.self),
+          .field("username", String.self),
+          .field("phone", String?.self),
+          .field("profileImage", String?.self),
+          .field("profileImageDesaturated", String?.self),
+          .field("miras", [Mira?]?.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
-        public var phone: String { __data["phone"] }
-        public var username: String? { __data["username"] }
-        public var pfp: String? { __data["pfp"] }
+        public var username: String { __data["username"] }
+        public var phone: String? { __data["phone"] }
+        public var profileImage: String? { __data["profileImage"] }
+        public var profileImageDesaturated: String? { __data["profileImageDesaturated"] }
+        public var miras: [Mira?]? { __data["miras"] }
+
+        /// User.Mira
+        ///
+        /// Parent Type: `Mira`
+        public struct Mira: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("id", MirageAPI.ID.self),
+          ] }
+
+          public var id: MirageAPI.ID { __data["id"] }
+        }
       }
     }
   }

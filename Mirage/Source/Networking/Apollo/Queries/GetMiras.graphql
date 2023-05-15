@@ -1,0 +1,18 @@
+query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
+  getMiras(input: $getMirasQueryInput) {
+    id
+    creator {
+      id
+      profileImage
+      profileImageDesaturated
+      username
+    }
+    location {
+      latitude
+      longitude
+    }
+    viewed
+    collected
+    isFriend
+  }
+}

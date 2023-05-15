@@ -11,11 +11,15 @@ public enum NavigationRoute {
     //MARK: OnBoarding
     case onboardingAuthentication
     case onboardingVerifyPhoneNumber(phoneNumer: String)
-    case onboardingUpdateUser(id: String, accessToken: String)
-
+    case updateUser(title: String, value: String, user: User)
+    case myProfile
+    case settings(user: User)
+    case editProfile(user: User)
+    
     //MARK: Home
     case homeViewLanding
-
+    case homeToARCameraView
+    
     public var screen: some View {
         Group {
             switch self {
@@ -23,10 +27,19 @@ public enum NavigationRoute {
                 AuthenticationView(phoneNumber: "", isEditing: false)
             case .onboardingVerifyPhoneNumber(let phoneNumer):
                 VerifyPhoneNumberView(phoneNumber: phoneNumer, verificationCode: "")
-            case .onboardingUpdateUser(let id, let accessToken):
-                UpdateUserView(accessToken: accessToken, id: id, userName: "")
+            case .updateUser(let title, let value, let user):
+                UpdateUserView(title: title, value: value, user: user)
             case .homeViewLanding:
                 HomeView()
+            case .homeToARCameraView:
+                ARCameraView()
+            case .myProfile:
+                UserProfileView()
+            case .settings(let user):
+                SettingsView(user: user)
+            case .editProfile(let user):
+                EditProfileView(user: user)
+                
             }
         }
     }
