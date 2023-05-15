@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var titles = ["Instagram", "Twitter", ""]
+    @State var showEditProfile = false
+    @State var user: User
+    
     var body: some View {
         ZStack {
             Colors.black.swiftUIColor
@@ -18,13 +20,16 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
                         Images.profile48.swiftUIImage
-                        Text("#UserName")
+                        Text("#" + (user.userName ?? "NaN"))
                             .font(Font.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
                         Spacer()
                         Images.arrowR24.swiftUIImage
                         
+                    }
+                    .onTapGesture {
+                        showEditProfile = true
                     }
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
@@ -71,6 +76,10 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .accentColor(Colors.white.swiftUIColor)
+        .navigationDestination(isPresented: $showEditProfile) {
+            NavigationRoute.editProfile(user: user).screen
+        }
+
     
 
     }
@@ -78,6 +87,6 @@ struct SettingsView: View {
 }
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(user: User.dummyUser())
     }
 }

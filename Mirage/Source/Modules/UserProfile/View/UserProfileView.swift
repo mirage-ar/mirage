@@ -11,6 +11,9 @@ struct UserProfileView: View {
     @State var goToSettings = false
     @State var goToEditProfile = false
     @State var ownProfile = true
+    
+    @ObservedObject private var viewModel = UserProfileViewModel()
+
     var body: some View {
         ZStack {
             VStack {
@@ -34,7 +37,8 @@ struct UserProfileView: View {
                             }
                         }
 
-                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
+                        AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
+//                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -50,9 +54,9 @@ struct UserProfileView: View {
                     HStack() {
                         VStack (alignment: .leading) {
                             Group {
-                                Text("#UserName")
+                                Text("#" + (viewModel.user.userName ?? "NaN"))
                                     .font(Font.title)
-                                if (ownProfile) {
+                                if (ownProfile && viewModel.user.isDescriptionEmpty) {
                                     Button {
                                         goToEditProfile = true
 
@@ -64,11 +68,10 @@ struct UserProfileView: View {
                                     .foregroundColor(Colors.black.swiftUIColor)
                                     .cornerRadius(10)
                                     .frame(width: 150)
+                                    .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
+                                    
                                 } else {
-                                    Text("Ny Based CG Artist")
-                                        .font(Font.body)
-
-                                    Text("Insta: @xyz")
+                                    Text(viewModel.user.bio ?? "")
                                         .font(Font.body)
                                 }
                             }
@@ -135,7 +138,7 @@ struct UserProfileView: View {
             NavigationRoute.settings.screen
         }
         .navigationDestination(isPresented: $goToEditProfile) {
-            NavigationRoute.editProfile.screen
+            NavigationRoute.editProfile(user: .dummyUser()).screen
         }
         
     }

@@ -12,9 +12,6 @@ protocol AuthenticationRepository {
     
     func authenticate(number: String) -> AnyPublisher<String, Error>
     func verifyUser(number: String, code: String) -> AnyPublisher<(String, String), Error>
-    func updateUser(id: String, accessToken: String, userName: String) -> AnyPublisher<(String, String), Error>
-    func getUser(id: String, accessToken: String) -> AnyPublisher<String, Error>
-
 }
 
 extension ApolloRepository: AuthenticationRepository {
@@ -39,31 +36,6 @@ extension ApolloRepository: AuthenticationRepository {
         return perform(mutation: mutaiton)
             .map {
                 return ($0.verifyUser?.user.id ?? "", $0.verifyUser?.accessToken ?? "")
-            }
-            .eraseToAnyPublisher()
-
-    }
-
-    public func updateUser(id: String, accessToken: String, userName: String) -> AnyPublisher<(String, String), Error> {
-        
-        let input = MirageAPI.UpdateUserInput(userId: id, accessToken: accessToken) //?? part is just to avoid error.
-        let mutaiton = MirageAPI.UpdateUserMutation(updateUserInput: input)
-        return perform(mutation: mutaiton)
-            .map {
-                return ($0.updateUser?.id ?? "", $0.updateUser?.username ?? "")
-            }
-            .eraseToAnyPublisher()
-
-    }
-    
-    public func getUser(id: String, accessToken: String) -> AnyPublisher<String, Error> {
-                
-        let input = MirageAPI.AuthorizedQueryInput (userId: id, accessToken: accessToken)
-        let query = MirageAPI.UserQuery(authorizedQueryInput: input)
-        return fetch(query: query)
-            .map {
-                //TODO: update to user model
-                return ($0.user?.username ?? "")
             }
             .eraseToAnyPublisher()
 

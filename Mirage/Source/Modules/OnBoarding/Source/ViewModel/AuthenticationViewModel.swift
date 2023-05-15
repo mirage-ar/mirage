@@ -16,6 +16,7 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var verifyUserSuccess = false
 
     let authenticationRepository: AuthenticationRepository = AppConfiguration.shared.apollo
+    
     func authenticate(number: String) {
         authenticationRepository.authenticate(number: number)
             .receive(on: DispatchQueue.main)

@@ -27,23 +27,23 @@ enum MirageConfig: EnvironmentConfig {
     var apiEndpoint: String {
         switch self {
         case .production:
-            return "https://graph-dev.protocol.im/"
+            return "https://graph.protocol.im/"
             
         case .staging:
-            return "https://graph-dev.protocol.im/"
+            return "https://graph.protocol.im/"
             
         case .development:
-            return "https://graph-dev.protocol.im/"
+            return "https://graph.protocol.im/"
         }
     }
     
     var apiWebSocketEndpoint: String {
         switch self {
         case .production:
-            return "wss://graph-dev.protocol.im/"
+            return "wss://graph.protocol.im/"
             
         case .staging:
-            return "wss://graph-dev.protocol.im/"
+            return "wss://graph.protocol.im/"
             
         case .development:
             return "https://graph.protocol.im/"

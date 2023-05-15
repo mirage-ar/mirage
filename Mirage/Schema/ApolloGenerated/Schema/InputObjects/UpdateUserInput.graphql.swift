@@ -15,13 +15,15 @@ public extension MirageAPI {
       userId: ID,
       accessToken: String,
       username: GraphQLNullable<String> = nil,
-      profileImage: GraphQLNullable<String> = nil
+      profileImage: GraphQLNullable<String> = nil,
+      bio: GraphQLNullable<String> = nil
     ) {
       __data = InputDict([
         "userId": userId,
         "accessToken": accessToken,
         "username": username,
-        "profileImage": profileImage
+        "profileImage": profileImage,
+        "bio": bio
       ])
     }
 
@@ -43,6 +45,11 @@ public extension MirageAPI {
     public var profileImage: GraphQLNullable<String> {
       get { __data["profileImage"] }
       set { __data["profileImage"] = newValue }
+    }
+
+    public var bio: GraphQLNullable<String> {
+      get { __data["bio"] }
+      set { __data["bio"] = newValue }
     }
   }
 

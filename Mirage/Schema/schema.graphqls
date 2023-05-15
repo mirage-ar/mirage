@@ -139,6 +139,7 @@ input UpdateUserInput {
   accessToken: String!
   username: String
   profileImage: String
+  bio: String
 }
 
 type AuthorizationResult {

@@ -14,12 +14,12 @@ public enum NavigationRoute {
     case updateUser(title: String)
     case myProfile
     case settings
-    case editProfile
-
+    case editProfile(user: User)
+    
     //MARK: Home
     case homeViewLanding
     case homeToARCameraView
-
+    
     public var screen: some View {
         Group {
             switch self {
@@ -37,9 +37,9 @@ public enum NavigationRoute {
                 UserProfileView()
             case .settings:
                 SettingsView()
-            case .editProfile:
-                EditProfileView()
-
+            case .editProfile(let user):
+                EditProfileView(user: user)
+                
             }
         }
     }

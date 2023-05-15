@@ -11,7 +11,9 @@ struct EditProfileView: View {
     @State var bioText = "Ny Based CG Artist\ninst: @xyz\nMusic Lover\nAthlete"
     @State var gotoEditUserName = false
     @State var gotoEditBio = false
+    @State var user: User
 
+    
     var body: some View {
         ZStack {
             Colors.black.swiftUIColor
@@ -21,7 +23,7 @@ struct EditProfileView: View {
                 Button {
                     print("Edit Image")
                 } label: {
-                    AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
+                    AsyncImage(url: URL(string: user.profileImage)) { image in
                         image
                             .resizable()
                             .scaledToFill()
@@ -44,7 +46,7 @@ struct EditProfileView: View {
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
 
-                        Text("#2123123")
+                        Text("#" + (user.userName ?? ""))
                             .font(Font.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
@@ -120,6 +122,9 @@ struct EditProfileView: View {
 
             
         }
+        .onAppear() {
+            bioText = user.bio ?? ""
+        }
         .navigationTitle("Edit Profile")
         .navigationDestination(isPresented: $gotoEditUserName) {
             NavigationRoute.updateUser(title: "USERNAME").screen
@@ -133,6 +138,6 @@ struct EditProfileView: View {
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView()
+        EditProfileView(user: .dummyUser())
     }
 }
