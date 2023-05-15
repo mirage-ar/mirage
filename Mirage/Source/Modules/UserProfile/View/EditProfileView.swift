@@ -127,10 +127,10 @@ struct EditProfileView: View {
         }
         .navigationTitle("Edit Profile")
         .navigationDestination(isPresented: $gotoEditUserName) {
-            NavigationRoute.updateUser(title: "USERNAME").screen
+            NavigationRoute.updateUser(title: "USERNAME", value: user.userName ?? "", user: user).screen
         }
         .navigationDestination(isPresented: $gotoEditBio) {
-            NavigationRoute.updateUser(title: "BIO").screen
+            NavigationRoute.updateUser(title: "BIO", value: user.bio ?? "", user: user).screen
         }
 
     }

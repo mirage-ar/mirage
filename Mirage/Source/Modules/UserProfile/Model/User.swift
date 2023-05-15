@@ -13,7 +13,7 @@ public struct User {
     let profileImageDesaturated: String
     let userName: String?
     let bio: String?
-
+    
     init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, bio: String?) {
         self.id = id
         self.profileImage = profileImage
@@ -27,22 +27,26 @@ public struct User {
         self.profileImageDesaturated = ""
         self.userName = nil
         self.bio = nil
-
+        
     }
-//    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
-//        self.id = id
-//        self.profileImage = profileImage
-//        self.profileImageDesaturated = profileImageDesaturated
-//        self.userName = userName
-//    }
-//    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
-//        
-//        id = creator?.id ?? "0"
-//        profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
-//        userName = creator?.username ?? ""
-//        profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-//    }
-    
+    //    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
+    //        self.id = id
+    //        self.profileImage = profileImage
+    //        self.profileImageDesaturated = profileImageDesaturated
+    //        self.userName = userName
+    //    }
+    //    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
+    //
+    //        id = creator?.id ?? "0"
+    //        profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+    //        userName = creator?.username ?? ""
+    //        profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
+    //    }
+}
+
+//MARK: - API Translators
+extension User {
+
     init(apiUser: MirageAPI.UserQuery.Data.User?) {
         
         id = apiUser?.id ?? "0"
@@ -51,10 +55,14 @@ public struct User {
         profileImageDesaturated = apiUser?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
         bio = "Dummy Bio"
     }
-
+    func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
+        
+        return User(id: id, profileImage: profileImage, profileImageDesaturated: profileImageDesaturated, userName: apiUpdatedUser?.username ?? "" , bio: apiUpdatedUser?.username ?? "")
+    }
 
 }
 
+//MARK: - Dereive Properties
 extension User {
     var isDescriptionEmpty: Bool {
         return !(self.bio?.isEmpty == true || self.userName?.isEmpty == true)

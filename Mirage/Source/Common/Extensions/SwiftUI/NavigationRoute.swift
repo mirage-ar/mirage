@@ -11,9 +11,9 @@ public enum NavigationRoute {
     //MARK: OnBoarding
     case onboardingAuthentication
     case onboardingVerifyPhoneNumber(phoneNumer: String)
-    case updateUser(title: String)
+    case updateUser(title: String, value: String, user: User)
     case myProfile
-    case settings
+    case settings(user: User)
     case editProfile(user: User)
     
     //MARK: Home
@@ -27,16 +27,16 @@ public enum NavigationRoute {
                 AuthenticationView(phoneNumber: "", isEditing: false)
             case .onboardingVerifyPhoneNumber(let phoneNumer):
                 VerifyPhoneNumberView(phoneNumber: phoneNumer, verificationCode: "")
-            case .updateUser(let title):
-                UpdateUserView(title: title, value: "")
+            case .updateUser(let title, let value, let user):
+                UpdateUserView(title: title, value: value, user: user)
             case .homeViewLanding:
                 HomeView()
             case .homeToARCameraView:
                 ARCameraView()
             case .myProfile:
                 UserProfileView()
-            case .settings:
-                SettingsView()
+            case .settings(let user):
+                SettingsView(user: user)
             case .editProfile(let user):
                 EditProfileView(user: user)
                 

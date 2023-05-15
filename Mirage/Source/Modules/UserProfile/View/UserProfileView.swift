@@ -17,25 +17,23 @@ struct UserProfileView: View {
     var body: some View {
         ZStack {
             VStack {
-
                 ZStack(alignment: .bottom) {
-
                     VStack {
-                        ZStack {
-                            HStack {
-                                Spacer()
-                                Button {
-                                    print("Button go to Settings")
-                                    goToSettings = true
-                                } label: {
-                                    Images.settings24.swiftUIImage
-                                        .resizable()
-                                        .scaledToFit()
-                                    
-                                }
-                                .frame(width: 24, height: 24)
-                            }
-                        }
+//                        ZStack {
+//                            HStack {
+//                                Spacer()
+//                                Button {
+//                                    print("Button go to Settings")
+//                                    goToSettings = true
+//                                } label: {
+//                                    Images.settings24.swiftUIImage
+//                                        .resizable()
+//                                        .scaledToFit()
+//
+//                                }
+//                                .frame(width: 24, height: 24)
+//                            }
+//                        }
 
                         AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
 //                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
@@ -93,12 +91,15 @@ struct UserProfileView: View {
                 
                 HStack {
                     ZStack {
+                        MBMapView()
                         VStack {
-                            Text("Collection")
-                                .foregroundColor(Colors.white.swiftUIColor)
-                                .font(Font.body)
+                            HStack(alignment: .top){
+                                Text("Collection")
+                                    .foregroundColor(Colors.white.swiftUIColor)
+                                    .font(Font.body)
+                                    .multilineTextAlignment(.leading)
 
-
+                            }
                             ZStack {
                                 Rectangle()
                                     .cornerRadius(20)
@@ -115,6 +116,7 @@ struct UserProfileView: View {
                         }
 
                     }
+                    .frame(maxHeight: 100)
                     Spacer()
                     HStack {
                         Text("Miras")
@@ -133,9 +135,22 @@ struct UserProfileView: View {
                 Spacer()
             }
         }
+        .toolbar {
+            Button {
+                print("Button go to Settings")
+                goToSettings = true
+            } label: {
+                Images.settings24.swiftUIImage
+                    .resizable()
+                    .scaledToFit()
+                
+            }
+            .frame(width: 24, height: 24)
+            
+        }
         .background(Colors.black.swiftUIColor)
         .navigationDestination(isPresented: $goToSettings) {
-            NavigationRoute.settings.screen
+            NavigationRoute.settings(user: viewModel.user).screen
         }
         .navigationDestination(isPresented: $goToEditProfile) {
             NavigationRoute.editProfile(user: .dummyUser()).screen

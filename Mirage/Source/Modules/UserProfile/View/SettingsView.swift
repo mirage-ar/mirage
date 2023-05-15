@@ -69,7 +69,17 @@ struct SettingsView: View {
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                     }
                     Spacer()
-
+                    ZStack {
+                        Colors.green.swiftUIColor
+                            .edgesIgnoringSafeArea(.all)
+                        VStack {
+                            Text("Invite to Mirage")
+                            Text("5 Invites")
+                                .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                                .padding(.bottom, 5)
+                        }
+                    }
+                    .frame(maxHeight: 60)
                 }
             }
             .padding(.top, 50)

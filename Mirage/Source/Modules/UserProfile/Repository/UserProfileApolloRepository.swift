@@ -11,20 +11,20 @@ import CoreLocation
 
 protocol UserProfileApolloRepository {
     
-    func updateUser(user: User) -> AnyPublisher<(String, String), Error>
+    func updateUser(user: User) -> AnyPublisher<User, Error>
     func getUser(id: String, accessToken: String) -> AnyPublisher<User, Error>
 
 }
 
 extension ApolloRepository: UserProfileApolloRepository {
     
-    func updateUser(user: User) -> AnyPublisher<(String, String), Error> {
+    func updateUser(user: User) -> AnyPublisher<User, Error> {
         
         let input = MirageAPI.UpdateUserInput(userId: user.id, accessToken: "1", username: user.userName ?? "" , bio: user.bio ?? "") //?? part is just to avoid error.
         let mutaiton = MirageAPI.UpdateUserMutation(updateUserInput: input)
         return perform(mutation: mutaiton)
             .map {
-                return ($0.updateUser?.id ?? "", $0.updateUser?.username ?? "")
+                return (user.updated(apiUpdatedUser: $0.updateUser))
             }
             .eraseToAnyPublisher()
 
