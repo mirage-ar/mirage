@@ -67,7 +67,7 @@ struct MBMapView: UIViewRepresentable {
                 geometry: Point(mira.location),
                 width: 40,
                 height: 40,
-                allowOverlap: false,
+                allowOverlap: true,
                 anchor: .center
             )
             try? mapView.viewAnnotations.add(annotationView(mira: mira), options: options)

@@ -16,6 +16,9 @@ struct AuthenticationView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color.black
+                    .edgesIgnoringSafeArea(.all)
+
                 VStack (alignment: .center, spacing: 10) {
 
                     Text("Sign Up!")
@@ -25,6 +28,7 @@ struct AuthenticationView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Colors.white.just)
                         .padding()
+                    
                     iPhoneNumberField("(000) 000-0000", text: $phoneNumber, isEditing: $isEditing)
                         .defaultRegion("US")
                         .placeholderColor(Colors.white.just)
@@ -41,6 +45,7 @@ struct AuthenticationView: View {
                             NavigationRoute.onboardingVerifyPhoneNumber(phoneNumer: phoneNumber).screen
                         }
                         .padding()
+
                     
                     Spacer()
                     Group {
@@ -68,8 +73,12 @@ struct AuthenticationView: View {
             .onTapGesture {
                 hideKeyboard()
             }
+            .onAppear {
+                viewModel.isLoading = false
+            }
         }
         .accentColor(Colors.white.swiftUIColor)
+
     }
 }
 struct AuthenticationView_Previews: PreviewProvider {

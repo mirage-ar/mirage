@@ -18,9 +18,10 @@ struct SettingsView: View {
             
             VStack(spacing: 30) {
                 VStack(alignment: .leading, spacing: 15) {
+                    
                     HStack {
                         Images.profile48.swiftUIImage
-                        Text("#" + (user.userName ?? "NaN"))
+                        Text(user.userName ?? "NaN")
                             .font(Font.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
@@ -28,6 +29,7 @@ struct SettingsView: View {
                         Images.arrowR24.swiftUIImage
                         
                     }
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         showEditProfile = true
                     }
@@ -69,6 +71,8 @@ struct SettingsView: View {
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                     }
                     Spacer()
+                    //Temporarily Hidden for MVP version
+                    /*
                     ZStack {
                         Colors.green.swiftUIColor
                             .edgesIgnoringSafeArea(.all)
@@ -80,6 +84,7 @@ struct SettingsView: View {
                         }
                     }
                     .frame(maxHeight: 60)
+                     */
                 }
             }
             .padding(.top, 50)

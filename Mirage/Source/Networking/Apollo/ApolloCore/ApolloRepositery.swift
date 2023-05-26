@@ -18,6 +18,7 @@ public class ApolloRepository {
     private weak var appEnteredBackgroundPhaseObserver: NSObjectProtocol?
 
     private var subscriptions = [SubscriptionName: Apollo.Cancellable]()
+    var userPropertiesStorage: UserPropertiesStorage = UserDefaultsStorage()
 
     var walletSubscription: AnyPublisher<Int, Error>?
 

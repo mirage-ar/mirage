@@ -95,6 +95,27 @@
 		93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */; };
 		93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */; };
 		93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 93B24F1229B6319E00CCDDB7 /* OrderedCollections */; };
+		93B379342A21062E00C6C66C /* ABCDiatypeMono-Bold-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379212A21062D00C6C66C /* ABCDiatypeMono-Bold-Trial.otf */; };
+		93B379352A21062E00C6C66C /* ABCDiatypeMono-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 93B379222A21062D00C6C66C /* ABCDiatypeMono-Regular.woff */; };
+		93B379362A21062E00C6C66C /* HelveticaNeueLTStd-BdEx.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379232A21062D00C6C66C /* HelveticaNeueLTStd-BdEx.otf */; };
+		93B379372A21062E00C6C66C /* ENGIN.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379242A21062D00C6C66C /* ENGIN.otf */; };
+		93B379382A21062E00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379252A21062D00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf */; };
+		93B379392A21062E00C6C66C /* ABCDiatypeMono-Regular-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379262A21062D00C6C66C /* ABCDiatypeMono-Regular-Trial.otf */; };
+		93B3793A2A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379272A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf */; };
+		93B3793B2A21062E00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379282A21062D00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf */; };
+		93B3793C2A21062E00C6C66C /* Redaction35-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379292A21062D00C6C66C /* Redaction35-Regular.otf */; };
+		93B3793D2A21062E00C6C66C /* HelveticaNeueLTStd-MdEx.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792A2A21062D00C6C66C /* HelveticaNeueLTStd-MdEx.otf */; };
+		93B3793E2A21062E00C6C66C /* HelveticaNeueLTStd-LtEx.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792B2A21062D00C6C66C /* HelveticaNeueLTStd-LtEx.otf */; };
+		93B3793F2A21062E00C6C66C /* ABCDiatypeMono-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792C2A21062D00C6C66C /* ABCDiatypeMono-Regular.woff2 */; };
+		93B379402A21062E00C6C66C /* Redaction35-Regular.210603-1544.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792D2A21062D00C6C66C /* Redaction35-Regular.210603-1544.otf */; };
+		93B379412A21062E00C6C66C /* Redaction35-Regular.210603-1545.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792E2A21062D00C6C66C /* Redaction35-Regular.210603-1545.otf */; };
+		93B379422A21062E00C6C66C /* Redaction35-Regular.210603-1547.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792F2A21062D00C6C66C /* Redaction35-Regular.210603-1547.otf */; };
+		93B379432A21062E00C6C66C /* HelveticaNeueLTStd-Ex.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379302A21062D00C6C66C /* HelveticaNeueLTStd-Ex.otf */; };
+		93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */; };
+		93B379452A21062E00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379322A21062D00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf */; };
+		93B379462A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379332A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf */; };
+		93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */; };
+		93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
@@ -211,6 +232,27 @@
 		93B24F0A29B61BA700CCDDB7 /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenNetworkRepository.swift; sourceTree = "<group>"; };
+		93B379212A21062D00C6C66C /* ABCDiatypeMono-Bold-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Bold-Trial.otf"; sourceTree = "<group>"; };
+		93B379222A21062D00C6C66C /* ABCDiatypeMono-Regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.woff"; sourceTree = "<group>"; };
+		93B379232A21062D00C6C66C /* HelveticaNeueLTStd-BdEx.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-BdEx.otf"; sourceTree = "<group>"; };
+		93B379242A21062D00C6C66C /* ENGIN.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ENGIN.otf; sourceTree = "<group>"; };
+		93B379252A21062D00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-RegularItalic-Trial.otf"; sourceTree = "<group>"; };
+		93B379262A21062D00C6C66C /* ABCDiatypeMono-Regular-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular-Trial.otf"; sourceTree = "<group>"; };
+		93B379272A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf"; sourceTree = "<group>"; };
+		93B379282A21062D00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-BoldItalic-Trial.otf"; sourceTree = "<group>"; };
+		93B379292A21062D00C6C66C /* Redaction35-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.otf"; sourceTree = "<group>"; };
+		93B3792A2A21062D00C6C66C /* HelveticaNeueLTStd-MdEx.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-MdEx.otf"; sourceTree = "<group>"; };
+		93B3792B2A21062D00C6C66C /* HelveticaNeueLTStd-LtEx.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-LtEx.otf"; sourceTree = "<group>"; };
+		93B3792C2A21062D00C6C66C /* ABCDiatypeMono-Regular.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.woff2"; sourceTree = "<group>"; };
+		93B3792D2A21062D00C6C66C /* Redaction35-Regular.210603-1544.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.210603-1544.otf"; sourceTree = "<group>"; };
+		93B3792E2A21062D00C6C66C /* Redaction35-Regular.210603-1545.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.210603-1545.otf"; sourceTree = "<group>"; };
+		93B3792F2A21062D00C6C66C /* Redaction35-Regular.210603-1547.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.210603-1547.otf"; sourceTree = "<group>"; };
+		93B379302A21062D00C6C66C /* HelveticaNeueLTStd-Ex.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-Ex.otf"; sourceTree = "<group>"; };
+		93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.otf"; sourceTree = "<group>"; };
+		93B379322A21062D00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a6b67044-c1c9-49d9-98a2-0471285ed246.ttf"; sourceTree = "<group>"; };
+		93B379332A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf"; sourceTree = "<group>"; };
+		93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPropertiesStorage.swift; sourceTree = "<group>"; };
+		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
@@ -538,6 +580,7 @@
 		9318452B29CB12A000DD07CB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				93B379202A21062D00C6C66C /* Fonts */,
 				9318452C29CB12A000DD07CB /* Colors.xcassets */,
 				9318452D29CB12A000DD07CB /* Assets.xcassets */,
 			);
@@ -714,6 +757,7 @@
 		9331C47C29AF8C0100F8EE72 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				93B379472A210BE700C6C66C /* UserDefaults */,
 				9300624A29E43F0400816C46 /* Managers */,
 				9310E5CE29CDCEB7000E6019 /* Controls */,
 				93B24F0929B61B9D00CCDDB7 /* Constants */,
@@ -832,6 +876,41 @@
 				93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */,
 			);
 			path = Repositeries;
+			sourceTree = "<group>";
+		};
+		93B379202A21062D00C6C66C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				93B379212A21062D00C6C66C /* ABCDiatypeMono-Bold-Trial.otf */,
+				93B379222A21062D00C6C66C /* ABCDiatypeMono-Regular.woff */,
+				93B379232A21062D00C6C66C /* HelveticaNeueLTStd-BdEx.otf */,
+				93B379242A21062D00C6C66C /* ENGIN.otf */,
+				93B379252A21062D00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf */,
+				93B379262A21062D00C6C66C /* ABCDiatypeMono-Regular-Trial.otf */,
+				93B379272A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf */,
+				93B379282A21062D00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf */,
+				93B379292A21062D00C6C66C /* Redaction35-Regular.otf */,
+				93B3792A2A21062D00C6C66C /* HelveticaNeueLTStd-MdEx.otf */,
+				93B3792B2A21062D00C6C66C /* HelveticaNeueLTStd-LtEx.otf */,
+				93B3792C2A21062D00C6C66C /* ABCDiatypeMono-Regular.woff2 */,
+				93B3792D2A21062D00C6C66C /* Redaction35-Regular.210603-1544.otf */,
+				93B3792E2A21062D00C6C66C /* Redaction35-Regular.210603-1545.otf */,
+				93B3792F2A21062D00C6C66C /* Redaction35-Regular.210603-1547.otf */,
+				93B379302A21062D00C6C66C /* HelveticaNeueLTStd-Ex.otf */,
+				93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */,
+				93B379322A21062D00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf */,
+				93B379332A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		93B379472A210BE700C6C66C /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */,
+				93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		93E2169929B6804100EE907D /* Source */ = {
@@ -1001,17 +1080,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93B379352A21062E00C6C66C /* ABCDiatypeMono-Regular.woff in Resources */,
+				93B3793B2A21062E00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf in Resources */,
+				93B3793C2A21062E00C6C66C /* Redaction35-Regular.otf in Resources */,
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
+				93B3793F2A21062E00C6C66C /* ABCDiatypeMono-Regular.woff2 in Resources */,
+				93B379412A21062E00C6C66C /* Redaction35-Regular.210603-1545.otf in Resources */,
+				93B379392A21062E00C6C66C /* ABCDiatypeMono-Regular-Trial.otf in Resources */,
+				93B379462A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf in Resources */,
+				93B379432A21062E00C6C66C /* HelveticaNeueLTStd-Ex.otf in Resources */,
+				93B379452A21062E00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
 				9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */,
 				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
+				93B3793E2A21062E00C6C66C /* HelveticaNeueLTStd-LtEx.otf in Resources */,
+				93B379422A21062E00C6C66C /* Redaction35-Regular.210603-1547.otf in Resources */,
+				93B3793A2A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf in Resources */,
 				93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */,
+				93B379372A21062E00C6C66C /* ENGIN.otf in Resources */,
+				93B379342A21062E00C6C66C /* ABCDiatypeMono-Bold-Trial.otf in Resources */,
 				9331C48A29AF8C0100F8EE72 /* AuthorizeUser.graphql in Resources */,
+				93B379382A21062E00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf in Resources */,
 				9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */,
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
+				93B379362A21062E00C6C66C /* HelveticaNeueLTStd-BdEx.otf in Resources */,
+				93B3793D2A21062E00C6C66C /* HelveticaNeueLTStd-MdEx.otf in Resources */,
 				9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */,
 				9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */,
+				93B379402A21062E00C6C66C /* Redaction35-Regular.210603-1544.otf in Resources */,
+				93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1166,7 @@
 				9310E5EA29D11571000E6019 /* Mira.swift in Sources */,
 				93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */,
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
+				93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
 				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,
@@ -1075,6 +1174,7 @@
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
 				9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */,
 				93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */,
+				93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */,
 				9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */,

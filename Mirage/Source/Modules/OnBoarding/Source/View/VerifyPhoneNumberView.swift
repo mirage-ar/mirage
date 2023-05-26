@@ -13,6 +13,8 @@ struct VerifyPhoneNumberView: View {
     let phoneNumber: String
     @State var verificationCode: String
     @State var code: [String] = Array(repeating: "", count: 4)
+    @FocusState private var focusField: Int?
+
     
     var body: some View {
         ZStack {
@@ -29,12 +31,21 @@ struct VerifyPhoneNumberView: View {
                         iPhoneNumberField("", text: $code[id])
                             .multilineTextAlignment(.leading)
                             .flagHidden(true)
+                            .autofillPrefix(false)
+                            .defaultRegion("UK") //to accept all numbers
                             .maximumDigits(1)
                             .multilineTextAlignment(.center)
+                            .formatted(true)
+                            .onEdit{ number in
+                                if number.text?.count == 1 {
+                                    focusNextField(from: id)
+                                }
+                            }
                             .font(UIFont(size: 30, weight: .light, design: .monospaced))
                             .foregroundColor(Colors.white.just)
                             .border(Colors.white.just)
                             .frame(width: 50, height: 50)
+                            .focused($focusField, equals: id)
                     }
                 }
                 
@@ -63,10 +74,21 @@ struct VerifyPhoneNumberView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accentColor(Colors.white.just)
         .background(Colors.black.just)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                focusField = 0
+            }
+        }
         .onTapGesture {
             hideKeyboard()
         }
     }
+    private func focusNextField(from index: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            focusField = index + 1
+        }
+    }
+
     
 }
 

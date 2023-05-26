@@ -11,7 +11,8 @@ struct UserProfileView: View {
     @State var goToSettings = false
     @State var goToEditProfile = false
     @State var ownProfile = true
-    
+    @State var goToHome = false
+
     @ObservedObject private var viewModel = UserProfileViewModel()
 
     var body: some View {
@@ -19,22 +20,6 @@ struct UserProfileView: View {
             VStack {
                 ZStack(alignment: .bottom) {
                     VStack {
-//                        ZStack {
-//                            HStack {
-//                                Spacer()
-//                                Button {
-//                                    print("Button go to Settings")
-//                                    goToSettings = true
-//                                } label: {
-//                                    Images.settings24.swiftUIImage
-//                                        .resizable()
-//                                        .scaledToFit()
-//
-//                                }
-//                                .frame(width: 24, height: 24)
-//                            }
-//                        }
-
                         AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
 //                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
                             image
@@ -46,13 +31,13 @@ struct UserProfileView: View {
                         }
                         Spacer()
                     }
-                    .frame(width: UIScreen.main.bounds.width, height: 300, alignment: .top)
+                    .frame(width: UIScreen.main.bounds.width, height: 436, alignment: .top)
                     .clipped()
                     
                     HStack() {
                         VStack (alignment: .leading) {
                             Group {
-                                Text("#" + (viewModel.user.userName ?? "NaN"))
+                                Text(viewModel.user.userName ?? "NaN")
                                     .font(Font.title)
                                 if (ownProfile && viewModel.user.isDescriptionEmpty) {
                                     Button {
@@ -79,60 +64,89 @@ struct UserProfileView: View {
                         Spacer()
 
                     }
-                    .padding()
                     .background(
                         LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
                     )
-                    .frame(width: UIScreen.main.bounds.width, height: 80, alignment: .bottom)
+                    .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .bottom)
                     
                 }
                 .background(Colors.black.swiftUIColor)
                 
                 
                 HStack {
-                    ZStack {
-                        MBMapView()
-                        VStack {
-                            HStack(alignment: .top){
-                                Text("Collection")
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(Font.body)
-                                    .multilineTextAlignment(.leading)
+                    VStack {
+                        ZStack {
+                            MBMapView()
+                                .opacity(0.7)
+                            VStack {
+                                HStack(alignment: .top){
+                                    Text("Collection")
+                                        .foregroundColor(Colors.white.swiftUIColor)
+                                        .font(Font.body)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
 
-                            }
-                            ZStack {
-                                Rectangle()
-                                    .cornerRadius(20)
-                                    .foregroundColor(Colors.green.swiftUIColor)
-                                    .frame(width:80, height: 40)
-                                HStack {
-                                    Text("12")
-                                    Images.new16.swiftUIImage
-                                        .renderingMode(.template)
-                                        .foregroundColor(Colors.black.swiftUIColor)
                                 }
-                                
+                                .padding(.leading, 5)
+                                .padding(.top, 5)
+                                Spacer()
+                                ZStack {
+                                    Rectangle()
+                                        .cornerRadius(20)
+                                        .foregroundColor(Colors.green.swiftUIColor)
+                                        .frame(width:80, height: 40)
+                                    HStack {
+                                        Text("12")
+                                        Images.new16.swiftUIImage
+                                            .renderingMode(.template)
+                                            .foregroundColor(Colors.black.swiftUIColor)
+                                    }
+                                    
+                                }
+                                Spacer()
                             }
+
                         }
+                        .frame(maxHeight: 160)
+                        .disabled(true)
+                        .cornerRadius(10)
+                    }
+                    VStack{
+                        HStack {
+                            Text("Miras")
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.white.swiftUIColor)
+                                .font(Font.body)
+                            Spacer()
+                            Text("12")
+                                .multilineTextAlignment(.trailing)
+                                .foregroundColor(Colors.white.swiftUIColor)
+                                .font(Font.body)
+                        }
+                        .padding(.top, -70) //to bind the view at top
+                        .padding(.leading, 5)
+                        Divider()
+                            .overlay(Colors.g3Grey.swiftUIColor)
+                            .padding(.top, -55)
+                            .padding(.leading, 5)
 
                     }
-                    .frame(maxHeight: 100)
-                    Spacer()
-                    HStack {
-                        Text("Miras")
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(Colors.white.swiftUIColor)
-                            .font(Font.body)
-                        Spacer()
-                        Text("12")
-                            .multilineTextAlignment(.trailing)
-                            .foregroundColor(Colors.white.swiftUIColor)
-                            .font(Font.body)
-
-
-                    }
+                   
                 }
                 Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        goToHome = true
+
+                    } label: {
+                        Images.goHome32.swiftUIImage
+                    }
+                    .padding(.trailing, 30)
+
+                }
+                .padding(.bottom, 50)
+
             }
         }
         .toolbar {
@@ -155,7 +169,8 @@ struct UserProfileView: View {
         .navigationDestination(isPresented: $goToEditProfile) {
             NavigationRoute.editProfile(user: .dummyUser()).screen
         }
-        
+        .edgesIgnoringSafeArea(.all)
+
     }
 }
 

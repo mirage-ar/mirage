@@ -13,6 +13,10 @@ struct MirageApp: App {
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.white.color]
         navBarAppearance.titleTextAttributes = [.foregroundColor: Colors.white.color]
+        navBarAppearance.isTranslucent = true
+        navBarAppearance.tintColor = .clear
+        navBarAppearance.backgroundColor = .clear
+
     }
     var body: some Scene {
         WindowGroup {

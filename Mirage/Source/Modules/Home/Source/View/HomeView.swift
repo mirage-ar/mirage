@@ -126,7 +126,6 @@ struct HomeView: View {
             .navigationDestination(isPresented: $showProfileView) {
                 NavigationRoute.myProfile.screen
             }
-
         }
         .accentColor(Colors.white.swiftUIColor)
     }
