@@ -16,9 +16,9 @@ struct MBMapView: UIViewRepresentable {
     func makeUIView(context: Context) -> some UIView {
         
         let myResourceOptions = ResourceOptions(accessToken: (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!)
-        let latitude: Double = 40.70290414346796
-        let longitude: Double = -73.95591309248328
-
+        let userLocation = LocationManager.shared.location
+        let latitude: Double = userLocation?.latitude ?? 40.70290414346796
+        let longitude: Double = userLocation?.longitude ?? -73.95591309248328
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 14.4, bearing: -25, pitch: 0)
         

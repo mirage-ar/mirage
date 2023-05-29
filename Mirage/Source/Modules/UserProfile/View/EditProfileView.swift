@@ -94,7 +94,7 @@ struct EditProfileView: View {
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Bio")
-                            .font(Font.body)
+                            .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                         
                         TextEditor(text: $bioText)
@@ -119,7 +119,7 @@ struct EditProfileView: View {
                     Button {
                         viewModel.signoutUser()
                     } label: {
-                        Text("Signout")
+                        Text("SIGNOUT")
                             .font(Font.body)
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
@@ -145,7 +145,7 @@ struct EditProfileView: View {
         .onAppear() {
             bioText = user.bio ?? ""
         }
-        .navigationTitle("Edit Profile")
+        .navigationTitle("EDIT PRPFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
             NavigationRoute.updateUser(title: "USERNAME", value: user.userName ?? "", user: user).screen
         }

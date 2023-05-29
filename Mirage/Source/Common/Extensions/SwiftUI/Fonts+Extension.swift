@@ -63,31 +63,30 @@ enum FontType {
 }
 
 extension Fonts {
-    static var defaultFontFamilyName: String = "Roan Lammers"
 
-    typealias RoanLammers = FontFamily.ABCDiatypeMono
+    typealias DiaTypeMono = FontFamily.ABCDiatypeMono
 //TODO: fix font weight here when fonts are imported
     static func custom(type: FontType) -> Font {
         switch type {
         case .h1:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .h2:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .h3:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .subtitle1:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .subtitle2:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .body1:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .body2:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .body3:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         
         case .button:
-            return RoanLammers.regular.just(size: type.size)
+            return DiaTypeMono.regular.just(size: type.size)
         case .custom(let font, let size):
             return font.just(size: size)
         }

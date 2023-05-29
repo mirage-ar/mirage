@@ -19,8 +19,9 @@ struct VerifyPhoneNumberView: View {
     var body: some View {
         ZStack {
             VStack (alignment: .center, spacing: 10) {
-                Text("Sign Up!")
+                Text("SING UP")
                     .foregroundColor(Colors.white.just)
+                    .font(.subtitle1)
                     .padding()
                 Text("Sent code to +1 \(phoneNumber)")
                     .foregroundColor(Colors.white.just)
@@ -41,7 +42,7 @@ struct VerifyPhoneNumberView: View {
                                     focusNextField(from: id)
                                 }
                             }
-                            .font(UIFont(size: 30, weight: .light, design: .monospaced))
+                            .font(UIFont(size: 36, weight: .light, design: .monospaced))
                             .foregroundColor(Colors.white.just)
                             .border(Colors.white.just)
                             .frame(width: 50, height: 50)
@@ -54,7 +55,7 @@ struct VerifyPhoneNumberView: View {
                     if viewModel.isLoading {
                         ActivityIndicator(color: Colors.white.just, size: 50)
                     } else {
-                        LargeButton(title: "Done") {
+                        LargeButton(title: "DONE") {
                             viewModel.verifyUserSuccess = true // temp for quick navigation
                             if code.joined().count == 4 {
                                 viewModel.verifyUser(number: phoneNumber, code: code.joined())
@@ -65,12 +66,11 @@ struct VerifyPhoneNumberView: View {
                 .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
                     NavigationRoute.homeViewLanding.screen
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, 5)
                 
             }
-            .padding(.top, 50)
+            .padding(.top, 10)
         }
-        .edgesIgnoringSafeArea(.all)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accentColor(Colors.white.just)
         .background(Colors.black.just)

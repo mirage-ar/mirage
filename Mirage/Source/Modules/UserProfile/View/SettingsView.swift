@@ -38,7 +38,7 @@ struct SettingsView: View {
                     
                     HStack {
                         Images.contactUs48.swiftUIImage
-                        Text("Contact Us")
+                        Text("CONTACT US")
                             .font(Font.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
@@ -89,7 +89,7 @@ struct SettingsView: View {
             }
             .padding(.top, 50)
         }
-        .navigationTitle("Settings")
+        .navigationTitle("SETTINGS")
         .accentColor(Colors.white.swiftUIColor)
         .navigationDestination(isPresented: $showEditProfile) {
             NavigationRoute.editProfile(user: user).screen

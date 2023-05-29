@@ -26,7 +26,7 @@ struct UpdateUserView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                if title == "BIO" {
+                if title.uppercased() == "BIO" {
                     TextEditor(text: $value)
                         .foregroundColor(Colors.white.swiftUIColor)
                         .background(.clear)
@@ -58,7 +58,7 @@ struct UpdateUserView: View {
             }
             .padding(.top, 30)
         }
-        .navigationTitle(title)
+        .navigationTitle(title.uppercased())
         .navigationDestination(isPresented: $viewModel.userUpdated) {
             NavigationRoute.editProfile(user: .dummyUser()).screen
         }

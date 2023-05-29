@@ -25,6 +25,7 @@ final class AppConfiguration {
         environmentConfig = MirageConfig.staging
         #endif
 
+        let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()
         apollo = ApolloRepository(
             endpoint: environmentConfig.apiEndpoint,
