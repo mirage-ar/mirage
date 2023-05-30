@@ -95,25 +95,7 @@
 		93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */; };
 		93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */; };
 		93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 93B24F1229B6319E00CCDDB7 /* OrderedCollections */; };
-		93B379342A21062E00C6C66C /* ABCDiatypeMono-Bold-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379212A21062D00C6C66C /* ABCDiatypeMono-Bold-Trial.otf */; };
-		93B379352A21062E00C6C66C /* ABCDiatypeMono-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 93B379222A21062D00C6C66C /* ABCDiatypeMono-Regular.woff */; };
-		93B379362A21062E00C6C66C /* HelveticaNeueLTStd-BdEx.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379232A21062D00C6C66C /* HelveticaNeueLTStd-BdEx.otf */; };
-		93B379372A21062E00C6C66C /* ENGIN.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379242A21062D00C6C66C /* ENGIN.otf */; };
-		93B379382A21062E00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379252A21062D00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf */; };
-		93B379392A21062E00C6C66C /* ABCDiatypeMono-Regular-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379262A21062D00C6C66C /* ABCDiatypeMono-Regular-Trial.otf */; };
-		93B3793A2A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379272A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf */; };
-		93B3793B2A21062E00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379282A21062D00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf */; };
-		93B3793C2A21062E00C6C66C /* Redaction35-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379292A21062D00C6C66C /* Redaction35-Regular.otf */; };
-		93B3793D2A21062E00C6C66C /* HelveticaNeueLTStd-MdEx.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792A2A21062D00C6C66C /* HelveticaNeueLTStd-MdEx.otf */; };
-		93B3793E2A21062E00C6C66C /* HelveticaNeueLTStd-LtEx.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792B2A21062D00C6C66C /* HelveticaNeueLTStd-LtEx.otf */; };
-		93B3793F2A21062E00C6C66C /* ABCDiatypeMono-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792C2A21062D00C6C66C /* ABCDiatypeMono-Regular.woff2 */; };
-		93B379402A21062E00C6C66C /* Redaction35-Regular.210603-1544.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792D2A21062D00C6C66C /* Redaction35-Regular.210603-1544.otf */; };
-		93B379412A21062E00C6C66C /* Redaction35-Regular.210603-1545.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792E2A21062D00C6C66C /* Redaction35-Regular.210603-1545.otf */; };
-		93B379422A21062E00C6C66C /* Redaction35-Regular.210603-1547.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B3792F2A21062D00C6C66C /* Redaction35-Regular.210603-1547.otf */; };
-		93B379432A21062E00C6C66C /* HelveticaNeueLTStd-Ex.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379302A21062D00C6C66C /* HelveticaNeueLTStd-Ex.otf */; };
 		93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */; };
-		93B379452A21062E00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379322A21062D00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf */; };
-		93B379462A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379332A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf */; };
 		93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */; };
 		93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
@@ -232,25 +214,7 @@
 		93B24F0A29B61BA700CCDDB7 /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenNetworkRepository.swift; sourceTree = "<group>"; };
-		93B379212A21062D00C6C66C /* ABCDiatypeMono-Bold-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Bold-Trial.otf"; sourceTree = "<group>"; };
-		93B379222A21062D00C6C66C /* ABCDiatypeMono-Regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.woff"; sourceTree = "<group>"; };
-		93B379232A21062D00C6C66C /* HelveticaNeueLTStd-BdEx.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-BdEx.otf"; sourceTree = "<group>"; };
-		93B379242A21062D00C6C66C /* ENGIN.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ENGIN.otf; sourceTree = "<group>"; };
-		93B379252A21062D00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-RegularItalic-Trial.otf"; sourceTree = "<group>"; };
-		93B379262A21062D00C6C66C /* ABCDiatypeMono-Regular-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular-Trial.otf"; sourceTree = "<group>"; };
-		93B379272A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf"; sourceTree = "<group>"; };
-		93B379282A21062D00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-BoldItalic-Trial.otf"; sourceTree = "<group>"; };
-		93B379292A21062D00C6C66C /* Redaction35-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.otf"; sourceTree = "<group>"; };
-		93B3792A2A21062D00C6C66C /* HelveticaNeueLTStd-MdEx.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-MdEx.otf"; sourceTree = "<group>"; };
-		93B3792B2A21062D00C6C66C /* HelveticaNeueLTStd-LtEx.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-LtEx.otf"; sourceTree = "<group>"; };
-		93B3792C2A21062D00C6C66C /* ABCDiatypeMono-Regular.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.woff2"; sourceTree = "<group>"; };
-		93B3792D2A21062D00C6C66C /* Redaction35-Regular.210603-1544.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.210603-1544.otf"; sourceTree = "<group>"; };
-		93B3792E2A21062D00C6C66C /* Redaction35-Regular.210603-1545.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.210603-1545.otf"; sourceTree = "<group>"; };
-		93B3792F2A21062D00C6C66C /* Redaction35-Regular.210603-1547.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Redaction35-Regular.210603-1547.otf"; sourceTree = "<group>"; };
-		93B379302A21062D00C6C66C /* HelveticaNeueLTStd-Ex.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-Ex.otf"; sourceTree = "<group>"; };
 		93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.otf"; sourceTree = "<group>"; };
-		93B379322A21062D00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a6b67044-c1c9-49d9-98a2-0471285ed246.ttf"; sourceTree = "<group>"; };
-		93B379332A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf"; sourceTree = "<group>"; };
 		93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPropertiesStorage.swift; sourceTree = "<group>"; };
 		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
@@ -881,25 +845,7 @@
 		93B379202A21062D00C6C66C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				93B379212A21062D00C6C66C /* ABCDiatypeMono-Bold-Trial.otf */,
-				93B379222A21062D00C6C66C /* ABCDiatypeMono-Regular.woff */,
-				93B379232A21062D00C6C66C /* HelveticaNeueLTStd-BdEx.otf */,
-				93B379242A21062D00C6C66C /* ENGIN.otf */,
-				93B379252A21062D00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf */,
-				93B379262A21062D00C6C66C /* ABCDiatypeMono-Regular-Trial.otf */,
-				93B379272A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf */,
-				93B379282A21062D00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf */,
-				93B379292A21062D00C6C66C /* Redaction35-Regular.otf */,
-				93B3792A2A21062D00C6C66C /* HelveticaNeueLTStd-MdEx.otf */,
-				93B3792B2A21062D00C6C66C /* HelveticaNeueLTStd-LtEx.otf */,
-				93B3792C2A21062D00C6C66C /* ABCDiatypeMono-Regular.woff2 */,
-				93B3792D2A21062D00C6C66C /* Redaction35-Regular.210603-1544.otf */,
-				93B3792E2A21062D00C6C66C /* Redaction35-Regular.210603-1545.otf */,
-				93B3792F2A21062D00C6C66C /* Redaction35-Regular.210603-1547.otf */,
-				93B379302A21062D00C6C66C /* HelveticaNeueLTStd-Ex.otf */,
 				93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */,
-				93B379322A21062D00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf */,
-				93B379332A21062D00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1080,35 +1026,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93B379352A21062E00C6C66C /* ABCDiatypeMono-Regular.woff in Resources */,
-				93B3793B2A21062E00C6C66C /* ABCDiatypeMono-BoldItalic-Trial.otf in Resources */,
-				93B3793C2A21062E00C6C66C /* Redaction35-Regular.otf in Resources */,
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
-				93B3793F2A21062E00C6C66C /* ABCDiatypeMono-Regular.woff2 in Resources */,
-				93B379412A21062E00C6C66C /* Redaction35-Regular.210603-1545.otf in Resources */,
-				93B379392A21062E00C6C66C /* ABCDiatypeMono-Regular-Trial.otf in Resources */,
-				93B379462A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3 copy.ttf in Resources */,
-				93B379432A21062E00C6C66C /* HelveticaNeueLTStd-Ex.otf in Resources */,
-				93B379452A21062E00C6C66C /* a6b67044-c1c9-49d9-98a2-0471285ed246.ttf in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
 				9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */,
 				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
-				93B3793E2A21062E00C6C66C /* HelveticaNeueLTStd-LtEx.otf in Resources */,
-				93B379422A21062E00C6C66C /* Redaction35-Regular.210603-1547.otf in Resources */,
-				93B3793A2A21062E00C6C66C /* a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf in Resources */,
 				93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */,
-				93B379372A21062E00C6C66C /* ENGIN.otf in Resources */,
-				93B379342A21062E00C6C66C /* ABCDiatypeMono-Bold-Trial.otf in Resources */,
 				9331C48A29AF8C0100F8EE72 /* AuthorizeUser.graphql in Resources */,
-				93B379382A21062E00C6C66C /* ABCDiatypeMono-RegularItalic-Trial.otf in Resources */,
 				9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */,
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
-				93B379362A21062E00C6C66C /* HelveticaNeueLTStd-BdEx.otf in Resources */,
-				93B3793D2A21062E00C6C66C /* HelveticaNeueLTStd-MdEx.otf in Resources */,
 				9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */,
 				9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */,
-				93B379402A21062E00C6C66C /* Redaction35-Regular.210603-1544.otf in Resources */,
 				93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1365,14 +1293,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1384,8 +1313,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1398,14 +1328,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1416,8 +1347,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1566,14 +1498,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1585,8 +1518,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "-D DEV";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1691,14 +1625,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1710,8 +1645,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "-D PROD";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROD;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1816,14 +1752,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1835,8 +1772,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "-D STAGING";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

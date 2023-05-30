@@ -24,38 +24,7 @@ internal enum FontFamily {
     internal static let regular = FontConvertible(name: "ABCDiatypeMono-Regular", family: "ABC Diatype Mono", path: "ABCDiatypeMono-Regular.otf")
     internal static let all: [FontConvertible] = [regular]
   }
-  internal enum ABCDiatypeMonoUnlicensedTrial {
-    internal static let bold = FontConvertible(name: "ABCDiatypeMonoUnlicensedTrial-Bold", family: "ABC Diatype Mono Unlicensed Trial", path: "ABCDiatypeMono-Bold-Trial.otf")
-    internal static let boldItalic = FontConvertible(name: "ABCDiatypeMonoUnlicensedTrial-BoldItalic", family: "ABC Diatype Mono Unlicensed Trial", path: "ABCDiatypeMono-BoldItalic-Trial.otf")
-    internal static let regular = FontConvertible(name: "ABCDiatypeMonoUnlicensedTrial-Regular", family: "ABC Diatype Mono Unlicensed Trial", path: "ABCDiatypeMono-Regular-Trial.otf")
-    internal static let regularItalic = FontConvertible(name: "ABCDiatypeMonoUnlicensedTrial-RegularItalic", family: "ABC Diatype Mono Unlicensed Trial", path: "ABCDiatypeMono-RegularItalic-Trial.otf")
-    internal static let all: [FontConvertible] = [bold, boldItalic, regular, regularItalic]
-  }
-  internal enum Engin {
-    internal static let regular = FontConvertible(name: "Engin-Regular", family: "Engin", path: "ENGIN.otf")
-    internal static let all: [FontConvertible] = [regular]
-  }
-  internal enum HelveticaNeueLTStd {
-    internal static let _73BoldExtended = FontConvertible(name: "HelveticaNeueLTStd-BdEx", family: "Helvetica Neue LT Std", path: "HelveticaNeueLTStd-BdEx.otf")
-    internal static let _53Extended = FontConvertible(name: "HelveticaNeueLTStd-Ex", family: "Helvetica Neue LT Std", path: "HelveticaNeueLTStd-Ex.otf")
-    internal static let _43LightExtended = FontConvertible(name: "HelveticaNeueLTStd-LtEx", family: "Helvetica Neue LT Std", path: "HelveticaNeueLTStd-LtEx.otf")
-    internal static let _63MediumExtended = FontConvertible(name: "HelveticaNeueLTStd-MdEx", family: "Helvetica Neue LT Std", path: "HelveticaNeueLTStd-MdEx.otf")
-    internal static let all: [FontConvertible] = [_73BoldExtended, _53Extended, _43LightExtended, _63MediumExtended]
-  }
-  internal enum HelveticaMonospacedW06Bd {
-    internal static let regular = FontConvertible(name: "HelveticaMonospacedW06-Bd", family: "HelveticaMonospacedW06-Bd", path: "a6b67044-c1c9-49d9-98a2-0471285ed246.ttf")
-    internal static let all: [FontConvertible] = [regular]
-  }
-  internal enum HelveticaMonospacedW06Rg {
-    internal static let regular = FontConvertible(name: "HelveticaMonospacedW06-Rg", family: "HelveticaMonospacedW06-Rg", path: "a74d4504-60a3-47ac-8b5b-d3421c546dc3.ttf")
-    internal static let all: [FontConvertible] = [regular]
-  }
-  internal enum RedactionExtraCond35 {
-    internal static let extraCondRegular = FontConvertible(name: "Redaction-Extra-Cond-35-Regular", family: "Redaction Extra Cond 35", path: "Redaction35-Regular.otf")
-    internal static let regular = FontConvertible(name: "Redaction35-Regular", family: "Redaction Extra Cond 35", path: "Redaction35-Regular.210603-1544.otf")
-    internal static let all: [FontConvertible] = [extraCondRegular, regular]
-  }
-  internal static let allCustomFonts: [FontConvertible] = [ABCDiatypeMono.all, ABCDiatypeMonoUnlicensedTrial.all, Engin.all, HelveticaNeueLTStd.all, HelveticaMonospacedW06Bd.all, HelveticaMonospacedW06Rg.all, RedactionExtraCond35.all].flatMap { $0 }
+  internal static let allCustomFonts: [FontConvertible] = [ABCDiatypeMono.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {
     allCustomFonts.forEach { $0.register() }
   }

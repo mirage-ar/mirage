@@ -143,14 +143,14 @@ struct EditProfileView: View {
             
         }
         .onAppear() {
-            bioText = user.bio ?? ""
+            bioText = user.profileDescription ?? ""
         }
         .navigationTitle("EDIT PRPFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
             NavigationRoute.updateUser(title: "USERNAME", value: user.userName ?? "", user: user).screen
         }
         .navigationDestination(isPresented: $gotoEditBio) {
-            NavigationRoute.updateUser(title: "BIO", value: user.bio ?? "", user: user).screen
+            NavigationRoute.updateUser(title: "BIO", value: user.profileDescription ?? "", user: user).screen
         }
 
     }

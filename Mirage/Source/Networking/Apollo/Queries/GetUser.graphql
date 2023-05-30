@@ -5,6 +5,7 @@ query User($userInput: AuthorizedQueryInput!) {
     phone
     profileImage
     profileImageDesaturated
+    profileDescription
     miras {
       id
     }

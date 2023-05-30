@@ -18,6 +18,7 @@ public extension MirageAPI {
               id
               profileImage
               profileImageDesaturated
+              profileDescription
               username
             }
             location {
@@ -88,12 +89,14 @@ public extension MirageAPI {
             .field("id", MirageAPI.ID.self),
             .field("profileImage", String?.self),
             .field("profileImageDesaturated", String?.self),
+            .field("profileDescription", String?.self),
             .field("username", String.self),
           ] }
 
           public var id: MirageAPI.ID { __data["id"] }
           public var profileImage: String? { __data["profileImage"] }
           public var profileImageDesaturated: String? { __data["profileImageDesaturated"] }
+          public var profileDescription: String? { __data["profileDescription"] }
           public var username: String { __data["username"] }
         }
 

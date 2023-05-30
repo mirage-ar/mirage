@@ -17,6 +17,7 @@ public extension MirageAPI {
             phone
             profileImage
             profileImageDesaturated
+            profileDescription
             miras {
               __typename
               id
@@ -59,6 +60,7 @@ public extension MirageAPI {
           .field("phone", String?.self),
           .field("profileImage", String?.self),
           .field("profileImageDesaturated", String?.self),
+          .field("profileDescription", String?.self),
           .field("miras", [Mira?]?.self),
         ] }
 
@@ -67,6 +69,7 @@ public extension MirageAPI {
         public var phone: String? { __data["phone"] }
         public var profileImage: String? { __data["profileImage"] }
         public var profileImageDesaturated: String? { __data["profileImageDesaturated"] }
+        public var profileDescription: String? { __data["profileDescription"] }
         public var miras: [Mira?]? { __data["miras"] }
 
         /// User.Mira

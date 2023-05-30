@@ -12,21 +12,21 @@ public struct User {
     let profileImage: String
     let profileImageDesaturated: String
     let userName: String?
-    let bio: String?
+    let profileDescription: String?
     
     init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, bio: String?) {
         self.id = id
         self.profileImage = profileImage
         self.profileImageDesaturated = profileImageDesaturated
         self.userName = userName
-        self.bio = bio
+        self.profileDescription = bio
     }
     init() {
         self.id = ""
         self.profileImage = ""
         self.profileImageDesaturated = ""
         self.userName = nil
-        self.bio = nil
+        self.profileDescription = nil
         
     }
     //    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
@@ -53,7 +53,7 @@ extension User {
         profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
         userName = apiUser?.username ?? ""
         profileImageDesaturated = apiUser?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-        bio = "Dummy Bio"
+        profileDescription = "Dummy Bio"
     }
     func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
         
@@ -65,7 +65,7 @@ extension User {
 //MARK: - Dereive Properties
 extension User {
     var isDescriptionEmpty: Bool {
-        return !(self.bio?.isEmpty == true || self.userName?.isEmpty == true)
+        return !(self.profileDescription?.isEmpty == true || self.userName?.isEmpty == true)
     }
     static func dummyUser() -> User {
         return User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", bio: "")

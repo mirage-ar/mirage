@@ -17,14 +17,15 @@ final class AppConfiguration {
     // MARK: - Init
 
     init() {
-        #if PROD
+//        #if PROD
+//        environmentConfig = MirageConfig.production
+//        #elseif DEV
+//        environmentConfig = MirageConfig.development
+//        #else
+//        environmentConfig = MirageConfig.staging
+//        #endif
         environmentConfig = MirageConfig.production
-        #elseif DEV
-        environmentConfig = MirageConfig.development
-        #else
-        environmentConfig = MirageConfig.staging
-        #endif
-
+        
         let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()
         apollo = ApolloRepository(

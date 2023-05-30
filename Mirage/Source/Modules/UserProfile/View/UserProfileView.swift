@@ -56,7 +56,7 @@ struct UserProfileView: View {
                                         .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
                                         
                                     } else {
-                                        Text(viewModel.user.bio ?? "")
+                                        Text(viewModel.user.profileDescription ?? "")
                                             .font(Font.body)
                                     }
                                 }

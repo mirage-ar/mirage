@@ -62,7 +62,7 @@ enum FontType {
     }
 }
 
-extension Fonts {
+extension FontConvertible.Font {
 
     typealias DiaTypeMono = FontFamily.ABCDiatypeMono
 //TODO: fix font weight here when fonts are imported
