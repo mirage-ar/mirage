@@ -18,6 +18,10 @@ final class UserProfileViewModel: ObservableObject {
         loadProfile()
     }
     func loadProfile() {
+        if LocationManager.shared.location == nil {
+            LocationManager.shared.requestLocation()
+        }
+        print(LocationManager.shared.location)
         userProfileRepository.getUser(id: "1", accessToken: "1")
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in

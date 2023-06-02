@@ -16,15 +16,21 @@ struct AuthenticationView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color.black
+                    .edgesIgnoringSafeArea(.all)
+
                 VStack (alignment: .center, spacing: 10) {
 
-                    Text("Sign Up!")
+                    Text("SIGN UP")
                         .foregroundColor(Colors.white.just)
+                        .font(.subtitle1)
                         .padding()
-                    Text("Your phone number is used for login and won't be visible others")
+                    Text("Your phone number is used to log in and won’t be vesible to others.")
                         .multilineTextAlignment(.center)
                         .foregroundColor(Colors.white.just)
+                        .font(.body)
                         .padding()
+                    
                     iPhoneNumberField("(000) 000-0000", text: $phoneNumber, isEditing: $isEditing)
                         .defaultRegion("US")
                         .placeholderColor(Colors.white.just)
@@ -32,7 +38,7 @@ struct AuthenticationView: View {
                         .flagHidden(false)
                         .maximumDigits(10)
                         .multilineTextAlignment(.leading)
-                        .font(UIFont(size: 30, weight: .light, design: .monospaced))
+                        .font(UIFont(size: 36, weight: .light, design: .monospaced))
                         .foregroundColor(Colors.white.just)
                         .clearButtonMode(.whileEditing)
                         .onClear { _ in isEditing.toggle() }
@@ -41,13 +47,14 @@ struct AuthenticationView: View {
                             NavigationRoute.onboardingVerifyPhoneNumber(phoneNumer: phoneNumber).screen
                         }
                         .padding()
+
                     
                     Spacer()
                     Group {
                         if viewModel.isLoading {
                             ActivityIndicator(color: Colors.white.just, size: 50)
                         } else {
-                            LargeButton(title: "Done") {
+                            LargeButton(title: "DONE") {
                                 viewModel.authorizeSuccess = true // temp for quick navigation
                                 if phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
                                     viewModel.authenticate(number: phoneNumber)
@@ -55,21 +62,24 @@ struct AuthenticationView: View {
                             }
                         }
                     }
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 5)
 
                 }
-                .padding(.top, 50
+                .padding(.top, 10
                 )
             }
-            .edgesIgnoringSafeArea(.all)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .accentColor(Colors.white.just)
             .background(Colors.black.just)
             .onTapGesture {
                 hideKeyboard()
             }
+            .onAppear {
+                viewModel.isLoading = false
+            }
         }
         .accentColor(Colors.white.swiftUIColor)
+
     }
 }
 struct AuthenticationView_Previews: PreviewProvider {

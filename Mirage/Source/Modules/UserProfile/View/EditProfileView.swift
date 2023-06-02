@@ -12,6 +12,7 @@ struct EditProfileView: View {
     @State var gotoEditUserName = false
     @State var gotoEditBio = false
     @State var user: User
+    @ObservedObject private var viewModel = EditUserProfileViewModel()
 
     
     var body: some View {
@@ -20,37 +21,52 @@ struct EditProfileView: View {
                 .edgesIgnoringSafeArea(.all)
                         
             VStack {
-                Button {
-                    print("Edit Image")
-                } label: {
-                    AsyncImage(url: URL(string: user.profileImage)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        ProgressView()
-                            .foregroundColor(Colors.white8p.swiftUIColor)
+                ZStack {
+                    Button {
+                        print("Edit Image")
+                    } label: {
+                        AsyncImage(url: URL(string: user.profileImage)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        } placeholder: {
+                            ProgressView()
+                                .foregroundColor(Colors.white8p.swiftUIColor)
+                        }
+                        .frame(width: 150, height: 150)
+                        .cornerRadius(75)
+                        .clipped()
+
                     }
-                    .frame(width: 150, height: 150)
-                    .cornerRadius(75)
-                    .clipped()
-
-
+                    Images.refresh.swiftUIImage
+                        .padding(.top, 150)
+                    
                 }
                 .padding(.all, 50)
+               
                 
                 VStack(alignment: .leading) {
-                    VStack(spacing: 5) {
-                        Text("UserName")
-                            .font(Font.body)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Text("UserName")
+                                .font(Font.body)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                            Spacer()
 
-                        Text("#" + (user.userName ?? ""))
-                            .font(Font.body)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(Colors.white.swiftUIColor)
+                        }
+                        HStack {
+                            Text(user.userName ?? "")
+                                .font(Font.body)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.white.swiftUIColor)
+                            Spacer()
+                        }
+                        .padding(.leading, 5)
+
                     }
+                    .frame(width: UIScreen.main.bounds.width)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         gotoEditUserName = true
                     }
@@ -58,6 +74,8 @@ struct EditProfileView: View {
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
                     
+                    //Temporarily Hidden for MPV Version
+                    /*
                     VStack(spacing: 5) {
                         Text("Pronouns")
                             .font(Font.body)
@@ -72,10 +90,11 @@ struct EditProfileView: View {
                     }
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
+                    */
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Bio")
-                            .font(Font.body)
+                            .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                         
                         TextEditor(text: $bioText)
@@ -85,6 +104,7 @@ struct EditProfileView: View {
                             .frame(maxHeight: 100)
                         
                     }
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         gotoEditBio = true
                     }
@@ -97,9 +117,9 @@ struct EditProfileView: View {
                 
                 VStack {
                     Button {
-                        
+                        viewModel.signoutUser()
                     } label: {
-                        Text("Signout")
+                        Text("SIGNOUT")
                             .font(Font.body)
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
@@ -123,14 +143,14 @@ struct EditProfileView: View {
             
         }
         .onAppear() {
-            bioText = user.bio ?? ""
+            bioText = user.profileDescription ?? ""
         }
-        .navigationTitle("Edit Profile")
+        .navigationTitle("EDIT PRPFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
             NavigationRoute.updateUser(title: "USERNAME", value: user.userName ?? "", user: user).screen
         }
         .navigationDestination(isPresented: $gotoEditBio) {
-            NavigationRoute.updateUser(title: "BIO", value: user.bio ?? "", user: user).screen
+            NavigationRoute.updateUser(title: "BIO", value: user.profileDescription ?? "", user: user).screen
         }
 
     }

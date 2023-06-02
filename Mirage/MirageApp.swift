@@ -13,10 +13,20 @@ struct MirageApp: App {
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.white.color]
         navBarAppearance.titleTextAttributes = [.foregroundColor: Colors.white.color]
+        navBarAppearance.isTranslucent = true
+        navBarAppearance.tintColor = .clear
+        navBarAppearance.backgroundColor = .clear
+
     }
     var body: some Scene {
         WindowGroup {
             AuthenticationView(phoneNumber: "", isEditing: false)
         }
+    }
+}
+extension UINavigationController {
+    // Remove back button text
+    open override func viewWillLayoutSubviews() {
+        navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }

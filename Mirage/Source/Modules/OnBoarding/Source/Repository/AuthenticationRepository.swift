@@ -35,6 +35,8 @@ extension ApolloRepository: AuthenticationRepository {
         let mutaiton = MirageAPI.VerifyUserMutation(verifyUserInput: input)
         return perform(mutation: mutaiton)
             .map {
+                self.userPropertiesStorage.save($0.verifyUser?.user.id, for: .userId)
+                self.userPropertiesStorage.save($0.verifyUser?.accessToken, for: .accessToken)
                 return ($0.verifyUser?.user.id ?? "", $0.verifyUser?.accessToken ?? "")
             }
             .eraseToAnyPublisher()

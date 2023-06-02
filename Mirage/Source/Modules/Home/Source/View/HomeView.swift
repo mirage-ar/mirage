@@ -123,10 +123,9 @@ struct HomeView: View {
             .navigationDestination(isPresented: $showArView) {
                 NavigationRoute.homeToARCameraView.screen
             }
-            .navigationDestination(isPresented: $showProfileView) {
+            .fullScreenCover(isPresented: $showProfileView, content: {
                 NavigationRoute.myProfile.screen
-            }
-
+            })
         }
         .accentColor(Colors.white.swiftUIColor)
     }

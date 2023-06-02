@@ -11,151 +11,183 @@ struct UserProfileView: View {
     @State var goToSettings = false
     @State var goToEditProfile = false
     @State var ownProfile = true
-    
+    @State var goToHome = false
+    @Environment(\.presentationMode) var presentationMode
+
     @ObservedObject private var viewModel = UserProfileViewModel()
 
     var body: some View {
-        ZStack {
-            VStack {
-                ZStack(alignment: .bottom) {
-                    VStack {
-//                        ZStack {
-//                            HStack {
-//                                Spacer()
-//                                Button {
-//                                    print("Button go to Settings")
-//                                    goToSettings = true
-//                                } label: {
-//                                    Images.settings24.swiftUIImage
-//                                        .resizable()
-//                                        .scaledToFit()
-//
-//                                }
-//                                .frame(width: 24, height: 24)
-//                            }
-//                        }
-
-                        AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
-//                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            ProgressView()
-                                .foregroundColor(Colors.white8p.swiftUIColor)
-                        }
-                        Spacer()
-                    }
-                    .frame(width: UIScreen.main.bounds.width, height: 300, alignment: .top)
-                    .clipped()
-                    
-                    HStack() {
-                        VStack (alignment: .leading) {
-                            Group {
-                                Text("#" + (viewModel.user.userName ?? "NaN"))
-                                    .font(Font.title)
-                                if (ownProfile && viewModel.user.isDescriptionEmpty) {
-                                    Button {
-                                        goToEditProfile = true
-
-                                    } label: {
-                                        Text("Edit Profile")
-                                            .frame(maxWidth: .infinity)
-                                    }
-                                    .background(Colors.white.swiftUIColor)
-                                    .foregroundColor(Colors.black.swiftUIColor)
-                                    .cornerRadius(10)
-                                    .frame(width: 150)
-                                    .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
-                                    
-                                } else {
-                                    Text(viewModel.user.bio ?? "")
-                                        .font(Font.body)
-                                }
+        NavigationStack {
+            ZStack {
+                VStack {
+                    ZStack(alignment: .bottom) {
+                        VStack {
+                            AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
+                                //                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            } placeholder: {
+                                ProgressView()
+                                    .foregroundColor(Colors.white8p.swiftUIColor)
                             }
-                            .foregroundColor(Colors.white.swiftUIColor)
+                            Spacer()
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: 436, alignment: .top)
+                        .clipped()
+                        
+                        HStack() {
+                            VStack (alignment: .leading) {
+                                Group {
+                                    Text(viewModel.user.userName ?? "NaN")
+                                        .font(Font.title)
+                                    if (ownProfile && viewModel.user.isDescriptionEmpty) {
+                                        Button {
+                                            goToEditProfile = true
+                                            
+                                        } label: {
+                                            Text("EDIT PROFILE")
+                                                .frame(maxWidth: .infinity)
+                                        }
+                                        .background(Colors.white.swiftUIColor)
+                                        .foregroundColor(Colors.black.swiftUIColor)
+                                        .cornerRadius(10)
+                                        .frame(width: 150)
+                                        .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
+                                        
+                                    } else {
+                                        Text(viewModel.user.profileDescription ?? "")
+                                            .font(Font.body)
+                                    }
+                                }
+                                .foregroundColor(Colors.white.swiftUIColor)
+                                
+                            }
+                            Spacer()
                             
                         }
-                        Spacer()
-
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
+                        )
+                        .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .bottom)
+                        
                     }
-                    .padding()
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
-                    )
-                    .frame(width: UIScreen.main.bounds.width, height: 80, alignment: .bottom)
+                    .background(Colors.black.swiftUIColor)
                     
-                }
-                .background(Colors.black.swiftUIColor)
-                
-                
-                HStack {
-                    ZStack {
-                        MBMapView()
+                    
+                    HStack {
                         VStack {
-                            HStack(alignment: .top){
-                                Text("Collection")
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(Font.body)
-                                    .multilineTextAlignment(.leading)
-
-                            }
                             ZStack {
-                                Rectangle()
-                                    .cornerRadius(20)
-                                    .foregroundColor(Colors.green.swiftUIColor)
-                                    .frame(width:80, height: 40)
-                                HStack {
-                                    Text("12")
-                                    Images.new16.swiftUIImage
-                                        .renderingMode(.template)
-                                        .foregroundColor(Colors.black.swiftUIColor)
+                                MBMapView()
+                                    .opacity(0.7)
+                                VStack {
+                                    HStack(alignment: .top){
+                                        Text("Collection")
+                                            .foregroundColor(Colors.white.swiftUIColor)
+                                            .font(Font.body)
+                                            .multilineTextAlignment(.leading)
+                                        Spacer()
+                                        
+                                    }
+                                    .padding(.leading, 5)
+                                    .padding(.top, 5)
+                                    Spacer()
+                                    ZStack {
+                                        Rectangle()
+                                            .cornerRadius(20)
+                                            .foregroundColor(Colors.green.swiftUIColor)
+                                            .frame(width:80, height: 40)
+                                        HStack {
+                                            Text("12")
+                                            Images.new16.swiftUIImage
+                                                .renderingMode(.template)
+                                                .foregroundColor(Colors.black.swiftUIColor)
+                                        }
+                                        
+                                    }
+                                    Spacer()
                                 }
                                 
                             }
+                            .frame(maxHeight: 160)
+                            .disabled(true)
+                            .cornerRadius(10)
                         }
-
+                        VStack{
+                            HStack {
+                                Text("Miras")
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(Colors.white.swiftUIColor)
+                                    .font(Font.body)
+                                Spacer()
+                                Text("12")
+                                    .multilineTextAlignment(.trailing)
+                                    .foregroundColor(Colors.white.swiftUIColor)
+                                    .font(Font.body)
+                            }
+                            .padding(.top, -70) //to bind the view at top
+                            .padding(.leading, 5)
+                            Divider()
+                                .overlay(Colors.g3Grey.swiftUIColor)
+                                .padding(.top, -55)
+                                .padding(.leading, 5)
+                            
+                        }
+                        
                     }
-                    .frame(maxHeight: 100)
                     Spacer()
                     HStack {
-                        Text("Miras")
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(Colors.white.swiftUIColor)
-                            .font(Font.body)
                         Spacer()
-                        Text("12")
-                            .multilineTextAlignment(.trailing)
-                            .foregroundColor(Colors.white.swiftUIColor)
-                            .font(Font.body)
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
 
-
+                        } label: {
+                            Images.goHome32.swiftUIImage
+                        }
+                        .padding(.trailing, 30)
+                        
                     }
+                    .padding(.bottom, 50)
+                    
                 }
-                Spacer()
             }
-        }
-        .toolbar {
-            Button {
-                print("Button go to Settings")
-                goToSettings = true
-            } label: {
-                Images.settings24.swiftUIImage
-                    .resizable()
-                    .scaledToFit()
-                
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        print("Button go to Home")
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Images.arrowB24.swiftUIImage
+                            .resizable()
+                            .scaledToFit()
+                        
+                    }
+
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("Button go to Settings")
+                        goToSettings = true
+                    } label: {
+                        Images.settings24.swiftUIImage
+                            .resizable()
+                            .scaledToFit()
+                        
+                    }
+
+                }
+
             }
-            .frame(width: 24, height: 24)
-            
+            .background(Colors.black.swiftUIColor)
+            .navigationDestination(isPresented: $goToSettings) {
+                NavigationRoute.settings(user: viewModel.user).screen
+            }
+            .navigationDestination(isPresented: $goToEditProfile) {
+                NavigationRoute.editProfile(user: .dummyUser()).screen
+            }
+            .edgesIgnoringSafeArea(.all)
         }
-        .background(Colors.black.swiftUIColor)
-        .navigationDestination(isPresented: $goToSettings) {
-            NavigationRoute.settings(user: viewModel.user).screen
-        }
-        .navigationDestination(isPresented: $goToEditProfile) {
-            NavigationRoute.editProfile(user: .dummyUser()).screen
-        }
-        
+        .accentColor(Colors.white.swiftUIColor)
     }
 }
 

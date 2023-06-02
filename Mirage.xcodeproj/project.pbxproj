@@ -95,6 +95,9 @@
 		93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */; };
 		93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */; };
 		93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 93B24F1229B6319E00CCDDB7 /* OrderedCollections */; };
+		93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */; };
+		93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */; };
+		93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
@@ -211,6 +214,9 @@
 		93B24F0A29B61BA700CCDDB7 /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		93B24F0C29B62F0400CCDDB7 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenNetworkRepository.swift; sourceTree = "<group>"; };
+		93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.otf"; sourceTree = "<group>"; };
+		93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPropertiesStorage.swift; sourceTree = "<group>"; };
+		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
@@ -538,6 +544,7 @@
 		9318452B29CB12A000DD07CB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				93B379202A21062D00C6C66C /* Fonts */,
 				9318452C29CB12A000DD07CB /* Colors.xcassets */,
 				9318452D29CB12A000DD07CB /* Assets.xcassets */,
 			);
@@ -714,6 +721,7 @@
 		9331C47C29AF8C0100F8EE72 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				93B379472A210BE700C6C66C /* UserDefaults */,
 				9300624A29E43F0400816C46 /* Managers */,
 				9310E5CE29CDCEB7000E6019 /* Controls */,
 				93B24F0929B61B9D00CCDDB7 /* Constants */,
@@ -832,6 +840,23 @@
 				93B24F0F29B6304800CCDDB7 /* UserTokenNetworkRepository.swift */,
 			);
 			path = Repositeries;
+			sourceTree = "<group>";
+		};
+		93B379202A21062D00C6C66C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		93B379472A210BE700C6C66C /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */,
+				93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		93E2169929B6804100EE907D /* Source */ = {
@@ -1012,6 +1037,7 @@
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
 				9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */,
 				9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */,
+				93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1094,7 @@
 				9310E5EA29D11571000E6019 /* Mira.swift in Sources */,
 				93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */,
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
+				93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
 				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,
@@ -1075,6 +1102,7 @@
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
 				9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */,
 				93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */,
+				93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */,
 				9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */,
@@ -1265,14 +1293,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1284,8 +1313,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1298,14 +1328,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1316,8 +1347,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1466,14 +1498,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1485,8 +1518,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "-D DEV";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1591,14 +1625,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1610,8 +1645,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "-D PROD";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROD;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1716,14 +1752,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = DE2XWR7FHY;
+				DEVELOPMENT_TEAM = 6Z6C6YA37K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mirage AR";
+				INFOPLIST_KEY_CFBundleDisplayName = Mirage;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1735,8 +1772,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "-D STAGING";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

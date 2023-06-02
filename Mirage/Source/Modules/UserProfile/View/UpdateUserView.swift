@@ -17,7 +17,7 @@ struct UpdateUserView: View {
         if title == "BIO" {
             return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: user.userName, bio: value)
         } else {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, bio: user.bio)
+            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, bio: user.profileDescription)
         }
     }
     var body: some View {
@@ -26,7 +26,7 @@ struct UpdateUserView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                if title == "BIO" {
+                if title.uppercased() == "BIO" {
                     TextEditor(text: $value)
                         .foregroundColor(Colors.white.swiftUIColor)
                         .background(.clear)
@@ -58,7 +58,7 @@ struct UpdateUserView: View {
             }
             .padding(.top, 30)
         }
-        .navigationTitle(title)
+        .navigationTitle(title.uppercased())
         .navigationDestination(isPresented: $viewModel.userUpdated) {
             NavigationRoute.editProfile(user: .dummyUser()).screen
         }

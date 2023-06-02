@@ -78,6 +78,7 @@ internal enum Images {
   internal static let rate48 = ImageAsset(name: "rate-48")
   internal static let reaction32 = ImageAsset(name: "reaction-32")
   internal static let refresh24 = ImageAsset(name: "refresh-24")
+  internal static let refresh = ImageAsset(name: "refresh")
   internal static let route24 = ImageAsset(name: "route-24")
   internal static let save24 = ImageAsset(name: "save-24")
   internal static let search16 = ImageAsset(name: "search-16")

@@ -5,6 +5,7 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
       id
       profileImage
       profileImageDesaturated
+    profileDescription
       username
     }
     location {

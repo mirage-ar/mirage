@@ -10,30 +10,38 @@ import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
-
+    static let shared = LocationManager()
     let locationManager = CLLocationManager()
 
     @Published var location: CLLocationCoordinate2D?
 
     override init() {
         super.init()
+        locationManager.desiredAccuracy = 5
         locationManager.delegate = self
+        requestAuthorizationIfNeeded()
     }
 
     func requestLocation() {
-        locationManager.requestLocation()
+        locationManager.requestAlwaysAuthorization()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 
     func requestAuthorizationIfNeeded() {
         if locationManager.authorizationStatus == .authorizedAlways ||
             locationManager.authorizationStatus == .authorizedWhenInUse {
             //we're good.
+            locationManager.startUpdatingLocation()
         } else {
-            locationManager.requestAlwaysAuthorization()
+            requestLocation()
         }
             
     }
