@@ -47,7 +47,7 @@ struct BottomBar: View {
                         stateManager.miraCreateMenuType = .DEFAULT
 
                     } label: {
-                        Image("button-close")
+                        Images.buttonClose.swiftUIImage
                     }
 
 //                        Spacer()
@@ -90,7 +90,7 @@ struct BottomBar: View {
                         stateManager.miraCreateMenuType = .DEFAULT
 
                     } label: {
-                        Image("button-check")
+                        Images.buttonCheck.swiftUIImage
                     }
                 }
             }

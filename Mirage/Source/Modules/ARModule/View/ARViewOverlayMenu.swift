@@ -21,7 +21,8 @@ struct OverlayMenu: View {
                         haptic()
                         stateManager.miraCreateMenuType = .MODIFY
                     } label: {
-                        Image("button-modify")
+//                        Image("button-modify")
+                        Images.buttonModify.swiftUIImage
                             .resizable()
                             .frame(width: 64, height: 64)
                     }
@@ -30,7 +31,7 @@ struct OverlayMenu: View {
                         haptic()
                         stateManager.miraCreateMenuType = .SHAPE
                     } label: {
-                        Image("button-shape")
+                        Images.buttonShape.swiftUIImage
                             .resizable()
                             .frame(width: 64, height: 64)
                     }
@@ -47,7 +48,7 @@ struct OverlayMenu: View {
                             stateManager.removeEntity(entity)
                         }
                     } label: {
-                        Image("button-trash")
+                        Images.buttonTrash.swiftUIImage
                             .resizable()
                             .frame(width: 64, height: 64)
                     }
@@ -106,22 +107,22 @@ struct ShapeButton: View {
     func selectedShape(_ shape: ShapeType) -> Image {
         switch shape {
         case .PLANE:
-            return Image("button-plane-selected")
+            return Images.buttonPlaneSelected.swiftUIImage
         case .CUBE:
-            return Image("button-cube-selected")
+            return Images.buttonCubeSelected.swiftUIImage
         case .SPHERE:
-            return Image("button-sphere-selected")
+            return Images.buttonSphereSelected.swiftUIImage
         }
     }
     
     func unselectedShape(_ shape: ShapeType) -> Image {
         switch shape {
         case .PLANE:
-            return Image("button-plane")
+            return Images.buttonPlane.swiftUIImage
         case .CUBE:
-            return Image("button-cube")
+            return Images.buttonCube.swiftUIImage
         case .SPHERE:
-            return Image("button-sphere")
+            return Images.buttonSphere.swiftUIImage
         }
     }
 }

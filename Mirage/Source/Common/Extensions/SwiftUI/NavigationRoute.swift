@@ -33,8 +33,6 @@ public enum NavigationRoute {
                 HomeView()
             case .homeToARCameraView:
                 ARCameraView()
-                // SAAD - remove environment object here ?
-                    .environmentObject(StateManager.shared)
             case .myProfile:
                 UserProfileView()
             case .settings(let user):

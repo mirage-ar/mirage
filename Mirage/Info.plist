@@ -17,5 +17,7 @@
 		<key>LocationAccuracyAuthorizationDescription</key>
 		<string>Please enable precise location. Turn-by-turn directions only work when precise location data is available.</string>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>AR View</string>
 </dict>
 </plist>

@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct ARCameraView: View {
+    
+    var body: some View {
+        ARCreateViewContainer()
+            .environmentObject(StateManager.shared)
+    }
+}
+
+struct ARCreateViewContainer: View {
     @EnvironmentObject var stateManager: StateManager
     
     var body: some View {

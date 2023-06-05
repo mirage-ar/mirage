@@ -86,7 +86,7 @@ struct ARViewContainer: View {
                                 triggerHapticFeedback()
                                 stateManager.sceneData.showMediaPicker = true
                             }, label: {
-                                Image("button-media")
+                                Images.buttonMedia.swiftUIImage
                             })
                             .padding(20)
                         }
