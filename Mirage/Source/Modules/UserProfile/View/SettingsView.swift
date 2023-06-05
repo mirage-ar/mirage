@@ -52,6 +52,7 @@ struct SettingsView: View {
                 VStack (alignment: .center, spacing: 15) {
                     Button {
                         print("Instagram")
+                        openInstagramPage()
                     } label: {
                         Text("Instagram")
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
@@ -59,6 +60,7 @@ struct SettingsView: View {
 
                     Button {
                         print("Twitter")
+                        openTwitterPage()
                     } label: {
                         Text("Twitter")
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
@@ -66,6 +68,7 @@ struct SettingsView: View {
                     
                     Button {
                         print("Terms and Privacy Policy")
+                        openPrivacyPolicy()
                     } label: {
                         Text("Terms and Privacy Policy")
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
@@ -94,11 +97,36 @@ struct SettingsView: View {
         .navigationDestination(isPresented: $showEditProfile) {
             NavigationRoute.editProfile(user: user).screen
         }
-
-    
-
     }
     
+    private func openPrivacyPolicy() {
+        let webUrl = "http://www.twitter.com/thismirage"
+        openAppUrl(appUrl: "nan", webUrl: webUrl)
+    }
+    
+    private func openTwitterPage() {
+        let appUrl = "twitter://user?screen_name=thismirage"
+        let webUrl = "http://www.twitter.com/thismirage"
+        openAppUrl(appUrl: appUrl, webUrl: webUrl)
+    }
+    private func openInstagramPage() {
+        let appUrl = "instagram://user?username=mirage.ar_"
+        let webUrl = "https://instagram.com/mirage.ar_"
+        openAppUrl(appUrl: appUrl, webUrl: webUrl)
+    }
+    private func openAppUrl(appUrl: String, webUrl: String) {
+        guard let appURL = URL(string: appUrl) else { return }
+        
+        let application = UIApplication.shared
+        
+        if application.canOpenURL(appURL) {
+            application.open(appURL)
+        } else {
+            guard let webURL = URL(string: webUrl) else { return }
+            application.open(webURL)
+        }
+    }
+
 }
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
