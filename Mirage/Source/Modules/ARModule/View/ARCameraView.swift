@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct ARCameraView: View {
+    @EnvironmentObject var stateManager: StateManager
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        GeometryReader { geo in
+            ZStack {
+                Color.black
+                VStack {
+                    ZStack {
+                        ARViewContainer()
+                            .cornerRadius(20)
+                            .edgesIgnoringSafeArea(.top)
+                    }
 
-struct ARCameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        ARCameraView()
+                    BottomBar()
+                        .frame(height: geo.size.height * 0.05)
+                }
+            }
+        }
     }
 }
