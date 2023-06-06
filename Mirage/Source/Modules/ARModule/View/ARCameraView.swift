@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ARCameraView: View {
-    
     var body: some View {
         ARCreateViewContainer()
             .environmentObject(StateManager.shared)
@@ -17,16 +16,22 @@ struct ARCameraView: View {
 
 struct ARCreateViewContainer: View {
     @EnvironmentObject var stateManager: StateManager
-    
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 Color.black
                 VStack {
                     ZStack {
-                        ARViewContainer()
-                            .cornerRadius(20)
-                            .edgesIgnoringSafeArea(.top)
+                        if stateManager.arViewMode == .VIEW {
+                            ARViewContainer()
+                                .cornerRadius(20)
+                                .edgesIgnoringSafeArea(.top)
+                        } else {
+                            ARViewCreateContainer()
+                                .cornerRadius(20)
+                                .edgesIgnoringSafeArea(.top)
+                        }
                     }
 
                     BottomBar()

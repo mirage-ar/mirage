@@ -29,6 +29,11 @@ enum MiraCreateMenuType {
     case SHAPE
 }
 
+enum ARViewMode {
+    case VIEW
+    case CREATE
+}
+
 final class StateManager: ObservableObject {
     static let shared = StateManager()
     
@@ -48,6 +53,9 @@ final class StateManager: ObservableObject {
             self?.objectWillChange.send()
         }
     }
+    
+    @Published var arViewMode: ARViewMode = .VIEW
+    @Published var arViewLocalized: Bool = false
 
     @Published var miraCreateMenuType: MiraCreateMenuType = .DEFAULT
     

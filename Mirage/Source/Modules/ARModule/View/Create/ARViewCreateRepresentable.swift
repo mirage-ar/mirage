@@ -9,7 +9,7 @@ import ARKit
 import RealityKit
 import SwiftUI
 
-struct ARViewRepresentable: UIViewRepresentable {
+struct ARViewCreateRepresentable: UIViewRepresentable {
     @EnvironmentObject var stateManager: StateManager
     let view: ARView
     

@@ -10,6 +10,8 @@ import SwiftUI
 struct BottomBar: View {
     @EnvironmentObject var stateManager: StateManager
 
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         ZStack {
             Color.black
@@ -27,8 +29,38 @@ struct BottomBar: View {
                             .subTitle()
                     }
 
-                } else if stateManager.miraCreateMenuType == .DEFAULT {
-                    // show nothing
+                } else if stateManager.miraCreateMenuType == .DEFAULT || stateManager.arViewMode == .VIEW {
+                    // show close icon
+                    HStack {
+                        if stateManager.arViewMode == .VIEW && stateManager.arViewLocalized == false {
+                            Spacer()
+                            Button {
+                                stateManager.arViewMode = .CREATE
+                            } label: {
+                                Text("SKIP SCAN")
+                                    .foregroundColor(.white)
+                                    .subTitle()
+                            }
+                        } else if stateManager.arViewMode == .CREATE {
+                            if stateManager.arViewLocalized == false {
+                                Images.notInZone24.swiftUIImage
+                            }
+                            Spacer()
+                            Button {
+                                stateManager.arViewMode = .VIEW
+                            } label: {
+                                Images.arExplore24.swiftUIImage
+                            }
+                        }
+                        Spacer()
+                        Button {
+                            // close AR view
+                            presentationMode.wrappedValue.dismiss()
+                            stateManager.arViewMode = .VIEW
+                        } label: {
+                            Images.arrowB24.swiftUIImage
+                        }
+                    }
                 } else {
                     // TODO: adding this as a tempory solution to save
 //                    HStack {
