@@ -121,6 +121,9 @@ struct HomeView: View {
             })
         }
         .accentColor(Colors.white.swiftUIColor)
+        .onAppear {
+            hideKeyboard()
+        }
     }
 }
 
