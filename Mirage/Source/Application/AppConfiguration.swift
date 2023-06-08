@@ -24,7 +24,7 @@ final class AppConfiguration {
 //        #else
 //        environmentConfig = MirageConfig.staging
 //        #endif
-        environmentConfig = MirageConfig.production
+        environmentConfig = MirageConfig.development
         
         let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()

@@ -2,11 +2,12 @@
 # Graph Service - GraphQL Schema
 # Mirage (( v0.2.0 ))
 # ---------------------------------------------------------------------------------
-
 type Mira {
   id: ID!
   creator: User!
   location: Location!
+  arMedia: [ArMedia!]!
+  collectors: [User]
   viewed: Boolean!
   collected: Boolean!
   isFriend: Boolean!
@@ -47,6 +48,7 @@ type ArMedia {
 
 type Position {
   id: ID!
+  transform: [[Float!]!]!
 }
 
 type Modifier {
@@ -98,18 +100,11 @@ type Flag {
 }
 
 type Query {
-  user(input: AuthorizedQueryInput!): User
+  user: User
   getMiras(input: GetMirasQueryInput!): [Mira]
 }
 
-input AuthorizedQueryInput {
-  userId: ID!
-  accessToken: String!
-}
-
 input GetMirasQueryInput {
-  userId: ID!
-  accessToken: String!
   location: LocationInput!
   zoomLevel: Int
 }
@@ -117,12 +112,14 @@ input GetMirasQueryInput {
 input LocationInput {
   latitude: Float!
   longitude: Float!
+  elevation: Float
 }
 
 type Mutation {
   authorizeUser(input: AuthorizationInput!): AuthorizationResult
   verifyUser(input: VerificationInput!): VerificationResult
   updateUser(input: UpdateUserInput!): User
+  addMira(input: AddMiraInput!): Mira
 }
 
 input AuthorizationInput {
@@ -135,11 +132,31 @@ input VerificationInput {
 }
 
 input UpdateUserInput {
-  userId: ID!
-  accessToken: String!
   username: String
   profileImage: String
-  bio: String
+  profileDescription: String
+}
+
+input AddMiraInput {
+  location: LocationInput!
+  arMedia: [ArMediaInput!]!
+}
+
+input ArMediaInput {
+  contentType: ContentType!
+  assetUrl: String!
+  shape: Shape!
+  position: PositionInput!
+  modifier: ModifierInput
+}
+
+input PositionInput {
+  transform: [[Float!]!]!
+}
+
+input ModifierInput {
+  type: ModifierType!
+  amount: Float!
 }
 
 type AuthorizationResult {
