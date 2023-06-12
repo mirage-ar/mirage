@@ -9,8 +9,8 @@ public extension MirageAPI {
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query User($userInput: AuthorizedQueryInput!) {
-          user(input: $userInput) {
+        query User {
+          user {
             __typename
             id
             username
@@ -27,13 +27,7 @@ public extension MirageAPI {
         """#
       ))
 
-    public var userInput: AuthorizedQueryInput
-
-    public init(userInput: AuthorizedQueryInput) {
-      self.userInput = userInput
-    }
-
-    public var __variables: Variables? { ["userInput": userInput] }
+    public init() {}
 
     public struct Data: MirageAPI.SelectionSet {
       public let __data: DataDict
@@ -41,7 +35,7 @@ public extension MirageAPI {
 
       public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("user", User?.self, arguments: ["input": .variable("userInput")]),
+        .field("user", User?.self),
       ] }
 
       public var user: User? { __data["user"] }

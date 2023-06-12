@@ -11,14 +11,14 @@ import CoreLocation
 
 protocol MapApolloRepository {
     
-    func getMiras(location: CLLocationCoordinate2D, userId: String, accessToken: String) -> AnyPublisher<Array<Mira>?, Error>
+    func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int) -> AnyPublisher<Array<Mira>?, Error>
 
 }
 
 extension ApolloRepository: MapApolloRepository {
-    func getMiras(location: CLLocationCoordinate2D, userId: String, accessToken: String) -> AnyPublisher<Array<Mira>?, Error> {
+    func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int = 7) -> AnyPublisher<Array<Mira>?, Error> {
         let locationInput = MirageAPI.LocationInput(latitude: location.latitude, longitude: location.longitude)
-        let input = MirageAPI.GetMirasQueryInput(userId: userId, accessToken: accessToken, location: locationInput)
+        let input = MirageAPI.GetMirasQueryInput(location: locationInput, zoomLevel: GraphQLNullable<Int>(integerLiteral: zoomLevel))
         let query = MirageAPI.GetMirasQuery(getMirasQueryInput: input)
         return fetch(query: query)
             .map {

@@ -73,7 +73,6 @@
 		9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633429F018C1005B1F3E /* GetMiras.graphql */; };
 		9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633629F01C9B005B1F3E /* UpdateUser.graphql */; };
 		9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */; };
-		9392633D29F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633929F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift */; };
 		9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */; };
 		9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634029F01FF5005B1F3E /* Location.graphql.swift */; };
 		9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634129F01FF5005B1F3E /* Mira.graphql.swift */; };
@@ -194,7 +193,6 @@
 		9392633429F018C1005B1F3E /* GetMiras.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetMiras.graphql; sourceTree = "<group>"; };
 		9392633629F01C9B005B1F3E /* UpdateUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpdateUser.graphql; sourceTree = "<group>"; };
 		9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationInput.graphql.swift; sourceTree = "<group>"; };
-		9392633929F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizedQueryInput.graphql.swift; sourceTree = "<group>"; };
 		9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserInput.graphql.swift; sourceTree = "<group>"; };
 		9392634029F01FF5005B1F3E /* Location.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.graphql.swift; sourceTree = "<group>"; };
 		9392634129F01FF5005B1F3E /* Mira.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mira.graphql.swift; sourceTree = "<group>"; };
@@ -647,7 +645,6 @@
 			isa = PBXGroup;
 			children = (
 				931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */,
-				9392633929F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift */,
 				9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */,
 				93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */,
 				9392633A29F01FD5005B1F3E /* UpdateUserInput.graphql.swift */,
@@ -1123,7 +1120,6 @@
 				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
 				93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */,
 				9310E5E829D10955000E6019 /* HomeView.swift in Sources */,
-				9392633D29F01FD5005B1F3E /* AuthorizedQueryInput.graphql.swift in Sources */,
 				9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */,
 				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
 				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,

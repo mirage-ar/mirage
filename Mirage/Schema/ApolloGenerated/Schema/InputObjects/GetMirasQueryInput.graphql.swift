@@ -12,27 +12,13 @@ public extension MirageAPI {
     }
 
     public init(
-      userId: ID,
-      accessToken: String,
       location: LocationInput,
       zoomLevel: GraphQLNullable<Int> = nil
     ) {
       __data = InputDict([
-        "userId": userId,
-        "accessToken": accessToken,
         "location": location,
         "zoomLevel": zoomLevel
       ])
-    }
-
-    public var userId: ID {
-      get { __data["userId"] }
-      set { __data["userId"] = newValue }
-    }
-
-    public var accessToken: String {
-      get { __data["accessToken"] }
-      set { __data["accessToken"] = newValue }
     }
 
     public var location: LocationInput {

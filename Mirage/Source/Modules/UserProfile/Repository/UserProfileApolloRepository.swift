@@ -20,7 +20,7 @@ extension ApolloRepository: UserProfileApolloRepository {
     
     func updateUser(user: User) -> AnyPublisher<User, Error> {
         
-        let input = MirageAPI.UpdateUserInput(userId: user.id, accessToken: "1", username: user.userName ?? "" , profileDescription: user.profileDescription ?? "") //?? part is just to avoid error.
+        let input = MirageAPI.UpdateUserInput(username: user.userName ?? "" , profileDescription: user.profileDescription ?? "") //?? part is just to avoid error.
         let mutaiton = MirageAPI.UpdateUserMutation(updateUserInput: input)
         return perform(mutation: mutaiton)
             .map {
@@ -32,9 +32,7 @@ extension ApolloRepository: UserProfileApolloRepository {
     
     func getUser(id: String, accessToken: String) -> AnyPublisher<User, Error> {
                 
-        let input = MirageAPI.AuthorizedQueryInput (userId: id, accessToken: accessToken)
-        
-        let query = MirageAPI.UserQuery(userInput: input)
+        let query = MirageAPI.UserQuery()
         return fetch(query: query)
             .map {
                 //TODO: update to user model

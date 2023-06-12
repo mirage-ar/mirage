@@ -1,5 +1,5 @@
-query User($userInput: AuthorizedQueryInput!) {
-  user(input: $userInput) {
+query User {
+  user {
     id
     username
     phone

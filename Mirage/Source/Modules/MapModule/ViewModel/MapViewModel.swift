@@ -17,11 +17,11 @@ final class MapViewModel: ObservableObject {
     let mapApolloRepository: MapApolloRepository = AppConfiguration.shared.apollo
 
     init() {
-        getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), userId: "0", accessToken: "0")
+        getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
     }
 
-    func getMiras(location: CLLocationCoordinate2D, userId: String, accessToken: String) {
-        mapApolloRepository.getMiras(location: location, userId: userId, accessToken: accessToken)
+    func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int) {
+        mapApolloRepository.getMiras(location: location, zoomLevel: zoomLevel)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel(receiveOutput: { miras in
                 self.miras = miras

@@ -12,29 +12,15 @@ public extension MirageAPI {
     }
 
     public init(
-      userId: ID,
-      accessToken: String,
       username: GraphQLNullable<String> = nil,
       profileImage: GraphQLNullable<String> = nil,
       profileDescription: GraphQLNullable<String> = nil
     ) {
       __data = InputDict([
-        "userId": userId,
-        "accessToken": accessToken,
         "username": username,
         "profileImage": profileImage,
         "profileDescription": profileDescription
       ])
-    }
-
-    public var userId: ID {
-      get { __data["userId"] }
-      set { __data["userId"] = newValue }
-    }
-
-    public var accessToken: String {
-      get { __data["accessToken"] }
-      set { __data["accessToken"] = newValue }
     }
 
     public var username: GraphQLNullable<String> {
