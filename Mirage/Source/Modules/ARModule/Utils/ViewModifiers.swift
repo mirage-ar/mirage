@@ -74,26 +74,3 @@ struct UISliderView: UIViewRepresentable {
         uiView.value = Float(value)
     }
 }
-
-struct SubTitle: ViewModifier {
-    func body(content: Content) -> some View {
-        content.font(.custom("ABCDiatypeMonoUnlicensedTrial-Regular", fixedSize: 16.0))
-    }
-}
-
-struct FontBody: ViewModifier {
-    func body(content: Content) -> some View {
-        content.font(.custom("ABCDiatypeMonoUnlicensedTrial-Regular", fixedSize: 14.0))
-    }
-}
-
-extension View {
-    
-    func subTitle() -> some View {
-        self.modifier(SubTitle())
-    }
-    
-    func fontBody() -> some View {
-        self.modifier(FontBody())
-    }
-}

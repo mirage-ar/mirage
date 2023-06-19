@@ -15,8 +15,8 @@
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
 		39BD18EF2A2D081000A9F95C /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18EE2A2D081000A9F95C /* GestureHandler.swift */; };
 		39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F02A2D081D00A9F95C /* MediaPicker.swift */; };
-		39BD18F32A2D083B00A9F95C /* Migrate-ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F22A2D083B00A9F95C /* Migrate-ViewModifiers.swift */; };
-		39BD18F52A2D085000A9F95C /* Migrate-Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F42A2D085000A9F95C /* Migrate-Helpers.swift */; };
+		39BD18F32A2D083B00A9F95C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */; };
+		39BD18F52A2D085000A9F95C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F42A2D085000A9F95C /* Helpers.swift */; };
 		39BD18F92A2D087700A9F95C /* ARSceneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F82A2D087700A9F95C /* ARSceneData.swift */; };
 		39BD18FB2A2D089100A9F95C /* ARViewBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18FA2A2D089100A9F95C /* ARViewBottomBar.swift */; };
 		39BD18FD2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18FC2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift */; };
@@ -152,8 +152,8 @@
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		39BD18EE2A2D081000A9F95C /* GestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		39BD18F02A2D081D00A9F95C /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
-		39BD18F22A2D083B00A9F95C /* Migrate-ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Migrate-ViewModifiers.swift"; sourceTree = "<group>"; };
-		39BD18F42A2D085000A9F95C /* Migrate-Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Migrate-Helpers.swift"; sourceTree = "<group>"; };
+		39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		39BD18F42A2D085000A9F95C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		39BD18F82A2D087700A9F95C /* ARSceneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARSceneData.swift; path = Mirage/Source/Modules/ARModule/ViewModel/ARSceneData.swift; sourceTree = SOURCE_ROOT; };
 		39BD18FA2A2D089100A9F95C /* ARViewBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewBottomBar.swift; sourceTree = "<group>"; };
 		39BD18FC2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewModifierMenu.swift.swift; sourceTree = "<group>"; };
@@ -350,8 +350,8 @@
 			children = (
 				39BD18EE2A2D081000A9F95C /* GestureHandler.swift */,
 				39BD18F02A2D081D00A9F95C /* MediaPicker.swift */,
-				39BD18F22A2D083B00A9F95C /* Migrate-ViewModifiers.swift */,
-				39BD18F42A2D085000A9F95C /* Migrate-Helpers.swift */,
+				39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */,
+				39BD18F42A2D085000A9F95C /* Helpers.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1123,7 +1123,7 @@
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
 				93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */,
 				93E216A529B6807900EE907D /* AuthenticationRepository.swift in Sources */,
-				39BD18F52A2D085000A9F95C /* Migrate-Helpers.swift in Sources */,
+				39BD18F52A2D085000A9F95C /* Helpers.swift in Sources */,
 				93B24F0B29B61BA700CCDDB7 /* AppNotification.swift in Sources */,
 				39BD19032A2D08D000A9F95C /* ARViewRepresentable.swift in Sources */,
 				9318454529CB188700DD07CB /* ColorAsset+Extension.swift in Sources */,
@@ -1192,7 +1192,7 @@
 				9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */,
 				936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */,
 				39BD18FD2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift in Sources */,
-				39BD18F32A2D083B00A9F95C /* Migrate-ViewModifiers.swift in Sources */,
+				39BD18F32A2D083B00A9F95C /* ViewModifiers.swift in Sources */,
 				93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */,
 				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,
 				93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */,

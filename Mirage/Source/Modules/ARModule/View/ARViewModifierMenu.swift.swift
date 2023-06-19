@@ -19,7 +19,7 @@ struct ARViewModifierMenu: View {
             } label: {
                 Text("W/O")
                     .foregroundColor(viewModel.sceneData.selectedModifier == .NONE ? .white : .gray)
-                    .subTitle()
+                    .font(Font.body)
             }
             .padding(.trailing)
             
@@ -37,7 +37,7 @@ struct ARViewModifierMenu: View {
             } label: {
                 Text("SPIN")
                     .foregroundColor(viewModel.sceneData.selectedModifier == .SPIN ? .white : .gray)
-                    .subTitle()
+                    .font(Font.body)
             }
             .padding(.leading)
             
