@@ -8,66 +8,85 @@
 import SwiftUI
 
 struct ARViewOverlayMenu: View {
-    @EnvironmentObject var stateManager: StateManager
+    @StateObject var viewModel: ARViewModel
+    
     let generator = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
-        switch stateManager.miraCreateMenuType {
-        case .DEFAULT:
-            ZStack {
-                HStack {
-                    Spacer()
-                    Button {
-                        haptic()
-                        stateManager.miraCreateMenuType = .MODIFY
-                    } label: {
-//                        Image("button-modify")
-                        Images.buttonModify.swiftUIImage
-                            .resizable()
-                            .frame(width: 64, height: 64)
-                    }
+        if viewModel.arViewMode == .CREATE {
+            if viewModel.sceneData.selectedEntity != nil {
+                switch viewModel.miraCreateMenuType {
+                case .DEFAULT:
+                    ZStack {
+                        HStack {
+                            Spacer()
+                            Button {
+                                haptic()
+                                viewModel.miraCreateMenuType = .MODIFY
+                            } label: {
+                                //                        Image("button-modify")
+                                Images.buttonModify.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 64, height: 64)
+                            }
+                        
+                            Button {
+                                haptic()
+                                viewModel.miraCreateMenuType = .SHAPE
+                            } label: {
+                                Images.buttonShape.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 64, height: 64)
+                            }
+                            Spacer()
+                        }
                     
-                    Button {
-                        haptic()
-                        stateManager.miraCreateMenuType = .SHAPE
-                    } label: {
-                        Images.buttonShape.swiftUIImage
-                            .resizable()
-                            .frame(width: 64, height: 64)
+                        HStack {
+                            Spacer()
+                        
+                            Button {
+                                haptic()
+                            
+                                if let entity = viewModel.sceneData.selectedEntity?.entity {
+                                    viewModel.removeEntity(entity)
+                                }
+                            } label: {
+                                Images.buttonTrash.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 64, height: 64)
+                            }
+                        }
                     }
-                    Spacer()
+                
+                case .MODIFY:
+                    HStack {
+                        Image("none") // TODO: add slider
+                    }
+                
+                case .SHAPE:
+                    HStack {
+                        ShapeButton(shape: .PLANE, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                    
+                        ShapeButton(shape: .CUBE, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                    
+                        ShapeButton(shape: .SPHERE, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                    }
                 }
-                    
+            } else {
                 HStack {
                     Spacer()
                         
-                    Button {
-                        haptic()
-                            
-                        if let entity = stateManager.sceneData.selectedEntity?.entity {
-                            stateManager.removeEntity(entity)
-                        }
-                    } label: {
-                        Images.buttonTrash.swiftUIImage
-                            .resizable()
-                            .frame(width: 64, height: 64)
-                    }
+                    Button(action: {
+                        viewModel.triggerHapticFeedback()
+                        viewModel.sceneData.showMediaPicker = true
+                    }, label: {
+                        Images.buttonMedia.swiftUIImage
+                    })
+                    .padding(16)
                 }
             }
-            
-        case .MODIFY:
-            HStack {
-                Image("none") // TODO: add slider
-            }
-            
-        case .SHAPE:
-            HStack {
-                ShapeButton(shape: .PLANE, enabledShape: $stateManager.sceneData.selectedShape, buttonAction: stateManager.applyShape)
-                
-                ShapeButton(shape: .CUBE, enabledShape: $stateManager.sceneData.selectedShape, buttonAction: stateManager.applyShape)
-                
-                ShapeButton(shape: .SPHERE, enabledShape: $stateManager.sceneData.selectedShape, buttonAction: stateManager.applyShape)
-            }
+        } else if viewModel.selectedMira != nil {
+            ARViewSocialMenu()
         }
     }
     

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ARCameraView: View {
+struct ARViewCamera: View {
     @ObservedObject private var viewModel = ARViewModel()
 
     var body: some View {

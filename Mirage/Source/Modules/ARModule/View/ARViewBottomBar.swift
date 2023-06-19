@@ -7,126 +7,141 @@
 
 import SwiftUI
 
-struct BottomBar: View {
-    @EnvironmentObject var stateManager: StateManager
+struct ARViewBottomBar: View {
+    @StateObject var viewModel: ARViewModel
 
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        ZStack {
-            Color.black
-                .edgesIgnoringSafeArea(.bottom)
+        GeometryReader { geometry in
+            ZStack {
+                Color.black
+                    .edgesIgnoringSafeArea(.bottom)
 
-            HStack {
-                // Left Button
-                if stateManager.miraCreateMenuType == .DEFAULT && stateManager.sceneData.selectedEntity != nil {
-                    Spacer()
-                    Button {
-                        stateManager.sceneData.selectedEntity = nil
-                    } label: {
-                        Text("DONE")
-                            .foregroundColor(.white)
-                            .subTitle()
-                    }
-
-                } else if stateManager.miraCreateMenuType == .DEFAULT || stateManager.arViewMode == .EXPLORE {
-                    // show close icon
+                HStack(spacing: 0) {
+                    // LEFT BUTTON
                     HStack {
-                        if stateManager.arViewMode == .EXPLORE && stateManager.arViewLocalized == false {
-                            Spacer()
-                            Button {
-                                stateManager.arViewMode = .CREATE
-                            } label: {
-                                Text("SKIP SCAN")
-                                    .foregroundColor(.white)
-                                    .subTitle()
-                            }
-                        } else if stateManager.arViewMode == .CREATE {
-                            if stateManager.arViewLocalized == false {
+                        if viewModel.arViewMode == .CREATE {
+                            if viewModel.miraCreateMenuType != .DEFAULT {
+                                Button {
+                                    if viewModel.miraCreateMenuType == .MODIFY {
+                                        viewModel.sceneData.selectedModifier = viewModel.sceneData.previousModifier
+                                        viewModel.removeModifier(.SPIN)
+                                    }
+                                    
+                                    if viewModel.miraCreateMenuType == .SHAPE {
+                                        viewModel.sceneData.selectedShape = viewModel.sceneData.previousShape
+                                        viewModel.revertShape(viewModel.sceneData.previousShape)
+                                    }
+                                    
+                                    viewModel.miraCreateMenuType = .DEFAULT
+                                    
+                                } label: {
+                                    Images.buttonClose.swiftUIImage
+                                }
+                            } else if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil {
+                                Button {
+                                    print("UPDATE: Cancel current Mira create")
+                                    viewModel.currentMira = nil
+                                    viewModel.removeAllMedia()
+                                } label: {
+                                    Text("CANCEL")
+                                        .foregroundColor(.white)
+                                        .font(Font.body)
+                                }
+                            } else if viewModel.arViewLocalized == false && viewModel.sceneData.selectedEntity == nil {
                                 Images.notInZone24.swiftUIImage
                             }
+                        } else {
                             Spacer()
-                            Button {
-                                stateManager.arViewMode = .EXPLORE
-                            } label: {
-                                Images.arExplore24.swiftUIImage
+                        }
+                        
+                        Spacer()
+                    }
+                    .frame(width: geometry.size.width / 3)
+
+                    // Middle Section
+                    HStack {
+                        if viewModel.arViewMode == .EXPLORE {
+                            if viewModel.arViewLocalized == false {
+                                Button {
+                                    viewModel.arViewMode = .CREATE
+                                } label: {
+                                    Text("SKIP SCAN")
+                                        .foregroundColor(.white)
+                                        .font(Font.body)
+                                }
+                            } else {
+                                Button {
+                                    viewModel.arViewMode = .CREATE
+                                } label: {
+                                    Images.arCreate24.swiftUIImage
+                                }
+                            }
+                        } else { // viewModel.arViewMode == .CREATE
+                            if viewModel.miraCreateMenuType == .MODIFY {
+                                ARViewModifierMenu(viewModel: viewModel)
+                            } else if viewModel.miraCreateMenuType == .SHAPE {
+                                Text("SHAPE")
+                                    .foregroundColor(.white)
+                                    .font(Font.body)
+                            } else if viewModel.currentMira == nil {
+                                Button {
+                                    viewModel.arViewMode = .EXPLORE
+                                } label: {
+                                    Images.arExplore24.swiftUIImage
+                                }
+                            } else {
+                                Spacer()
                             }
                         }
+                    }
+                    .frame(width: geometry.size.width / 3)
+
+                    // Right Section
+                    HStack {
                         Spacer()
-                        Button {
-                            // close AR view
-                            presentationMode.wrappedValue.dismiss()
-                            stateManager.arViewMode = .EXPLORE
-                        } label: {
-                            Images.arrowB24.swiftUIImage
+                        if viewModel.miraCreateMenuType == .MODIFY || viewModel.miraCreateMenuType == .SHAPE {
+                            Button {
+                                if viewModel.miraCreateMenuType == .MODIFY {
+                                    viewModel.sceneData.previousModifier = viewModel.sceneData.selectedModifier
+                                }
+                                
+                                if viewModel.miraCreateMenuType == .SHAPE {
+                                    viewModel.sceneData.previousShape = viewModel.sceneData.selectedShape
+                                }
+                                
+                                viewModel.miraCreateMenuType = .DEFAULT
+                                
+                            } label: {
+                                Images.buttonCheck.swiftUIImage
+                            }
+                        } else if viewModel.miraCreateMenuType == .DEFAULT && viewModel.sceneData.selectedEntity != nil {
+                            Button {
+                                viewModel.sceneData.selectedEntity = nil
+                            } label: {
+                                Text("DONE")
+                                    .foregroundColor(.white)
+                                    .font(Font.body)
+                            }
+                            
+                        } else if viewModel.currentMira == nil {
+                            Button {
+                                // close AR view
+                                presentationMode.wrappedValue.dismiss()
+                                viewModel.arViewMode = .EXPLORE
+                            } label: {
+                                Images.arrowB24.swiftUIImage
+                            }
+                        
+                        } else {
+                            Spacer()
                         }
                     }
-                } else {
-                    // TODO: adding this as a tempory solution to save
-//                    HStack {
-
-                    Button {
-                        if stateManager.miraCreateMenuType == .MODIFY {
-                            stateManager.sceneData.selectedModifier = stateManager.sceneData.previousModifier
-                            stateManager.removeModifier(.SPIN)
-                        }
-
-                        if stateManager.miraCreateMenuType == .SHAPE {
-                            stateManager.sceneData.selectedShape = stateManager.sceneData.previousShape
-                            stateManager.revertShape(stateManager.sceneData.previousShape)
-                        }
-
-                        stateManager.miraCreateMenuType = .DEFAULT
-
-                    } label: {
-                        Images.buttonClose.swiftUIImage
-                    }
-
-//                        Spacer()
-//
-//                        Button {
-//                            print("Save Mira")
-//                        } label: {
-//                            Text("Save")
-//                        }
-//
-//                    }
-                }
-
-//                Spacer()
-
-                // Middle Section
-                if stateManager.miraCreateMenuType == .MODIFY {
-                    Spacer()
-                    ModifierMenu()
-                    Spacer()
-                } else if stateManager.miraCreateMenuType == .SHAPE {
-                    Spacer()
-                    Text("SHAPE")
-                        .foregroundColor(.white)
-                        .subTitle()
-                    Spacer()
-                }
-
-                // Right Button
-                if stateManager.miraCreateMenuType == .MODIFY || stateManager.miraCreateMenuType == .SHAPE {
-                    Button {
-                        if stateManager.miraCreateMenuType == .MODIFY {
-                            stateManager.sceneData.previousModifier = stateManager.sceneData.selectedModifier
-                        }
-
-                        if stateManager.miraCreateMenuType == .SHAPE {
-                            stateManager.sceneData.previousShape = stateManager.sceneData.selectedShape
-                        }
-
-                        stateManager.miraCreateMenuType = .DEFAULT
-
-                    } label: {
-                        Images.buttonCheck.swiftUIImage
-                    }
+                    .frame(width: geometry.size.width / 3)
                 }
             }
-            .padding([.leading, .trailing])
         }
+        .padding([.leading, .trailing])
     }
 }

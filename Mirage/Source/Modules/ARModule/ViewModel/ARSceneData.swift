@@ -23,7 +23,6 @@ struct MediaEntity {
     var entity: Entity
     var height: Float
     var width: Float
-//    var type: MediaEntityType
     var shape: ShapeType
     var modifier: ModifierType
     
