@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OverlayMenu: View {
+struct ARViewOverlayMenu: View {
     @EnvironmentObject var stateManager: StateManager
     let generator = UIImpactFeedbackGenerator(style: .medium)
 

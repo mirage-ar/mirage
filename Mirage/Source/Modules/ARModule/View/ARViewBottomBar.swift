@@ -29,10 +29,10 @@ struct BottomBar: View {
                             .subTitle()
                     }
 
-                } else if stateManager.miraCreateMenuType == .DEFAULT || stateManager.arViewMode == .VIEW {
+                } else if stateManager.miraCreateMenuType == .DEFAULT || stateManager.arViewMode == .EXPLORE {
                     // show close icon
                     HStack {
-                        if stateManager.arViewMode == .VIEW && stateManager.arViewLocalized == false {
+                        if stateManager.arViewMode == .EXPLORE && stateManager.arViewLocalized == false {
                             Spacer()
                             Button {
                                 stateManager.arViewMode = .CREATE
@@ -47,7 +47,7 @@ struct BottomBar: View {
                             }
                             Spacer()
                             Button {
-                                stateManager.arViewMode = .VIEW
+                                stateManager.arViewMode = .EXPLORE
                             } label: {
                                 Images.arExplore24.swiftUIImage
                             }
@@ -56,7 +56,7 @@ struct BottomBar: View {
                         Button {
                             // close AR view
                             presentationMode.wrappedValue.dismiss()
-                            stateManager.arViewMode = .VIEW
+                            stateManager.arViewMode = .EXPLORE
                         } label: {
                             Images.arrowB24.swiftUIImage
                         }
