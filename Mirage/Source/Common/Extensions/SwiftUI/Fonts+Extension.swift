@@ -91,6 +91,17 @@ extension FontConvertible.Font {
             return font.just(size: size)
         }
     }
+    
+    static func customUIKit(type: FontType) -> UIFont {
+        switch type {
+        case .custom(let font, let size):
+            return font.font(size: size)
+        default:
+            return DiaTypeMono.regular.font(size: type.size)
+
+        }
+
+    }
 }
 
 extension FontConvertible {
