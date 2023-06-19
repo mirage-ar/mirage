@@ -20,7 +20,11 @@ struct MirageApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            AuthenticationView(phoneNumber: "", isEditing: false)
+            if let _ = DefaultUserTokenService().getAccessToken() {
+                HomeView()
+            } else {
+                AuthenticationView(phoneNumber: "", isEditing: false)
+            }
         }
     }
 }

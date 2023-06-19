@@ -53,7 +53,7 @@ struct MBMapView: UIViewRepresentable {
     func loadMiras() {
         if !viewModel.isLoading {
             viewState = .fetching
-            viewModel.getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), userId: "0", accessToken: "0")
+            viewModel.getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
         }
     }
     
@@ -61,7 +61,9 @@ struct MBMapView: UIViewRepresentable {
         guard let miras = viewModel.miras else { return } //server data
 //        let miras = Mira.dummyMiras() //commented for dummy miras
         
+        
         mapView.viewAnnotations.removeAll()
+        let userLocation = LocationManager.shared.location
         for mira in miras {
             let options = ViewAnnotationOptions(
                 geometry: Point(mira.location),
@@ -70,13 +72,15 @@ struct MBMapView: UIViewRepresentable {
                 allowOverlap: true,
                 anchor: .center
             )
-            try? mapView.viewAnnotations.add(annotationView(mira: mira), options: options)
+            try? mapView.viewAnnotations.add(annotationView(mira: mira, sourceLocation: userLocation), options: options)
         }
         
     }
 
     
-    private func annotationView(mira: Mira) -> UIView {
+    private func annotationView(mira: Mira, sourceLocation: CLLocationCoordinate2D?) -> UIView {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 40))
+
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         imageView.layer.cornerRadius = imageView.bounds.width/2
         imageView.layer.masksToBounds = true
@@ -85,8 +89,60 @@ struct MBMapView: UIViewRepresentable {
             imageView.layer.borderColor = Colors.green.color.cgColor
         }
         imageView.setImage(from: mira.imageUrl)
-        return imageView
+        view.addSubview(imageView)
+        
+        let descriptionView = UIView(frame: CGRect(x: 45, y: 0, width: 100, height: 40))
+        descriptionView.backgroundColor = Colors.g1DarkGrey.color
+        descriptionView.layer.cornerRadius = 10
+        descriptionView.clipsToBounds = true
+        descriptionView.layer.maskedCorners = [.layerMaxXMaxYCorner]
+        
+        let nameLabel = UILabel(frame: CGRect(x: 5, y: 0, width: 80, height: 20))
+        nameLabel.text = mira.creator.userName
+        nameLabel.setFont(.body3, textColor: Colors.white)
+        descriptionView.addSubview(nameLabel)
+        
+        let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 20))
+        distanceLabel.textColor = Colors.white.color
+        distanceLabel.setFont(.body3, textColor: Colors.white)
+
+        if let userCoordinates = sourceLocation {
+            let userLocation = CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)
+            let miraLocation = CLLocation(latitude: mira.location.latitude, longitude: mira.location.longitude)
+            let distance = userLocation.distance(from: miraLocation)
+            distanceLabel.text = distanceString(distance: distance)
+        } else {
+            distanceLabel.text = "nan"
+        }
+ 
+        let collecedMiraIconView = UIImageView(image: Images.new16.image)
+        collecedMiraIconView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        collecedMiraIconView.contentMode = .scaleAspectFit
+        
+        let collectedMiraCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
+        collectedMiraCountLabel.text = "12"
+        collectedMiraCountLabel.setFont(.body3, textColor: Colors.white)
+        
+        let stack = UIStackView(arrangedSubviews: [distanceLabel, collecedMiraIconView, collectedMiraCountLabel])
+        stack.axis = .horizontal
+        stack.spacing = 5
+        stack.distribution = .equalCentering
+        stack.frame = CGRect(x: 5, y: 20, width: 80, height: 20)
+        descriptionView.addSubview(stack)
+        
+        view.addSubview(descriptionView)
+        
+        return view
     }
+    
+    func distanceString(distance: Double) -> String {
+        if distance >= 1000 {
+            return "\((distance/1000).formattedStringValue)" + "km"
+        } else {
+            return "\(distance.clean)m"
+        }
+    }
+
     enum ViewState: Int {
         case empty = 1, fetching, updating, updated
     }

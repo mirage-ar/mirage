@@ -56,10 +56,10 @@ struct VerifyPhoneNumberView: View {
                         ActivityIndicator(color: Colors.white.just, size: 50)
                     } else {
                         LargeButton(title: "DONE") {
-                            hideKeyboard()
-                            viewModel.verifyUserSuccess = true // temp for quick navigation
                             if code.joined().count == 4 {
                                 viewModel.verifyUser(number: phoneNumber, code: code.joined())
+                            } else {
+                                viewModel.verifyUserSuccess = true // temp for quick navigation
                             }
                         }
                     }

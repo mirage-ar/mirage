@@ -12,6 +12,11 @@
 	<string>pk.eyJ1IjoiZmlpZ21udCIsImEiOiJjbDBkcXRwOHcwOWw0M2RrOWMydjhpN2o3In0.I6nZZg9gLK-ozUy4zRuZdQ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your precise location is used to calculate turn-by-turn directions, show your location on the map, and help improve the map.</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>instagram</string>
+        <string>twitter</string>
+    </array>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
 		<key>LocationAccuracyAuthorizationDescription</key>
