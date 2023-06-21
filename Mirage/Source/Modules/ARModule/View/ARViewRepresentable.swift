@@ -67,7 +67,7 @@ struct ARViewRepresentable: UIViewRepresentable {
                 let newTranslationGesture = arView.installGestures(.translation, for: entity).first
                 viewModel.sceneData.selectedEntity?.translationGesture = newTranslationGesture
                 
-                triggerHapticFeedback()
+                viewModel.triggerHapticFeedback()
                 
             } else if distance < multiplier, !selectedEntity.withinBounds {
                 viewModel.sceneData.selectedEntity?.withinBounds = true
@@ -163,12 +163,4 @@ struct ARViewRepresentable: UIViewRepresentable {
             return false
         }
     }
-    
-    // TODO: move haptic feedback to viewModel
-    func triggerHapticFeedback() {
-        generator.prepare()
-        generator.impactOccurred()
-    }
 }
-
-// TODO: I found removing gestureRecognizers from the arView mandatory also when removing an object from the scene because otherwise it isn't released from memory and thus it increases the app's footprint.

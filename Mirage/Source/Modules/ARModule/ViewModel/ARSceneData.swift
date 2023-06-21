@@ -20,12 +20,15 @@ enum MediaEntityType {
 }
 
 struct MediaEntity {
-    var entity: Entity
+    let entity: Entity
     var height: Float
     var width: Float
     var shape: ShapeType
     var modifier: ModifierType
+    var transform: SIMD3<Float>
+    var contentType: ARMediaContentType
     
+    // needed for create flow
     var withinBounds: Bool = true
     var translationGesture: EntityGestureRecognizer?
     

@@ -53,11 +53,14 @@ final class ARViewModel: ObservableObject {
     
     @Published var currentMira: Mira?
     
-    func initializeMira() {
+    func initializeMira(_ mediaEntity: MediaEntity) {
         print("UPDATE: Initialize Mira")
         // TODO: update to current creator
         if let location = LocationManager.shared.location {
             let creator = Mira.Creator(id: UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test")
+            
+            
+//            let arMedia = ARMedia(id: UUID().uuidString, contentType: mediaEntity.contentType., assetUrl: , shape: <#T##ShapeType#>, modifier: <#T##ModifierType#>, position: <#T##String#>)
             let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator)
             currentMira = mira
         } else {
@@ -79,11 +82,6 @@ final class ARViewModel: ObservableObject {
         sceneData.setupGestureHandler(arView: arView)
     }
     
-    func triggerHapticFeedback() {
-        generator.prepare()
-        generator.impactOccurred()
-    }
-    
     func removeAllMedia() {
         for mediaEntity in sceneData.mediaEntities {
             removeEntity(mediaEntity)
@@ -91,12 +89,13 @@ final class ARViewModel: ObservableObject {
     }
     
     // Create ARMedia Entities
-    func createImageEntity(_ image: UIImage, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> AnchorEntity? {        
+    func createImageEntity(_ image: UIImage, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> (AnchorEntity?, MediaEntity)? {
         do {
             let imageOrientation = image.imageOrientation
             
             let rotatedImage = image.rotated(to: imageOrientation)
-            let anchor = AnchorEntity(world: cameraPosition + cameraOrientation.act(forwardVector))
+            let transform: SIMD3<Float> = cameraPosition + cameraOrientation.act(forwardVector)
+            let anchor = AnchorEntity(world: transform)
             
             // Use the rotated image to create the material and model entity
             var material = UnlitMaterial()
@@ -120,19 +119,19 @@ final class ARViewModel: ObservableObject {
             entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
             entity.orientation = cameraOrientation
             
-            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, translationGesture: translationGesture, texture: texture)
+            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, transform: transform, contentType: .PHOTO, translationGesture: translationGesture, texture: texture)
             sceneData.updateSelectedEntity(mediaEntity)
             
             entity.name = String(anchor.id)
             anchor.addChild(entity)
-            return anchor
+            return (anchor, mediaEntity)
         } catch {
             print("ERROR: \(error)")
             return nil
         }
     }
     
-    func createVideoEntity(_ videoURL: URL, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> AnchorEntity? {
+    func createVideoEntity(_ videoURL: URL, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> (AnchorEntity?, MediaEntity) {
         let asset = AVURLAsset(url: videoURL)
         let playerItem = AVPlayerItem(asset: asset)
         let player = AVPlayer(playerItem: playerItem)
@@ -146,12 +145,13 @@ final class ARViewModel: ObservableObject {
         player.volume = 0.1
         player.play()
         
-        let anchor = AnchorEntity(world: cameraPosition + cameraOrientation.act(forwardVector))
+        let transform: SIMD3<Float> = cameraPosition + cameraOrientation.act(forwardVector)
+        let anchor = AnchorEntity(world: transform)
         
         // Extract video orientation metadata
         let videoTrack = asset.tracks(withMediaType: .video).first
-        let transform = videoTrack?.preferredTransform
-        let videoAngleInDegrees = atan2(transform!.b, transform!.a) * 180 / .pi
+        let videoTransform = videoTrack?.preferredTransform
+        let videoAngleInDegrees = atan2(videoTransform!.b, videoTransform!.a) * 180 / .pi
         
         let videoSize = videoTrack?.naturalSize ?? .zero
         let aspectRatio = Float(videoSize.width / videoSize.height)
@@ -182,12 +182,12 @@ final class ARViewModel: ObservableObject {
             entity.orientation = cameraOrientation
         }
         
-        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, translationGesture: translationGesture)
+        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, transform: transform, contentType: .VIDEO, translationGesture: translationGesture)
         sceneData.updateSelectedEntity(mediaEntity)
         
         entity.name = String(anchor.id)
         anchor.addChild(entity)
-        return anchor
+        return (anchor, mediaEntity)
     }
         
     func applyShape(_ shape: ShapeType) {
@@ -278,5 +278,18 @@ final class ARViewModel: ObservableObject {
     
     func removeEntity(_ mediaEntity: MediaEntity) {
         removeEntity(mediaEntity.entity)
+    }
+    
+    func triggerHapticFeedback() {
+        generator.prepare()
+        generator.impactOccurred()
+    }
+    
+    func addMediaEntityToMira(_ mediaEntity: MediaEntity) {
+        print("UPDATE: adding mediaEntity to current Mira")
+    }
+    
+    func lockMira() {
+        
     }
 }

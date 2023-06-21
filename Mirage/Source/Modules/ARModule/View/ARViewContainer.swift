@@ -36,25 +36,29 @@ struct ARViewContainer: View {
                             let forwardVector = simd_float3(0, 0, -0.4)
                             
                             if media?.videoURL != nil {
-                                if viewModel.currentMira == nil {
-                                    // create Mira
-                                    viewModel.initializeMira()
-                                }
-                                // TODO: add ar media to currentMira
-                                guard let anchor = viewModel.createVideoEntity(media!.videoURL!, cameraPosition: cameraPosition, cameraOrientation: cameraOrientation, forwardVector: forwardVector) else { return }
+                                let arMediaAnchor = viewModel.createVideoEntity(media!.videoURL!, cameraPosition: cameraPosition, cameraOrientation: cameraOrientation, forwardVector: forwardVector)
                                 // placed element
                                 viewModel.triggerHapticFeedback()
-                                viewModel.arView.scene.addAnchor(anchor)
+                                viewModel.arView.scene.addAnchor(arMediaAnchor.0!)
+                                
+                                if viewModel.currentMira == nil {
+                                    // create Mira
+                                    viewModel.initializeMira(arMediaAnchor.1)
+                                } else {
+                                    viewModel.addMediaEntityToMira(arMediaAnchor.1)
+                                }
                             } else if media?.image != nil {
-                                if viewModel.currentMira == nil {
-                                    // create Mira
-                                    viewModel.initializeMira()
-                                }
-                                // TODO: add ar media to currentMira
-                                guard let anchor = viewModel.createImageEntity(media!.image!, cameraPosition: cameraPosition, cameraOrientation: cameraOrientation, forwardVector: forwardVector) else { return }
+                                guard let (anchor, mediaEntity) = viewModel.createImageEntity(media!.image!, cameraPosition: cameraPosition, cameraOrientation: cameraOrientation, forwardVector: forwardVector) else { return }
                                 // placed element
                                 viewModel.triggerHapticFeedback()
-                                viewModel.arView.scene.addAnchor(anchor)
+                                viewModel.arView.scene.addAnchor(anchor!)
+                                
+                                if viewModel.currentMira == nil {
+                                    // create Mira
+                                    viewModel.initializeMira(mediaEntity)
+                                } else {
+                                    viewModel.addMediaEntityToMira(mediaEntity)
+                                }
                             }
                         }
                     }

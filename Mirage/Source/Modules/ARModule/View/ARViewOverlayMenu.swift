@@ -14,7 +14,17 @@ struct ARViewOverlayMenu: View {
 
     var body: some View {
         if viewModel.arViewMode == .CREATE {
-            if viewModel.sceneData.selectedEntity != nil {
+            if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil {
+                Button {
+                    print("UPDATE: Create Mira")
+                    
+                    viewModel.lockMira()
+                } label: {
+                    Text("LOCK MIRA")
+                        .foregroundColor(.white)
+                        .font(Font.body)
+                }
+            } else if viewModel.sceneData.selectedEntity != nil {
                 switch viewModel.miraCreateMenuType {
                 case .DEFAULT:
                     ZStack {
