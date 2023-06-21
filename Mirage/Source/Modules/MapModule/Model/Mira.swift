@@ -81,12 +81,39 @@ let blackImages = [
     "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg"
 ]
 
+enum ARMediaContentType {
+    case PHOTO
+    case VIDEO
+}
+
+enum ShapeType {
+    case PLANE
+    case CUBE
+    case SPHERE
+}
+
+enum ModifierType {
+    case NONE
+    case TRANSPARENCY
+    case SPIN
+}
+
+struct ARMedia {
+    let id: String
+    let contentType: ARMediaContentType
+    let assetUrl: String
+    let shape: ShapeType
+    let modifier: ModifierType
+    let position: String // update to actual transform
+}
+
 struct Mira {
     let id: String
     let location: CLLocationCoordinate2D
     let isViewed: Bool
     let isFriend: Bool
     let hasCollected: Bool
+    let arMedia: [ARMedia]
     let creator: Creator
     var imageUrl: String {
         get {
@@ -129,6 +156,7 @@ extension Mira {
         isViewed = mira?.viewed ?? false
         isFriend = mira?.isFriend ?? false
         hasCollected = mira?.collected ?? false
+        arMedia = []
         creator = Creator(creator: mira?.creator)
     }
 }
@@ -178,7 +206,7 @@ extension Mira {
         var miras = [Mira]()
         for i in 0..<colorImages.count {
             let creator = Mira.Creator(id: "\(i)", profileImage: colorImages[i], profileImageDesaturated: blackImages[i], userName: "\(i)")
-            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, creator: creator)
+            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, arMedia: [], creator: creator)
             miras.append(mira)
         }
         

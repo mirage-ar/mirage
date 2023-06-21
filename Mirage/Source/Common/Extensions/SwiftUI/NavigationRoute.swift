@@ -32,7 +32,7 @@ public enum NavigationRoute {
             case .homeViewLanding:
                 HomeView()
             case .homeToARCameraView:
-                ARCameraView()
+                ARViewCamera()
             case .myProfile:
                 UserProfileView()
             case .settings(let user):
