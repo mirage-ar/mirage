@@ -13,6 +13,9 @@ struct UserProfileView: View {
     @State var ownProfile = true
     @State var goToHome = false
     @Environment(\.presentationMode) var presentationMode
+    //TODO: get rid off these two lines. Not required here.
+    @State var showCollectedByList = false
+    @State var selectedMira: Mira 
 
     @ObservedObject private var viewModel = UserProfileViewModel()
 
@@ -78,7 +81,7 @@ struct UserProfileView: View {
                     HStack {
                         VStack {
                             ZStack {
-                                MBMapView()
+                                MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
                                     .opacity(0.7)
                                 VStack {
                                     HStack(alignment: .top){
@@ -193,6 +196,6 @@ struct UserProfileView: View {
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView()
+        UserProfileView(selectedMira: .dummy)
     }
 }

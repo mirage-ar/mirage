@@ -60,6 +60,8 @@
 		9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49129AF8C4100F8EE72 /* ReachabilityProvider.swift */; };
 		9331C49529AF8F2D00F8EE72 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 9331C49429AF8F2D00F8EE72 /* Reachability */; };
 		9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49729AF8FEF00F8EE72 /* NetworkError.swift */; };
+		935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065132A43301700817130 /* CollectedByUsersViewModel.swift */; };
+		935065162A43302700817130 /* CollectedByUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065152A43302700817130 /* CollectedByUsersView.swift */; };
 		93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5529F88691000B08A4 /* UIImageView+Extension.swift */; };
 		93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */; };
 		93537E5A29F91590000B08A4 /* GetMirasQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */; };
@@ -182,6 +184,8 @@
 		9331C48029AF8C0100F8EE72 /* Subject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subject+Extension.swift"; sourceTree = "<group>"; };
 		9331C49129AF8C4100F8EE72 /* ReachabilityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityProvider.swift; sourceTree = "<group>"; };
 		9331C49729AF8FEF00F8EE72 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		935065132A43301700817130 /* CollectedByUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersViewModel.swift; sourceTree = "<group>"; };
+		935065152A43302700817130 /* CollectedByUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersView.swift; sourceTree = "<group>"; };
 		93537E5529F88691000B08A4 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQuery.graphql.swift; sourceTree = "<group>"; };
 		93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQueryInput.graphql.swift; sourceTree = "<group>"; };
@@ -334,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				9310806A29F186100075C8DC /* MapViewModel.swift */,
+				935065132A43301700817130 /* CollectedByUsersViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				9300624829E43EA000816C46 /* MBMapView.swift */,
+				935065152A43302700817130 /* CollectedByUsersView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1086,6 +1092,7 @@
 				93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */,
 				936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */,
 				9310E5DD29CDD9A6000E6019 /* ActivityIndicator.swift in Sources */,
+				935065162A43302700817130 /* CollectedByUsersView.swift in Sources */,
 				93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
@@ -1099,6 +1106,7 @@
 				93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */,
 				9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */,
 				93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */,
+				935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
 				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,

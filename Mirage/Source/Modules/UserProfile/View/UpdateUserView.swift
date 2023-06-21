@@ -15,9 +15,9 @@ struct UpdateUserView: View {
     var userToBeUpdated: User {
         
         if title == "BIO" {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: user.userName, bio: value)
+            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: user.userName, profileDescription: value)
         } else {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, bio: user.profileDescription)
+            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, profileDescription: user.profileDescription)
         }
     }
     var body: some View {

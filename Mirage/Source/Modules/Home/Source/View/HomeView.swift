@@ -17,11 +17,22 @@ struct HomeView: View {
     let buttonWidth = 48.0
     @State var showArView = false
     @State var showProfileView = false
-
+    @State var selectedMiraOnMap: Mira?
+    @State var showCollectedByList = false
+    @State var selectedMira: Mira {
+        willSet (val) {
+            print("Will Set")
+        }
+    }
+    var mapView: MBMapView {
+        get {
+            return MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
+        }
+    }
     var body: some View {
         NavigationStack {
             ZStack {
-                MBMapView()
+                mapView
                 ZStack {
                     VStack {
                         HStack{
@@ -126,6 +137,10 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showProfileView, content: {
                 NavigationRoute.myProfile.screen
             })
+            .sheet(isPresented:$showCollectedByList) {
+                NavigationRoute.miraCollectedByUsersList(mira: selectedMira).screen
+                    .presentationDetents([.medium, .large])
+            }
         }
         .accentColor(Colors.white.swiftUIColor)
     }
@@ -134,7 +149,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(selectedMira: .dummy)
     }
 }
 

@@ -13,13 +13,14 @@ public struct User {
     let profileImageDesaturated: String
     let userName: String?
     let profileDescription: String?
+
     
-    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, bio: String?) {
+    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, profileDescription: String?) {
         self.id = id
         self.profileImage = profileImage
         self.profileImageDesaturated = profileImageDesaturated
         self.userName = userName
-        self.profileDescription = bio
+        self.profileDescription = profileDescription
     }
     init() {
         self.id = ""
@@ -57,8 +58,26 @@ extension User {
     }
     func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
         
-        return User(id: id, profileImage: profileImage, profileImageDesaturated: profileImageDesaturated, userName: apiUpdatedUser?.username ?? "" , bio: apiUpdatedUser?.username ?? "")
+        return User(id: id, profileImage: profileImage, profileImageDesaturated: profileImageDesaturated, userName: apiUpdatedUser?.username ?? "" , profileDescription: apiUpdatedUser?.username ?? "")
     }
+    
+    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
+        id = creator?.id ?? "0"
+        profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        userName = creator?.username ?? ""
+        profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
+        profileDescription = creator?.profileDescription
+
+    }
+    
+    init(collector: MirageAPI.GetMirasQuery.Data.GetMira.Collector?) {
+        id = collector?.id ?? "0"
+        profileImage = collector?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        userName = collector?.username ?? ""
+        profileImageDesaturated = collector?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
+        profileDescription = collector?.profileDescription
+    }
+
 
 }
 
@@ -68,6 +87,6 @@ extension User {
         return !(self.profileDescription?.isEmpty == true || self.userName?.isEmpty == true)
     }
     static func dummyUser() -> User {
-        return User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", bio: "")
+        return User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
     }
 }
