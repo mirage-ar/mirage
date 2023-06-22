@@ -186,7 +186,7 @@ struct UserProfileView: View {
                 NavigationRoute.settings(user: viewModel.user).screen
             }
             .navigationDestination(isPresented: $goToEditProfile) {
-                NavigationRoute.editProfile(user: .dummyUser()).screen
+                NavigationRoute.editProfile(user: .dummy).screen
             }
             .edgesIgnoringSafeArea(.all)
         }

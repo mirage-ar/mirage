@@ -60,7 +60,7 @@ struct UpdateUserView: View {
         }
         .navigationTitle(title.uppercased())
         .navigationDestination(isPresented: $viewModel.userUpdated) {
-            NavigationRoute.editProfile(user: .dummyUser()).screen
+            NavigationRoute.editProfile(user: .dummy).screen
         }
 
     }

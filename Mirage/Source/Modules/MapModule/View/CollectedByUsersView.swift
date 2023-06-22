@@ -10,8 +10,8 @@ import SwiftUI
 struct CollectedByUsersView: View {
 //    @ObservedObject private var viewModel: CollectedByUsersViewModel
     @Binding var selectedMira: Mira
-    @Binding var showProfileForSelectedProfile: Bool
-    @Binding var selectedProfile: User
+    @Binding var showSelectedUser: Bool
+    @Binding var selectedUser: User?
 
     let paddingMargin = 20.0
 //    init(mira: Mira) {
@@ -19,12 +19,13 @@ struct CollectedByUsersView: View {
 ////        viewModel = CollectedByUsersViewModel(mira: mira)
 //    }
     
+    
     var body: some View {
         ZStack {
             Colors.black70p.swiftUIColor
                 .edgesIgnoringSafeArea(.all)
                 
-            List (selection: $selectedProfile){
+            List (selection: $selectedUser){
                 Section {
                     ForEach(selectedMira.collectors ?? [], id: \.self) { user in
                         UserListRow(user: user)
@@ -45,8 +46,8 @@ struct CollectedByUsersView: View {
                                 .font(.body1)
                             Spacer()
                             Button {
-                                selectedProfile = selectedMira.creator
-                                showProfileForSelectedProfile = true
+                                selectedUser = selectedMira.creator
+                                showSelectedUser = true
                             } label: {
                                 Text("Mira by " + (selectedMira.creator.userName ?? "NaN"))
                                     .font(.body2)
@@ -77,7 +78,6 @@ struct CollectedByUsersView: View {
             }
             .scrollContentBackground(.hidden)
             .background(.clear)
-            .selec
         }
     }
 }

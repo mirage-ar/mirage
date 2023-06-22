@@ -15,7 +15,7 @@ public enum NavigationRoute {
     case myProfile
     case settings(user: User)
     case editProfile(user: User)
-    case miraCollectedByUsersList(mira: Binding<Mira>)
+    case miraCollectedByUsersList(mira: Binding<Mira>, showProfile: Binding<Bool>, selectedUser: Binding<User>)
 
     //MARK: Home
     case homeViewLanding
@@ -31,7 +31,7 @@ public enum NavigationRoute {
             case .updateUser(let title, let value, let user):
                 UpdateUserView(title: title, value: value, user: user)
             case .homeViewLanding:
-                HomeView(selectedMira: .dummy)
+                HomeView()
             case .homeToARCameraView:
                 ARCameraView()
             case .myProfile:
@@ -40,8 +40,8 @@ public enum NavigationRoute {
                 SettingsView(user: user)
             case .editProfile(let user):
                 EditProfileView(user: user)
-            case .miraCollectedByUsersList(let mira):
-                CollectedByUsersView(selectedMira: mira)
+            case .miraCollectedByUsersList(let mira, let showProfile, let selectedUser):
+                CollectedByUsersView(selectedMira: mira, showSelectedUser: showProfile, selectedUser: selectedUser)
             }
         }
     }

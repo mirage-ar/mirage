@@ -19,20 +19,14 @@ struct HomeView: View {
     @State var showProfileView = false
     @State var selectedMiraOnMap: Mira?
     @State var showCollectedByList = false
-    @State var selectedMira: Mira {
-        willSet (val) {
-            print("Will Set")
-        }
-    }
-    var mapView: MBMapView {
-        get {
-            return MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
-        }
-    }
+    @State var selectedMira: Mira = .dummy
+    @State var selectedUser: User = .dummy
+    @State var showProfile: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                mapView
+                MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
                 ZStack {
                     VStack {
                         HStack{
@@ -138,7 +132,7 @@ struct HomeView: View {
                 NavigationRoute.myProfile.screen
             })
             .sheet(isPresented:$showCollectedByList) {
-                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
+                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira, showProfile: $showProfile, selectedUser: $selectedUser).screen
                     .presentationDetents([.medium, .large])
                 
             }
@@ -148,9 +142,4 @@ struct HomeView: View {
     
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(selectedMira: .dummy)
-    }
-}
 

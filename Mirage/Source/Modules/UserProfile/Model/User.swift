@@ -91,8 +91,8 @@ extension User {
     var isDescriptionEmpty: Bool {
         return !(self.profileDescription?.isEmpty == true || self.userName?.isEmpty == true)
     }
-    static func dummyUser() -> User {
-        return User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
+    static var dummy: User { 
+        User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
     }
 }
 

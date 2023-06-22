@@ -130,6 +130,6 @@ struct SettingsView: View {
 }
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(user: User.dummyUser())
+        SettingsView(user: .dummy)
     }
 }
