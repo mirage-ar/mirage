@@ -15,7 +15,7 @@ public enum NavigationRoute {
     case myProfile
     case settings(user: User)
     case editProfile(user: User)
-    case miraCollectedByUsersList(mira: Mira)
+    case miraCollectedByUsersList(mira: Binding<Mira>)
 
     //MARK: Home
     case homeViewLanding

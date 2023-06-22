@@ -102,7 +102,7 @@ struct UserProfileView: View {
                                             .frame(width:80, height: 40)
                                         HStack {
                                             Text("12")
-                                            Images.new16.swiftUIImage
+                                            Images.collectMiraWhite.swiftUIImage
                                                 .renderingMode(.template)
                                                 .foregroundColor(Colors.black.swiftUIColor)
                                         }

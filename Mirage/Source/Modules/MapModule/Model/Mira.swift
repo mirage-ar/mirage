@@ -88,7 +88,7 @@ public struct Mira {
     let isFriend: Bool
     let hasCollected: Bool
     let creator: User
-    let collectors: [User]? = nil
+    let collectors: [User]?
     var imageUrl: String {
         get {
             return isViewed ? creator.profileImageDesaturated : creator.profileImage
@@ -114,6 +114,9 @@ extension Mira {
                 let user = User(collector: collector)
                 collectorsList.append(user)
             }
+            self.collectors = collectorsList
+        } else {
+            collectors = nil
         }
         
         hasCollected = false
@@ -125,7 +128,7 @@ extension Mira {
     static var dummy: Mira {
         get {
             let creator = User(id: "Dummy", profileImage: "Dummy", profileImageDesaturated: "Dummy", userName: "Dummy", profileDescription: "Dummy")
-            let mira = Mira(id: "Dummy", location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.932842), isViewed:  false, isFriend: false, hasCollected: false, creator: creator)
+            let mira = Mira(id: "Dummy", location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.932842), isViewed:  false, isFriend: false, hasCollected: false, creator: creator, collectors: nil)
             return mira
         }
     }
@@ -175,7 +178,7 @@ extension Mira {
         var miras = [Mira]()
         for i in 0..<colorImages.count {
             let creator = User(id: "\(i)", profileImage: colorImages[i], profileImageDesaturated: blackImages[i], userName: "\(i)", profileDescription: "NaN")
-            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, creator: creator)
+            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, creator: creator, collectors: nil)
             miras.append(mira)
         }
         

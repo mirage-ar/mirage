@@ -138,8 +138,9 @@ struct HomeView: View {
                 NavigationRoute.myProfile.screen
             })
             .sheet(isPresented:$showCollectedByList) {
-                NavigationRoute.miraCollectedByUsersList(mira: selectedMira).screen
+                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
                     .presentationDetents([.medium, .large])
+                
             }
         }
         .accentColor(Colors.white.swiftUIColor)

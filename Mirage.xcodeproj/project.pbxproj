@@ -66,6 +66,7 @@
 		93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */; };
 		93537E5A29F91590000B08A4 /* GetMirasQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */; };
 		93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */; };
+		936D307B2A43AEA00041FC0C /* UserListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936D307A2A43AEA00041FC0C /* UserListRow.swift */; };
 		936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */; };
 		936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */; };
 		936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */; };
@@ -190,6 +191,7 @@
 		93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQuery.graphql.swift; sourceTree = "<group>"; };
 		93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQueryInput.graphql.swift; sourceTree = "<group>"; };
 		93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenInterceptor.swift; sourceTree = "<group>"; };
+		936D307A2A43AEA00041FC0C /* UserListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRow.swift; sourceTree = "<group>"; };
 		936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserMutation.graphql.swift; sourceTree = "<group>"; };
 		936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyUserMutation.graphql.swift; sourceTree = "<group>"; };
 		936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserQuery.graphql.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			children = (
 				9300624829E43EA000816C46 /* MBMapView.swift */,
 				935065152A43302700817130 /* CollectedByUsersView.swift */,
+				936D307A2A43AEA00041FC0C /* UserListRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1111,6 +1114,7 @@
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
 				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,
 				9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */,
+				936D307B2A43AEA00041FC0C /* UserListRow.swift in Sources */,
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
 				9392633E29F01FD5005B1F3E /* UpdateUserInput.graphql.swift in Sources */,
 				93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */,

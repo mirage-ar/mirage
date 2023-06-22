@@ -80,7 +80,12 @@ extension User {
 
 
 }
-
+//MARK: - Hashable
+extension User: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 //MARK: - Dereive Properties
 extension User {
     var isDescriptionEmpty: Bool {
@@ -90,3 +95,5 @@ extension User {
         return User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
     }
 }
+
+

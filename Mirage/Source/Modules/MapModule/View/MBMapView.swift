@@ -123,12 +123,12 @@ struct MBMapView: UIViewRepresentable {
             distanceLabel.text = "nan"
         }
  
-        let collecedMiraIconView = UIImageView(image: Images.new16.image)
+        let collecedMiraIconView = UIImageView(image: Images.collectMiraWhite.image)
         collecedMiraIconView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         collecedMiraIconView.contentMode = .scaleAspectFit
         
         let collectedMiraCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
-        collectedMiraCountLabel.text = "12"
+        collectedMiraCountLabel.text = "\(mira.collectors?.count ?? 0)"
         collectedMiraCountLabel.setFont(.body3, textColor: Colors.white)
         
         let stack = UIStackView(arrangedSubviews: [distanceLabel, collecedMiraIconView, collectedMiraCountLabel])
@@ -175,7 +175,7 @@ extension MBMapView {
             if let mira = parent.viewModel.miras?[index] {
                 parent.selectedMira = mira
                 parent.showCollectedByList = true
-                print(parent.selectedMira.creator.userName)
+                print(parent.selectedMira.creator.userName ?? "")
             }
         }
         func tapGesture() -> UITapGestureRecognizer {
