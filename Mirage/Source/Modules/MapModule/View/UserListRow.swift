@@ -23,7 +23,9 @@ struct UserListRow: View {
                     .frame(width: iconSize, height: iconSize)
                     .background(Colors.g3Grey.just)
                     .clipShape(Circle())
-                Text(user.userName ?? "NnA")
+                // added to fix image cutoff
+                    .padding(.leading, 5)
+                Text(user.userName ?? "")
                     .font(.body2)
                 Spacer()
                 Images.collectMiraGreen.swiftUIImage
@@ -31,6 +33,7 @@ struct UserListRow: View {
                     .scaledToFit()
                     .frame(width: 20, height: 20)
             }
+            .contentShape(Rectangle())
         }
        
     }

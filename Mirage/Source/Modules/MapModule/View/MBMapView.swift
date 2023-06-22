@@ -10,9 +10,11 @@ import MapboxMaps
 
 struct MBMapView: UIViewRepresentable {
     @ObservedObject private var viewModel = MapViewModel()
+    
     @State var viewState: ViewState = .empty
     let clusterLayerID = "groupedMiras"
-    @Binding var selectedMira: Mira
+    
+    @Binding var selectedMira: Mira?
     @Binding var showCollectedByList: Bool
 
     func makeUIView(context: Context) -> some UIView {
@@ -175,7 +177,7 @@ extension MBMapView {
             if let mira = parent.viewModel.miras?[index] {
                 parent.selectedMira = mira
                 parent.showCollectedByList = true
-                print(parent.selectedMira.creator.userName ?? "")
+                print(parent.selectedMira?.creator.userName ?? "")
             }
         }
         func tapGesture() -> UITapGestureRecognizer {

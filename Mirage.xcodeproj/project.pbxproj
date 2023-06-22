@@ -12,6 +12,7 @@
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
+		3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 3988CD382A44E9D5007BCD37 /* schema.graphqls */; };
 		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
 		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
 		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
@@ -40,7 +41,6 @@
 		9318454529CB188700DD07CB /* ColorAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318454429CB188700DD07CB /* ColorAsset+Extension.swift */; };
 		93196A4829BA8B620087CFCD /* EnvironmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93196A4729BA8B620087CFCD /* EnvironmentConfig.swift */; };
 		93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93196A4929BA8D280087CFCD /* AppConfiguration.swift */; };
-		931FF5D629B80037002C62AB /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 931FF5C429B80037002C62AB /* schema.graphqls */; };
 		931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */; };
 		931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */; };
 		931FF5D929B80037002C62AB /* AuthorizationResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */; };
@@ -139,6 +139,7 @@
 		394B496F296CCAD400E2F8E4 /* MirageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MirageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4973296CCAD400E2F8E4 /* MirageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITests.swift; sourceTree = "<group>"; };
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3988CD382A44E9D5007BCD37 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
 		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9300625229E45E9700816C46 /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 		9318454429CB188700DD07CB /* ColorAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorAsset+Extension.swift"; sourceTree = "<group>"; };
 		93196A4729BA8B620087CFCD /* EnvironmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfig.swift; sourceTree = "<group>"; };
 		93196A4929BA8D280087CFCD /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		931FF5C429B80037002C62AB /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeUserMutation.graphql.swift; sourceTree = "<group>"; };
 		931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountStage.graphql.swift; sourceTree = "<group>"; };
 		931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationResult.graphql.swift; sourceTree = "<group>"; };
@@ -584,7 +584,7 @@
 		931FF5C329B80037002C62AB /* Schema */ = {
 			isa = PBXGroup;
 			children = (
-				931FF5C429B80037002C62AB /* schema.graphqls */,
+				3988CD382A44E9D5007BCD37 /* schema.graphqls */,
 				931FF5D529B80037002C62AB /* schema.json */,
 				931FF5C529B80037002C62AB /* ApolloGenerated */,
 			);
@@ -1041,8 +1041,8 @@
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
 				9392633729F01C9B005B1F3E /* UpdateUser.graphql in Resources */,
-				931FF5D629B80037002C62AB /* schema.graphqls in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
+				3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */,
 				93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */,
 				9331C48A29AF8C0100F8EE72 /* AuthorizeUser.graphql in Resources */,
 				9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */,
@@ -1313,7 +1313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Z6C6YA37K;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
@@ -1348,7 +1348,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Z6C6YA37K;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
@@ -1518,7 +1518,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Z6C6YA37K;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
@@ -1645,7 +1645,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Z6C6YA37K;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;
@@ -1772,7 +1772,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mirage/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Z6C6YA37K;
+				DEVELOPMENT_TEAM = DE2XWR7FHY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mirage/Info.plist;

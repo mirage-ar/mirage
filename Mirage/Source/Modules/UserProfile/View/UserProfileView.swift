@@ -13,11 +13,18 @@ struct UserProfileView: View {
     @State var ownProfile = true
     @State var goToHome = false
     @Environment(\.presentationMode) var presentationMode
-    //TODO: get rid off these two lines. Not required here.
+    
     @State var showCollectedByList = false
-    @State var selectedMira: Mira 
+    @State var selectedMira: Mira?
 
-    @ObservedObject private var viewModel = UserProfileViewModel()
+    @ObservedObject private var viewModel: UserProfileViewModel
+    
+    let userId: String
+
+    init(userId: String) {
+        self.userId = userId
+        self.viewModel = UserProfileViewModel(userId: userId)
+    }
 
     var body: some View {
         NavigationStack {
@@ -38,16 +45,16 @@ struct UserProfileView: View {
                         }
                         .frame(width: UIScreen.main.bounds.width, height: 436, alignment: .top)
                         .clipped()
-                        
-                        HStack() {
-                            VStack (alignment: .leading) {
+
+                        HStack {
+                            VStack(alignment: .leading) {
                                 Group {
                                     Text(viewModel.user.userName ?? "NaN")
                                         .font(Font.title)
-                                    if (ownProfile && viewModel.user.isDescriptionEmpty) {
+                                    if ownProfile && viewModel.user.isDescriptionEmpty {
                                         Button {
                                             goToEditProfile = true
-                                            
+
                                         } label: {
                                             Text("EDIT PROFILE")
                                                 .frame(maxWidth: .infinity)
@@ -57,40 +64,35 @@ struct UserProfileView: View {
                                         .cornerRadius(10)
                                         .frame(width: 150)
                                         .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
-                                        
+
                                     } else {
                                         Text(viewModel.user.profileDescription ?? "")
                                             .font(Font.body)
                                     }
                                 }
                                 .foregroundColor(Colors.white.swiftUIColor)
-                                
                             }
                             Spacer()
-                            
                         }
                         .background(
                             LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
                         )
                         .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .bottom)
-                        
                     }
                     .background(Colors.black.swiftUIColor)
-                    
-                    
+
                     HStack {
                         VStack {
                             ZStack {
                                 MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
                                     .opacity(0.7)
                                 VStack {
-                                    HStack(alignment: .top){
+                                    HStack(alignment: .top) {
                                         Text("Collection")
                                             .foregroundColor(Colors.white.swiftUIColor)
                                             .font(Font.body)
                                             .multilineTextAlignment(.leading)
                                         Spacer()
-                                        
                                     }
                                     .padding(.leading, 5)
                                     .padding(.top, 5)
@@ -99,24 +101,22 @@ struct UserProfileView: View {
                                         Rectangle()
                                             .cornerRadius(20)
                                             .foregroundColor(Colors.green.swiftUIColor)
-                                            .frame(width:80, height: 40)
+                                            .frame(width: 80, height: 40)
                                         HStack {
                                             Text("12")
                                             Images.collectMiraWhite.swiftUIImage
                                                 .renderingMode(.template)
                                                 .foregroundColor(Colors.black.swiftUIColor)
                                         }
-                                        
                                     }
                                     Spacer()
                                 }
-                                
                             }
                             .frame(maxHeight: 160)
                             .disabled(true)
                             .cornerRadius(10)
                         }
-                        VStack{
+                        VStack {
                             HStack {
                                 Text("Miras")
                                     .multilineTextAlignment(.leading)
@@ -128,15 +128,13 @@ struct UserProfileView: View {
                                     .foregroundColor(Colors.white.swiftUIColor)
                                     .font(Font.body)
                             }
-                            .padding(.top, -70) //to bind the view at top
+                            .padding(.top, -70) // to bind the view at top
                             .padding(.leading, 5)
                             Divider()
                                 .overlay(Colors.g3Grey.swiftUIColor)
                                 .padding(.top, -55)
                                 .padding(.leading, 5)
-                            
                         }
-                        
                     }
                     Spacer()
                     HStack {
@@ -148,10 +146,8 @@ struct UserProfileView: View {
                             Images.goHome32.swiftUIImage
                         }
                         .padding(.trailing, 30)
-                        
                     }
                     .padding(.bottom, 50)
-                    
                 }
             }
             .toolbar {
@@ -163,9 +159,7 @@ struct UserProfileView: View {
                         Images.arrowB24.swiftUIImage
                             .resizable()
                             .scaledToFit()
-                        
                     }
-
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -175,11 +169,8 @@ struct UserProfileView: View {
                         Images.settings24.swiftUIImage
                             .resizable()
                             .scaledToFit()
-                        
                     }
-
                 }
-
             }
             .background(Colors.black.swiftUIColor)
             .navigationDestination(isPresented: $goToSettings) {
@@ -191,11 +182,5 @@ struct UserProfileView: View {
             .edgesIgnoringSafeArea(.all)
         }
         .accentColor(Colors.white.swiftUIColor)
-    }
-}
-
-struct UserProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserProfileView(selectedMira: .dummy)
     }
 }

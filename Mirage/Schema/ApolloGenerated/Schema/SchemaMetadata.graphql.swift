@@ -3,19 +3,19 @@
 
 import ApolloAPI
 
-public protocol MirageAPI_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+protocol MirageAPI_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
 where Schema == MirageAPI.SchemaMetadata {}
 
-public protocol MirageAPI_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+protocol MirageAPI_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
 where Schema == MirageAPI.SchemaMetadata {}
 
-public protocol MirageAPI_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+protocol MirageAPI_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
 where Schema == MirageAPI.SchemaMetadata {}
 
-public protocol MirageAPI_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+protocol MirageAPI_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
 where Schema == MirageAPI.SchemaMetadata {}
 
-public extension MirageAPI {
+extension MirageAPI {
   typealias ID = String
 
   typealias SelectionSet = MirageAPI_SelectionSet
@@ -27,9 +27,9 @@ public extension MirageAPI {
   typealias MutableInlineFragment = MirageAPI_MutableInlineFragment
 
   enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-    public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+    static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
-    public static func objectType(forTypename typename: String) -> Object? {
+    static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "Mutation": return MirageAPI.Objects.Mutation
       case "AuthorizationResult": return MirageAPI.Objects.AuthorizationResult

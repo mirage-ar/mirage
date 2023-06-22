@@ -1,12 +1,8 @@
-#----------------------------------------------------------------------------------
-# Graph Service - GraphQL Schema
-# Mirage (( v0.2.0 ))
-# ---------------------------------------------------------------------------------
 type Mira {
   id: ID!
   creator: User!
   location: Location!
-  arMedia: [ArMedia!]!
+  media: [ArMedia!]!
   collectors: [User]!
   flags: [Flag]!
   viewed: Boolean!
@@ -100,8 +96,9 @@ type Flag {
 }
 
 type Query {
-  user: User
+  user(userId: ID): User
   getMiras(input: GetMirasQueryInput!): [Mira]
+  getMirasByIds(input: [ID!]!): [Mira]
 }
 
 input GetMirasQueryInput {

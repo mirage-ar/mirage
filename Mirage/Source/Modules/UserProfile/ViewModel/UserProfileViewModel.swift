@@ -14,18 +14,22 @@ final class UserProfileViewModel: ObservableObject {
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
 
 
-    init() {
-        loadProfile()
+    init(userId: String) {
+        loadProfile(userId)
+        print("loadProfile, userId: \(userId)")
     }
-    func loadProfile() {
+    
+    func loadProfile(_ userId: String) {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
         }
-        print(LocationManager.shared.location)
-        userProfileRepository.getUser(id: "1", accessToken: "1")
+        
+        // TODO: update accessToken to stored value
+        userProfileRepository.getUser(id: userId)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in
                 self.user = user
+                print("userProfileRepository.getUser, userId: \(user.id)")
             } receiveError: { error in
                 print("Get profile user error \(error)" )
             }

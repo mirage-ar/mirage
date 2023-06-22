@@ -9,8 +9,7 @@ import SwiftUI
 
 struct CollectedByUsersView: View {
 //    @ObservedObject private var viewModel: CollectedByUsersViewModel
-    @Binding var selectedMira: Mira
-    @Binding var showSelectedUser: Bool
+    @Binding var selectedMira: Mira?
     @Binding var selectedUser: User?
 
     let paddingMargin = 20.0
@@ -25,15 +24,22 @@ struct CollectedByUsersView: View {
             Colors.black70p.swiftUIColor
                 .edgesIgnoringSafeArea(.all)
                 
-            List (selection: $selectedUser){
+            List {
                 Section {
-                    ForEach(selectedMira.collectors ?? [], id: \.self) { user in
-                        UserListRow(user: user)
-                            .background(.clear)
-                            .edgesIgnoringSafeArea(.all)
-                            .listRowBackground(Color.clear)
-                            .padding([.leading, .trailing], -paddingMargin)
-
+                    if let selectedMira = selectedMira {
+                        ForEach(selectedMira.collectors ?? [], id: \.self) { user in
+                            UserListRow(user: user)
+                            //                            .background(.clear)
+                            //                            .edgesIgnoringSafeArea(.all)
+                                .listRowBackground(Color.clear)
+                                .padding([.leading, .trailing], -paddingMargin)
+                            
+                            // replaced List selection (not available on iOS)
+                                .onTapGesture {
+                                    print("UPDATE: selected user set to: \(String(describing: user.userName))")
+                                    self.selectedUser = user
+                                }
+                        }
                     }
                 } header: {
                     VStack(alignment: .leading) {
@@ -42,14 +48,13 @@ struct CollectedByUsersView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 15, height: 15)
-                            Text("\(selectedMira.collectors?.count ?? 0)")
+                            Text("\(selectedMira?.collectors?.count ?? 0)")
                                 .font(.body1)
                             Spacer()
                             Button {
-                                selectedUser = selectedMira.creator
-                                showSelectedUser = true
+                                selectedUser = selectedMira?.creator
                             } label: {
-                                Text("Mira by " + (selectedMira.creator.userName ?? "NaN"))
+                                Text("Mira by " + (selectedMira?.creator.userName ?? "NaN"))
                                     .font(.body2)
                                 Images.arrowR24.swiftUIImage
                                     .resizable()
@@ -77,7 +82,6 @@ struct CollectedByUsersView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(.clear)
         }
     }
 }
