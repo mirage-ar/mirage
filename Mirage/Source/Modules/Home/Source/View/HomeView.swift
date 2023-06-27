@@ -30,36 +30,12 @@ struct HomeView: View {
                 ZStack {
                     VStack {
                         HStack{
-                            // REMOVING FOR TESTFLIGHT DESIGN
-//                            Button {
-//                                print("UPDATE: go to location")
-//                            } label: {
-//                                VStack {
-//                                    HStack {
-//                                        // TODO: update to current user profile image
-//                                        AsyncImage(url: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVS8dxHAKdr2oZhV-kuh3DnohvK50EUUA8pg&usqp=CAU")) { image in
-//                                                image
-//                                                    .resizable()
-//                                                    .scaledToFit()
-//                                            } placeholder: {
-//                                                ProgressView()
-//                                            }
-//                                            .frame(width: buttonSize, height: 72)
-//                                        // TODO: update to current location name on map
-//                                        Text("New York")
-//                                            .foregroundColor(Colors.white.just)
-//                                    }
-//                                    Spacer()
-//                                }
-//                                .padding(.top, 50)
-//                                .padding(.leading, 20)
-//                            }
-                            
                             Spacer()
                             
                             VStack {
                                 Button {
                                     print("UPDATE: show user profile for: \(String(describing: selectedUser?.userName))")
+                                    selectedUser = viewModel.currentUser
                                     showProfileView = true
                                 } label: {
                                     // TODO: update to current user profile image
@@ -105,8 +81,8 @@ struct HomeView: View {
                 NavigationRoute.homeToARCameraView.screen
             }
             .fullScreenCover(isPresented: $showProfileView, content: {
-                // TODO: remove hardcoded default userId
-                NavigationRoute.myProfile(userId: selectedUser?.id ?? "1").screen
+                // TODO: remove empty string - add error handling
+                NavigationRoute.myProfile(userId: selectedUser?.id ?? "").screen
             })
             .sheet(isPresented:$showCollectedByList) {
                 NavigationRoute.miraCollectedByUsersList(mira: $selectedMira, selectedUser: $selectedUser).screen

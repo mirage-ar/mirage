@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39050FB82A4B6F2600AA8376 /* HomeApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39050FB72A4B6F2600AA8376 /* HomeApolloRepository.swift */; };
 		394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4958296CCAD300E2F8E4 /* MirageApp.swift */; };
 		394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */; };
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
@@ -131,6 +132,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39050FB72A4B6F2600AA8376 /* HomeApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeApolloRepository.swift; path = Mirage/Schema/HomeApolloRepository.swift; sourceTree = SOURCE_ROOT; };
 		394B4955296CCAD300E2F8E4 /* Mirage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mirage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4958296CCAD300E2F8E4 /* MirageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageApp.swift; sourceTree = "<group>"; };
 		394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 		9310E5E429D10928000E6019 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				39050FB72A4B6F2600AA8376 /* HomeApolloRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1104,6 +1107,7 @@
 				9327D4442A3209D4005D782D /* Float+Extension.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
 				9310E5DA29CDD464000E6019 /* Fonts+Extension.swift in Sources */,
+				39050FB82A4B6F2600AA8376 /* HomeApolloRepository.swift in Sources */,
 				9310806B29F186100075C8DC /* MapViewModel.swift in Sources */,
 				9310E5EA29D11571000E6019 /* Mira.swift in Sources */,
 				93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */,

@@ -27,7 +27,6 @@ extension ApolloRepository: UserProfileApolloRepository {
 
     func getUser(id: String?) -> AnyPublisher<User, Error> {
         print("getUser, userId: \(String(describing: id))")
-        let userId: GraphQLNullable<String> = id!
         let query = MirageAPI.UserQuery(userId: id ?? "")
         return fetch(query: query)
             .map {

@@ -49,8 +49,9 @@ struct UserProfileView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Group {
-                                    Text(viewModel.user.userName ?? "NaN")
-                                        .font(Font.title)
+                                    Text(viewModel.user.userName ?? "...")
+                                        .font(.h1)
+                                        .textCase(.uppercase)
                                     if ownProfile && viewModel.user.isDescriptionEmpty {
                                         Button {
                                             goToEditProfile = true
@@ -74,6 +75,7 @@ struct UserProfileView: View {
                             }
                             Spacer()
                         }
+                        .padding([.leading, .trailing], 16)
                         .background(
                             LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
                         )
@@ -150,6 +152,7 @@ struct UserProfileView: View {
                     .padding(.bottom, 50)
                 }
             }
+            .padding([.leading, .trailing], 16)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
@@ -177,6 +180,8 @@ struct UserProfileView: View {
                 NavigationRoute.settings(user: viewModel.user).screen
             }
             .navigationDestination(isPresented: $goToEditProfile) {
+            
+                // TODO: remove dummy user here
                 NavigationRoute.editProfile(user: .dummy).screen
             }
             .edgesIgnoringSafeArea(.all)

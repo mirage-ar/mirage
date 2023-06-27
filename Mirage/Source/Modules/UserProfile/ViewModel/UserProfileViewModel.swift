@@ -11,6 +11,7 @@ import Combine
 final class UserProfileViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var user = User()
+    
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
 
 
