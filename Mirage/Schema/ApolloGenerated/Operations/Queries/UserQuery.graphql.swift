@@ -9,8 +9,8 @@ public extension MirageAPI {
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query User($userId: ID) {
-          user(userId: $userId) {
+        query User {
+          user {
             __typename
             id
             username
@@ -18,20 +18,16 @@ public extension MirageAPI {
             profileImage
             profileImageDesaturated
             profileDescription
-            accessToken
-            verificationSid
+            miras {
+              __typename
+              id
+            }
           }
         }
         """#
       ))
 
-    public var userId: GraphQLNullable<ID>
-
-    public init(userId: GraphQLNullable<ID>) {
-      self.userId = userId
-    }
-
-    public var __variables: Variables? { ["userId": userId] }
+    public init() {}
 
     public struct Data: MirageAPI.SelectionSet {
       public let __data: DataDict
@@ -39,7 +35,7 @@ public extension MirageAPI {
 
       public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("user", User?.self, arguments: ["userId": .variable("userId")]),
+        .field("user", User?.self),
       ] }
 
       public var user: User? { __data["user"] }
@@ -59,8 +55,7 @@ public extension MirageAPI {
           .field("profileImage", String?.self),
           .field("profileImageDesaturated", String?.self),
           .field("profileDescription", String?.self),
-          .field("accessToken", String?.self),
-          .field("verificationSid", String?.self),
+          .field("miras", [Mira?]?.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
@@ -69,8 +64,22 @@ public extension MirageAPI {
         public var profileImage: String? { __data["profileImage"] }
         public var profileImageDesaturated: String? { __data["profileImageDesaturated"] }
         public var profileDescription: String? { __data["profileDescription"] }
-        public var accessToken: String? { __data["accessToken"] }
-        public var verificationSid: String? { __data["verificationSid"] }
+        public var miras: [Mira?]? { __data["miras"] }
+
+        /// User.Mira
+        ///
+        /// Parent Type: `Mira`
+        public struct Mira: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("id", MirageAPI.ID.self),
+          ] }
+
+          public var id: MirageAPI.ID { __data["id"] }
+        }
       }
     }
   }

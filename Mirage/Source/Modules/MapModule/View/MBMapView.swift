@@ -10,12 +10,8 @@ import MapboxMaps
 
 struct MBMapView: UIViewRepresentable {
     @ObservedObject private var viewModel = MapViewModel()
-    
     @State var viewState: ViewState = .empty
     let clusterLayerID = "groupedMiras"
-    
-    @Binding var selectedMira: Mira?
-    @Binding var showCollectedByList: Bool
 
     func makeUIView(context: Context) -> some UIView {
         
@@ -29,6 +25,7 @@ struct MBMapView: UIViewRepresentable {
         let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: StyleURI(rawValue: "mapbox://styles/fiigmnt/cl4evbfs6001q14lqhwnmjo11"))
 
         let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: myMapInitOptions)
+
         // Create location identifier icon "puck"
         let puckImage = Puck2DConfiguration(topImage: UIImage(named: "me-pin"), bearingImage: UIImage(named: "me-pin"), scale: .constant(1.0), showsAccuracyRing: false)
 
@@ -44,16 +41,11 @@ struct MBMapView: UIViewRepresentable {
 
         return mapView
     }
-        
-    func makeCoordinator() -> MapViewCoordinator {
-        MapViewCoordinator(self)
-    }
-    
-    
+
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let mapView = uiView as? MapView {
             if $viewModel.hasLoadedMiras.wrappedValue && viewState != .updated {
-                refreshMirasOnMap(mapView: mapView, context: context)
+                refreshMirasOnMap(mapView: mapView)
             }
         }
 
@@ -65,14 +57,13 @@ struct MBMapView: UIViewRepresentable {
         }
     }
     
-    private func refreshMirasOnMap(mapView: MapView, context: Context) {
+    private func refreshMirasOnMap(mapView: MapView) {
         guard let miras = viewModel.miras else { return } //server data
 //        let miras = Mira.dummyMiras() //commented for dummy miras
         
         
         mapView.viewAnnotations.removeAll()
         let userLocation = LocationManager.shared.location
-        var i = 0
         for mira in miras {
             let options = ViewAnnotationOptions(
                 geometry: Point(mira.location),
@@ -81,14 +72,13 @@ struct MBMapView: UIViewRepresentable {
                 allowOverlap: true,
                 anchor: .center
             )
-            try? mapView.viewAnnotations.add(annotationView(mira: mira, sourceLocation: userLocation, tag: i, context: context), options: options)
-            i += 1
+            try? mapView.viewAnnotations.add(annotationView(mira: mira, sourceLocation: userLocation), options: options)
         }
         
     }
 
     
-    private func annotationView(mira: Mira, sourceLocation: CLLocationCoordinate2D?, tag: Int, context: Context) -> UIView {
+    private func annotationView(mira: Mira, sourceLocation: CLLocationCoordinate2D?) -> UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 40))
 
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
@@ -125,12 +115,12 @@ struct MBMapView: UIViewRepresentable {
             distanceLabel.text = "nan"
         }
  
-        let collecedMiraIconView = UIImageView(image: Images.collectMiraWhite.image)
+        let collecedMiraIconView = UIImageView(image: Images.new16.image)
         collecedMiraIconView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         collecedMiraIconView.contentMode = .scaleAspectFit
         
         let collectedMiraCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
-        collectedMiraCountLabel.text = "\(mira.collectors?.count ?? 0)"
+        collectedMiraCountLabel.text = "12"
         collectedMiraCountLabel.setFont(.body3, textColor: Colors.white)
         
         let stack = UIStackView(arrangedSubviews: [distanceLabel, collecedMiraIconView, collectedMiraCountLabel])
@@ -141,8 +131,7 @@ struct MBMapView: UIViewRepresentable {
         descriptionView.addSubview(stack)
         
         view.addSubview(descriptionView)
-        view.addGestureRecognizer(context.coordinator.tapGesture())
-        view.tag = tag
+        
         return view
     }
     
@@ -153,39 +142,10 @@ struct MBMapView: UIViewRepresentable {
             return "\(distance.clean)m"
         }
     }
+
     enum ViewState: Int {
         case empty = 1, fetching, updating, updated
     }
-
+    
 }
 
-extension MBMapView {
-    class MapViewCoordinator: NSObject, AnnotationInteractionDelegate {
-        var parent: MBMapView
-        
-        init(_ parent: MBMapView) {
-            self.parent = parent
-        }
-        func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
-            print(annotations)
-            //TODO: Use this method in future when it is working properly
-        }
-        
-        @objc func pinTapped(gesture: UITapGestureRecognizer) {
-            guard let index = gesture.view?.tag else { return }
-            
-            if let mira = parent.viewModel.miras?[index] {
-                parent.selectedMira = mira
-                parent.showCollectedByList = true
-                print(parent.selectedMira?.creator.userName ?? "")
-            }
-        }
-        func tapGesture() -> UITapGestureRecognizer {
-            let gesture = UITapGestureRecognizer()
-            gesture.addTarget(self, action: #selector(pinTapped(gesture:)))
-            return gesture
-        }
-
-    }
-
-}

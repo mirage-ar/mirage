@@ -16,6 +16,7 @@ struct MirageApp: App {
         navBarAppearance.isTranslucent = true
         navBarAppearance.tintColor = .clear
         navBarAppearance.backgroundColor = .clear
+
     }
     var body: some Scene {
         WindowGroup {

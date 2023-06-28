@@ -5,7 +5,7 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
       id
       profileImage
       profileImageDesaturated
-      profileDescription
+    profileDescription
       username
     }
     location {
@@ -13,13 +13,7 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
       longitude
     }
     viewed
+    collected
     isFriend
-    collectors {
-      id
-      profileImage
-      profileImageDesaturated
-      profileDescription
-      username
-    }
   }
 }

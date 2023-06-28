@@ -13,13 +13,11 @@ public extension MirageAPI {
 
     public init(
       location: LocationInput,
-      zoomLevel: GraphQLNullable<Int> = nil,
-      radius: Double
+      zoomLevel: GraphQLNullable<Int> = nil
     ) {
       __data = InputDict([
         "location": location,
-        "zoomLevel": zoomLevel,
-        "radius": radius
+        "zoomLevel": zoomLevel
       ])
     }
 
@@ -31,11 +29,6 @@ public extension MirageAPI {
     public var zoomLevel: GraphQLNullable<Int> {
       get { __data["zoomLevel"] }
       set { __data["zoomLevel"] = newValue }
-    }
-
-    public var radius: Double {
-      get { __data["radius"] }
-      set { __data["radius"] = newValue }
     }
   }
 
