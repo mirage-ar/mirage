@@ -27,8 +27,15 @@ public extension MirageAPI {
               longitude
             }
             viewed
-            collected
             isFriend
+            collectors {
+              __typename
+              id
+              profileImage
+              profileImageDesaturated
+              profileDescription
+              username
+            }
           }
         }
         """#
@@ -66,16 +73,16 @@ public extension MirageAPI {
           .field("creator", Creator.self),
           .field("location", Location.self),
           .field("viewed", Bool.self),
-          .field("collected", Bool.self),
           .field("isFriend", Bool.self),
+          .field("collectors", [Collector?].self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
         public var creator: Creator { __data["creator"] }
         public var location: Location { __data["location"] }
         public var viewed: Bool { __data["viewed"] }
-        public var collected: Bool { __data["collected"] }
         public var isFriend: Bool { __data["isFriend"] }
+        public var collectors: [Collector?] { __data["collectors"] }
 
         /// GetMira.Creator
         ///
@@ -115,6 +122,29 @@ public extension MirageAPI {
 
           public var latitude: Double { __data["latitude"] }
           public var longitude: Double { __data["longitude"] }
+        }
+
+        /// GetMira.Collector
+        ///
+        /// Parent Type: `User`
+        public struct Collector: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("id", MirageAPI.ID.self),
+            .field("profileImage", String?.self),
+            .field("profileImageDesaturated", String?.self),
+            .field("profileDescription", String?.self),
+            .field("username", String.self),
+          ] }
+
+          public var id: MirageAPI.ID { __data["id"] }
+          public var profileImage: String? { __data["profileImage"] }
+          public var profileImageDesaturated: String? { __data["profileImageDesaturated"] }
+          public var profileDescription: String? { __data["profileDescription"] }
+          public var username: String { __data["username"] }
         }
       }
     }

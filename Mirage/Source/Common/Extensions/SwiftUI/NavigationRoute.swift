@@ -12,10 +12,11 @@ public enum NavigationRoute {
     case onboardingAuthentication
     case onboardingVerifyPhoneNumber(phoneNumer: String)
     case updateUser(title: String, value: String, user: User)
-    case myProfile
+    case myProfile(userId: String)
     case settings(user: User)
     case editProfile(user: User)
-    
+    case miraCollectedByUsersList(mira: Binding<Mira?>, selectedUser: Binding<User?>)
+
     //MARK: Home
     case homeViewLanding
     case homeToARCameraView
@@ -32,14 +33,15 @@ public enum NavigationRoute {
             case .homeViewLanding:
                 HomeView()
             case .homeToARCameraView:
-                ARViewCamera()
-            case .myProfile:
-                UserProfileView()
+                ARCameraView()
+            case .myProfile(let userId):
+                UserProfileView(userId: userId)
             case .settings(let user):
                 SettingsView(user: user)
             case .editProfile(let user):
                 EditProfileView(user: user)
-                
+            case .miraCollectedByUsersList(let mira, let selectedUser):
+                CollectedByUsersView(selectedMira: mira, selectedUser: selectedUser)
             }
         }
     }

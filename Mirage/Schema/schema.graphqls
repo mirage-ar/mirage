@@ -1,15 +1,11 @@
-#----------------------------------------------------------------------------------
-# Graph Service - GraphQL Schema
-# Mirage (( v0.2.0 ))
-# ---------------------------------------------------------------------------------
 type Mira {
   id: ID!
   creator: User!
   location: Location!
-  arMedia: [ArMedia!]!
-  collectors: [User]
+  media: [ArMedia!]!
+  collectors: [User]!
+  flags: [Flag]!
   viewed: Boolean!
-  collected: Boolean!
   isFriend: Boolean!
 }
 
@@ -96,17 +92,19 @@ type Flag {
   id: ID!
   author: User!
   type: FlagType!
-  parent: Mira!
+  parent: Mira
 }
 
 type Query {
-  user: User
+  user(userId: ID): User
   getMiras(input: GetMirasQueryInput!): [Mira]
+  getMirasByIds(input: [ID!]!): [Mira]
 }
 
 input GetMirasQueryInput {
   location: LocationInput!
   zoomLevel: Int
+  radius: Float!
 }
 
 input LocationInput {
@@ -120,6 +118,8 @@ type Mutation {
   verifyUser(input: VerificationInput!): VerificationResult
   updateUser(input: UpdateUserInput!): User
   addMira(input: AddMiraInput!): Mira
+  collectMira(input: CollectMiraInput!): Mira
+  flagMira(input: FlagMiraInput!): Mira
 }
 
 input AuthorizationInput {
@@ -157,6 +157,15 @@ input PositionInput {
 input ModifierInput {
   type: ModifierType!
   amount: Float!
+}
+
+input CollectMiraInput {
+  miraId: ID!
+}
+
+input FlagMiraInput {
+  miraId: ID!
+  flagType: FlagType!
 }
 
 type AuthorizationResult {

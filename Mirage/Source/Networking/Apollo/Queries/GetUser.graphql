@@ -1,13 +1,12 @@
-query User {
-  user {
+query User($userId: ID) {
+  user(userId: $userId) {
     id
     username
     phone
     profileImage
     profileImageDesaturated
     profileDescription
-    miras {
-      id
-    }
+    accessToken
+    verificationSid
   }
 }
