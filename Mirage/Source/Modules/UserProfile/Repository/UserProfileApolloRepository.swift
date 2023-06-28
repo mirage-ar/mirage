@@ -30,7 +30,6 @@ extension ApolloRepository: UserProfileApolloRepository {
         let query = MirageAPI.UserQuery(userId: id ?? "")
         return fetch(query: query)
             .map {
-                // TODO: update to user model
                 return (User(apiUser: $0.user))
             }
             .eraseToAnyPublisher()

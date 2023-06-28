@@ -19,7 +19,6 @@ extension ApolloRepository: HomeApolloRepository {
         let query = MirageAPI.UserQuery(userId: "")
         return fetch(query: query)
             .map {
-                // TODO: update to user model
                 return (User(apiUser: $0.user))
             }
             .eraseToAnyPublisher()

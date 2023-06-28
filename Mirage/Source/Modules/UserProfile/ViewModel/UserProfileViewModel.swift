@@ -16,16 +16,15 @@ final class UserProfileViewModel: ObservableObject {
 
 
     init(userId: String) {
+        if LocationManager.shared.location == nil {
+            LocationManager.shared.requestLocation()
+        }
+        
         loadProfile(userId)
         print("loadProfile, userId: \(userId)")
     }
     
     func loadProfile(_ userId: String) {
-        if LocationManager.shared.location == nil {
-            LocationManager.shared.requestLocation()
-        }
-        
-        // TODO: update accessToken to stored value
         userProfileRepository.getUser(id: userId)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in

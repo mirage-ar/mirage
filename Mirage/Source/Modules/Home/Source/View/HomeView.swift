@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-//import MapboxMaps
+// import MapboxMaps
 
 struct HomeView: View {
-    
 //    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
     
     @ObservedObject private var viewModel = HomeViewModel()
@@ -29,17 +28,17 @@ struct HomeView: View {
                 MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
                 ZStack {
                     VStack {
-                        HStack{
+                        HStack {
                             Spacer()
                             
                             VStack {
-                                Button {
-                                    print("UPDATE: show user profile for: \(String(describing: selectedUser?.userName))")
-                                    selectedUser = viewModel.currentUser
-                                    showProfileView = true
-                                } label: {
-                                    // TODO: update to current user profile image
-                                    AsyncImage(url: URL(string: "https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425__340.png")) { image in
+                                if viewModel.currentUser != nil {
+                                    Button {
+                                        print("UPDATE: show user profile for: \(String(describing: selectedUser?.userName))")
+                                        selectedUser = viewModel.currentUser
+                                        showProfileView = true
+                                    } label: {
+                                        AsyncImage(url: URL(string: viewModel.currentUser!.profileImage)) { image in
                                             image
                                                 .resizable()
                                                 .scaledToFit()
@@ -47,10 +46,11 @@ struct HomeView: View {
                                             ProgressView()
                                         }
                                         .frame(width: buttonSize, height: buttonSize)
+                                        
+                                        .background(Colors.g3Grey.just)
+                                        .clipShape(Circle())
+                                    }
                                 }
-                                .background(Colors.g3Grey.just)
-                                .clipShape(Circle())
-
                                 Spacer()
                                 
                                 Button {
@@ -61,30 +61,27 @@ struct HomeView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 32, height: 32)
-
                                 }
                                 .frame(width: buttonSize, height: buttonSize)
                                 .background(Colors.g3Grey.just)
                                 .clipShape(Circle())
                                 .padding(.bottom, 50)
                             }
-                            .padding(.top, 50)
+                            .padding(.top, 70)
                             .padding(.trailing, 20)
                         }
-                        Spacer()                        
+                        Spacer()
                     }
                 }
-                
             }
             .edgesIgnoringSafeArea(.all)
             .navigationDestination(isPresented: $showArView) {
                 NavigationRoute.homeToARCameraView.screen
             }
             .fullScreenCover(isPresented: $showProfileView, content: {
-                // TODO: remove empty string - add error handling
                 NavigationRoute.myProfile(userId: selectedUser?.id ?? "").screen
             })
-            .sheet(isPresented:$showCollectedByList) {
+            .sheet(isPresented: $showCollectedByList) {
                 NavigationRoute.miraCollectedByUsersList(mira: $selectedMira, selectedUser: $selectedUser).screen
                     .presentationDetents([.medium, .large])
             }
@@ -100,5 +97,4 @@ struct HomeView: View {
         }
         .accentColor(Colors.white.swiftUIColor)
     }
-    
 }
