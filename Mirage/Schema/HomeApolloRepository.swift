@@ -6,8 +6,8 @@
 //
 
 import Combine
-import CoreLocation
 import Foundation
+import CoreLocation
 
 protocol HomeApolloRepository {
     func getUser() -> AnyPublisher<User, Error>
