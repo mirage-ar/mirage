@@ -5,8 +5,8 @@
 //  Created by Saad on 24/03/2023.
 //
 
-import SwiftUI
 import CoreGraphics
+import SwiftUI
 
 private extension CGFloat {
     static var buttonHorizontalMargins: CGFloat = 0
