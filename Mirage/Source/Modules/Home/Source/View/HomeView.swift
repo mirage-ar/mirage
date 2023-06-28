@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
 //    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-
+    
     @ObservedObject private var viewModel = HomeViewModel()
     @State var showArView = false
     @State var showProfileView = false
@@ -30,7 +30,7 @@ struct HomeView: View {
                     VStack {
                         HStack {
                             Spacer()
-
+                            
                             VStack {
                                 if viewModel.currentUser != nil {
                                     Button {
@@ -52,7 +52,7 @@ struct HomeView: View {
                                     }
                                 }
                                 Spacer()
-
+                                
                                 Button {
                                     showArView = true
                                     print("UPDATE: go to ARView")
@@ -75,9 +75,9 @@ struct HomeView: View {
                 }
             }
             .edgesIgnoringSafeArea(.all)
-            .fullScreenCover(isPresented: $showArView, content: {
+            .navigationDestination(isPresented: $showArView) {
                 NavigationRoute.homeToARCameraView.screen
-            })
+            }
             .fullScreenCover(isPresented: $showProfileView, content: {
                 NavigationRoute.myProfile(userId: selectedUser?.id ?? "").screen
             })
