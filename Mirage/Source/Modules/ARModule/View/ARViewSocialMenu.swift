@@ -1,20 +1,20 @@
 //
-//  ARCameraView.swift
+//  ARViewSocialMenu.swift
 //  Mirage
 //
-//  Created by Saad on 10/04/2023.
+//  Created by fiigmnt on 6/19/23.
 //
 
 import SwiftUI
 
-struct ARCameraView: View {
+struct ARViewSocialMenu: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct ARCameraView_Previews: PreviewProvider {
+struct ARViewSocialMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ARCameraView()
+        ARViewSocialMenu()
     }
 }

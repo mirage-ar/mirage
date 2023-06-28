@@ -13,22 +13,21 @@ public struct User {
     let profileImageDesaturated: String
     let userName: String?
     let profileDescription: String?
-
     
-    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, profileDescription: String?) {
+    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, bio: String?) {
         self.id = id
         self.profileImage = profileImage
         self.profileImageDesaturated = profileImageDesaturated
         self.userName = userName
-        self.profileDescription = profileDescription
+        self.profileDescription = bio
     }
+    
     init() {
         self.id = ""
         self.profileImage = ""
         self.profileImageDesaturated = ""
         self.userName = nil
         self.profileDescription = nil
-        
     }
     //    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
     //        self.id = id
@@ -58,42 +57,17 @@ extension User {
     }
     func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
         
-        return User(id: id, profileImage: profileImage, profileImageDesaturated: profileImageDesaturated, userName: apiUpdatedUser?.username ?? "" , profileDescription: apiUpdatedUser?.username ?? "")
+        return User(id: id, profileImage: profileImage, profileImageDesaturated: profileImageDesaturated, userName: apiUpdatedUser?.username ?? "" , bio: apiUpdatedUser?.username ?? "")
     }
-    
-    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
-        id = creator?.id ?? "0"
-        profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
-        userName = creator?.username ?? ""
-        profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-        profileDescription = creator?.profileDescription
-
-    }
-    
-    init(collector: MirageAPI.GetMirasQuery.Data.GetMira.Collector?) {
-        id = collector?.id ?? "0"
-        profileImage = collector?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
-        userName = collector?.username ?? ""
-        profileImageDesaturated = collector?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-        profileDescription = collector?.profileDescription
-    }
-
 
 }
-//MARK: - Hashable
-extension User: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
+
 //MARK: - Dereive Properties
 extension User {
     var isDescriptionEmpty: Bool {
         return !(self.profileDescription?.isEmpty == true || self.userName?.isEmpty == true)
     }
-    static var dummy: User { 
-        User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
+    static func dummyUser() -> User {
+        return User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", bio: "")
     }
 }
-
-

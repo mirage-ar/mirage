@@ -81,20 +81,67 @@ let blackImages = [
     "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg"
 ]
 
-public struct Mira {
+enum ARMediaContentType {
+    case PHOTO
+    case VIDEO
+}
+
+enum ShapeType {
+    case PLANE
+    case CUBE
+    case SPHERE
+}
+
+enum ModifierType {
+    case NONE
+    case TRANSPARENCY
+    case SPIN
+}
+
+struct ARMedia {
+    let id: String
+    let contentType: ARMediaContentType
+    let assetUrl: String
+    let shape: ShapeType
+    let modifier: ModifierType
+    let position: String // update to actual transform
+}
+
+struct Mira {
     let id: String
     let location: CLLocationCoordinate2D
     let isViewed: Bool
     let isFriend: Bool
     let hasCollected: Bool
-    let creator: User
-    let collectors: [User]?
+    let arMedia: [ARMedia]
+    let creator: Creator
     var imageUrl: String {
         get {
             return isViewed ? creator.profileImageDesaturated : creator.profileImage
         }
     }
     
+    struct Creator {
+        let id: String
+        let profileImage: String
+        let profileImageDesaturated: String
+        let userName: String
+
+        init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
+            self.id = id
+            self.profileImage = profileImage
+            self.profileImageDesaturated = profileImageDesaturated
+            self.userName = userName
+        }
+        init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
+            
+            id = creator?.id ?? "0"
+            profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+            userName = creator?.username ?? ""
+            profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
+        }
+
+    }
 }
 
 extension Mira {
@@ -108,31 +155,12 @@ extension Mira {
         }
         isViewed = mira?.viewed ?? false
         isFriend = mira?.isFriend ?? false
-        if let collectors = mira?.collectors, collectors.count > 0 {
-            var collectorsList = [User]()
-            for collector in  collectors {
-                let user = User(collector: collector)
-                collectorsList.append(user)
-            }
-            self.collectors = collectorsList
-        } else {
-            collectors = nil
-        }
-        
-        hasCollected = false
-        creator = User(creator: mira?.creator)
+        hasCollected = mira?.collected ?? false
+        arMedia = []
+        creator = Creator(creator: mira?.creator)
     }
 }
 extension Mira {
-    
-    static var dummy: Mira {
-        get {
-            let creator = User(id: "Dummy", profileImage: "Dummy", profileImageDesaturated: "Dummy", userName: "Dummy", profileDescription: "Dummy")
-            let mira = Mira(id: "Dummy", location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.932842), isViewed:  false, isFriend: false, hasCollected: false, creator: creator, collectors: nil)
-            return mira
-        }
-    }
-    
     static func dummyMiras() -> [Mira] {
         
         var coordinates = [CLLocationCoordinate2D]()
@@ -177,8 +205,8 @@ extension Mira {
         
         var miras = [Mira]()
         for i in 0..<colorImages.count {
-            let creator = User(id: "\(i)", profileImage: colorImages[i], profileImageDesaturated: blackImages[i], userName: "\(i)", profileDescription: "NaN")
-            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, creator: creator, collectors: nil)
+            let creator = Mira.Creator(id: "\(i)", profileImage: colorImages[i], profileImageDesaturated: blackImages[i], userName: "\(i)")
+            let mira = Mira(id: "\(i)", location: coordinates[i], isViewed:  i%2==0, isFriend: i%3==0, hasCollected: i%4==0, arMedia: [], creator: creator)
             miras.append(mira)
         }
         
