@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-extension MirageAPI.Objects {
+public extension MirageAPI.Objects {
   static let AuthorizationResult = Object(
     typename: "AuthorizationResult",
     implementedInterfaces: []
