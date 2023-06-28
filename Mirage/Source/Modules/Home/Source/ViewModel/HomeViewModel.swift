@@ -7,6 +7,7 @@
 
 import Foundation
 final class HomeViewModel: ObservableObject {
+    
     @Published var isLoading = false
     @Published var currentUser: User?
 

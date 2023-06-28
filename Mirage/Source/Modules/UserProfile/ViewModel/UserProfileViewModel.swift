@@ -11,25 +11,21 @@ import Combine
 final class UserProfileViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var user = User()
-    
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
 
 
-    init(userId: String) {
+    init() {
+        loadProfile()
+    }
+    func loadProfile() {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
         }
-        
-        loadProfile(userId)
-        print("loadProfile, userId: \(userId)")
-    }
-    
-    func loadProfile(_ userId: String) {
-        userProfileRepository.getUser(id: userId)
+        print(LocationManager.shared.location)
+        userProfileRepository.getUser(id: "1", accessToken: "1")
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in
                 self.user = user
-                print("userProfileRepository.getUser, userId: \(user.id)")
             } receiveError: { error in
                 print("Get profile user error \(error)" )
             }
