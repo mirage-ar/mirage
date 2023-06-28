@@ -81,6 +81,7 @@ let blackImages = [
     "https://loremflickr.com/cache/resized/65535_52683775009_5280017408_n_320_240_g.jpg"
 ]
 
+
 public struct Mira {
     let id: String
     let location: CLLocationCoordinate2D
@@ -118,7 +119,7 @@ extension Mira {
         } else {
             collectors = nil
         }
-        
+        // TODO: what is this value for
         hasCollected = false
         creator = User(creator: mira?.creator)
     }

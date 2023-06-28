@@ -22,13 +22,13 @@ public struct User {
         self.userName = userName
         self.profileDescription = profileDescription
     }
+    
     init() {
         self.id = ""
         self.profileImage = ""
         self.profileImageDesaturated = ""
         self.userName = nil
         self.profileDescription = nil
-        
     }
     //    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
     //        self.id = id
