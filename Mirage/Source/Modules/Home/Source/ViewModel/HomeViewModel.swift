@@ -30,4 +30,5 @@ final class HomeViewModel: ObservableObject {
                 print("Get profile user error \(error)")
             }
     }
+    
 }
