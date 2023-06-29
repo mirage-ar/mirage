@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3945226F2A4DE5D100BBD587 /* HomeApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945226E2A4DE5D100BBD587 /* HomeApolloRepository.swift */; };
 		394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */; };
 		394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4958296CCAD300E2F8E4 /* MirageApp.swift */; };
 		394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */; };
@@ -141,6 +142,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3945226E2A4DE5D100BBD587 /* HomeApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeApolloRepository.swift; path = Mirage/Source/Modules/MapModule/ViewModel/HomeApolloRepository.swift; sourceTree = SOURCE_ROOT; };
 		394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewSocialMenu.swift; sourceTree = "<group>"; };
 		394B4955296CCAD300E2F8E4 /* Mirage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mirage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4958296CCAD300E2F8E4 /* MirageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageApp.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 		9310E5E429D10928000E6019 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				3945226E2A4DE5D100BBD587 /* HomeApolloRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1168,6 +1171,7 @@
 				39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */,
 				39BD18FF2A2D08B100A9F95C /* ARViewOverlayMenu.swift in Sources */,
 				9396AA472A0E978800EB4038 /* SettingsViewModel.swift in Sources */,
+				3945226F2A4DE5D100BBD587 /* HomeApolloRepository.swift in Sources */,
 				9318454129CB183800DD07CB /* Colors.swift in Sources */,
 				9310E5D229CDCEC5000E6019 /* LargeButton.swift in Sources */,
 				931FF5DD29B80037002C62AB /* AuthorizationInput.graphql.swift in Sources */,
