@@ -57,19 +57,19 @@ final class ARViewModel: ObservableObject {
         print("UPDATE: Initialize Mira")
         // TODO: update to current creator
         if let location = LocationManager.shared.location {
-            let creator = Mira.Creator(id: UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test")
+            let creator = User(id: UserDefaultsStorage().getString(for: .userId) ?? UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test", profileDescription: "")
             
             
 //            let arMedia = ARMedia(id: UUID().uuidString, contentType: mediaEntity.contentType., assetUrl: , shape: <#T##ShapeType#>, modifier: <#T##ModifierType#>, position: <#T##String#>)
-            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator)
+            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator, collectors: nil)
             currentMira = mira
         } else {
             print("ERROR: no access to location")
             
             // TODO: remove default location
             let location = CLLocationCoordinate2D(latitude: 72.21, longitude: -40.2)
-            let creator = Mira.Creator(id: UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test")
-            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator)
+            let creator = User(id: UserDefaultsStorage().getString(for: .userId) ?? UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test", profileDescription: "")
+            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator, collectors: nil)
             currentMira = mira
         }
     }

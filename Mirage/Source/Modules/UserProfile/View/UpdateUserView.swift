@@ -15,9 +15,9 @@ struct UpdateUserView: View {
     var userToBeUpdated: User {
         
         if title == "BIO" {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: user.userName, bio: value)
+            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: user.userName, profileDescription: value)
         } else {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, bio: user.profileDescription)
+            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, profileDescription: user.profileDescription)
         }
     }
     var body: some View {
@@ -60,7 +60,7 @@ struct UpdateUserView: View {
         }
         .navigationTitle(title.uppercased())
         .navigationDestination(isPresented: $viewModel.userUpdated) {
-            NavigationRoute.editProfile(user: .dummyUser()).screen
+            NavigationRoute.editProfile(user: .dummy).screen
         }
 
     }

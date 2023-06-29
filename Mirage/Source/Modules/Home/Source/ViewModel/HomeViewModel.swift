@@ -7,7 +7,6 @@
 
 import Foundation
 final class HomeViewModel: ObservableObject {
-    
     @Published var isLoading = false
     @Published var currentUser: User?
 
@@ -31,5 +30,4 @@ final class HomeViewModel: ObservableObject {
                 print("Get profile user error \(error)")
             }
     }
-    
 }
