@@ -18,7 +18,7 @@ protocol MapApolloRepository {
 extension ApolloRepository: MapApolloRepository {
     func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int = 7) -> AnyPublisher<Array<Mira>?, Error> {
         let locationInput = MirageAPI.LocationInput(latitude: location.latitude, longitude: location.longitude)
-        let input = MirageAPI.GetMirasQueryInput(location: locationInput, zoomLevel: GraphQLNullable<Int>(integerLiteral: zoomLevel))
+        let input = MirageAPI.GetMirasQueryInput(location: locationInput, zoomLevel: GraphQLNullable<Int>(integerLiteral: zoomLevel), radius: 900000)
         let query = MirageAPI.GetMirasQuery(getMirasQueryInput: input)
         return fetch(query: query)
             .map {
