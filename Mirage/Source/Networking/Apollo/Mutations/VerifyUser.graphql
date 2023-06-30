@@ -2,8 +2,8 @@ mutation VerifyUser($verifyUserInput: VerificationInput!) {
   verifyUser(input: $verifyUserInput) {
     user {
       id
+      phone
       profileImage
-      profileImageDesaturated
       profileDescription
       username
     }

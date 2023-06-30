@@ -1,14 +1,29 @@
 query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
   getMiras(input: $getMirasQueryInput) {
     id
+    miraMedia {
+      contentType
+      assetUrl
+      shape
+      position {
+        id
+        transform
+      }
+      modifier {
+        id
+        type
+        amount
+      }
+    }
     creator {
       id
-      profileImage
-      profileImageDesaturated
-      profileDescription
+      phone
       username
+      profileImage
+      profileDescription
     }
     location {
+      id
       latitude
       longitude
     }
@@ -16,10 +31,10 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
     isFriend
     collectors {
       id
-      profileImage
-      profileImageDesaturated
-      profileDescription
+      phone
       username
+      profileImage
+      profileDescription
     }
   }
 }

@@ -4,9 +4,10 @@
 import ApolloAPI
 
 extension MirageAPI {
-  enum AccountStage: String, EnumType {
-    case new = "NEW"
-    case existing = "EXISTING"
+  enum Shape: String, EnumType {
+    case plane = "PLANE"
+    case cube = "CUBE"
+    case sphere = "SPHERE"
   }
 
 }

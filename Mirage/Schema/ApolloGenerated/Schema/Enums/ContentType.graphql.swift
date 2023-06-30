@@ -4,9 +4,9 @@
 import ApolloAPI
 
 extension MirageAPI {
-  enum AccountStage: String, EnumType {
-    case new = "NEW"
-    case existing = "EXISTING"
+  enum ContentType: String, EnumType {
+    case video = "VIDEO"
+    case photo = "PHOTO"
   }
 
 }

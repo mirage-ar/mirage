@@ -39,7 +39,7 @@ final class AuthenticationViewModel: ObservableObject {
         authenticationRepository.verifyUser(number: number, code: code)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel (receiveOutput: {
-                debugPrint("ID: \($0?.id ?? "") access token: " + ($1 ?? ""))
+                debugPrint("ID: \($0?.id ?? UUID()) access token: " + ($1 ?? ""))
                 if $0 != nil && $1?.isEmpty == false {
                     self.verifyUserSuccess = true
                 }

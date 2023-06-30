@@ -56,22 +56,13 @@ final class ARViewModel: ObservableObject {
     func initializeMira(_ mediaEntity: MediaEntity) {
         print("UPDATE: Initialize Mira")
         // TODO: update to current creator
-        if let location = LocationManager.shared.location {
-            let creator = User(id: UserDefaultsStorage().getString(for: .userId) ?? UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test", profileDescription: "")
+        guard let location = LocationManager.shared.location else { return }
+            let creator = User(id: UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID(), phone: "", userName: "test", profileImage: "", profileDescription: "")
             
-            
-//            let arMedia = ARMedia(id: UUID().uuidString, contentType: mediaEntity.contentType., assetUrl: , shape: <#T##ShapeType#>, modifier: <#T##ModifierType#>, position: <#T##String#>)
-            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator, collectors: nil)
+            // TODO: add asset URL to arMedia
+            let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: "", shape: mediaEntity.shape, modifier: mediaEntity.modifier, position: mediaEntity.transform)
+            let mira = Mira(id: UUID(), creator: creator, location: location, arMedia: [], collectors: nil)
             currentMira = mira
-        } else {
-            print("ERROR: no access to location")
-            
-            // TODO: remove default location
-            let location = CLLocationCoordinate2D(latitude: 72.21, longitude: -40.2)
-            let creator = User(id: UserDefaultsStorage().getString(for: .userId) ?? UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test", profileDescription: "")
-            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator, collectors: nil)
-            currentMira = mira
-        }
     }
         
     private var workItem: DispatchWorkItem?

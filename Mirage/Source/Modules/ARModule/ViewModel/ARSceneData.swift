@@ -42,11 +42,11 @@ class ARSceneData: ObservableObject {
     @Published var showMediaPicker: Bool = false
     @Published var avPlayers: [UInt64: AVPlayer] = [:]
     
-    @Published var selectedShape: ShapeType = .PLANE
-    @Published var previousShape: ShapeType = .PLANE
+    @Published var selectedShape: ShapeType = .plane
+    @Published var previousShape: ShapeType = .plane
     
-    @Published var selectedModifier: ModifierType = .NONE
-    @Published var previousModifier: ModifierType = .NONE
+    @Published var selectedModifier: ModifierType = .none
+    @Published var previousModifier: ModifierType = .none
     
     private var gestureHandler: GestureHandler?
     
