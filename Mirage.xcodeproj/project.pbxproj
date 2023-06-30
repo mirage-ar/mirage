@@ -116,6 +116,7 @@
 		93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */; };
 		93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */; };
 		93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */; };
+		93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 93BB0C5A2A4F0D4B008638D6 /* Alamofire */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
@@ -270,6 +271,7 @@
 				93E2169229B6687600EE907D /* Apollo in Frameworks */,
 				93B24F0329B6152500CCDDB7 /* KeychainSwift in Frameworks */,
 				93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */,
+				93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */,
 				93E2169829B6687600EE907D /* ApolloWebSocket in Frameworks */,
 				39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */,
 				93E2169429B6687600EE907D /* ApolloAPI in Frameworks */,
@@ -991,6 +993,7 @@
 				93E2169729B6687600EE907D /* ApolloWebSocket */,
 				9310E5DF29D0F4EE000E6019 /* iPhoneNumberField */,
 				39FD214B29DB739F0064FFBF /* MapboxMaps */,
+				93BB0C5A2A4F0D4B008638D6 /* Alamofire */,
 			);
 			productName = Mirage;
 			productReference = 394B4955296CCAD300E2F8E4 /* Mirage.app */;
@@ -1071,6 +1074,7 @@
 				93E2169029B6687600EE907D /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				39FD214A29DB739F0064FFBF /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				93BB0C592A4F0D4B008638D6 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 394B4956296CCAD300E2F8E4 /* Products */;
 			projectDirPath = "";
@@ -1994,6 +1998,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		93BB0C592A4F0D4B008638D6 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		93E2169029B6687600EE907D /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -2029,6 +2041,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93B24F1129B6319E00CCDDB7 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		93BB0C5A2A4F0D4B008638D6 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93BB0C592A4F0D4B008638D6 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		93E2169129B6687600EE907D /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;

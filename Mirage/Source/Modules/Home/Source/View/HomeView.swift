@@ -98,6 +98,17 @@ struct HomeView: View {
         .accentColor(Colors.white.swiftUIColor)
         .onAppear {
             hideKeyboard()
+            //TODO: To be removed. Added as a testing
+            DownloadManager.shared.upload(image: Images.buttonStopRecording.image) { url in
+                print(url)
+                guard let url = url else { return }
+                DownloadManager.shared.download(url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4") { progress in
+                    print("Progress \(progress)")
+                } completion: { filePath in
+                    print(filePath)
+                }
+
+            }
         }
     }
 }
