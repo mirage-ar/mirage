@@ -15,6 +15,8 @@ public class DownloadManager {
     private let fileSetKey = (Bundle.main.bundleIdentifier ?? "") + "_DownloadFileSet"
     private let accessToken =  "Bearer \(UserDefaultsStorage().getString(for: .accessToken) ?? "")"
     init() {
+        AF.sessionConfiguration.timeoutIntervalForRequest = 30
+        AF.sessionConfiguration.timeoutIntervalForResource = 30
         if let dict = UserDefaults.standard.object(forKey: fileSetKey) as? [String: File] {
             fileSet = dict
         } else {
@@ -27,7 +29,7 @@ public class DownloadManager {
         AF.request(
             url,
             method: .get,
-            headers: ["authorization": accessToken])
+            headers: [])
         .downloadProgress(closure: { progress in
                 //progress update
                 progressHandler(progress)
