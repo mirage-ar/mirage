@@ -99,10 +99,29 @@ struct HomeView: View {
         .onAppear {
             hideKeyboard()
             //TODO: To be removed. Added as a testing
-            DownloadManager.shared.download(url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4") { progress in
-                print("Progress \(progress)")
+           
+            
+            DownloadManager.shared.download(url: "https://download.samplelib.com/mp4/sample-15s.mp4") { progress in
+                print("Progress 2 \(progress)")
             } completion: { filePath in
-                print(filePath)
+                print("Complete 2 " + (filePath ?? ""))
+            }
+            
+            
+            DownloadManager.shared.download(url: "https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4") { progress in
+                print("Progress 3 \(progress)")
+            } completion: { filePath in
+                print("Complete 3 " + (filePath ?? ""))
+            }
+            DownloadManager.shared.download(url: "https://download.samplelib.com/mp4/sample-20s.mp4") { progress in
+                print("Progress 4 \(progress)")
+            } completion: { filePath in
+                print("Complete 4 " + (filePath ?? ""))
+            }
+            DownloadManager.shared.download(url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4") { progress in
+                print("Progress 1 \(progress)")
+            } completion: { filePath in
+                print("Complete 1 " + (filePath ?? ""))
             }
             
             DownloadManager.shared.upload(image: Images.buttonStopRecording.image) { url in
