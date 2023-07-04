@@ -14,6 +14,8 @@ public class DownloadManager {
     private var fileSet: [String: File]
     private let fileSetKey = (Bundle.main.bundleIdentifier ?? "") + "_DownloadFileSet"
     private let accessToken =  "Bearer \(UserDefaultsStorage().getString(for: .accessToken) ?? "")"
+    private let maxRetries = 3
+    
     init() {
         AF.sessionConfiguration.timeoutIntervalForRequest = 30
         AF.sessionConfiguration.timeoutIntervalForResource = 30
@@ -21,13 +23,16 @@ public class DownloadManager {
         
         if let dict = UserDefaults.standard.object(forKey: fileSetKey) as? [String: File] {
             fileSet = dict
+            
         } else {
             fileSet = Dictionary()
         }
+        processPreviousFiles()
     }
     
-    func download(url: String, progressHandler: @escaping ((Progress) -> Void), completion: @escaping ((String?) -> ())) {
+    func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {
         let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
+        fileStarted(url: url, operation: .download)
 
         AF.request(
             url,
@@ -35,19 +40,20 @@ public class DownloadManager {
             headers: [])
         .downloadProgress(closure: { progress in
                 //progress update
-                progressHandler(progress)
-        }).responseData (queue: queue) { response in
+                progressHandler?(progress)
+        }).responseData (queue: queue) { [weak self] response in
                 
-                if let data = response.value, let url = response.request?.url{
-                    let fileName = url.lastPathComponent
+                if let data = response.value, let URL = response.request?.url{
+                    let fileName = URL.lastPathComponent
                     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                     let fileUrl = documentsURL.appendingPathComponent(fileName)
                     do {
                         try data.write(to: fileUrl)
-                        completion(fileUrl.absoluteString)
+                        self?.fileCompleted(url: url, filePath: fileUrl.absoluteString , operation: .download)
+                        completion?(fileUrl.absoluteString)
                         } catch (let e){
                             print("Error Saving File:\(fileUrl) Error:\(e)")
-                            completion(nil)
+                            completion?(nil)
                     }
                     print(fileUrl)
                 }
@@ -55,15 +61,30 @@ public class DownloadManager {
             }
 
     }
-    
-    func upload(image: UIImage, completion: @escaping ((String?) -> ())) {
+    func upload(image: UIImage, completion: ((String?) -> ())?) {
+        let data = image.jpegData(compressionQuality: 0.5)
+        let fileName = UUID().uuidString + ".jpg"
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = documentsURL.appendingPathComponent(fileName)
+        do {
+            try data?.write(to: fileUrl)
+                upload(filePath: fileName, completion: completion)
+            } catch (let e){
+                print("Error Saving File:\(fileUrl) Error:\(e)")
+                completion?(nil)
+        }
+
+    }
+    func upload(filePath: String, completion: ((String?) -> ())?) {
+        
+        guard let fileUrl = URL(string: filePath) else { return }
         let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
 
         let headers: HTTPHeaders = ["content-type": "multipart/form-data; boundary=---011000010111000001101001", "authorization": accessToken]
-        let imageData = image.jpegData(compressionQuality: 0.50)
+        fileStarted(url: filePath, operation: .upload)
 
         AF.upload(multipartFormData: { (multipartFormData) in
-            multipartFormData.append(imageData!, withName: "file", fileName: "swift_file.png", mimeType: "image/png")
+            multipartFormData.append(fileUrl, withName: fileUrl.lastPathComponent)
         }, to: "https://3dke7yk5g5hlo2nhfinpnbf3h40mauci.lambda-url.us-east-1.on.aws", method: .post, headers: headers).responseDecodable(of: [UploadResponse].self, queue: queue) { response in
             let result = response.result.map { $0.first?.url ?? "" }
             print(result)
@@ -71,12 +92,81 @@ public class DownloadManager {
             switch result {
             case .success(let url):
                 print(url)
-                completion(url)
+                self.fileCompleted(url: filePath, filePath: url, operation: .upload)
+                completion?(url)
             case .failure(let encodingError):
+                self.fileFailed(url: filePath)
                 print(encodingError)
-                completion(nil)
+                completion?(nil)
             }
         }
+    }
+    //MARK: File Actions
+    private func synchronizeFileSet() {
+        UserDefaults.standard.set(fileSet, forKey: fileSetKey)
+        UserDefaults.standard.synchronize()
+    }
+    private func fileStarted(url: String, operation: File.Operation) {
+        var file = fileSet[url] //to accomodate retries
+        if file == nil {
+            file = File(url: url, operation: operation)
+        }
+        file?.status = .inProgress
+        fileSet[url] = file
+        synchronizeFileSet()
+    }
+    private func update(url: String, status: File.Status, operation: File.Operation) {
+        var file = fileSet[url]
+        if file == nil {
+            file = File(url: url, operation: operation)
+        }
+        file?.status = status
+        fileSet[url] = file
+        synchronizeFileSet()
+    }
+    private func fileCompleted(url: String, filePath: String, operation: File.Operation) {
+        var file = fileSet[url]
+        if file == nil {
+            file = File(url: url, status: .completed, operation: operation)
+        }
+        file?.filePath = filePath
+        file?.completedAt = .now
+        fileSet[url] = file
+        synchronizeFileSet()
+    }
+    private func fileFailed(url: String) {
+        guard var file = fileSet[url] else { return }
+        
+        if file.retries < maxRetries {
+            file.retries += 1
+            file.failedAt = .now
+            file.lastRetry = .now
+            fileSet[url] = file
+            synchronizeFileSet()
+            if file.operation == .download {
+                download(url: file.url, progressHandler: nil, completion: nil)
+            } else {
+                upload(filePath: file.filePath, completion: nil)
+            }
+        }
+    }
+    
+    private func processPreviousFiles() {
+        let incompleteFiles = fileSet.values.filter { $0.status != .completed }
+        for var file in incompleteFiles {
+            file.priority = .low
+            file.status = .inProgress
+            file.retries = 0
+            file.failedAt = nil
+            file.lastRetry = nil
+            fileSet[file.url] = file
+            if file.operation == .download {
+                download(url: file.url, progressHandler: nil, completion: nil)
+            } else {
+                upload(filePath: file.filePath, completion: nil)
+            }
+        }
+        synchronizeFileSet()
     }
     
 }
@@ -87,15 +177,24 @@ struct UploadResponse: Decodable {
 
 struct File {
     
-    let url: String
-    let filePath: String = ""
-    let status: Status = .notStarted
-    let retries: Int = 0
+    let url: String //In case of upload. url will be local filePath. in case of download. url will be server URL.
+    var filePath: String = ""
+    var status: Status = .notStarted
+    var retries: Int = 0
     let startedAt: Date = .now
-    let completedAt: Date
-    let failedAt: Date
+    var completedAt: Date?
+    var failedAt: Date?
+    var lastRetry: Date?
+    var priority: Priority = .medium
+    let operation: Operation
     
     enum Status: Int {
-        case notStarted = 0, inProgress, failed
+        case notStarted = 0, inProgress, failed, completed
+    }
+    enum Operation: Int {
+        case download = 0, upload
+    }
+    enum Priority: Int {
+        case low = 0, medium = 1, high = 2
     }
 }
