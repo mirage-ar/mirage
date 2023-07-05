@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */; };
 		39050FB82A4B6F2600AA8376 /* HomeApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39050FB72A4B6F2600AA8376 /* HomeApolloRepository.swift */; };
+		394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */; };
 		394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4958296CCAD300E2F8E4 /* MirageApp.swift */; };
 		394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */; };
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
+		3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 3988CD382A44E9D5007BCD37 /* schema.graphqls */; };
 		39BD18EF2A2D081000A9F95C /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18EE2A2D081000A9F95C /* GestureHandler.swift */; };
 		39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F02A2D081D00A9F95C /* MediaPicker.swift */; };
 		39BD18F32A2D083B00A9F95C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */; };
@@ -27,7 +28,6 @@
 		39CA4F962A2F8BE6002CCE88 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F952A2F8BE6002CCE88 /* ARViewController.swift */; };
 		39CA4F992A3106BB002CCE88 /* ARViewCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */; };
 		39CA4F9B2A3106FD002CCE88 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */; };
-		3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 3988CD382A44E9D5007BCD37 /* schema.graphqls */; };
 		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
 		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
 		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
@@ -116,6 +116,8 @@
 		93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */; };
 		93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */; };
 		93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */; };
+		93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 93BB0C5A2A4F0D4B008638D6 /* Alamofire */; };
+		93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
@@ -145,8 +147,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewSocialMenu.swift; sourceTree = "<group>"; };
 		39050FB72A4B6F2600AA8376 /* HomeApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeApolloRepository.swift; path = Mirage/Schema/HomeApolloRepository.swift; sourceTree = SOURCE_ROOT; };
+		394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewSocialMenu.swift; sourceTree = "<group>"; };
 		394B4955296CCAD300E2F8E4 /* Mirage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mirage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4958296CCAD300E2F8E4 /* MirageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageApp.swift; sourceTree = "<group>"; };
 		394B495F296CCAD400E2F8E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		394B496F296CCAD400E2F8E4 /* MirageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MirageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4973296CCAD400E2F8E4 /* MirageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITests.swift; sourceTree = "<group>"; };
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3988CD382A44E9D5007BCD37 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		39BD18EE2A2D081000A9F95C /* GestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		39BD18F02A2D081D00A9F95C /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
@@ -168,7 +171,6 @@
 		39CA4F952A2F8BE6002CCE88 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewController.swift; path = Mirage/Source/Modules/ARModule/ViewModel/ARViewController.swift; sourceTree = SOURCE_ROOT; };
 		39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCamera.swift; sourceTree = "<group>"; };
 		39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewModel.swift; path = Mirage/Source/Modules/ARModule/View/ARViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3988CD382A44E9D5007BCD37 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
 		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserViewModel.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		93B379312A21062D00C6C66C /* ABCDiatypeMono-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABCDiatypeMono-Regular.otf"; sourceTree = "<group>"; };
 		93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPropertiesStorage.swift; sourceTree = "<group>"; };
 		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
@@ -270,6 +273,7 @@
 				93E2169229B6687600EE907D /* Apollo in Frameworks */,
 				93B24F0329B6152500CCDDB7 /* KeychainSwift in Frameworks */,
 				93B24F1329B6319E00CCDDB7 /* OrderedCollections in Frameworks */,
+				93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */,
 				93E2169829B6687600EE907D /* ApolloWebSocket in Frameworks */,
 				39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */,
 				93E2169429B6687600EE907D /* ApolloAPI in Frameworks */,
@@ -730,8 +734,9 @@
 		9331C47529AF8C0100F8EE72 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				9331C49629AF8FE200F8EE72 /* General */,
 				9331C47629AF8C0100F8EE72 /* Apollo */,
+				93BB0C5C2A4F366D008638D6 /* DownloadManager */,
+				9331C49629AF8FE200F8EE72 /* General */,
 				9331C47B29AF8C0100F8EE72 /* Reachability */,
 			);
 			path = Networking;
@@ -921,6 +926,14 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
+		93BB0C5C2A4F366D008638D6 /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */,
+			);
+			path = DownloadManager;
+			sourceTree = "<group>";
+		};
 		93E2169929B6804100EE907D /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,6 +1004,7 @@
 				93E2169729B6687600EE907D /* ApolloWebSocket */,
 				9310E5DF29D0F4EE000E6019 /* iPhoneNumberField */,
 				39FD214B29DB739F0064FFBF /* MapboxMaps */,
+				93BB0C5A2A4F0D4B008638D6 /* Alamofire */,
 			);
 			productName = Mirage;
 			productReference = 394B4955296CCAD300E2F8E4 /* Mirage.app */;
@@ -1071,6 +1085,7 @@
 				93E2169029B6687600EE907D /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				39FD214A29DB739F0064FFBF /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
+				93BB0C592A4F0D4B008638D6 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 394B4956296CCAD300E2F8E4 /* Products */;
 			projectDirPath = "";
@@ -1195,6 +1210,7 @@
 				9318454329CB183800DD07CB /* Images.swift in Sources */,
 				9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */,
 				9300624929E43EA000816C46 /* MBMapView.swift in Sources */,
+				93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */,
 				9318454229CB183800DD07CB /* Fonts.swift in Sources */,
 				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
 				93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */,
@@ -1994,6 +2010,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		93BB0C592A4F0D4B008638D6 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		93E2169029B6687600EE907D /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -2029,6 +2053,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93B24F1129B6319E00CCDDB7 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		93BB0C5A2A4F0D4B008638D6 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93BB0C592A4F0D4B008638D6 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		93E2169129B6687600EE907D /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;

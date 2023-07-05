@@ -31,7 +31,7 @@ struct MBMapView: UIViewRepresentable {
         let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: myMapInitOptions)
         // Create location identifier icon "puck"
         let puckImage = Puck2DConfiguration(topImage: UIImage(named: "me-pin"), bearingImage: UIImage(named: "me-pin"), scale: .constant(1.0), showsAccuracyRing: false)
-
+    
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.location.options.puckType = .puck2D(puckImage)
 
@@ -68,7 +68,6 @@ struct MBMapView: UIViewRepresentable {
     private func refreshMirasOnMap(mapView: MapView, context: Context) {
         guard let miras = viewModel.miras else { return } //server data
 //        let miras = Mira.dummyMiras() //commented for dummy miras
-        
         
         mapView.viewAnnotations.removeAll()
         let userLocation = LocationManager.shared.location
