@@ -2,6 +2,10 @@ mutation VerifyUser($verifyUserInput: VerificationInput!) {
   verifyUser(input: $verifyUserInput) {
     user {
       id
+      profileImage
+      profileImageDesaturated
+      profileDescription
+      username
     }
     accessToken
   }

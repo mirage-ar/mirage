@@ -44,6 +44,7 @@ public enum UserProperty: String, CaseIterable {
     
     case userId
     case accessToken
+    case userProfile
 
     public var isUserSpecific: Bool {
         return true

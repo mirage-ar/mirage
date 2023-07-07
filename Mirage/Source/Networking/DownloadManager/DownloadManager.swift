@@ -259,6 +259,4 @@ extension File: Codable {
         try container.encode(priority, forKey: .priority)
         try container.encode(operation, forKey: .operation)
     }
-
-
 }

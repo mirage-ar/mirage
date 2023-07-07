@@ -99,6 +99,7 @@
 		9396AA472A0E978800EB4038 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA462A0E978800EB4038 /* SettingsViewModel.swift */; };
 		93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3872A0A9EE700179536 /* SettingsView.swift */; };
 		93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3892A0A9F7300179536 /* EditProfileView.swift */; };
+		93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */; };
 		93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */; };
 		93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B729C20133002DA594 /* NavigationElement.swift */; };
 		93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B929C203B9002DA594 /* NavigationRoute.swift */; };
@@ -240,6 +241,7 @@
 		9396AA462A0E978800EB4038 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		93A4D3872A0A9EE700179536 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		93A4D3892A0A9F7300179536 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStorage.swift; sourceTree = "<group>"; };
 		93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberView.swift; sourceTree = "<group>"; };
 		93AD50B729C20133002DA594 /* NavigationElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationElement.swift; sourceTree = "<group>"; };
 		93AD50B929C203B9002DA594 /* NavigationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoute.swift; sourceTree = "<group>"; };
@@ -922,6 +924,7 @@
 			children = (
 				93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */,
 				93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */,
+				93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -1163,6 +1166,7 @@
 				93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */,
 				936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */,
 				9310E5DD29CDD9A6000E6019 /* ActivityIndicator.swift in Sources */,
+				93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */,
 				935065162A43302700817130 /* CollectedByUsersView.swift in Sources */,
 				93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
