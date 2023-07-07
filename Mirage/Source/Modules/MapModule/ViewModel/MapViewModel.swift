@@ -12,6 +12,7 @@ final class MapViewModel: ObservableObject {
     
     @Published var isLoading = false
     @Published var hasLoadedMiras = false
+    @Published var hasLoadedMiras2 = false
     @Published var miras: [Mira]?
 
     let mapApolloRepository: MapApolloRepository = AppConfiguration.shared.apollo
@@ -20,6 +21,13 @@ final class MapViewModel: ObservableObject {
         getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
     }
 
+    func triggerRefresh() {
+//        self.hasLoadedMiras = false
+//        let mirasCopy = self.miras
+//        self.miras = mirasCopy
+//        self.hasLoadedMiras = true
+        self.hasLoadedMiras2 = true
+    }
     func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int) {
         mapApolloRepository.getMiras(location: location, zoomLevel: zoomLevel)
             .receive(on: DispatchQueue.main)
