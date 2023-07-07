@@ -8,5 +8,11 @@ query User($userId: ID) {
     profileDescription
     accessToken
     verificationSid
+    collected {
+        id
+    }
+    miras {
+        id
+    }
   }
 }
