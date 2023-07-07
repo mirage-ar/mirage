@@ -128,3 +128,19 @@ public struct UserDefaultsStorage: UserPropertiesStorage {
     }
 }
 
+extension UserDefaultsStorage: UserProfileStorage {
+    
+    func save(_ user: User?, property: UserProperty = .userProfile) {
+        let data = try? JSONEncoder().encode(user)
+        UserDefaults.standard.set(data, forKey: property.key)
+        UserDefaults.standard.synchronize()
+    }
+    public func getUser(property: UserProperty = .userProfile) -> User? {
+        if let data = UserDefaults.standard.object(forKey: property.key) as? Data,
+           let user = try? JSONDecoder().decode(User.self, from: data) {
+            return user
+        }
+        return nil
+    }
+}
+

@@ -19,6 +19,7 @@ public class ApolloRepository {
 
     private var subscriptions = [SubscriptionName: Apollo.Cancellable]()
     var userPropertiesStorage: UserPropertiesStorage = UserDefaultsStorage()
+    var userProfileStorage: UserProfileStorage = UserDefaultsStorage()
 
     var walletSubscription: AnyPublisher<Int, Error>?
 

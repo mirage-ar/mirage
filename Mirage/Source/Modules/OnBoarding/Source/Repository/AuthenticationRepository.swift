@@ -11,7 +11,7 @@ import Combine
 protocol AuthenticationRepository {
     
     func authenticate(number: String) -> AnyPublisher<String, Error>
-    func verifyUser(number: String, code: String) -> AnyPublisher<(String, String), Error>
+    func verifyUser(number: String, code: String) -> AnyPublisher<(User?, String?), Error>
 }
 
 extension ApolloRepository: AuthenticationRepository {
@@ -29,16 +29,20 @@ extension ApolloRepository: AuthenticationRepository {
 
     }
     
-    public func verifyUser(number: String, code: String) -> AnyPublisher<(String, String), Error> {
+    public func verifyUser(number: String, code: String) -> AnyPublisher<(User?, String?), Error> {
                 
         let input = MirageAPI.VerificationInput(phone: number, code: code)
         let mutaiton = MirageAPI.VerifyUserMutation(verifyUserInput: input)
         return perform(mutation: mutaiton)
             .map {
-                self.handleTokenUpdate($0.verifyUser?.accessToken)
-                self.userPropertiesStorage.save($0.verifyUser?.user.id, for: .userId)
-                self.userPropertiesStorage.save($0.verifyUser?.accessToken, for: .accessToken)
-                return ($0.verifyUser?.user.id ?? "", $0.verifyUser?.accessToken ?? "")
+                return ($0.verifyUser.map { response in
+                    self.handleTokenUpdate(response.accessToken)
+                    self.userPropertiesStorage.save(response.user.id, for: .userId)
+                    self.userPropertiesStorage.save(response.accessToken, for: .accessToken)
+                    let user = (User(verifyUser: response.user))
+                    self.userProfileStorage.save(user, property: .userProfile)
+                    return user
+                }, $0.verifyUser?.accessToken)
             }
             .eraseToAnyPublisher()
 

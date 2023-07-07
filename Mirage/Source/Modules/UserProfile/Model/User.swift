@@ -54,7 +54,14 @@ extension User {
         profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
         userName = apiUser?.username ?? ""
         profileImageDesaturated = apiUser?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-        profileDescription = "Dummy Bio"
+        profileDescription = apiUser?.profileDescription
+    }
+    init(verifyUser: MirageAPI.VerifyUserMutation.Data.VerifyUser.User) {
+        id = verifyUser.id
+        profileImage = verifyUser.profileImage ?? ""
+        userName = verifyUser.username
+        profileImageDesaturated = verifyUser.profileImageDesaturated ?? ""
+        profileDescription = verifyUser.profileDescription
     }
     func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
         
@@ -94,6 +101,35 @@ extension User {
     static var dummy: User { 
         User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
     }
+}
+extension User: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case profileImage
+        case profileImageDesaturated
+        case userName
+        case profileDescription
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(String.self, forKey: .id)
+        profileImage = try values.decode(String.self, forKey: .profileImage)
+        profileImageDesaturated = try values.decode(String.self, forKey: .profileImageDesaturated)
+        userName = try? values.decode(String.self, forKey: .userName)
+        profileDescription = try? values.decode(String.self, forKey: .profileDescription)
+    }
+
+    func encode(with encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(profileImage, forKey: .profileImage)
+        try container.encode(profileImageDesaturated, forKey: .profileImageDesaturated)
+        try container.encode(userName, forKey: .userName)
+        try container.encode(profileDescription, forKey: .profileDescription)
+    }
+
+
 }
 
 

@@ -21,7 +21,7 @@ final class AuthenticationViewModel: ObservableObject {
         authenticationRepository.authenticate(number: number)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel (receiveOutput: { accountStage in
-                print("Verficatino ID \(accountStage)")
+                debugPrint("Account Stage: \(accountStage)")
                 self.isLoading = false
                 if accountStage == MirageAPI.AccountStage.new.rawValue || accountStage == MirageAPI.AccountStage.new.rawValue {
                     self.authorizeSuccess = true
@@ -39,8 +39,8 @@ final class AuthenticationViewModel: ObservableObject {
         authenticationRepository.verifyUser(number: number, code: code)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel (receiveOutput: {
-                print("ID" + $0 + " access token: " + $1)
-                if $0.isEmpty == false && $1.isEmpty == false {
+                debugPrint("ID: \($0?.id ?? "") access token: " + ($1 ?? ""))
+                if $0 != nil && $1?.isEmpty == false {
                     self.verifyUserSuccess = true
                 }
                 self.isLoading = false
