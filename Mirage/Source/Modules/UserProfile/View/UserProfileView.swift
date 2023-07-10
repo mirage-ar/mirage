@@ -71,7 +71,7 @@ struct UserProfileView: View {
 
                                     } else {
                                         Text(viewModel.user.profileDescription ?? "")
-                                            .font(Font.body)
+                                            .font(.body1)
                                     }
                                 }
                                 .foregroundColor(Colors.white.swiftUIColor)
@@ -95,7 +95,7 @@ struct UserProfileView: View {
                                     HStack(alignment: .top) {
                                         Text("Collection")
                                             .foregroundColor(Colors.white.swiftUIColor)
-                                            .font(Font.body)
+                                            .font(.body1)
                                             .multilineTextAlignment(.leading)
                                         Spacer()
                                     }
@@ -126,12 +126,12 @@ struct UserProfileView: View {
                                 Text("Miras")
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(Font.body)
+                                    .font(.body1)
                                 Spacer()
                                 Text("\(viewModel.user.collectedMiraCount)")
                                     .multilineTextAlignment(.trailing)
                                     .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(Font.body)
+                                    .font(.body1)
                             }
                             .padding(.top, -70) // to bind the view at top
                             .padding(.leading, 5)
