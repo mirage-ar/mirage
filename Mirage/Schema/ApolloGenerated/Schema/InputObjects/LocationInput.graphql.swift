@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-extension MirageAPI {
+public extension MirageAPI {
   struct LocationInput: InputObject {
-    private(set) var __data: InputDict
+    public private(set) var __data: InputDict
 
-    init(_ data: InputDict) {
+    public init(_ data: InputDict) {
       __data = data
     }
 
-    init(
+    public init(
       latitude: Double,
       longitude: Double,
       elevation: GraphQLNullable<Double> = nil
@@ -23,17 +23,17 @@ extension MirageAPI {
       ])
     }
 
-    var latitude: Double {
+    public var latitude: Double {
       get { __data["latitude"] }
       set { __data["latitude"] = newValue }
     }
 
-    var longitude: Double {
+    public var longitude: Double {
       get { __data["longitude"] }
       set { __data["longitude"] = newValue }
     }
 
-    var elevation: GraphQLNullable<Double> {
+    public var elevation: GraphQLNullable<Double> {
       get { __data["elevation"] }
       set { __data["elevation"] = newValue }
     }

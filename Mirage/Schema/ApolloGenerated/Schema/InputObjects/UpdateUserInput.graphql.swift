@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-extension MirageAPI {
+public extension MirageAPI {
   struct UpdateUserInput: InputObject {
-    private(set) var __data: InputDict
+    public private(set) var __data: InputDict
 
-    init(_ data: InputDict) {
+    public init(_ data: InputDict) {
       __data = data
     }
 
-    init(
+    public init(
       username: GraphQLNullable<String> = nil,
       profileImage: GraphQLNullable<String> = nil,
       profileDescription: GraphQLNullable<String> = nil
@@ -23,17 +23,17 @@ extension MirageAPI {
       ])
     }
 
-    var username: GraphQLNullable<String> {
+    public var username: GraphQLNullable<String> {
       get { __data["username"] }
       set { __data["username"] = newValue }
     }
 
-    var profileImage: GraphQLNullable<String> {
+    public var profileImage: GraphQLNullable<String> {
       get { __data["profileImage"] }
       set { __data["profileImage"] = newValue }
     }
 
-    var profileDescription: GraphQLNullable<String> {
+    public var profileDescription: GraphQLNullable<String> {
       get { __data["profileDescription"] }
       set { __data["profileDescription"] = newValue }
     }

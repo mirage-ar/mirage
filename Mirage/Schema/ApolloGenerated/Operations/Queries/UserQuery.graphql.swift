@@ -3,10 +3,10 @@
 
 @_exported import ApolloAPI
 
-extension MirageAPI {
+public extension MirageAPI {
   class UserQuery: GraphQLQuery {
-    static let operationName: String = "User"
-    static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationName: String = "User"
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
         query User($userId: ID) {
@@ -40,27 +40,26 @@ extension MirageAPI {
 
     public var __variables: Variables? { ["userId": userId] }
 
-    struct Data: MirageAPI.SelectionSet {
-      let __data: DataDict
-      init(data: DataDict) { __data = data }
+    public struct Data: MirageAPI.SelectionSet {
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
-      static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
-      static var __selections: [ApolloAPI.Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("user", User?.self, arguments: ["userId": .variable("userId")]),
       ] }
 
-      var user: User? { __data["user"] }
+      public var user: User? { __data["user"] }
 
       /// User
       ///
       /// Parent Type: `User`
-      struct User: MirageAPI.SelectionSet {
-        let __data: DataDict
-        init(data: DataDict) { __data = data }
+      public struct User: MirageAPI.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
-        static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
-        static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
+        public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
           .field("phone", String?.self),
           .field("username", String.self),
@@ -72,46 +71,44 @@ extension MirageAPI {
           .field("miras", [Mira?]?.self),
         ] }
 
-        var id: MirageAPI.ID { __data["id"] }
-        var phone: String? { __data["phone"] }
-        var username: String { __data["username"] }
-        var profileImage: String? { __data["profileImage"] }
-        var profileDescription: String? { __data["profileDescription"] }
-        var accessToken: String? { __data["accessToken"] }
-        var verificationSid: String? { __data["verificationSid"] }
-        var collected: [Collected?]? { __data["collected"] }
-        var miras: [Mira?]? { __data["miras"] }
+        public var id: MirageAPI.ID { __data["id"] }
+        public var phone: String? { __data["phone"] }
+        public var username: String { __data["username"] }
+        public var profileImage: String? { __data["profileImage"] }
+        public var profileDescription: String? { __data["profileDescription"] }
+        public var accessToken: String? { __data["accessToken"] }
+        public var verificationSid: String? { __data["verificationSid"] }
+        public var collected: [Collected?]? { __data["collected"] }
+        public var miras: [Mira?]? { __data["miras"] }
 
         /// User.Collected
         ///
         /// Parent Type: `Mira`
-        struct Collected: MirageAPI.SelectionSet {
-          let __data: DataDict
-          init(data: DataDict) { __data = data }
+        public struct Collected: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
-          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
-          static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("id", MirageAPI.ID.self),
           ] }
 
-          var id: MirageAPI.ID { __data["id"] }
+          public var id: MirageAPI.ID { __data["id"] }
         }
 
         /// User.Mira
         ///
         /// Parent Type: `Mira`
-        struct Mira: MirageAPI.SelectionSet {
-          let __data: DataDict
-          init(data: DataDict) { __data = data }
+        public struct Mira: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
-          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
-          static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("id", MirageAPI.ID.self),
           ] }
 
-          var id: MirageAPI.ID { __data["id"] }
+          public var id: MirageAPI.ID { __data["id"] }
         }
       }
     }

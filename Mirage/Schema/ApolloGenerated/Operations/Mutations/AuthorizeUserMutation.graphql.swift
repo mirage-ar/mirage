@@ -3,10 +3,10 @@
 
 @_exported import ApolloAPI
 
-extension MirageAPI {
+public extension MirageAPI {
   class AuthorizeUserMutation: GraphQLMutation {
-    static let operationName: String = "AuthorizeUser"
-    static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationName: String = "AuthorizeUser"
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
         mutation AuthorizeUser($authorizeUserInput: AuthorizationInput!) {
@@ -30,48 +30,46 @@ extension MirageAPI {
 
     public var __variables: Variables? { ["authorizeUserInput": authorizeUserInput] }
 
-    struct Data: MirageAPI.SelectionSet {
-      let __data: DataDict
-      init(data: DataDict) { __data = data }
+    public struct Data: MirageAPI.SelectionSet {
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
-      static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mutation }
-      static var __selections: [ApolloAPI.Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mutation }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("authorizeUser", AuthorizeUser?.self, arguments: ["input": .variable("authorizeUserInput")]),
       ] }
 
-      var authorizeUser: AuthorizeUser? { __data["authorizeUser"] }
+      public var authorizeUser: AuthorizeUser? { __data["authorizeUser"] }
 
       /// AuthorizeUser
       ///
       /// Parent Type: `AuthorizationResult`
-      struct AuthorizeUser: MirageAPI.SelectionSet {
-        let __data: DataDict
-        init(data: DataDict) { __data = data }
+      public struct AuthorizeUser: MirageAPI.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
-        static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.AuthorizationResult }
-        static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
+        public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.AuthorizationResult }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("user", User.self),
           .field("accountStage", GraphQLEnum<MirageAPI.AccountStage>.self),
         ] }
 
-        var user: User { __data["user"] }
-        var accountStage: GraphQLEnum<MirageAPI.AccountStage> { __data["accountStage"] }
+        public var user: User { __data["user"] }
+        public var accountStage: GraphQLEnum<MirageAPI.AccountStage> { __data["accountStage"] }
 
         /// AuthorizeUser.User
         ///
         /// Parent Type: `User`
-        struct User: MirageAPI.SelectionSet {
-          let __data: DataDict
-          init(data: DataDict) { __data = data }
+        public struct User: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
 
-          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
-          static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
+          public static var __selections: [ApolloAPI.Selection] { [
             .field("id", MirageAPI.ID.self),
           ] }
 
-          var id: MirageAPI.ID { __data["id"] }
+          public var id: MirageAPI.ID { __data["id"] }
         }
       }
     }
