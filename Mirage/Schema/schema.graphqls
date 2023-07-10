@@ -2,7 +2,7 @@ type Mira {
   id: ID!
   creator: User!
   location: Location!
-  media: [ArMedia!]!
+  miraMedia: [ArMedia!]!
   collectors: [User]!
   flags: [Flag]!
   viewed: Boolean!

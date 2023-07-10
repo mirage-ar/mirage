@@ -10,7 +10,6 @@ import SwiftUI
 struct UserProfileView: View {
     @State var goToSettings = false
     @State var goToEditProfile = false
-    @State var ownProfile = true
     @State var goToHome = false
     @Environment(\.presentationMode) var presentationMode
     
@@ -19,10 +18,12 @@ struct UserProfileView: View {
 
     @ObservedObject private var viewModel: UserProfileViewModel
     
+    var ownProfile = true
     let userId: String
 
     init(userId: String) {
         self.userId = userId
+        ownProfile = UserDefaultsStorage().getString(for: .userId) == userId
         self.viewModel = UserProfileViewModel(userId: userId)
     }
 
@@ -46,12 +47,14 @@ struct UserProfileView: View {
                         .frame(width: UIScreen.main.bounds.width, height: 436, alignment: .top)
                         .clipped()
 
-                        HStack {
+                        HStack(alignment: .bottom) {
                             VStack(alignment: .leading) {
+                                Spacer()
                                 Group {
                                     Text(viewModel.user.userName ?? "...")
-                                        .font(.h1)
+                                        .font(.h2)
                                         .textCase(.uppercase)
+                                        .lineLimit(2)
                                     if ownProfile && viewModel.user.isDescriptionEmpty {
                                         Button {
                                             goToEditProfile = true
@@ -79,7 +82,7 @@ struct UserProfileView: View {
                         .background(
                             LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
                         )
-                        .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .bottom)
+                        .frame(maxHeight: 150)
                     }
                     .background(Colors.black.swiftUIColor)
 
@@ -105,7 +108,7 @@ struct UserProfileView: View {
                                             .foregroundColor(Colors.green.swiftUIColor)
                                             .frame(width: 80, height: 40)
                                         HStack {
-                                            Text("12")
+                                            Text("\(viewModel.user.mirasCount)")
                                             Images.collectMiraWhite.swiftUIImage
                                                 .renderingMode(.template)
                                                 .foregroundColor(Colors.black.swiftUIColor)
@@ -125,7 +128,7 @@ struct UserProfileView: View {
                                     .foregroundColor(Colors.white.swiftUIColor)
                                     .font(Font.body)
                                 Spacer()
-                                Text("12")
+                                Text("\(viewModel.user.collectedMiraCount)")
                                     .multilineTextAlignment(.trailing)
                                     .foregroundColor(Colors.white.swiftUIColor)
                                     .font(Font.body)
@@ -156,7 +159,7 @@ struct UserProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        print("Button go to Home")
+                        debugPrint("Button go to Home")
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Images.arrowB24.swiftUIImage
@@ -166,12 +169,23 @@ struct UserProfileView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("Button go to Settings")
-                        goToSettings = true
+                        if ownProfile {
+                            debugPrint("Button go to Settings")
+                            goToSettings = true
+                        } else {
+                            debugPrint("more Button profile")
+
+                        }
                     } label: {
-                        Images.settings24.swiftUIImage
-                            .resizable()
-                            .scaledToFit()
+                        if ownProfile {
+                            Images.settings24.swiftUIImage
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            Images.more24.swiftUIImage
+                                .resizable()
+                                .scaledToFit()
+                        }
                     }
                 }
             }

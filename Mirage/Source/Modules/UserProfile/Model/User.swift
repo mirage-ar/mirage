@@ -13,7 +13,8 @@ public struct User {
     let profileImageDesaturated: String
     let userName: String?
     let profileDescription: String?
-
+    var collectedMiraCount = 0
+    var mirasCount = 0
     
     init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, profileDescription: String?) {
         self.id = id
@@ -55,6 +56,8 @@ extension User {
         userName = apiUser?.username ?? ""
         profileImageDesaturated = apiUser?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
         profileDescription = apiUser?.profileDescription
+        collectedMiraCount = apiUser?.collected?.count ?? 0
+        mirasCount = apiUser?.miras?.count ?? 0
     }
     init(verifyUser: MirageAPI.VerifyUserMutation.Data.VerifyUser.User) {
         id = verifyUser.id
@@ -128,8 +131,6 @@ extension User: Codable {
         try container.encode(userName, forKey: .userName)
         try container.encode(profileDescription, forKey: .profileDescription)
     }
-
-
 }
 
 

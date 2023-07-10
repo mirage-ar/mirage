@@ -38,6 +38,9 @@ struct UpdateUserView: View {
                         .font(.title)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(Colors.white.swiftUIColor)
+                        .onReceive(value.publisher.collect()) {
+                                self.value = String($0.prefix(28))//username limit
+                        }
                 }
                 
                 Divider()
