@@ -15,10 +15,12 @@ struct UpdateUserView: View {
     var userToBeUpdated: User {
         
         if title == "BIO" {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: user.userName, profileDescription: value)
+            return User(id: user.id, profileImage: user.profileImage, phone: user.phone, userName: user.userName, profileDescription: value)
         } else {
-            return User(id: user.id, profileImage: user.profileImage, profileImageDesaturated: user.profileImageDesaturated, userName: value, profileDescription: user.profileDescription)
+            return User(id: user.id, profileImage: user.profileImage, phone: user.phone, userName: value, profileDescription: user.profileDescription)
         }
+        
+//        .dummy
     }
     var body: some View {
         ZStack {

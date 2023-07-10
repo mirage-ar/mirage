@@ -56,22 +56,15 @@ final class ARViewModel: ObservableObject {
     func initializeMira(_ mediaEntity: MediaEntity) {
         print("UPDATE: Initialize Mira")
         // TODO: update to current creator
-        if let location = LocationManager.shared.location {
-            let creator = User(id: UserDefaultsStorage().getString(for: .userId) ?? UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test", profileDescription: "")
+        guard let location = LocationManager.shared.location else { return }
+        let creator = User(id: UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID(), profileImage: "", phone: "", userName: "test", profileDescription: "")
+        
+            // TODO: UserProfileStorage.getUser()
             
-            
-//            let arMedia = ARMedia(id: UUID().uuidString, contentType: mediaEntity.contentType., assetUrl: , shape: <#T##ShapeType#>, modifier: <#T##ModifierType#>, position: <#T##String#>)
-            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator, collectors: nil)
+            // TODO: add asset URL to arMedia
+            let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: "", shape: mediaEntity.shape, modifier: mediaEntity.modifier, position: mediaEntity.transform)
+            let mira = Mira(id: UUID(), creator: creator, location: location, arMedia: [], collectors: nil)
             currentMira = mira
-        } else {
-            print("ERROR: no access to location")
-            
-            // TODO: remove default location
-            let location = CLLocationCoordinate2D(latitude: 72.21, longitude: -40.2)
-            let creator = User(id: UserDefaultsStorage().getString(for: .userId) ?? UUID().uuidString, profileImage: "", profileImageDesaturated: "", userName: "test", profileDescription: "")
-            let mira = Mira(id: UUID().uuidString, location: location, isViewed: false, isFriend: false, hasCollected: false, arMedia: [], creator: creator, collectors: nil)
-            currentMira = mira
-        }
     }
         
     private var workItem: DispatchWorkItem?
@@ -119,7 +112,7 @@ final class ARViewModel: ObservableObject {
             entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
             entity.orientation = cameraOrientation
             
-            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, transform: transform, contentType: .PHOTO, translationGesture: translationGesture, texture: texture)
+            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, translationGesture: translationGesture, texture: texture)
             sceneData.updateSelectedEntity(mediaEntity)
             
             entity.name = String(anchor.id)
@@ -182,7 +175,7 @@ final class ARViewModel: ObservableObject {
             entity.orientation = cameraOrientation
         }
         
-        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, transform: transform, contentType: .VIDEO, translationGesture: translationGesture)
+        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, translationGesture: translationGesture)
         sceneData.updateSelectedEntity(mediaEntity)
         
         entity.name = String(anchor.id)
@@ -196,11 +189,11 @@ final class ARViewModel: ObservableObject {
             
         if let selectedEntity = sceneData.selectedEntity {
             switch shape {
-            case .PLANE:
+            case .plane:
                 changeShape(to: .generateBox(width: selectedEntity.width, height: selectedEntity.height, depth: 0.002))
-            case .CUBE:
+            case .cube:
                 changeShape(to: .generateBox(width: selectedEntity.width, height: selectedEntity.height, depth: selectedEntity.width))
-            case .SPHERE:
+            case .sphere:
                 changeShape(to: .generateSphere(radius: selectedEntity.width / 1.5))
             }
         }
@@ -223,7 +216,7 @@ final class ARViewModel: ObservableObject {
         sceneData.selectedModifier = modifier
         print("APPLYING MODIFIER: \(modifier)")
             
-        if modifier == .SPIN {
+        if modifier == .rotate {
             guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
             rotateModel(modelEntity)
         }
@@ -252,7 +245,7 @@ final class ARViewModel: ObservableObject {
     func removeModifier(_ modifier: ModifierType) {
         print("REMOVING MODIFIER: \(modifier)")
             
-        if modifier == .SPIN {
+        if modifier == .rotate {
             guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
                 
             // Cancel DispatchQueue

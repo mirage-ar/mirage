@@ -1,10 +1,9 @@
 query User($userId: ID) {
   user(userId: $userId) {
     id
-    username
     phone
+    username
     profileImage
-    profileImageDesaturated
     profileDescription
     accessToken
     verificationSid

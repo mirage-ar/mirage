@@ -4,8 +4,8 @@
 import ApolloAPI
 
 extension MirageAPI.Objects {
-  static let VerificationResult = Object(
-    typename: "VerificationResult",
+  static let ArMedia = Object(
+    typename: "ArMedia",
     implementedInterfaces: []
   )
 }

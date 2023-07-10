@@ -8,117 +8,107 @@
 import Foundation
 
 public struct User {
-    let id: String
-    let profileImage: String
-    let profileImageDesaturated: String
+    let id: UUID
+    let phone: String
     let userName: String?
+    let profileImage: String
     let profileDescription: String?
     var collectedMiraCount = 0
     var mirasCount = 0
     
-    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String?, profileDescription: String?) {
+    init(id: UUID, profileImage: String, phone: String, userName: String?, profileDescription: String?) {
         self.id = id
         self.profileImage = profileImage
-        self.profileImageDesaturated = profileImageDesaturated
+        self.phone = phone
         self.userName = userName
         self.profileDescription = profileDescription
     }
-    
+
     init() {
-        self.id = ""
-        self.profileImage = ""
-        self.profileImageDesaturated = ""
-        self.userName = nil
-        self.profileDescription = nil
+        id = UUID()
+        phone = ""
+        userName = nil
+        profileImage = ""
+        profileDescription = nil
     }
-    //    init(id: String, profileImage: String, profileImageDesaturated: String, userName: String) {
-    //        self.id = id
-    //        self.profileImage = profileImage
-    //        self.profileImageDesaturated = profileImageDesaturated
-    //        self.userName = userName
-    //    }
-    //    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
-    //
-    //        id = creator?.id ?? "0"
-    //        profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
-    //        userName = creator?.username ?? ""
-    //        profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-    //    }
 }
 
-//MARK: - API Translators
-extension User {
+// MARK: - API Translators
 
+extension User {
     init(apiUser: MirageAPI.UserQuery.Data.User?) {
-        
-        id = apiUser?.id ?? "0"
-        profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
         userName = apiUser?.username ?? ""
-        profileImageDesaturated = apiUser?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
+        profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0
     }
+    
     init(verifyUser: MirageAPI.VerifyUserMutation.Data.VerifyUser.User) {
-        id = verifyUser.id
+        id = UUID(uuidString: verifyUser.id) ?? UUID()
+        phone = verifyUser.phone ?? ""
         profileImage = verifyUser.profileImage ?? ""
         userName = verifyUser.username
-        profileImageDesaturated = verifyUser.profileImageDesaturated ?? ""
         profileDescription = verifyUser.profileDescription
     }
-    func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
-        
-        return User(id: id, profileImage: profileImage, profileImageDesaturated: profileImageDesaturated, userName: apiUpdatedUser?.username ?? "" , profileDescription: apiUpdatedUser?.username ?? "")
-    }
-    
-    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
-        id = creator?.id ?? "0"
-        profileImage = creator?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
-        userName = creator?.username ?? ""
-        profileImageDesaturated = creator?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
-        profileDescription = creator?.profileDescription
 
+    func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
+        return User(id: id, profileImage: profileImage, phone: apiUpdatedUser?.phone ?? "", userName: apiUpdatedUser?.username ?? "", profileDescription: apiUpdatedUser?.username ?? "")
     }
-    
+
+    init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
+        id = UUID(uuidString: creator?.id ?? "") ?? UUID()
+        phone = creator?.phone ?? ""
+        userName = creator?.username ?? ""
+        profileImage = creator?.profileImage ?? ""
+        profileDescription = creator?.profileDescription
+    }
+
     init(collector: MirageAPI.GetMirasQuery.Data.GetMira.Collector?) {
-        id = collector?.id ?? "0"
-        profileImage = collector?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        id = UUID(uuidString: collector?.id ?? "") ?? UUID()
+        phone = collector?.phone ?? ""
         userName = collector?.username ?? ""
-        profileImageDesaturated = collector?.profileImageDesaturated ?? blackImages[Int.random(in: 0..<blackImages.count)]
+        profileImage = collector?.profileImage ?? ""
         profileDescription = collector?.profileDescription
     }
-
-
 }
-//MARK: - Hashable
+
+// MARK: - Hashable
+
 extension User: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 }
-//MARK: - Dereive Properties
+
+// MARK: - Dereive Properties
+
 extension User {
     var isDescriptionEmpty: Bool {
-        return !(self.profileDescription?.isEmpty == true || self.userName?.isEmpty == true)
+        return !(profileDescription?.isEmpty == true || userName?.isEmpty == true)
     }
-    static var dummy: User { 
-        User(id: "1", profileImage: "", profileImageDesaturated: "", userName: "NaN", profileDescription: "")
+
+    static var dummy: User {
+        User(id: UUID(uuidString: "1") ?? UUID(), profileImage: "", phone: "1231234", userName: "Dummy", profileDescription: "Dummy profile")
     }
 }
+
 extension User: Codable {
     enum CodingKeys: String, CodingKey {
         case id
+        case phone
         case profileImage
-        case profileImageDesaturated
         case userName
         case profileDescription
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(String.self, forKey: .id)
+        id = try values.decode(UUID.self, forKey: .id)
+        phone = try values.decode(String.self, forKey: .phone)
         profileImage = try values.decode(String.self, forKey: .profileImage)
-        profileImageDesaturated = try values.decode(String.self, forKey: .profileImageDesaturated)
         userName = try? values.decode(String.self, forKey: .userName)
         profileDescription = try? values.decode(String.self, forKey: .profileDescription)
     }
@@ -126,11 +116,9 @@ extension User: Codable {
     func encode(with encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(phone, forKey: .phone)
         try container.encode(profileImage, forKey: .profileImage)
-        try container.encode(profileImageDesaturated, forKey: .profileImageDesaturated)
         try container.encode(userName, forKey: .userName)
         try container.encode(profileDescription, forKey: .profileDescription)
     }
 }
-
-

@@ -79,7 +79,7 @@ struct HomeView: View {
                 NavigationRoute.homeToARCameraView.screen
             })
             .fullScreenCover(isPresented: $showProfileView, content: {
-                NavigationRoute.myProfile(userId: selectedUser?.id ?? "").screen
+                NavigationRoute.myProfile(userId: selectedUser?.id.uuidString ?? "").screen
             })
             .sheet(isPresented: $showCollectedByList) {
                 NavigationRoute.miraCollectedByUsersList(mira: $selectedMira, selectedUser: $selectedUser).screen

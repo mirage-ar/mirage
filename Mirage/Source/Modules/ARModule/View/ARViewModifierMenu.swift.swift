@@ -15,10 +15,10 @@ struct ARViewModifierMenu: View {
             
             Button {
                 viewModel.removeModifier(viewModel.sceneData.selectedModifier)
-                viewModel.sceneData.selectedModifier = .NONE
+                viewModel.sceneData.selectedModifier = .none
             } label: {
                 Text("W/O")
-                    .foregroundColor(viewModel.sceneData.selectedModifier == .NONE ? .white : .gray)
+                    .foregroundColor(viewModel.sceneData.selectedModifier == .none ? .white : .gray)
                     .font(.body1)
             }
             .padding(.trailing)
@@ -33,10 +33,10 @@ struct ARViewModifierMenu: View {
 //            .padding([.leading, .trailing])
             
             Button {
-                viewModel.applyModifier(.SPIN)
+                viewModel.applyModifier(.rotate)
             } label: {
                 Text("SPIN")
-                    .foregroundColor(viewModel.sceneData.selectedModifier == .SPIN ? .white : .gray)
+                    .foregroundColor(viewModel.sceneData.selectedModifier == .rotate ? .white : .gray)
                     .font(.body1)
             }
             .padding(.leading)

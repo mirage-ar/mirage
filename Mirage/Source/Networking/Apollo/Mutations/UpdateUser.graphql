@@ -1,6 +1,9 @@
 mutation UpdateUser($updateUserInput: UpdateUserInput!) {
   updateUser(input: $updateUserInput) {
     id
+    phone
     username
+    profileImage
+    profileDescription
   }
 }
