@@ -5,8 +5,9 @@
 //  Created by Saad on 10/04/2023.
 //
 
-import SwiftUI
 import MapboxMaps
+import MapKit
+import SwiftUI
 
 struct MBMapView: UIViewRepresentable {
     @ObservedObject private var viewModel = MapViewModel()
@@ -18,7 +19,6 @@ struct MBMapView: UIViewRepresentable {
     @Binding var showCollectedByList: Bool
 
     func makeUIView(context: Context) -> some UIView {
-        
         let myResourceOptions = ResourceOptions(accessToken: (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!)
         let userLocation = LocationManager.shared.location
         let latitude: Double = userLocation?.latitude ?? 40.70290414346796
@@ -29,12 +29,16 @@ struct MBMapView: UIViewRepresentable {
         let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: StyleURI(rawValue: "mapbox://styles/fiigmnt/cl4evbfs6001q14lqhwnmjo11"))
 
         let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: myMapInitOptions)
+        
         // Create location identifier icon "puck"
-        let puckImage = Puck2DConfiguration(topImage: UIImage(named: "me-pin"), bearingImage: UIImage(named: "me-pin"), scale: .constant(1.0), showsAccuracyRing: false)
+        let puckImage = Puck2DConfiguration(topImage: UIImage(named: "me-pin"), bearingImage: UIImage(named: "me-pin"), shadowImage: UIImage(named: "me-pin"), scale: .constant(0.75), showsAccuracyRing: false)
+//        let puckImage = Puck2DConfiguration(topImage: UIImage(named: "me-pin"), bearingImage: UIImage(named: "me-pin"), scale: .constant(1), showsAccuracyRing: false)
     
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        // remove original puck
+        mapView.location.options.puckType = .none
         mapView.location.options.puckType = .puck2D(puckImage)
-
+        
         // Map view options [disable pitch, hide elements]
         mapView.gestures.options.pitchEnabled = false
         mapView.ornaments.options.logo.margins = .init(x: -10000, y: 0)
@@ -49,15 +53,14 @@ struct MBMapView: UIViewRepresentable {
         MapViewCoordinator(self)
     }
     
-    
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let mapView = uiView as? MapView {
-            if $viewModel.hasLoadedMiras.wrappedValue && viewState != .updated {
+            if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
                 refreshMirasOnMap(mapView: mapView, context: context)
             }
         }
-
     }
+
     func loadMiras() {
         if !viewModel.isLoading {
             viewState = .fetching
@@ -66,7 +69,7 @@ struct MBMapView: UIViewRepresentable {
     }
     
     private func refreshMirasOnMap(mapView: MapView, context: Context) {
-        guard let miras = viewModel.miras else { return } //server data
+        guard let miras = viewModel.miras else { return } // server data
 //        let miras = Mira.dummyMiras() //commented for dummy miras
         
         mapView.viewAnnotations.removeAll()
@@ -83,15 +86,13 @@ struct MBMapView: UIViewRepresentable {
             try? mapView.viewAnnotations.add(annotationView(mira: mira, sourceLocation: userLocation, tag: i, context: context), options: options)
             i += 1
         }
-        
     }
 
-    
     private func annotationView(mira: Mira, sourceLocation: CLLocationCoordinate2D?, tag: Int, context: Context) -> UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 40))
 
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        imageView.layer.cornerRadius = imageView.bounds.width/2
+        imageView.layer.cornerRadius = imageView.bounds.width / 2
         imageView.layer.masksToBounds = true
         if mira.isFriend {
             imageView.layer.borderWidth = 1
@@ -146,7 +147,6 @@ struct MBMapView: UIViewRepresentable {
     }
     
     func distanceString(distance: Double) -> String {
-       
         if distance < 10 {
             // show 2 decimal places in meters
             return String(format: "%.2f m", distance)
@@ -167,10 +167,10 @@ struct MBMapView: UIViewRepresentable {
             return String(format: "%.0f m", distance)
         }
     }
+
     enum ViewState: Int {
         case empty = 1, fetching, updating, updated
     }
-
 }
 
 extension MBMapView {
@@ -180,9 +180,10 @@ extension MBMapView {
         init(_ parent: MBMapView) {
             self.parent = parent
         }
+
         func annotationManager(_ manager: AnnotationManager, didDetectTappedAnnotations annotations: [Annotation]) {
             print(annotations)
-            //TODO: Use this method in future when it is working properly
+            // TODO: Use this method in future when it is working properly
         }
         
         @objc func pinTapped(gesture: UITapGestureRecognizer) {
@@ -194,12 +195,11 @@ extension MBMapView {
                 print(parent.selectedMira?.creator.userName ?? "")
             }
         }
+
         func tapGesture() -> UITapGestureRecognizer {
             let gesture = UITapGestureRecognizer()
             gesture.addTarget(self, action: #selector(pinTapped(gesture:)))
             return gesture
         }
-
     }
-
 }
