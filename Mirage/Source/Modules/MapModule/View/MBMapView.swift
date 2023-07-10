@@ -146,10 +146,25 @@ struct MBMapView: UIViewRepresentable {
     }
     
     func distanceString(distance: Double) -> String {
-        if distance >= 1000 {
-            return "\((distance/1000).formattedStringValue)" + "km"
+       
+        if distance < 10 {
+            // show 2 decimal places in meters
+            return String(format: "%.2f m", distance)
+        } else if distance < 100 {
+            // show 2 decimal places in meters
+            return String(format: "%.1f m", distance)
+        } else if distance > 1000000 {
+            // show 0 decimal places in kilometers with (k)
+            return String(format: "%.0fk km", distance / 1000000)
+        } else if distance > 10000 {
+            // show 0 decimal places in kilometers
+            return String(format: "%.0f km", distance / 1000)
+        } else if distance > 500 {
+            // show 2 decimal places in kilometers
+            return String(format: "%.1f km", distance / 1000)
         } else {
-            return "\(distance.clean)m"
+            // show 0 decimal places in meters
+            return String(format: "%.0f m", distance)
         }
     }
     enum ViewState: Int {
