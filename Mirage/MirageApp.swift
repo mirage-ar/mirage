@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct MirageApp: App {
+    @ObservedObject private var appConfiguration: AppConfiguration
     init() {
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: Colors.white.color]
@@ -16,10 +17,11 @@ struct MirageApp: App {
         navBarAppearance.isTranslucent = true
         navBarAppearance.tintColor = .clear
         navBarAppearance.backgroundColor = .clear
+        appConfiguration = AppConfiguration.shared
     }
     var body: some Scene {
         WindowGroup {
-            if let _ = DefaultUserTokenService().getAccessToken() {
+            if appConfiguration.authentication {
                 HomeView()
             } else {
                 AuthenticationView(phoneNumber: "", isEditing: false)

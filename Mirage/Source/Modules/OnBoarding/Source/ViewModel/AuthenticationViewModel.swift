@@ -44,6 +44,7 @@ final class AuthenticationViewModel: ObservableObject {
                     self.verifyUserSuccess = true
                 }
                 self.isLoading = false
+                AppConfiguration.shared.authentication = true
             }, receiveError: { error in
                 print("Error: \(error)")
             })

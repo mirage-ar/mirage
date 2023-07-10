@@ -58,15 +58,13 @@ struct VerifyPhoneNumberView: View {
                         LargeButton(title: "DONE") {
                             if code.joined().count == 4 {
                                 viewModel.verifyUser(number: phoneNumber, code: code.joined())
-                            } else {
-                                viewModel.verifyUserSuccess = true // temp for quick navigation
                             }
                         }
                     }
                 }
-                .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
-                    NavigationRoute.homeViewLanding.screen
-                }
+//                .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
+//                    NavigationRoute.homeViewLanding.screen
+//                }
                 .padding(.bottom, 5)
                 
             }

@@ -118,6 +118,7 @@ struct EditProfileView: View {
                 VStack {
                     Button {
                         viewModel.signoutUser()
+                        AppConfiguration.shared.authentication = false
                     } label: {
                         Text("SIGNOUT")
                             .font(.body1)
