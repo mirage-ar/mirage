@@ -7,6 +7,7 @@
 
 import CoreLocation
 import Foundation
+import ApolloAPI
 
 
 public struct Mira {
@@ -64,6 +65,8 @@ extension Mira {
             location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
         
+        var contentType = mira?.miraMedia[0].contentType
+        
         var collected = false
         if let collectors = mira?.collectors, collectors.count > 0 {
             var collectorsList = [User]()
@@ -81,21 +84,21 @@ extension Mira {
             collectors = nil
         }
         
-        if let mediaArry = mira?.miraMedia {
-            let arMedia = mediaArry.map { arMedia in
-                let position: SIMD3<Float> = simdDoubleToFloat(arMedia.position.transform)
-                let modifier = arMedia.modifier?.type ?? .none
-                return ARMedia(contentType: arMedia.contentType, assetUrl: arMedia.assetUrl, shape: arMedia.shape, modifier: modifier, position: position)
-            }
-            
-            self.arMedia = arMedia
-        }
+//        if let mediaArry = mira?.miraMedia {
+//            let arMedia = mediaArry.map { arMedia in
+//                let position: SIMD3<Float> = simdDoubleToFloat(arMedia.position.transform)
+//                let modifier = arMedia.modifier?.type
+//                return ARMedia(contentType: arMedia.contentType, assetUrl: arMedia.assetUrl, shape: arMedia.shape, modifier: modifier ?? .none, position: position)
+//            }
+//
+//            self.arMedia = arMedia
+//        }
+        arMedia = []
         
         hasCollected = collected
         isViewed = mira?.viewed ?? false
         isFriend = mira?.isFriend ?? false
         creator = User(creator: mira?.creator)
-        arMedia = []
     }
 }
 

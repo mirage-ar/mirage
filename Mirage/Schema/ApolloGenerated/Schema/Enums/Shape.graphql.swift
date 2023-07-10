@@ -9,5 +9,4 @@ extension MirageAPI {
     case cube = "CUBE"
     case sphere = "SPHERE"
   }
-
 }

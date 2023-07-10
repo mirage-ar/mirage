@@ -8,6 +8,7 @@
 import RealityKit
 import Combine
 import AVKit
+import ApolloAPI
 
 class EntityLongPressGestureRecognizer: UILongPressGestureRecognizer {
     weak var arEntity: Entity?

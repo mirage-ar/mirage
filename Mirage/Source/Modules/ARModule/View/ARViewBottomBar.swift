@@ -26,7 +26,7 @@ struct ARViewBottomBar: View {
                                 Button {
                                     if viewModel.miraCreateMenuType == .MODIFY {
                                         viewModel.sceneData.selectedModifier = viewModel.sceneData.previousModifier
-                                        viewModel.removeModifier(.SPIN)
+                                        viewModel.removeModifier(.rotate)
                                     }
                                     
                                     if viewModel.miraCreateMenuType == .SHAPE {

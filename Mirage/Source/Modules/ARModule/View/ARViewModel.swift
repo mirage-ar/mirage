@@ -57,7 +57,7 @@ final class ARViewModel: ObservableObject {
         print("UPDATE: Initialize Mira")
         // TODO: update to current creator
         guard let location = LocationManager.shared.location else { return }
-            let creator = User(id: UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID(), phone: "", userName: "test", profileImage: "", profileDescription: "")
+        let creator = User(id: UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID(), profileImage: "", phone: "", userName: "test", profileDescription: "")
         
             // TODO: UserProfileStorage.getUser()
             
@@ -112,7 +112,7 @@ final class ARViewModel: ObservableObject {
             entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
             entity.orientation = cameraOrientation
             
-            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, transform: transform, contentType: .PHOTO, translationGesture: translationGesture, texture: texture)
+            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, translationGesture: translationGesture, texture: texture)
             sceneData.updateSelectedEntity(mediaEntity)
             
             entity.name = String(anchor.id)
@@ -175,7 +175,7 @@ final class ARViewModel: ObservableObject {
             entity.orientation = cameraOrientation
         }
         
-        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .PLANE, modifier: .NONE, transform: transform, contentType: .VIDEO, translationGesture: translationGesture)
+        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, translationGesture: translationGesture)
         sceneData.updateSelectedEntity(mediaEntity)
         
         entity.name = String(anchor.id)
@@ -189,11 +189,11 @@ final class ARViewModel: ObservableObject {
             
         if let selectedEntity = sceneData.selectedEntity {
             switch shape {
-            case .PLANE:
+            case .plane:
                 changeShape(to: .generateBox(width: selectedEntity.width, height: selectedEntity.height, depth: 0.002))
-            case .CUBE:
+            case .cube:
                 changeShape(to: .generateBox(width: selectedEntity.width, height: selectedEntity.height, depth: selectedEntity.width))
-            case .SPHERE:
+            case .sphere:
                 changeShape(to: .generateSphere(radius: selectedEntity.width / 1.5))
             }
         }
@@ -216,7 +216,7 @@ final class ARViewModel: ObservableObject {
         sceneData.selectedModifier = modifier
         print("APPLYING MODIFIER: \(modifier)")
             
-        if modifier == .SPIN {
+        if modifier == .rotate {
             guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
             rotateModel(modelEntity)
         }
@@ -245,7 +245,7 @@ final class ARViewModel: ObservableObject {
     func removeModifier(_ modifier: ModifierType) {
         print("REMOVING MODIFIER: \(modifier)")
             
-        if modifier == .SPIN {
+        if modifier == .rotate {
             guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
                 
             // Cancel DispatchQueue

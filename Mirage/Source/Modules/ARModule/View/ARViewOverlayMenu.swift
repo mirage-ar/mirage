@@ -79,11 +79,11 @@ struct ARViewOverlayMenu: View {
                 
                 case .SHAPE:
                     HStack {
-                        ShapeButton(shape: .PLANE, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                        ShapeButton(shape: .plane, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
                     
-                        ShapeButton(shape: .CUBE, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                        ShapeButton(shape: .cube, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
                     
-                        ShapeButton(shape: .SPHERE, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                        ShapeButton(shape: .sphere, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
                     }
                 }
             } else {
@@ -139,22 +139,22 @@ struct ShapeButton: View {
     
     func selectedShape(_ shape: ShapeType) -> Image {
         switch shape {
-        case .PLANE:
+        case .plane:
             return Images.buttonPlaneSelected.swiftUIImage
-        case .CUBE:
+        case .cube:
             return Images.buttonCubeSelected.swiftUIImage
-        case .SPHERE:
+        case .sphere:
             return Images.buttonSphereSelected.swiftUIImage
         }
     }
     
     func unselectedShape(_ shape: ShapeType) -> Image {
         switch shape {
-        case .PLANE:
+        case .plane:
             return Images.buttonPlane.swiftUIImage
-        case .CUBE:
+        case .cube:
             return Images.buttonCube.swiftUIImage
-        case .SPHERE:
+        case .sphere:
             return Images.buttonSphere.swiftUIImage
         }
     }
