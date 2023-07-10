@@ -3,10 +3,10 @@
 
 @_exported import ApolloAPI
 
-extension MirageAPI {
+public extension MirageAPI {
   class UpdateUserMutation: GraphQLMutation {
-    static let operationName: String = "UpdateUser"
-    static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationName: String = "UpdateUser"
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
         mutation UpdateUser($updateUserInput: UpdateUserInput!) {
@@ -30,27 +30,26 @@ extension MirageAPI {
 
     public var __variables: Variables? { ["updateUserInput": updateUserInput] }
 
-    struct Data: MirageAPI.SelectionSet {
-      let __data: DataDict
-      init(data: DataDict) { __data = data }
+    public struct Data: MirageAPI.SelectionSet {
+      public let __data: DataDict
+      public init(data: DataDict) { __data = data }
 
-      static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mutation }
-      static var __selections: [ApolloAPI.Selection] { [
+      public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mutation }
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("updateUser", UpdateUser?.self, arguments: ["input": .variable("updateUserInput")]),
       ] }
 
-      var updateUser: UpdateUser? { __data["updateUser"] }
+      public var updateUser: UpdateUser? { __data["updateUser"] }
 
       /// UpdateUser
       ///
       /// Parent Type: `User`
-      struct UpdateUser: MirageAPI.SelectionSet {
-        let __data: DataDict
-        init(data: DataDict) { __data = data }
+      public struct UpdateUser: MirageAPI.SelectionSet {
+        public let __data: DataDict
+        public init(data: DataDict) { __data = data }
 
-        static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
-        static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
+        public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
+        public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
           .field("phone", String?.self),
           .field("username", String.self),
@@ -58,11 +57,11 @@ extension MirageAPI {
           .field("profileDescription", String?.self),
         ] }
 
-        var id: MirageAPI.ID { __data["id"] }
-        var phone: String? { __data["phone"] }
-        var username: String { __data["username"] }
-        var profileImage: String? { __data["profileImage"] }
-        var profileDescription: String? { __data["profileDescription"] }
+        public var id: MirageAPI.ID { __data["id"] }
+        public var phone: String? { __data["phone"] }
+        public var username: String { __data["username"] }
+        public var profileImage: String? { __data["profileImage"] }
+        public var profileDescription: String? { __data["profileDescription"] }
       }
     }
   }

@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-extension MirageAPI {
+public extension MirageAPI {
   enum ModifierType: String, EnumType {
     case none = "NONE"
     case wave = "WAVE"

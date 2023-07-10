@@ -84,16 +84,18 @@ extension Mira {
             collectors = nil
         }
         
-//        if let mediaArry = mira?.miraMedia {
-//            let arMedia = mediaArry.map { arMedia in
-//                let position: SIMD3<Float> = simdDoubleToFloat(arMedia.position.transform)
-//                let modifier = arMedia.modifier?.type
-//                return ARMedia(contentType: arMedia.contentType, assetUrl: arMedia.assetUrl, shape: arMedia.shape, modifier: modifier ?? .none, position: position)
-//            }
-//
-//            self.arMedia = arMedia
-//        }
-        arMedia = []
+        if let mediaArry = mira?.miraMedia {
+            let arMedia = mediaArry.map { arMedia in
+                let position: SIMD3<Float> = simdDoubleToFloat(arMedia.position.transform)
+                let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
+                
+                return ARMedia(contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, position: position)
+            }
+
+            self.arMedia = arMedia
+        } else {
+            arMedia = []
+        }
         
         hasCollected = collected
         isViewed = mira?.viewed ?? false
