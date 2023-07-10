@@ -58,6 +58,8 @@ final class ARViewModel: ObservableObject {
         // TODO: update to current creator
         guard let location = LocationManager.shared.location else { return }
             let creator = User(id: UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID(), phone: "", userName: "test", profileImage: "", profileDescription: "")
+        
+            // TODO: UserProfileStorage.getUser()
             
             // TODO: add asset URL to arMedia
             let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: "", shape: mediaEntity.shape, modifier: mediaEntity.modifier, position: mediaEntity.transform)

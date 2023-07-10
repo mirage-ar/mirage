@@ -16,6 +16,12 @@
 		3942F7592A5C8524007DB731 /* Shape.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F7562A5C8524007DB731 /* Shape.graphql.swift */; };
 		3942F75D2A5C871F007DB731 /* AuthorizeUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 3942F75B2A5C871F007DB731 /* AuthorizeUser.graphql */; };
 		3942F75E2A5C871F007DB731 /* UpdateUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 3942F75C2A5C871F007DB731 /* UpdateUser.graphql */; };
+		3942F7452A5C5539007DB731 /* Position.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F7422A5C5539007DB731 /* Position.graphql.swift */; };
+		3942F7462A5C5539007DB731 /* ArMedia.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F7432A5C5539007DB731 /* ArMedia.graphql.swift */; };
+		3942F7472A5C5539007DB731 /* Modifier.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F7442A5C5539007DB731 /* Modifier.graphql.swift */; };
+		3942F74B2A5C5548007DB731 /* ModifierType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F7482A5C5548007DB731 /* ModifierType.graphql.swift */; };
+		3942F74C2A5C5548007DB731 /* ContentType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F7492A5C5548007DB731 /* ContentType.graphql.swift */; };
+		3942F74D2A5C5548007DB731 /* Shape.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3942F74A2A5C5548007DB731 /* Shape.graphql.swift */; };
 		394522742A4E967E00BBD587 /* ARMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394522732A4E967E00BBD587 /* ARMedia.swift */; };
 		394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */; };
 		394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4958296CCAD300E2F8E4 /* MirageApp.swift */; };
@@ -164,6 +170,12 @@
 		3942F7562A5C8524007DB731 /* Shape.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.graphql.swift; sourceTree = "<group>"; };
 		3942F75B2A5C871F007DB731 /* AuthorizeUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthorizeUser.graphql; sourceTree = "<group>"; };
 		3942F75C2A5C871F007DB731 /* UpdateUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpdateUser.graphql; sourceTree = "<group>"; };
+		3942F7422A5C5539007DB731 /* Position.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.graphql.swift; sourceTree = "<group>"; };
+		3942F7432A5C5539007DB731 /* ArMedia.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArMedia.graphql.swift; sourceTree = "<group>"; };
+		3942F7442A5C5539007DB731 /* Modifier.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modifier.graphql.swift; sourceTree = "<group>"; };
+		3942F7482A5C5548007DB731 /* ModifierType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifierType.graphql.swift; sourceTree = "<group>"; };
+		3942F7492A5C5548007DB731 /* ContentType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.graphql.swift; sourceTree = "<group>"; };
+		3942F74A2A5C5548007DB731 /* Shape.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.graphql.swift; sourceTree = "<group>"; };
 		394522732A4E967E00BBD587 /* ARMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMedia.swift; sourceTree = "<group>"; };
 		394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewSocialMenu.swift; sourceTree = "<group>"; };
 		394B4955296CCAD300E2F8E4 /* Mirage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mirage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -727,6 +739,9 @@
 				3942F7542A5C8524007DB731 /* ContentType.graphql.swift */,
 				3942F7552A5C8524007DB731 /* ModifierType.graphql.swift */,
 				3942F7562A5C8524007DB731 /* Shape.graphql.swift */,
+				3942F7492A5C5548007DB731 /* ContentType.graphql.swift */,
+				3942F7482A5C5548007DB731 /* ModifierType.graphql.swift */,
+				3942F74A2A5C5548007DB731 /* Shape.graphql.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -738,6 +753,9 @@
 				3942F74E2A5C851A007DB731 /* ArMedia.graphql.swift */,
 				3942F74F2A5C851A007DB731 /* Modifier.graphql.swift */,
 				3942F7502A5C851A007DB731 /* Position.graphql.swift */,
+				3942F7432A5C5539007DB731 /* ArMedia.graphql.swift */,
+				3942F7442A5C5539007DB731 /* Modifier.graphql.swift */,
+				3942F7422A5C5539007DB731 /* Position.graphql.swift */,
 				936E7DDF29C20A7A0008FBB9 /* VerificationResult.graphql.swift */,
 				931FF5CD29B80037002C62AB /* AuthorizationResult.graphql.swift */,
 				931FF5CE29B80037002C62AB /* User.graphql.swift */,
@@ -1182,6 +1200,7 @@
 				938DFCF52A0EB1D100EF994A /* UpdateUserView.swift in Sources */,
 				93E216A229B6804100EE907D /* AuthenticationModel.swift in Sources */,
 				936E7DE029C20A7A0008FBB9 /* Query.graphql.swift in Sources */,
+				3942F7452A5C5539007DB731 /* Position.graphql.swift in Sources */,
 				9331C48B29AF8C0100F8EE72 /* ApolloRepositery.swift in Sources */,
 				3942F7512A5C851A007DB731 /* ArMedia.graphql.swift in Sources */,
 				39CA4F962A2F8BE6002CCE88 /* ARViewController.swift in Sources */,
@@ -1208,6 +1227,7 @@
 				9310E5DD29CDD9A6000E6019 /* ActivityIndicator.swift in Sources */,
 				93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */,
 				935065162A43302700817130 /* CollectedByUsersView.swift in Sources */,
+				3942F74C2A5C5548007DB731 /* ContentType.graphql.swift in Sources */,
 				93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */,
 				93B24F0829B6182300CCDDB7 /* String+Extension.swift in Sources */,
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
@@ -1239,7 +1259,10 @@
 				93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */,
+				3942F74D2A5C5548007DB731 /* Shape.graphql.swift in Sources */,
 				9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */,
+				3942F7472A5C5539007DB731 /* Modifier.graphql.swift in Sources */,
+				3942F7462A5C5539007DB731 /* ArMedia.graphql.swift in Sources */,
 				931359B32A03FDAA00A0F5E7 /* UserProfileView.swift in Sources */,
 				93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */,
 				39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */,
@@ -1277,6 +1300,7 @@
 				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,
 				93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */,
 				9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */,
+				3942F74B2A5C5548007DB731 /* ModifierType.graphql.swift in Sources */,
 				931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
 				39BD18EF2A2D081000A9F95C /* GestureHandler.swift in Sources */,

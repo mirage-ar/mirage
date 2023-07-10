@@ -19,6 +19,8 @@ struct UpdateUserView: View {
         } else {
             return User(id: user.id, profileImage: user.profileImage, phone: user.phone, userName: value, profileDescription: user.profileDescription)
         }
+        
+//        .dummy
     }
     var body: some View {
         ZStack {

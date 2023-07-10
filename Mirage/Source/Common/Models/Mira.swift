@@ -95,6 +95,7 @@ extension Mira {
         isViewed = mira?.viewed ?? false
         isFriend = mira?.isFriend ?? false
         creator = User(creator: mira?.creator)
+        arMedia = []
     }
 }
 
