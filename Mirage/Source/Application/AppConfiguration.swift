@@ -13,7 +13,7 @@ final class AppConfiguration: ObservableObject {
 
     let apollo: ApolloRepository
     let reachabilityProvider: ReachabilityProvider
-    @Published var authenitcation: Bool
+    @Published var authentication: Bool
     // MARK: - Init
 
     init() {
@@ -24,7 +24,7 @@ final class AppConfiguration: ObservableObject {
 //        #else
 //        environmentConfig = MirageConfig.staging
 //        #endif
-        authenitcation = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
+        authentication = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
         environmentConfig = MirageConfig.development
         let _ = DownloadManager.shared
         let _ = LocationManager.shared

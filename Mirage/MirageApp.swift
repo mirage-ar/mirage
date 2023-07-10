@@ -21,7 +21,7 @@ struct MirageApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            if appConfiguration.authenitcation {
+            if appConfiguration.authentication {
                 HomeView()
             } else {
                 AuthenticationView(phoneNumber: "", isEditing: false)
