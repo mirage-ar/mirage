@@ -47,7 +47,7 @@ struct ARViewBottomBar: View {
                                 } label: {
                                     Text("CANCEL")
                                         .foregroundColor(.white)
-                                        .font(Font.body)
+                                        .font(.body1)
                                 }
                             } else if viewModel.arViewLocalized == false && viewModel.sceneData.selectedEntity == nil {
                                 Images.notInZone24.swiftUIImage
@@ -69,7 +69,7 @@ struct ARViewBottomBar: View {
                                 } label: {
                                     Text("SKIP SCAN")
                                         .foregroundColor(.white)
-                                        .font(Font.body)
+                                        .font(.body1)
                                 }
                             } else {
                                 Button {
@@ -84,7 +84,7 @@ struct ARViewBottomBar: View {
                             } else if viewModel.miraCreateMenuType == .SHAPE {
                                 Text("SHAPE")
                                     .foregroundColor(.white)
-                                    .font(Font.body)
+                                    .font(.body1)
                             } else if viewModel.currentMira == nil {
                                 Button {
                                     viewModel.arViewMode = .EXPLORE
@@ -122,7 +122,7 @@ struct ARViewBottomBar: View {
                             } label: {
                                 Text("DONE")
                                     .foregroundColor(.white)
-                                    .font(Font.body)
+                                    .font(.body1)
                             }
                             
                         } else if viewModel.currentMira == nil {

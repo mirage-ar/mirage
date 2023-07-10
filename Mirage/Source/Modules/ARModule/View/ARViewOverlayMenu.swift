@@ -21,8 +21,12 @@ struct ARViewOverlayMenu: View {
                     viewModel.lockMira()
                 } label: {
                     Text("LOCK MIRA")
-                        .foregroundColor(.white)
-                        .font(Font.body)
+                        .foregroundColor(.black)
+                        .font(.body1)
+                        .padding()
+                        .frame(maxWidth: 158)
+                        .background(Color.white)
+                        .cornerRadius(100) // Change this to modify corner roundness
                 }
             } else if viewModel.sceneData.selectedEntity != nil {
                 switch viewModel.miraCreateMenuType {

@@ -22,7 +22,7 @@ struct SettingsView: View {
                     HStack {
                         Images.profile48.swiftUIImage
                         Text(user.userName ?? "NaN")
-                            .font(Font.body)
+                            .font(.body1)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
                         Spacer()
@@ -39,7 +39,7 @@ struct SettingsView: View {
                     HStack {
                         Images.contactUs48.swiftUIImage
                         Text("CONTACT US")
-                            .font(Font.body)
+                            .font(.body1)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
                         

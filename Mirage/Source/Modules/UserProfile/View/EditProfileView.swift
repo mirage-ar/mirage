@@ -49,7 +49,7 @@ struct EditProfileView: View {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
                             Text("UserName")
-                                .font(Font.body)
+                                .font(.body1)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                             Spacer()
@@ -57,7 +57,7 @@ struct EditProfileView: View {
                         }
                         HStack {
                             Text(user.userName ?? "")
-                                .font(Font.body)
+                                .font(.body1)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.white.swiftUIColor)
                             Spacer()
@@ -78,12 +78,12 @@ struct EditProfileView: View {
                     /*
                     VStack(spacing: 5) {
                         Text("Pronouns")
-                            .font(Font.body)
+                            .font(.body1)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                         
                         Text("She/They")
-                            .font(Font.body)
+                            .font(.body1)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
                         
@@ -120,7 +120,7 @@ struct EditProfileView: View {
                         viewModel.signoutUser()
                     } label: {
                         Text("SIGNOUT")
-                            .font(Font.body)
+                            .font(.body1)
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
                     
@@ -131,7 +131,7 @@ struct EditProfileView: View {
                         
                     } label: {
                         Text("DELETE ACCOUNT")
-                            .font(Font.body)
+                            .font(.body1)
                             .foregroundColor(Colors.red.swiftUIColor)
                     }
 
