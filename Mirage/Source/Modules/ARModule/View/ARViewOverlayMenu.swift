@@ -7,101 +7,151 @@
 
 import SwiftUI
 
+// TODO: refactor to be in colummns like in bottom bar
 struct ARViewOverlayMenu: View {
     @StateObject var viewModel: ARViewModel
+    @State var showImage: Bool = false
     
     let generator = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
-        if viewModel.arViewMode == .CREATE {
-            if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil {
-                Button {
-                    print("UPDATE: Create Mira")
-                    
-                    viewModel.lockMira()
-                } label: {
-                    Text("LOCK MIRA")
-                        .foregroundColor(.black)
-                        .font(.body1)
-                        .padding()
-                        .frame(maxWidth: 158)
-                        .background(Color.white)
-                        .cornerRadius(100) // Change this to modify corner roundness
-                }
-            } else if viewModel.sceneData.selectedEntity != nil {
-                switch viewModel.miraCreateMenuType {
-                case .DEFAULT:
+        // mira posted notification
+        VStack {
+            if showImage {
+                Images.miraPosted.swiftUIImage
+                    .resizable()
+                    .scaledToFit()
+                    .transition(.move(edge: .top)) // Image enters and exits from the top
+            }
+            Spacer()
+        }
+        .padding(.top, -10)
+        
+        Group {
+            if viewModel.arViewMode == .CREATE {
+                if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil && viewModel.arViewLocalized {
                     ZStack {
                         HStack {
                             Spacer()
                             Button {
-                                haptic()
-                                viewModel.miraCreateMenuType = .MODIFY
+                                print("UPDATE: Create Mira")
+                                viewModel.lockMira()
+                                viewModel.currentMira = nil
+                                // show animation
+                                
+                                withAnimation(.easeInOut(duration: 1)) { // Change 1 to the number of seconds you want the animation to last
+                                    self.showImage = true
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Change 2 to the number of seconds you want the image to stay on screen before it starts to exit
+                                    withAnimation(.easeInOut(duration: 1)) { // Change 1 to the number of seconds you want the exit animation to last
+                                        self.showImage = false
+                                    }
+                                }
+                                
+                                //                            miraPosted = true
+                                //                        viewModel.removeAllMedia()
+                                //                        viewModel.arViewMode = .EXPLORE
                             } label: {
-                                //                        Image("button-modify")
-                                Images.buttonModify.swiftUIImage
-                                    .resizable()
-                                    .frame(width: 64, height: 64)
-                            }
-                        
-                            Button {
-                                haptic()
-                                viewModel.miraCreateMenuType = .SHAPE
-                            } label: {
-                                Images.buttonShape.swiftUIImage
-                                    .resizable()
-                                    .frame(width: 64, height: 64)
+                                // TODO: update to better handle state ? loading
+                                Text(viewModel.createdMira != nil ? "Mira Locked" : "Lock Mira")
+                                    .foregroundColor(.black)
+                                    .font(.body1)
+                                    .padding()
+                                    .textCase(.uppercase)
+                                    .frame(maxWidth: 158)
+                                    .background(Color.white)
+                                    .cornerRadius(100) // Change this to modify corner roundness
+                                    .disabled(viewModel.createdMira == nil)
                             }
                             Spacer()
                         }
-                    
                         HStack {
                             Spacer()
-                        
-                            Button {
-                                haptic()
-                            
-                                if let entity = viewModel.sceneData.selectedEntity?.entity {
-                                    viewModel.removeEntity(entity)
-                                }
-                            } label: {
-                                Images.buttonTrash.swiftUIImage
-                                    .resizable()
-                                    .frame(width: 64, height: 64)
-                            }
+                            Button(action: {
+                                viewModel.triggerHapticFeedback()
+                                viewModel.sceneData.showMediaPicker = true
+                            }, label: {
+                                Images.buttonMedia.swiftUIImage
+                            })
+                            .padding(16)
                         }
                     }
-                
-                case .MODIFY:
-                    HStack {
-                        Image("none") // TODO: add slider
-                    }
-                
-                case .SHAPE:
-                    HStack {
-                        ShapeButton(shape: .plane, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
-                    
-                        ShapeButton(shape: .cube, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
-                    
-                        ShapeButton(shape: .sphere, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
-                    }
-                }
-            } else {
-                HStack {
-                    Spacer()
+                } else if viewModel.sceneData.selectedEntity != nil {
+                    switch viewModel.miraCreateMenuType {
+                    case .DEFAULT:
+                        ZStack {
+                            HStack {
+                                Spacer()
+                                Button {
+                                    haptic()
+                                    viewModel.miraCreateMenuType = .MODIFY
+                                } label: {
+                                    //                        Image("button-modify")
+                                    Images.buttonModify.swiftUIImage
+                                        .resizable()
+                                        .frame(width: 64, height: 64)
+                                }
+                                
+                                Button {
+                                    haptic()
+                                    viewModel.miraCreateMenuType = .SHAPE
+                                } label: {
+                                    Images.buttonShape.swiftUIImage
+                                        .resizable()
+                                        .frame(width: 64, height: 64)
+                                }
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Spacer()
+                                
+                                Button {
+                                    haptic()
+                                    
+                                    if let entity = viewModel.sceneData.selectedEntity?.entity {
+                                        viewModel.removeEntity(entity)
+                                    }
+                                } label: {
+                                    Images.buttonTrash.swiftUIImage
+                                        .resizable()
+                                        .frame(width: 64, height: 64)
+                                }
+                            }
+                        }
                         
-                    Button(action: {
-                        viewModel.triggerHapticFeedback()
-                        viewModel.sceneData.showMediaPicker = true
-                    }, label: {
-                        Images.buttonMedia.swiftUIImage
-                    })
-                    .padding(16)
+                    case .MODIFY:
+                        HStack {
+                            Image("none") // TODO: add slider
+                        }
+                        
+                    case .SHAPE:
+                        HStack {
+                            ShapeButton(shape: .plane, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                            
+                            ShapeButton(shape: .cube, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                            
+                            ShapeButton(shape: .sphere, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                        }
+                    }
+                } else {
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            viewModel.triggerHapticFeedback()
+                            viewModel.sceneData.showMediaPicker = true
+                        }, label: {
+                            Images.buttonMedia.swiftUIImage
+                        })
+                        .padding(16)
+                    }
                 }
+            } else if viewModel.selectedMira != nil {
+                ARViewSocialMenu()
             }
-        } else if viewModel.selectedMira != nil {
-            ARViewSocialMenu()
         }
+        .padding([.leading, .trailing, .bottom])
     }
     
     func haptic() {

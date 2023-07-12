@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "mira-poisted.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

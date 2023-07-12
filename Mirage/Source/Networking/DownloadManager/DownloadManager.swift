@@ -28,7 +28,7 @@ public class DownloadManager {
         } else {
             fileSet = Dictionary()
         }
-        processPreviousFiles()
+//        processPreviousFiles()
     }
     
     func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {
@@ -72,7 +72,7 @@ public class DownloadManager {
         let fileUrl = documentsURL.appendingPathComponent(fileName)
         do {
             try data?.write(to: fileUrl)
-                upload(filePath: fileName, completion: completion)
+                upload(filePath: fileUrl.absoluteString, completion: completion)
             } catch (let e){
                 debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
                 completion?(nil)

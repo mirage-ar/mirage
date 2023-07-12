@@ -5,10 +5,10 @@
 //  Created by fiigmnt on 6/7/23.
 //
 
-import SwiftUI
-import RealityKit
 import ARKit
 import Combine
+import RealityKit
+import SwiftUI
 
 enum MiraCreateMenuType {
     case DEFAULT
@@ -23,10 +23,14 @@ enum ARViewMode {
 
 final class ARViewModel: ObservableObject {
     // AR related data
-    @Published var arView: ARViewController = ARViewController(frame: .zero)
+    @Published var arView: ARViewController = .init(frame: .zero)
     @Published var arViewMode: ARViewMode = .EXPLORE
     
     @Published var selectedMira: Mira? = nil
+    @Published var miraPosted: Bool = false
+    
+    // TODO: cleanup
+    let arApolloRepository: ARApolloRepository = AppConfiguration.shared.apollo
     
     // Handle updates to scene data properties
     @Published var sceneData: ARSceneData = .init() {
@@ -36,15 +40,15 @@ final class ARViewModel: ObservableObject {
             }
         }
     }
-        
+    
     private var sceneDataCancellable: AnyCancellable?
-        
+    
     init() {
         sceneDataCancellable = sceneData.objectWillChange.sink { [weak self] _ in
             self?.objectWillChange.send()
         }
     }
-        
+    
     @Published var arViewLocalized: Bool = false
     @Published var showMediaPicker: Bool = false
     
@@ -52,25 +56,81 @@ final class ARViewModel: ObservableObject {
     @Published var modiferAmount: Float = 1.0
     
     @Published var currentMira: Mira?
+    @Published var createdMira: Mira?
     
-    func initializeMira(_ mediaEntity: MediaEntity) {
-        print("UPDATE: Initialize Mira")
-        // TODO: update to current creator
-        guard let location = LocationManager.shared.location else { return }
-        let creator = User(id: UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID(), profileImage: "", phone: "", userName: "test", profileDescription: "")
+    @Published var viewingMiras: [Mira]?
+    
+    func initializeMira() {
+        // Get current location
+        guard let location = LocationManager.shared.location else {
+            print("ERROR: Initialize Mira failed - no location available.")
+            return
+        }
         
-            // TODO: UserProfileStorage.getUser()
-            
-            // TODO: add asset URL to arMedia
-            let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: "", shape: mediaEntity.shape, modifier: mediaEntity.modifier, position: mediaEntity.transform)
-            let mira = Mira(id: UUID(), creator: creator, location: location, arMedia: [], collectors: nil)
-            currentMira = mira
+        // TODO: update to current creator and UserProfileStorage.getUser()
+        // Temporary user initialization
+        guard let userId = UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") else {
+            print("ERROR: Initialize Mira failed - no user id available.")
+            return
+        }
+        let creator = User(id: userId, profileImage: "", phone: "", userName: "test", profileDescription: "")
+        
+        // Create new Mira with an empty array of ARMedia
+        let mira = Mira(id: UUID(), creator: creator, location: location, arMedia: [], collectors: nil)
+        currentMira = mira
     }
+    
+    func addMediaEntityToMira(_ mediaEntity: MediaEntity) {
+        // ensure that there is a Mira to add media to
+        guard let currentMira = currentMira else {
+            print("ERROR: No Mira to add media to.")
+            return
+        }
         
+        if mediaEntity.contentType == .video, let videoUrl = mediaEntity.videoUrl {
+            DownloadManager.shared.upload(filePath: videoUrl.absoluteString) { url in
+                guard let url = url else {
+                    print("ERROR: Failed to upload video.")
+                    return
+                }
+                
+                let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: url, shape: mediaEntity.shape, modifier: mediaEntity.modifier, transform: mediaEntity.transform)
+            
+                // Update UI on the main thread
+                DispatchQueue.main.async {
+                    // Create new Mira with the new ARMedia
+                    var newArMediaArray = currentMira.arMedia
+                    newArMediaArray.append(arMedia)
+                    let newMira = Mira(id: currentMira.id, creator: currentMira.creator, location: currentMira.location, arMedia: newArMediaArray, collectors: currentMira.collectors)
+                    self.currentMira = newMira
+                }
+            }
+        }
+        
+        if let image = mediaEntity.image {
+            DownloadManager.shared.upload(image: image) { url in
+                guard let url = url else {
+                    print("ERROR: Failed to upload image.")
+                    return
+                }
+                let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: url, shape: mediaEntity.shape, modifier: mediaEntity.modifier, transform: mediaEntity.transform)
+            
+                // Update UI on the main thread
+                DispatchQueue.main.async {
+                    // Create new Mira with the new ARMedia
+                    var newArMediaArray = currentMira.arMedia
+                    newArMediaArray.append(arMedia)
+                    let newMira = Mira(id: currentMira.id, creator: currentMira.creator, location: currentMira.location, arMedia: newArMediaArray, collectors: currentMira.collectors)
+                    self.currentMira = newMira
+                }
+            }
+        }
+    }
+    
     private var workItem: DispatchWorkItem?
     
     let generator = UIImpactFeedbackGenerator(style: .medium)
-        
+    
     func initializSceneData(arView: ARView) {
         sceneData.setupGestureHandler(arView: arView)
     }
@@ -87,8 +147,8 @@ final class ARViewModel: ObservableObject {
             let imageOrientation = image.imageOrientation
             
             let rotatedImage = image.rotated(to: imageOrientation)
-            let transform: SIMD3<Float> = cameraPosition + cameraOrientation.act(forwardVector)
-            let anchor = AnchorEntity(world: transform)
+            let position: SIMD3<Float> = cameraPosition + cameraOrientation.act(forwardVector)
+            let anchor = AnchorEntity(world: position)
             
             // Use the rotated image to create the material and model entity
             var material = UnlitMaterial()
@@ -112,7 +172,9 @@ final class ARViewModel: ObservableObject {
             entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
             entity.orientation = cameraOrientation
             
-            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, translationGesture: translationGesture, texture: texture)
+            let transform = entity.transform.matrix
+            
+            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, image: image, translationGesture: translationGesture, texture: texture)
             sceneData.updateSelectedEntity(mediaEntity)
             
             entity.name = String(anchor.id)
@@ -124,8 +186,8 @@ final class ARViewModel: ObservableObject {
         }
     }
     
-    func createVideoEntity(_ videoURL: URL, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> (AnchorEntity?, MediaEntity) {
-        let asset = AVURLAsset(url: videoURL)
+    func createVideoEntity(_ videoUrl: URL, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> (AnchorEntity?, MediaEntity) {
+        let asset = AVURLAsset(url: videoUrl)
         let playerItem = AVPlayerItem(asset: asset)
         let player = AVPlayer(playerItem: playerItem)
         let material = VideoMaterial(avPlayer: player)
@@ -138,8 +200,8 @@ final class ARViewModel: ObservableObject {
         player.volume = 0.1
         player.play()
         
-        let transform: SIMD3<Float> = cameraPosition + cameraOrientation.act(forwardVector)
-        let anchor = AnchorEntity(world: transform)
+        let position: SIMD3<Float> = cameraPosition + cameraOrientation.act(forwardVector)
+        let anchor = AnchorEntity(world: position)
         
         // Extract video orientation metadata
         let videoTrack = asset.tracks(withMediaType: .video).first
@@ -175,18 +237,20 @@ final class ARViewModel: ObservableObject {
             entity.orientation = cameraOrientation
         }
         
-        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, translationGesture: translationGesture)
+        let transform = entity.transform.matrix
+        
+        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, videoUrl: videoUrl, translationGesture: translationGesture)
         sceneData.updateSelectedEntity(mediaEntity)
         
         entity.name = String(anchor.id)
         anchor.addChild(entity)
         return (anchor, mediaEntity)
     }
-        
+    
     func applyShape(_ shape: ShapeType) {
         sceneData.selectedShape = shape
         sceneData.selectedEntity?.shape = shape
-            
+        
         if let selectedEntity = sceneData.selectedEntity {
             switch shape {
             case .plane:
@@ -196,14 +260,16 @@ final class ARViewModel: ObservableObject {
             case .sphere:
                 changeShape(to: .generateSphere(radius: selectedEntity.width / 1.5))
             }
+            
+            // TODO: update shape for media entity
         }
     }
-        
+    
     func revertShape(_ shape: ShapeType) {
         print("REVERT SHAPE: \(shape)")
         applyShape(shape)
     }
-        
+    
     func changeShape(to newShape: MeshResource) {
         if let entity = sceneData.selectedEntity?.entity as? ModelEntity {
             entity.model?.mesh = newShape
@@ -211,60 +277,70 @@ final class ARViewModel: ObservableObject {
             entity.generateCollisionShapes(recursive: true)
         }
     }
-        
+    
     func applyModifier(_ modifier: ModifierType) {
         sceneData.selectedModifier = modifier
         print("APPLYING MODIFIER: \(modifier)")
-            
+        
+        // TODO: move to function - not working
+        if let selectedEntity = sceneData.selectedEntity {
+            // update media entity
+            if let selectedIndex = sceneData.mediaEntities.firstIndex(where: { $0.entity.id == selectedEntity.entity.id }) {
+                sceneData.mediaEntities[selectedIndex].modifier = modifier
+            }
+        }
+        
         if modifier == .rotate {
             guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
             rotateModel(modelEntity)
         }
     }
-        
+    
     // TODO: create a more sustainable method for rotation
     func rotateModel(_ modelEntity: ModelEntity) {
         let rotation = simd_quatf(angle: Float.pi, axis: SIMD3<Float>(0, 1, 0))
         let duration = TimeInterval(2) // Duration in seconds
-
+        
         // Animate the rotation
         let transform = Transform(pitch: 0, yaw: Float.pi, roll: 0)
         modelEntity.move(to: transform, relativeTo: modelEntity, duration: 2.0, timingFunction: .linear)
-
+        
         let workItem = DispatchWorkItem {
             self.rotateModel(modelEntity)
         }
-            
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
-            
+        
         // Store the work item in a property or closure for later use
         // This allows you to cancel the work item if needed
         self.workItem = workItem
     }
-
+    
     func removeModifier(_ modifier: ModifierType) {
         print("REMOVING MODIFIER: \(modifier)")
-            
+        
         if modifier == .rotate {
             guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
-                
+            
             // Cancel DispatchQueue
             workItem?.cancel()
         }
     }
-        
+    
     func removeEntity(_ entity: Entity) {
+        // TODO: remove entity from mira as well
+        
         // Stop the AVPlayer if it exists in the avPlayers dictionary
         if let player = sceneData.avPlayers[entity.id] {
             player.pause()
             sceneData.avPlayers.removeValue(forKey: entity.id)
         }
-            
+        
         // remove entity from array
         if let entityIndex = sceneData.mediaEntities.firstIndex(where: { $0.entity.id == entity.id }) {
             sceneData.mediaEntities.remove(at: entityIndex)
         }
-            
+        
         entity.removeFromParent()
         sceneData.selectedEntity = nil
     }
@@ -278,11 +354,175 @@ final class ARViewModel: ObservableObject {
         generator.impactOccurred()
     }
     
-    func addMediaEntityToMira(_ mediaEntity: MediaEntity) {
-        print("UPDATE: adding mediaEntity to current Mira")
+    func lockMira() {
+        guard let mira = currentMira else {
+            print("ERROR: mira not available")
+            return
+        }
+        
+        // TODO: ! update all transforms here
+        
+        arApolloRepository.addMira(mira)
+            .receive(on: DispatchQueue.main)
+            .receiveAndCancel(receiveOutput: { mira in
+                guard let mira = mira else { return }
+                self.createdMira = mira[0]
+            }, receiveError: { error in
+                print("Error: \(error)")
+            })
     }
     
-    func lockMira() {
+    func addMiraToScene() {
+        arApolloRepository.getARMiras(location: LocationManager.shared.location!, zoomLevel: 30)
+            .receive(on: DispatchQueue.main)
+            .receiveAndCancel(receiveOutput: { miras in
+                guard let miras = miras else { return }
+                self.viewingMiras = miras
+                self.initializeAllViewingMiras(miras)
+//                self.hasLoadedMiras = true
+            }, receiveError: { error in
+                print("Error: \(error)")
+                                
+            })
+    }
+
+    func initializeAllViewingMiras(_ miras: [Mira]) {
+        for item in miras {
+            if !arView.scene.anchors.contains(where: { $0.name == item.id.uuidString }) {
+                for arMedia in item.arMedia {
+                    print("UPDATE: Placing model into scene")
+                    let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
+                    let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location)
+                    
+                    arView.session.add(anchor: geoAnchor)
+                    
+                    let cameraPosition = arView.cameraTransform.translation
+                    let cameraOrientation = arView.cameraTransform.rotation
+                    let forwardVector = simd_float3(0, 0, -0.4)
+                    
+                    DownloadManager.shared.download(url: arMedia.assetUrl) { progress in
+                        print("Progress 4 \(progress)")
+                    } completion: { filePath in
+                        print("Complete 4 " + (filePath ?? ""))
+                            
+                        if arMedia.contentType == .photo {
+                            if let urlString = filePath {
+                                let url = URL(string: urlString)
+                                do {
+                                    let data = try Data(contentsOf: url!)
+                                    guard let image = UIImage(data: data) else {
+                                        print("ERROR: Could not create image")
+                                        return
+                                    }
+                                        
+                                    if let anchorEntity = self.createGeoImageEntity(id: UUID(), image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                        self.arView.scene.anchors.append(anchorEntity)
+                                    } else {
+                                        print("ERROR: could not create geo entity")
+                                    }
+                                        
+                                } catch {
+                                    print("Unable to load data: \(error)")
+                                }
+                            }
+                        } else if arMedia.contentType == .video {
+                            guard let video = URL(string: filePath!) else {
+                                print("ERROR: could not create video")
+                                return
+                            }
+                            if let anchorEntity = self.createGeoVideoEntity(id: UUID(), video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                self.arView.scene.anchors.append(anchorEntity)
+                            } else {
+                                print("ERROR: could not create geo entity")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func createGeoImageEntity(id: UUID, image: UIImage, geoAnchor: ARGeoAnchor, transform: simd_float4x4) -> AnchorEntity? {
+        do {
+            let imageOrientation = image.imageOrientation
+            let rotatedImage = image.rotated(to: imageOrientation)
+            
+            // Use the rotated image to create the material and model entity
+            let texture = try TextureResource.generate(from: rotatedImage.cgImage!, options: TextureResource.CreateOptions(semantic: nil))
+            
+            var material = UnlitMaterial()
+            material.color = .init(tint: .white.withAlphaComponent(0.999),
+                                   texture: .init(texture))
+
+            // TODO: update to use shape and modifer from arMedia
+            let size: CGSize = .init(width: rotatedImage.size.width, height: rotatedImage.size.height)
+            let aspectRatio = Float(size.width / size.height)
+            let width: Float = 0.02 * 9 // default width value
+            let height: Float = width / aspectRatio
+
+            let mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.0)
+            let entity = ModelEntity(mesh: mesh, materials: [material])
+            entity.generateCollisionShapes(recursive: true)
+
+            entity.transform.matrix = transform
+
+            let anchorEntity = AnchorEntity(anchor: geoAnchor)
+            anchorEntity.name = id.uuidString
+            anchorEntity.addChild(entity)
+
+            return anchorEntity
+
+        } catch {
+            print("ERROR: \(error)")
+            return nil
+        }
+    }
+    
+    func createGeoVideoEntity(id: UUID, video: URL, geoAnchor: ARGeoAnchor, transform _: simd_float4x4) -> AnchorEntity? {
+        let asset = AVURLAsset(url: video)
+        let playerItem = AVPlayerItem(asset: asset)
+        let player = AVPlayer(playerItem: playerItem)
+        let material = VideoMaterial(avPlayer: player)
         
+        // quick fix to loop the video
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: .main) { _ in
+            player.seek(to: CMTime.zero)
+            player.play()
+        }
+        player.volume = 0.1
+        player.play()
+        
+        // Extract video orientation metadata
+        let videoTrack = asset.tracks(withMediaType: .video).first
+        let videoTransform = videoTrack?.preferredTransform
+        let videoAngleInDegrees = atan2(videoTransform!.b, videoTransform!.a) * 180 / .pi
+        
+        let videoSize = videoTrack?.naturalSize ?? .zero
+        let aspectRatio = Float(videoSize.width / videoSize.height)
+        let width: Float = 0.02 * 9 // default width value
+        let height: Float = width / aspectRatio
+        
+        let mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.002)
+        let entity = ModelEntity(mesh: mesh, materials: [material])
+        entity.generateCollisionShapes(recursive: true)
+        arView.installGestures([.scale, .rotation], for: entity)
+        
+        let translationGesture = arView.installGestures(.translation, for: entity).first
+        
+        // Store the AVPlayer instance in the dictionary using entity's identifier as the key
+        sceneData.avPlayers[entity.id] = player
+        
+        let transform = entity.transform.matrix
+        
+        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, translationGesture: translationGesture)
+        sceneData.updateSelectedEntity(mediaEntity)
+        
+        entity.transform.matrix = transform
+
+        let anchorEntity = AnchorEntity(anchor: geoAnchor)
+        anchorEntity.name = id.uuidString
+        anchorEntity.addChild(entity)
+
+        return anchorEntity
     }
 }
