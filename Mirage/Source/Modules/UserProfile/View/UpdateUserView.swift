@@ -12,15 +12,15 @@ struct UpdateUserView: View {
     let title: String
     @State var value: String
     let user: User
+    @Environment(\.presentationMode) var presentation
+    
     var userToBeUpdated: User {
         
         if title == "BIO" {
             return User(id: user.id, profileImage: user.profileImage, phone: user.phone, userName: user.userName, profileDescription: value)
         } else {
             return User(id: user.id, profileImage: user.profileImage, phone: user.phone, userName: value, profileDescription: user.profileDescription)
-        }
-        
-//        .dummy
+        }        
     }
     var body: some View {
         ZStack {
@@ -63,10 +63,12 @@ struct UpdateUserView: View {
             }
             .padding(.top, 30)
         }
-        .navigationTitle(title.uppercased())
-        .navigationDestination(isPresented: $viewModel.userUpdated) {
-            NavigationRoute.editProfile(user: .dummy).screen
+        .onChange(of: viewModel.userUpdated) { newValue in
+            presentation.wrappedValue.dismiss()
+
         }
+        .navigationTitle(title.uppercased())
+        
 
     }
     
