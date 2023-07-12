@@ -36,7 +36,7 @@ public class ApolloRepository {
         let sessionConfiguration = URLSessionConfiguration.default
 
         let client = URLSessionClient(sessionConfiguration: sessionConfiguration, callbackQueue: nil)
-        let provider = NetworkInterceptorProvider(store: store,
+        let provider = NetworkInterceptorProvider(store: getSQLStore(),
                                                   client: client,
                                                   userTokenService: tokenService)
         let url = URL(string: endpoint)!
@@ -193,18 +193,26 @@ public class ApolloRepository {
         do {
             let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
-
             let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
 
-            let store = ApolloStore(cache: sqliteCache)
-
-            let url = URL(string: endpoint)!
-
             return ApolloClient(networkTransport: normalTransport,
-                                store: store)
+                                store: getSQLStore())
         } catch {
             print("Error creating ApolloSQLite Client: \(error)")
-            return client
+            return getClient()
+        }
+    }
+
+    private func getSQLStore() -> ApolloStore {
+        do {
+            let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
+            let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
+
+            return ApolloStore(cache: sqliteCache)
+        } catch {
+            print("Error creating ApolloSQLite Client: \(error)")
+            return store
         }
     }
 
@@ -219,7 +227,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the query data or error
     ///
     func fetch<Query: GraphQLQuery>(query: Query,
-                                    cachePolicy: CachePolicy = .fetchIgnoringCacheCompletely,
+                                    cachePolicy: CachePolicy = .returnCacheDataElseFetch,
                                     callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Query.Data, Error>
     {
@@ -247,6 +255,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the mutation data or error
     ///
     func perform<Mutation: GraphQLMutation>(mutation: Mutation,
+                                            cachePolicy: CachePolicy = .returnCacheDataElseFetch,
                                             callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Mutation.Data, Error>
     {
