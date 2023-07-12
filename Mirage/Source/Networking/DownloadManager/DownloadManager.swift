@@ -72,7 +72,7 @@ public class DownloadManager {
         let fileUrl = documentsURL.appendingPathComponent(fileName)
         do {
             try data?.write(to: fileUrl)
-            upload(filePath: fileUrl.absoluteString, completion: completion)
+                upload(filePath: fileUrl.absoluteString, completion: completion)
             } catch (let e){
                 debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
                 completion?(nil)

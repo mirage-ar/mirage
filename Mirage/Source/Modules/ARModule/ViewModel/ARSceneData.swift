@@ -9,6 +9,7 @@ import RealityKit
 import Combine
 import AVKit
 import ApolloAPI
+import simd
 
 class EntityLongPressGestureRecognizer: UILongPressGestureRecognizer {
     weak var arEntity: Entity?
@@ -21,13 +22,17 @@ enum MediaEntityType {
 }
 
 struct MediaEntity {
+    let id: UUID = UUID()
     let entity: Entity
     var height: Float
     var width: Float
     var shape: ShapeType
     var modifier: ModifierType
-    var transform: SIMD3<Float>
+    var transform: simd_float4x4
+    
     var contentType: ARMediaContentType
+    var image: UIImage?
+    var videoUrl: URL?
     
     // needed for create flow
     var withinBounds: Bool = true

@@ -38,9 +38,11 @@ public extension MirageAPI {
       case "VerificationResult": return MirageAPI.Objects.VerificationResult
       case "Query": return MirageAPI.Objects.Query
       case "ArMedia": return MirageAPI.Objects.ArMedia
-      case "Position": return MirageAPI.Objects.Position
       case "Modifier": return MirageAPI.Objects.Modifier
+      case "Position": return MirageAPI.Objects.Position
       case "Location": return MirageAPI.Objects.Location
+      case "VerificationResult": return MirageAPI.Objects.VerificationResult
+      case "Query": return MirageAPI.Objects.Query
       default: return nil
       }
     }

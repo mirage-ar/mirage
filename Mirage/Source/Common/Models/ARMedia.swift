@@ -7,6 +7,7 @@
 
 import Foundation
 import ApolloAPI
+import ARKit
 
 typealias ARMediaContentType = MirageAPI.ContentType
 typealias ShapeType = MirageAPI.Shape
@@ -32,10 +33,9 @@ extension ModifierType {
 
 
 struct ARMedia {
-    let id = UUID()
     let contentType: ARMediaContentType
     let assetUrl: String
     let shape: ShapeType
     let modifier: ModifierType
-    let position: SIMD3<Float>
+    let transform: simd_float4x4
 }
