@@ -28,7 +28,7 @@ public class DownloadManager {
         } else {
             fileSet = Dictionary()
         }
-        processPreviousFiles()
+//        processPreviousFiles()
     }
     
     func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {

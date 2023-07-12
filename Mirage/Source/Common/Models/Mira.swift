@@ -64,7 +64,7 @@ extension Mira {
         } else {
             location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
-                
+
         var collected = false
         if let collectors = mira?.collectors, collectors.count > 0 {
             var collectorsList = [User]()
