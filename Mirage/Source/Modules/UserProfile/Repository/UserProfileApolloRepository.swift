@@ -16,7 +16,7 @@ protocol UserProfileApolloRepository {
 
 extension ApolloRepository: UserProfileApolloRepository {
     func updateUser(user: User) -> AnyPublisher<User, Error> {
-        let input = MirageAPI.UpdateUserInput(username: user.userName ?? "", profileDescription: user.profileDescription ?? "") // ?? part is just to avoid error.
+        let input = MirageAPI.UpdateUserInput(username: user.userName ?? "", profileImage: GraphQLNullable<String>(stringLiteral: user.profileImage), profileDescription: user.profileDescription ?? "") // ?? part is just to avoid error.
         let mutaiton = MirageAPI.UpdateUserMutation(updateUserInput: input)
         return perform(mutation: mutaiton)
             .map {

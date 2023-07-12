@@ -25,7 +25,7 @@ final class UserProfileViewModel: ObservableObject {
     }
     
     func loadProfile(_ userId: String) {
-        userProfileRepository.getUser(id: userId)
+        userProfileRepository.getUser(id: userId.lowercased())
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in
                 self.user = user

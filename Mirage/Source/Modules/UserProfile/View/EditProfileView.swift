@@ -11,8 +11,10 @@ struct EditProfileView: View {
     @State var bioText = "Ny Based CG Artist\ninst: @xyz\nMusic Lover\nAthlete"
     @State var gotoEditUserName = false
     @State var gotoEditBio = false
+    @State var showMediaPicker = false
     @State var user: User
     @ObservedObject private var viewModel = EditUserProfileViewModel()
+    @State var media: Media?
 
     
     var body: some View {
@@ -23,23 +25,38 @@ struct EditProfileView: View {
             VStack {
                 ZStack {
                     Button {
+                        showMediaPicker = true
                         print("Edit Image")
                     } label: {
-                        AsyncImage(url: URL(string: user.profileImage)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            ProgressView()
-                                .foregroundColor(Colors.white8p.swiftUIColor)
+                        
+                        Group {
+                            if let image = media?.image {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+
+                            } else {
+                                AsyncImage(url: URL(string: user.profileImage)) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                } placeholder: {
+                                    ProgressView()
+                                        .foregroundColor(Colors.white8p.swiftUIColor)
+                                }
+
+                            }
                         }
                         .frame(width: 150, height: 150)
                         .cornerRadius(75)
-                        .clipped()
+                        .scaledToFill()
 
                     }
                     Images.refresh.swiftUIImage
                         .padding(.top, 150)
+                        .onTapGesture {
+                            showMediaPicker = true
+                        }
                     
                 }
                 .padding(.all, 50)
@@ -153,8 +170,25 @@ struct EditProfileView: View {
         .navigationDestination(isPresented: $gotoEditBio) {
             NavigationRoute.updateUser(title: "BIO", value: user.profileDescription ?? "", user: user).screen
         }
+        .sheet(isPresented: $showMediaPicker, onDismiss: loadMedia) {
+            MediaPicker(media: $media)
+        }
 
     }
+    func loadMedia() {
+        guard let media = media else { return }
+        if let image = media.image{
+            DownloadManager.shared.upload(image: image) { url in
+                if let url = url, var user = UserDefaultsStorage().getUser() {
+                    user.profileImage = url
+                    viewModel.update(user: user)
+
+                }
+            }
+
+        }
+    }
+
 }
 
 struct EditProfileView_Previews: PreviewProvider {
