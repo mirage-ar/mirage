@@ -11,7 +11,7 @@ public struct User {
     let id: UUID
     let phone: String
     let userName: String?
-    let profileImage: String
+    var profileImage: String
     let profileDescription: String?
     var collectedMiraCount = 0
     var mirasCount = 0

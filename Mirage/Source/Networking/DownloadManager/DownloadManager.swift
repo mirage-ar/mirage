@@ -72,7 +72,7 @@ public class DownloadManager {
         let fileUrl = documentsURL.appendingPathComponent(fileName)
         do {
             try data?.write(to: fileUrl)
-                upload(filePath: fileName, completion: completion)
+            upload(filePath: fileUrl.absoluteString, completion: completion)
             } catch (let e){
                 debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
                 completion?(nil)
@@ -80,7 +80,7 @@ public class DownloadManager {
 
     }
     func upload(filePath: String, completion: ((String?) -> ())?) {
-        if let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
+        if !filePath.isEmpty, let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
             //this is just to return url. to display. please use local file path to display
             completion?(file.filePath)
             return

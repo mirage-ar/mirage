@@ -23,7 +23,7 @@ struct UserProfileView: View {
 
     init(userId: String) {
         self.userId = userId
-        ownProfile = UserDefaultsStorage().getString(for: .userId) == userId
+        ownProfile = UserDefaultsStorage().getString(for: .userId)?.uppercased() == userId.uppercased()
         self.viewModel = UserProfileViewModel(userId: userId)
     }
 
