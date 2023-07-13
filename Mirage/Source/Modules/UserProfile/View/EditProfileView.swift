@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State var bioText = "Ny Based CG Artist\ninst: @xyz\nMusic Lover\nAthlete"
+    @EnvironmentObject var stateManager: StateManager
+    @ObservedObject private var viewModel = EditUserProfileViewModel()
+    
+    @State var bioText = ""
     @State var gotoEditUserName = false
     @State var gotoEditBio = false
     @State var showMediaPicker = false
     @State var user: User
-    @ObservedObject private var viewModel = EditUserProfileViewModel()
     @State var media: Media?
 
-    
     var body: some View {
         ZStack {
             Colors.black.swiftUIColor
@@ -28,7 +29,6 @@ struct EditProfileView: View {
                         showMediaPicker = true
                         print("Edit Image")
                     } label: {
-                        
                         Group {
                             if let image = media?.image {
                                 Image(uiImage: image)
@@ -44,24 +44,20 @@ struct EditProfileView: View {
                                     ProgressView()
                                         .foregroundColor(Colors.white8p.swiftUIColor)
                                 }
-
                             }
                         }
                         .frame(width: 150, height: 150)
                         .cornerRadius(75)
                         .scaledToFill()
-
                     }
                     Images.refresh.swiftUIImage
                         .padding(.top, 150)
                         .onTapGesture {
                             showMediaPicker = true
                         }
-                    
                 }
                 .padding(.all, 50)
                
-                
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
@@ -70,7 +66,6 @@ struct EditProfileView: View {
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                             Spacer()
-
                         }
                         HStack {
                             Text(user.userName ?? "")
@@ -80,7 +75,6 @@ struct EditProfileView: View {
                             Spacer()
                         }
                         .padding(.leading, 5)
-
                     }
                     .frame(width: UIScreen.main.bounds.width)
                     .contentShape(Rectangle())
@@ -91,23 +85,23 @@ struct EditProfileView: View {
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
                     
-                    //Temporarily Hidden for MPV Version
+                    // Temporarily Hidden for MPV Version
                     /*
-                    VStack(spacing: 5) {
-                        Text("Pronouns")
-                            .font(.body1)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                     VStack(spacing: 5) {
+                         Text("Pronouns")
+                             .font(.body1)
+                             .multilineTextAlignment(.leading)
+                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                         
-                        Text("She/They")
-                            .font(.body1)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(Colors.white.swiftUIColor)
+                         Text("She/They")
+                             .font(.body1)
+                             .multilineTextAlignment(.leading)
+                             .foregroundColor(Colors.white.swiftUIColor)
                         
-                    }
-                    Divider()
-                        .overlay(Colors.g4LightGrey.swiftUIColor)
-                    */
+                     }
+                     Divider()
+                         .overlay(Colors.g4LightGrey.swiftUIColor)
+                     */
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Bio")
@@ -119,7 +113,6 @@ struct EditProfileView: View {
                             .background(.clear)
                             .scrollContentBackground(.hidden)
                             .frame(maxHeight: 100)
-                        
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -127,8 +120,6 @@ struct EditProfileView: View {
                     }
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
-
-                    
                 }
                 Spacer()
                 
@@ -145,22 +136,15 @@ struct EditProfileView: View {
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
 
-                    Button {
-                        
-                    } label: {
+                    Button {} label: {
                         Text("DELETE ACCOUNT")
                             .font(.body1)
                             .foregroundColor(Colors.red.swiftUIColor)
                     }
-
-                    
                 }
-
             }
-
-            
         }
-        .onAppear() {
+        .onAppear {
             bioText = user.profileDescription ?? ""
         }
         .navigationTitle("EDIT PRPFILE")
@@ -173,22 +157,23 @@ struct EditProfileView: View {
         .sheet(isPresented: $showMediaPicker, onDismiss: loadMedia) {
             MediaPicker(media: $media)
         }
-
     }
+
     func loadMedia() {
         guard let media = media else { return }
-        if let image = media.image{
+        if let image = media.image {
             DownloadManager.shared.upload(image: image) { url in
                 if let url = url, var user = UserDefaultsStorage().getUser() {
                     user.profileImage = url
                     viewModel.update(user: user)
-
+                    
+                    DispatchQueue.main.async {
+                        stateManager.updateCurrentUser(user: user)
+                    }
                 }
             }
-
         }
     }
-
 }
 
 struct EditProfileView_Previews: PreviewProvider {

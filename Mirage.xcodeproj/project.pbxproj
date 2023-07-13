@@ -29,6 +29,7 @@
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
+		394EC76F2A5F653A0002AAE1 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC76E2A5F653A0002AAE1 /* StateManager.swift */; };
 		3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 3988CD382A44E9D5007BCD37 /* schema.graphqls */; };
 		39BD18EF2A2D081000A9F95C /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18EE2A2D081000A9F95C /* GestureHandler.swift */; };
 		39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F02A2D081D00A9F95C /* MediaPicker.swift */; };
@@ -82,7 +83,7 @@
 		931FF5E029B80037002C62AB /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 931FF5D529B80037002C62AB /* schema.json */; };
 		9327D4442A3209D4005D782D /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9327D4432A3209D4005D782D /* Float+Extension.swift */; };
 		9327D4462A320F2B005D782D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9327D4452A320F2B005D782D /* UILabel+Extension.swift */; };
-		9331C48B29AF8C0100F8EE72 /* ApolloRepositery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C47A29AF8C0100F8EE72 /* ApolloRepositery.swift */; };
+		9331C48B29AF8C0100F8EE72 /* ApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C47A29AF8C0100F8EE72 /* ApolloRepository.swift */; };
 		9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C47F29AF8C0100F8EE72 /* Publisher+Extension.swift */; };
 		9331C48D29AF8C0100F8EE72 /* Subject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C48029AF8C0100F8EE72 /* Subject+Extension.swift */; };
 		9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49129AF8C4100F8EE72 /* ReachabilityProvider.swift */; };
@@ -186,6 +187,7 @@
 		394B496F296CCAD400E2F8E4 /* MirageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MirageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4973296CCAD400E2F8E4 /* MirageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITests.swift; sourceTree = "<group>"; };
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		394EC76E2A5F653A0002AAE1 /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		3988CD382A44E9D5007BCD37 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		39BD18EE2A2D081000A9F95C /* GestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		39BD18F02A2D081D00A9F95C /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
@@ -238,7 +240,7 @@
 		931FF5D529B80037002C62AB /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		9327D4432A3209D4005D782D /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		9327D4452A320F2B005D782D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
-		9331C47A29AF8C0100F8EE72 /* ApolloRepositery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloRepositery.swift; sourceTree = "<group>"; };
+		9331C47A29AF8C0100F8EE72 /* ApolloRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloRepository.swift; sourceTree = "<group>"; };
 		9331C47F29AF8C0100F8EE72 /* Publisher+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Extension.swift"; sourceTree = "<group>"; };
 		9331C48029AF8C0100F8EE72 /* Subject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subject+Extension.swift"; sourceTree = "<group>"; };
 		9331C49129AF8C4100F8EE72 /* ReachabilityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityProvider.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				9300624B29E43F0F00816C46 /* LocationManager.swift */,
+				394EC76E2A5F653A0002AAE1 /* StateManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -823,7 +826,7 @@
 		9331C47929AF8C0100F8EE72 /* ApolloCore */ = {
 			isa = PBXGroup;
 			children = (
-				9331C47A29AF8C0100F8EE72 /* ApolloRepositery.swift */,
+				9331C47A29AF8C0100F8EE72 /* ApolloRepository.swift */,
 				931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */,
 				93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */,
 				93593A8529B217E10058C5C2 /* Interceptors */,
@@ -1201,7 +1204,7 @@
 				93E216A229B6804100EE907D /* AuthenticationModel.swift in Sources */,
 				936E7DE029C20A7A0008FBB9 /* Query.graphql.swift in Sources */,
 				3942F7452A5C5539007DB731 /* Position.graphql.swift in Sources */,
-				9331C48B29AF8C0100F8EE72 /* ApolloRepositery.swift in Sources */,
+				9331C48B29AF8C0100F8EE72 /* ApolloRepository.swift in Sources */,
 				3942F7512A5C851A007DB731 /* ArMedia.graphql.swift in Sources */,
 				39CA4F962A2F8BE6002CCE88 /* ARViewController.swift in Sources */,
 				394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */,
@@ -1259,6 +1262,7 @@
 				93B379492A210BF300C6C66C /* UserPropertiesStorage.swift in Sources */,
 				93B24F0529B6175800CCDDB7 /* AddTokenInterceptor.swift in Sources */,
 				9310E5D629CDD281000E6019 /* View+Extension.swift in Sources */,
+				394EC76F2A5F653A0002AAE1 /* StateManager.swift in Sources */,
 				3942F74D2A5C5548007DB731 /* Shape.graphql.swift in Sources */,
 				9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */,
 				3942F7472A5C5539007DB731 /* Modifier.graphql.swift in Sources */,

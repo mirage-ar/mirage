@@ -1,5 +1,5 @@
 //
-//  ApolloRepositery.swift
+//  ApolloRepository.swift
 //  Mirage
 //
 //  Created by Saad on 01/03/2023.
@@ -227,7 +227,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the query data or error
     ///
     func fetch<Query: GraphQLQuery>(query: Query,
-                                    cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                    cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                     callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Query.Data, Error>
     {
@@ -255,7 +255,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the mutation data or error
     ///
     func perform<Mutation: GraphQLMutation>(mutation: Mutation,
-                                            cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                            cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                             callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Mutation.Data, Error>
     {

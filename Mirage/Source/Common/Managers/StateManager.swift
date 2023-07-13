@@ -1,27 +1,26 @@
+//  GestureHandler.swift
+//  Mirage Mira Creator
 //
-//  HomeViewModel.swift
-//  Mirage
-//
-//  Created by Saad on 20/04/2023.
+//  Created by fiigmnt on 3/28/23.
 //
 
+import SwiftUI
 
-// TODO: REMOVE, no longer needed
-import Foundation
-final class HomeViewModel: ObservableObject {
-    @Published var isLoading = false
+final class StateManager: ObservableObject {
     @Published var currentUser: User?
-
+    @Published var selectedUser: User?
+    
+    // update to shared state apollo repo
     let homeApolloRepository: HomeApolloRepository = AppConfiguration.shared.apollo
-
+    
     init() {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
         }
-
+        
         loadUser()
     }
-
+    
     func loadUser() {
         homeApolloRepository.getUser()
             .receive(on: DispatchQueue.main)
@@ -31,5 +30,10 @@ final class HomeViewModel: ObservableObject {
             } receiveError: { error in
                 print("Get profile user error \(error)")
             }
+    }
+    
+    func updateCurrentUser(user: User) {
+        currentUser = user
+        selectedUser = user
     }
 }

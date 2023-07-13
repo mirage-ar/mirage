@@ -15,7 +15,7 @@ public enum NavigationRoute {
     case myProfile(userId: String)
     case settings(user: User)
     case editProfile(user: User)
-    case miraCollectedByUsersList(mira: Binding<Mira?>, selectedUser: Binding<User?>)
+    case miraCollectedByUsersList(mira: Binding<Mira?>)
 
     //MARK: Home
     case homeViewLanding
@@ -40,8 +40,8 @@ public enum NavigationRoute {
                 SettingsView(user: user)
             case .editProfile(let user):
                 EditProfileView(user: user)
-            case .miraCollectedByUsersList(let mira, let selectedUser):
-                CollectedByUsersView(selectedMira: mira, selectedUser: selectedUser)
+            case .miraCollectedByUsersList(let mira):
+                CollectedByUsersView(selectedMira: mira)
             }
         }
     }

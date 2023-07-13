@@ -23,6 +23,7 @@ struct MirageApp: App {
         WindowGroup {
             if appConfiguration.authentication {
                 HomeView()
+                    .environmentObject(StateManager())
             } else {
                 AuthenticationView(phoneNumber: "", isEditing: false)
             }

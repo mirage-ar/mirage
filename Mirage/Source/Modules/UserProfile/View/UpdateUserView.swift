@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UpdateUserView: View {
+    @EnvironmentObject var stateManager: StateManager
     @ObservedObject private var viewModel = UpdateUserViewModel()
     let title: String
     @State var value: String
@@ -56,6 +57,7 @@ struct UpdateUserView: View {
                     } else {
                         LargeButton(title: "Done") {
                             viewModel.update(user: userToBeUpdated)
+                            stateManager.updateCurrentUser(user: userToBeUpdated)
                         }
                     }
                 }

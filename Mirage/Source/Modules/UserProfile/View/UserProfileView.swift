@@ -8,23 +8,25 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @State var goToSettings = false
-    @State var goToEditProfile = false
-    @State var goToHome = false
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var stateManager: StateManager
     
+    @Environment(\.presentationMode) var presentationMode
+
+    @State var goToSettings = false
+    @State var goToHome = false
+
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
 
     @ObservedObject private var viewModel: UserProfileViewModel
-    
+
     var ownProfile = true
     let userId: String
 
     init(userId: String) {
         self.userId = userId
         ownProfile = UserDefaultsStorage().getString(for: .userId)?.uppercased() == userId.uppercased()
-        self.viewModel = UserProfileViewModel(userId: userId)
+        viewModel = UserProfileViewModel(userId: userId)
     }
 
     var body: some View {
@@ -33,8 +35,7 @@ struct UserProfileView: View {
                 VStack {
                     ZStack(alignment: .bottom) {
                         VStack {
-                            AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
-                                //                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
+                            AsyncImage(url: URL(string: stateManager.selectedUser?.profileImage ?? "")) { image in
                                 image
                                     .resizable()
                                     .scaledToFill()
@@ -51,13 +52,13 @@ struct UserProfileView: View {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 Group {
-                                    Text(viewModel.user.userName ?? "...")
+                                    Text(stateManager.selectedUser?.userName ?? "")
                                         .font(.h2)
                                         .textCase(.uppercase)
                                         .lineLimit(2)
-                                    if ownProfile && viewModel.user.isDescriptionEmpty {
+                                    if ownProfile && stateManager.currentUser!.isDescriptionEmpty {
                                         Button {
-                                            goToEditProfile = true
+                                            goToSettings = true
 
                                         } label: {
                                             Text("EDIT PROFILE")
@@ -67,10 +68,10 @@ struct UserProfileView: View {
                                         .foregroundColor(Colors.black.swiftUIColor)
                                         .cornerRadius(10)
                                         .frame(width: 150)
-                                        .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
+                                        .hiddenConditionally(isHidden: stateManager.currentUser!.isDescriptionEmpty)
 
                                     } else {
-                                        Text(viewModel.user.profileDescription ?? "")
+                                        Text(stateManager.selectedUser?.profileDescription ?? "")
                                             .font(.body1)
                                     }
                                 }
@@ -108,7 +109,7 @@ struct UserProfileView: View {
                                             .foregroundColor(Colors.green.swiftUIColor)
                                             .frame(width: 80, height: 40)
                                         HStack {
-                                            Text("\(viewModel.user.mirasCount)")
+                                            Text("\(stateManager.selectedUser?.mirasCount ?? 0)")
                                             Images.collectMiraWhite.swiftUIImage
                                                 .renderingMode(.template)
                                                 .foregroundColor(Colors.black.swiftUIColor)
@@ -128,7 +129,7 @@ struct UserProfileView: View {
                                     .foregroundColor(Colors.white.swiftUIColor)
                                     .font(.body1)
                                 Spacer()
-                                Text("\(viewModel.user.collectedMiraCount)")
+                                Text("\(stateManager.selectedUser?.mirasCount ?? 0)")
                                     .multilineTextAlignment(.trailing)
                                     .foregroundColor(Colors.white.swiftUIColor)
                                     .font(.body1)
@@ -160,6 +161,7 @@ struct UserProfileView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         debugPrint("Button go to Home")
+                        stateManager.selectedUser = nil
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Images.arrowB24.swiftUIImage
@@ -174,7 +176,6 @@ struct UserProfileView: View {
                             goToSettings = true
                         } else {
                             debugPrint("more Button profile")
-
                         }
                     } label: {
                         if ownProfile {
@@ -191,12 +192,9 @@ struct UserProfileView: View {
             }
             .background(Colors.black.swiftUIColor)
             .navigationDestination(isPresented: $goToSettings) {
-                NavigationRoute.settings(user: viewModel.user).screen
-            }
-            .navigationDestination(isPresented: $goToEditProfile) {
-            
-                // TODO: remove dummy user here
-                NavigationRoute.editProfile(user: .dummy).screen
+                if let user = stateManager.currentUser {
+                    NavigationRoute.settings(user: user).screen
+                }
             }
             .edgesIgnoringSafeArea(.all)
         }

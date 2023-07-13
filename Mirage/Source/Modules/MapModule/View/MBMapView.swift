@@ -10,6 +10,7 @@ import MapKit
 import SwiftUI
 
 struct MBMapView: UIViewRepresentable {
+    @EnvironmentObject var stateManager: StateManager
     @ObservedObject private var viewModel = MapViewModel()
     
     @State var viewState: ViewState = .empty

@@ -8,36 +8,28 @@
 import SwiftUI
 
 struct CollectedByUsersView: View {
-//    @ObservedObject private var viewModel: CollectedByUsersViewModel
+    @EnvironmentObject var stateManager: StateManager
     @Binding var selectedMira: Mira?
-    @Binding var selectedUser: User?
 
     let paddingMargin = 20.0
-//    init(mira: Mira) {
-//        selectedMira = mira
-////        viewModel = CollectedByUsersViewModel(mira: mira)
-//    }
-    
-    
+
     var body: some View {
         ZStack {
             Colors.black70p.swiftUIColor
                 .edgesIgnoringSafeArea(.all)
-                
+
             List {
                 Section {
                     if let selectedMira = selectedMira {
                         ForEach(selectedMira.collectors ?? [], id: \.self) { user in
                             UserListRow(user: user)
-                            //                            .background(.clear)
-                            //                            .edgesIgnoringSafeArea(.all)
                                 .listRowBackground(Color.clear)
                                 .padding([.leading, .trailing], -paddingMargin)
-                            
-                            // replaced List selection (not available on iOS)
                                 .onTapGesture {
                                     print("UPDATE: selected user set to: \(String(describing: user.userName))")
-                                    self.selectedUser = user
+
+                                    // TODO: update to statemanager method (no mutations)
+                                    stateManager.selectedUser = user
                                 }
                         }
                     }
@@ -52,7 +44,11 @@ struct CollectedByUsersView: View {
                                 .font(.body1)
                             Spacer()
                             Button {
-                                selectedUser = selectedMira?.creator
+                                if selectedMira?.creator.id == stateManager.currentUser?.id {
+                                    stateManager.selectedUser = stateManager.currentUser
+                                } else {
+                                    stateManager.selectedUser = selectedMira?.creator
+                                }
                             } label: {
                                 Text("Mira by " + (selectedMira?.creator.userName ?? "NaN"))
                                     .font(.body2)
@@ -61,7 +57,6 @@ struct CollectedByUsersView: View {
                                     .scaledToFit()
                                     .frame(width: 15, height: 15)
                             }
-
                         }
                         .padding([.leading, .trailing], -paddingMargin)
                         Divider()
@@ -73,7 +68,6 @@ struct CollectedByUsersView: View {
 
                         Spacer()
                     }
-                    
 
                 } footer: {
                     LargeButton(title: "Navigate") {
@@ -85,4 +79,3 @@ struct CollectedByUsersView: View {
         }
     }
 }
-
