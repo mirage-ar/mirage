@@ -38,7 +38,7 @@ struct HomeView: View {
                                         AsyncImage(url: URL(string: stateManager.currentUser!.profileImage)) { image in
                                             image
                                                 .resizable()
-                                                .scaledToFit()
+                                                .scaledToFill()
                                         } placeholder: {
                                             ProgressView()
                                         }

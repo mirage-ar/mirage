@@ -45,18 +45,19 @@ struct UserProfileView: View {
                             }
                             Spacer()
                         }
-                        .frame(width: UIScreen.main.bounds.width, height: 436, alignment: .top)
+                        .frame(width: UIScreen.main.bounds.width, height: 350, alignment: .top)
                         .clipped()
 
                         HStack(alignment: .bottom) {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 Group {
-                                    Text(stateManager.selectedUser?.userName ?? "")
+                                    Text(stateManager.selectedUser?.userName ?? "___")
                                         .font(.h2)
                                         .textCase(.uppercase)
                                         .lineLimit(2)
-                                    if ownProfile && stateManager.currentUser!.isDescriptionEmpty {
+                                    // TODO: clean up
+                                    if ownProfile, let selectedUser = stateManager.selectedUser, selectedUser.isDescriptionEmpty {
                                         Button {
                                             goToSettings = true
 
@@ -68,7 +69,7 @@ struct UserProfileView: View {
                                         .foregroundColor(Colors.black.swiftUIColor)
                                         .cornerRadius(10)
                                         .frame(width: 150)
-                                        .hiddenConditionally(isHidden: stateManager.currentUser!.isDescriptionEmpty)
+//                                        .hiddenConditionally(isHidden: stateManager.currentUser!.isDescriptionEmpty)
 
                                     } else {
                                         Text(stateManager.selectedUser?.profileDescription ?? "")
@@ -79,84 +80,49 @@ struct UserProfileView: View {
                             }
                             Spacer()
                         }
-                        .padding([.leading, .trailing], 16)
+                        .padding([.leading, .trailing], 10)
                         .background(
                             LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
                         )
                         .frame(maxHeight: 150)
                     }
                     .background(Colors.black.swiftUIColor)
-
-                    HStack {
-                        VStack {
-                            ZStack {
-                                MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
-                                    .opacity(0.7)
-                                VStack {
-                                    HStack(alignment: .top) {
-                                        Text("Collection")
-                                            .foregroundColor(Colors.white.swiftUIColor)
-                                            .font(.body1)
-                                            .multilineTextAlignment(.leading)
-                                        Spacer()
-                                    }
-                                    .padding(.leading, 5)
-                                    .padding(.top, 5)
+                    
+                    Group {
+                        HStack {
+                            Text("38")
+                                .foregroundColor(.white)
+                                .font(.body1)
+                            
+                            Text("collects + visits")
+                                .foregroundColor(.gray)
+                                .font(.body1)
+                            Spacer()
+                        }
+                        .padding(.leading, 10)
+                        ZStack {
+                            MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
+                            
+                            
+                            VStack {
+                                Spacer()
+                                HStack {
                                     Spacer()
-                                    ZStack {
-                                        Rectangle()
-                                            .cornerRadius(20)
-                                            .foregroundColor(Colors.green.swiftUIColor)
-                                            .frame(width: 80, height: 40)
-                                        HStack {
-                                            Text("\(stateManager.selectedUser?.mirasCount ?? 0)")
-                                            Images.collectMiraWhite.swiftUIImage
-                                                .renderingMode(.template)
-                                                .foregroundColor(Colors.black.swiftUIColor)
-                                        }
+                                    Button {
+                                        presentationMode.wrappedValue.dismiss()
+                                        
+                                    } label: {
+                                        Images.goHome32.swiftUIImage
                                     }
-                                    Spacer()
+                                    .padding(.trailing, 30)
                                 }
                             }
-                            .frame(maxHeight: 160)
-                            .disabled(true)
-                            .cornerRadius(10)
-                        }
-                        VStack {
-                            HStack {
-                                Text("Miras")
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(.body1)
-                                Spacer()
-                                Text("\(stateManager.selectedUser?.mirasCount ?? 0)")
-                                    .multilineTextAlignment(.trailing)
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(.body1)
-                            }
-                            .padding(.top, -70) // to bind the view at top
-                            .padding(.leading, 5)
-                            Divider()
-                                .overlay(Colors.g3Grey.swiftUIColor)
-                                .padding(.top, -55)
-                                .padding(.leading, 5)
+                            .padding(.bottom, 50)
                         }
                     }
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-
-                        } label: {
-                            Images.goHome32.swiftUIImage
-                        }
-                        .padding(.trailing, 30)
-                    }
-                    .padding(.bottom, 50)
+                    .padding(.top, 5)
                 }
             }
-            .padding([.leading, .trailing], 16)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
@@ -201,3 +167,14 @@ struct UserProfileView: View {
         .accentColor(Colors.white.swiftUIColor)
     }
 }
+
+//struct UserProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        // Here I'm just assuming that StateManager and UserProfileViewModel have default initialisers
+//        // Replace this with actual initialisation of these objects
+//        let stateManager = StateManager()
+//        let userId = "d240958e-7aaa-4cf8-870d-d8fb5b078f8a"
+//        UserProfileView(userId: userId)
+//            .environmentObject(stateManager)
+//    }
+//}
