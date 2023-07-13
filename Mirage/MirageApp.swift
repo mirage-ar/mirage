@@ -24,8 +24,10 @@ struct MirageApp: App {
             if appConfiguration.authentication {
                 HomeView()
                     .environmentObject(StateManager())
-            } else {
+            } else if appConfiguration.getStartedLaunched {
                 AuthenticationView(phoneNumber: "", isEditing: false)
+            } else {
+                WelcomeView()
             }
         }
     }

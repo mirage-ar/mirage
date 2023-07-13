@@ -41,13 +41,17 @@ public protocol UserPropertiesStorage {
 
 public enum UserProperty: String, CaseIterable {
     
-    
     case userId
     case accessToken
     case userProfile
+    case getStartedLaunched
 
     public var isUserSpecific: Bool {
-        return true
+        switch self {
+            case .getStartedLaunched:
+            return false
+            default: return true
+        }
     }
     
     var key: String {
