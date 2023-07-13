@@ -10,8 +10,8 @@ final class StateManager: ObservableObject {
     @Published var currentUser: User?
     @Published var selectedUser: User?
     
-    // update to shared state apollo repo
-    let homeApolloRepository: HomeApolloRepository = AppConfiguration.shared.apollo
+    // TODO: update to state apollo repo
+    let userApolloRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
     
     init() {
         if LocationManager.shared.location == nil {
@@ -22,11 +22,13 @@ final class StateManager: ObservableObject {
     }
     
     func loadUser() {
-        homeApolloRepository.getUser()
+        // TODO: update to own repository
+        userApolloRepository.getUser(id: "")
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in
                 self.currentUser = user
                 print("userProfileRepository.getUser, userId: \(user.id)")
+                print(user.collectedMiraCount)
             } receiveError: { error in
                 print("Get profile user error \(error)")
             }
