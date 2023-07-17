@@ -57,7 +57,6 @@ struct UpdateUserView: View {
                     } else {
                         LargeButton(title: "Done") {
                             viewModel.update(user: userToBeUpdated)
-                            stateManager.updateCurrentUser(user: userToBeUpdated)
                         }
                     }
                 }
@@ -66,8 +65,8 @@ struct UpdateUserView: View {
             .padding(.top, 30)
         }
         .onChange(of: viewModel.userUpdated) { newValue in
+            stateManager.updateLoggedInUser(user: viewModel.user)
             presentation.wrappedValue.dismiss()
-
         }
         .navigationTitle(title.uppercased())
         

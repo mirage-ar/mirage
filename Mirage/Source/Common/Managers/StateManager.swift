@@ -7,8 +7,8 @@
 import SwiftUI
 
 final class StateManager: ObservableObject {
-    @Published var currentUser: User?
-    @Published var selectedUser: User?
+    @Published var loggedInUser: User?
+    @Published var selectedUserOnMap: User?
     
     // TODO: update to state apollo repo
     let userApolloRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
@@ -23,10 +23,11 @@ final class StateManager: ObservableObject {
     
     func loadUser() {
         // TODO: update to own repository
-        userApolloRepository.getUser(id: "")
+        userApolloRepository.getUser(id: UserDefaultsStorage().getString(for: .userId) ?? "")
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in
-                self.currentUser = user
+                self.loggedInUser = user
+                UserDefaultsStorage().save(user)
                 print("userProfileRepository.getUser, userId: \(user.id)")
                 print(user.collectedMiraCount)
             } receiveError: { error in
@@ -34,8 +35,12 @@ final class StateManager: ObservableObject {
             }
     }
     
-    func updateCurrentUser(user: User) {
-        currentUser = user
-        selectedUser = user
+    func updateLoggedInUser(user: User) {
+        loggedInUser = user
+        UserDefaultsStorage().save(user)
+    }
+    
+    func updateMapSelectedUser(user: User) {
+        selectedUserOnMap = user
     }
 }

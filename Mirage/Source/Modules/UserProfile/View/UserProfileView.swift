@@ -35,7 +35,7 @@ struct UserProfileView: View {
                 VStack {
                     ZStack(alignment: .bottom) {
                         VStack {
-                            AsyncImage(url: URL(string: stateManager.selectedUser?.profileImage ?? "")) { image in
+                            AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
                                 image
                                     .resizable()
                                     .scaledToFill()
@@ -52,12 +52,12 @@ struct UserProfileView: View {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 Group {
-                                    Text(stateManager.selectedUser?.userName ?? "___")
+                                    Text(stateManager.selectedUserOnMap?.userName ?? "___")
                                         .font(.h2)
                                         .textCase(.uppercase)
                                         .lineLimit(2)
                                     // TODO: clean up
-                                    if ownProfile, let selectedUser = stateManager.selectedUser, selectedUser.isDescriptionEmpty {
+                                    if ownProfile, let selectedUser = stateManager.selectedUserOnMap, selectedUser.isDescriptionEmpty {
                                         Button {
                                             goToSettings = true
 
@@ -72,7 +72,7 @@ struct UserProfileView: View {
 //                                        .hiddenConditionally(isHidden: stateManager.currentUser!.isDescriptionEmpty)
 
                                     } else {
-                                        Text(stateManager.selectedUser?.profileDescription ?? "")
+                                        Text(stateManager.selectedUserOnMap?.profileDescription ?? "")
                                             .font(.body1)
                                     }
                                 }
@@ -158,7 +158,7 @@ struct UserProfileView: View {
             }
             .background(Colors.black.swiftUIColor)
             .navigationDestination(isPresented: $goToSettings) {
-                if let user = stateManager.currentUser {
+                if let user = stateManager.loggedInUser {
                     NavigationRoute.settings(user: user).screen
                 }
             }

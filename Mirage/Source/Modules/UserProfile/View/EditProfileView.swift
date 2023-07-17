@@ -36,7 +36,7 @@ struct EditProfileView: View {
                                     .aspectRatio(contentMode: .fill)
 
                             } else {
-                                AsyncImage(url: URL(string: user.profileImage)) { image in
+                                AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
                                     image
                                         .resizable()
                                         .scaledToFill()
@@ -68,7 +68,7 @@ struct EditProfileView: View {
                             Spacer()
                         }
                         HStack {
-                            Text(user.userName ?? "")
+                            Text(stateManager.selectedUserOnMap?.userName ?? "")
                                 .font(.body1)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.white.swiftUIColor)
@@ -145,14 +145,14 @@ struct EditProfileView: View {
             }
         }
         .onAppear {
-            bioText = user.profileDescription ?? ""
+            bioText = stateManager.selectedUserOnMap?.profileDescription ?? ""
         }
         .navigationTitle("EDIT PRPFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
-            NavigationRoute.updateUser(title: "USERNAME", value: user.userName ?? "", user: user).screen
+            NavigationRoute.updateUser(title: "USERNAME", value: stateManager.selectedUserOnMap?.userName ?? "", user: stateManager.selectedUserOnMap ?? user).screen
         }
         .navigationDestination(isPresented: $gotoEditBio) {
-            NavigationRoute.updateUser(title: "BIO", value: user.profileDescription ?? "", user: user).screen
+            NavigationRoute.updateUser(title: "BIO", value: stateManager.selectedUserOnMap?.profileDescription ?? "", user:stateManager.selectedUserOnMap ?? user).screen
         }
         .sheet(isPresented: $showMediaPicker, onDismiss: loadMedia) {
             MediaPicker(media: $media)
@@ -168,7 +168,7 @@ struct EditProfileView: View {
                     viewModel.update(user: user)
                     
                     DispatchQueue.main.async {
-                        stateManager.updateCurrentUser(user: user)
+                        stateManager.updateLoggedInUser(user: user)
                     }
                 }
             }

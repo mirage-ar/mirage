@@ -29,7 +29,7 @@ struct CollectedByUsersView: View {
                                     print("UPDATE: selected user set to: \(String(describing: user.userName))")
 
                                     // TODO: update to statemanager method (no mutations)
-                                    stateManager.selectedUser = user
+                                    stateManager.selectedUserOnMap = user
                                 }
                         }
                     }
@@ -44,10 +44,10 @@ struct CollectedByUsersView: View {
                                 .font(.body1)
                             Spacer()
                             Button {
-                                if selectedMira?.creator.id == stateManager.currentUser?.id {
-                                    stateManager.selectedUser = stateManager.currentUser
+                                if selectedMira?.creator.id == stateManager.loggedInUser?.id {
+                                    stateManager.selectedUserOnMap = stateManager.loggedInUser
                                 } else {
-                                    stateManager.selectedUser = selectedMira?.creator
+                                    stateManager.selectedUserOnMap = selectedMira?.creator
                                 }
                             } label: {
                                 Text("Mira by " + (selectedMira?.creator.userName ?? "NaN"))

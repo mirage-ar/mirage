@@ -67,7 +67,7 @@ extension User {
     }
 
     func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
-        return User(id: id, profileImage: profileImage, phone: apiUpdatedUser?.phone ?? "", userName: apiUpdatedUser?.username ?? "", profileDescription: apiUpdatedUser?.username ?? "")
+        return User(id: id, profileImage: profileImage, phone: apiUpdatedUser?.phone ?? "", userName: apiUpdatedUser?.username ?? "", profileDescription: apiUpdatedUser?.profileDescription ?? "")
     }
 
     init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {

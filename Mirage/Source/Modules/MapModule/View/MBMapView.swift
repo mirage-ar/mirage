@@ -92,8 +92,8 @@ struct MBMapView: UIViewRepresentable {
         var filteredMiras = miras
 
         debugPrint("here")
-        debugPrint(stateManager.selectedUser)
-        if isProfile, let user = stateManager.selectedUser, let createdMiraIds = user.createdMiraIds, let collectedMiraIds = user.collectedMiraIds {
+        debugPrint(stateManager.selectedUserOnMap)
+        if isProfile, let user = stateManager.selectedUserOnMap, let createdMiraIds = user.createdMiraIds, let collectedMiraIds = user.collectedMiraIds {
             let userMiraIds = createdMiraIds + collectedMiraIds
             filteredMiras = miras.filter { userMiraIds.contains($0.id) }
         }
