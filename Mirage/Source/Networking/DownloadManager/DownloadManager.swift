@@ -141,7 +141,6 @@ public class DownloadManager {
         }
         file?.filePath = filePath
         file?.completedAt = .now
-        fileSet[url] = file
         synchronizeFileSet()
     }
     private func fileFailed(url: String) {
