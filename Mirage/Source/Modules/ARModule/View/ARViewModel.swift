@@ -58,6 +58,8 @@ final class ARViewModel: ObservableObject {
     @Published var currentMira: Mira?
     @Published var createdMira: Mira?
     
+    @Published var currentARMedia: [ARMedia] = []
+    
     @Published var viewingMiras: [Mira]?
     
     func initializeMira() {
@@ -94,16 +96,10 @@ final class ARViewModel: ObservableObject {
                     return
                 }
                 
-                let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: url, shape: mediaEntity.shape, modifier: mediaEntity.modifier, transform: mediaEntity.transform)
+                let arMedia = ARMedia(id: mediaEntity.id, contentType: mediaEntity.contentType, assetUrl: url, shape: mediaEntity.shape, modifier: mediaEntity.modifier, transform: mediaEntity.transform)
             
                 // Update UI on the main thread
-                DispatchQueue.main.async {
-                    // Create new Mira with the new ARMedia
-                    var newArMediaArray = currentMira.arMedia
-                    newArMediaArray.append(arMedia)
-                    let newMira = Mira(id: currentMira.id, creator: currentMira.creator, location: currentMira.location, arMedia: newArMediaArray, collectors: currentMira.collectors)
-                    self.currentMira = newMira
-                }
+                self.currentARMedia.append(arMedia)
             }
         }
         
@@ -113,16 +109,9 @@ final class ARViewModel: ObservableObject {
                     print("ERROR: Failed to upload image.")
                     return
                 }
-                let arMedia = ARMedia(contentType: mediaEntity.contentType, assetUrl: url, shape: mediaEntity.shape, modifier: mediaEntity.modifier, transform: mediaEntity.transform)
+                let arMedia = ARMedia(id: mediaEntity.id, contentType: mediaEntity.contentType, assetUrl: url, shape: mediaEntity.shape, modifier: mediaEntity.modifier, transform: mediaEntity.transform)
             
-                // Update UI on the main thread
-                DispatchQueue.main.async {
-                    // Create new Mira with the new ARMedia
-                    var newArMediaArray = currentMira.arMedia
-                    newArMediaArray.append(arMedia)
-                    let newMira = Mira(id: currentMira.id, creator: currentMira.creator, location: currentMira.location, arMedia: newArMediaArray, collectors: currentMira.collectors)
-                    self.currentMira = newMira
-                }
+                self.currentARMedia.append(arMedia)
             }
         }
     }
@@ -355,12 +344,35 @@ final class ARViewModel: ObservableObject {
     }
     
     func lockMira() {
-        guard let mira = currentMira else {
+        guard var mira = currentMira else {
             print("ERROR: mira not available")
             return
         }
         
+        var arMedia: [ARMedia] = []
+        
         // TODO: ! update all transforms here
+        for entity in sceneData.mediaEntities {
+            if entity.contentType == .photo {
+                guard let image = entity.image else {
+                    print("ERROR: no image found")
+                    return
+                }
+                
+                DownloadManager.shared.upload(image: image) { url in
+                    guard let url = url else {
+                        print("ERROR: Failed to upload image.")
+                        return
+                    }
+                    
+                    let media = ARMedia(id: entity.id, contentType: entity.contentType, assetUrl: url, shape: entity.shape, modifier: entity.modifier, transform: entity.entity.transform.matrix)
+                    
+                    arMedia.append(media)
+                }
+            }
+        }
+        
+        mira.arMedia = arMedia
         
         arApolloRepository.addMira(mira)
             .receive(on: DispatchQueue.main)
@@ -379,7 +391,6 @@ final class ARViewModel: ObservableObject {
                 guard let miras = miras else { return }
                 self.viewingMiras = miras
                 self.initializeAllViewingMiras(miras)
-//                self.hasLoadedMiras = true
             }, receiveError: { error in
                 print("Error: \(error)")
                                 
@@ -404,7 +415,7 @@ final class ARViewModel: ObservableObject {
                         print("Progress 4 \(progress)")
                     } completion: { filePath in
                         print("Complete 4 " + (filePath ?? ""))
-                            
+
                         if arMedia.contentType == .photo {
                             if let urlString = filePath {
                                 let url = URL(string: urlString)
@@ -414,11 +425,12 @@ final class ARViewModel: ObservableObject {
                                         print("ERROR: Could not create image")
                                         return
                                     }
-                                        
-                                    if let anchorEntity = self.createGeoImageEntity(id: UUID(), image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
-                                        self.arView.scene.anchors.append(anchorEntity)
-                                    } else {
-                                        print("ERROR: could not create geo entity")
+                                    DispatchQueue.main.async {
+                                        if let anchorEntity = self.createGeoImageEntity(id: UUID(), image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                            self.arView.scene.anchors.append(anchorEntity)
+                                        } else {
+                                            print("ERROR: could not create geo entity")
+                                        }
                                     }
                                         
                                 } catch {
@@ -447,8 +459,14 @@ final class ARViewModel: ObservableObject {
             let imageOrientation = image.imageOrientation
             let rotatedImage = image.rotated(to: imageOrientation)
             
+            guard let cgImage = rotatedImage.cgImage else {
+                // Handle error here
+                print("Error: Couldn't get CGImage from rotated image.")
+                return nil
+            }
+            
             // Use the rotated image to create the material and model entity
-            let texture = try TextureResource.generate(from: rotatedImage.cgImage!, options: TextureResource.CreateOptions(semantic: nil))
+            let texture = try TextureResource.generate(from: cgImage, options: TextureResource.CreateOptions(semantic: nil))
             
             var material = UnlitMaterial()
             material.color = .init(tint: .white.withAlphaComponent(0.999),

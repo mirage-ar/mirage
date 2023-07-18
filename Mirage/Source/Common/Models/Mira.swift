@@ -82,7 +82,7 @@ extension Mira {
                 let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
                 let transform: simd_float4x4 = convertToSIMD4x4(arMedia.position.transform) ?? simd_float4x4()
                 // TODO: ! update to returned id
-                return ARMedia(contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
+                return ARMedia(id: UUID(), contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
             }
 
             self.arMedia = arMedia
@@ -113,7 +113,7 @@ extension Mira {
                 let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
                 let transform: simd_float4x4 = convertToSIMD4x4(arMedia.position.transform) ?? simd_float4x4()
                 // TODO: ! update to returned id
-                return ARMedia(contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
+                return ARMedia(id: UUID(), contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
             }
 
             self.arMedia = arMedia

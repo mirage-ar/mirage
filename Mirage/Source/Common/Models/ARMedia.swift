@@ -33,6 +33,7 @@ extension ModifierType {
 
 
 struct ARMedia {
+    let id: UUID
     let contentType: ARMediaContentType
     let assetUrl: String
     let shape: ShapeType
