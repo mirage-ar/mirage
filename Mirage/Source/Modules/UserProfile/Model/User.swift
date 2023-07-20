@@ -16,6 +16,9 @@ public struct User {
     var collectedMiraCount = 0
     var mirasCount = 0
     
+    var createdMiraIds: [UUID]?
+    var collectedMiraIds: [UUID]?
+    
     init(id: UUID, profileImage: String, phone: String, userName: String?, profileDescription: String?) {
         self.id = id
         self.profileImage = profileImage
@@ -44,6 +47,15 @@ extension User {
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0
+        
+        if let miras = apiUser?.miras, let collected = apiUser?.collected {
+            createdMiraIds = miras.map { mira in
+                return UUID(uuidString: mira!.id) ?? UUID()
+            }
+            collectedMiraIds = collected.map { mira in
+                return UUID(uuidString: mira!.id) ?? UUID()
+            }
+        }
     }
     
     init(verifyUser: MirageAPI.VerifyUserMutation.Data.VerifyUser.User) {
@@ -55,7 +67,7 @@ extension User {
     }
 
     func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
-        return User(id: id, profileImage: profileImage, phone: apiUpdatedUser?.phone ?? "", userName: apiUpdatedUser?.username ?? "", profileDescription: apiUpdatedUser?.username ?? "")
+        return User(id: id, profileImage: profileImage, phone: apiUpdatedUser?.phone ?? "", userName: apiUpdatedUser?.username ?? "", profileDescription: apiUpdatedUser?.profileDescription ?? "")
     }
 
     init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
@@ -87,7 +99,8 @@ extension User: Hashable {
 
 extension User {
     var isDescriptionEmpty: Bool {
-        return !(profileDescription?.isEmpty == true || userName?.isEmpty == true)
+//        return !(profileDescription?.isEmpty == true || userName?.isEmpty == true) for some reason this was incorrect logic
+        return (profileDescription?.isEmpty == true || userName?.isEmpty == true)
     }
 
     static var dummy: User {

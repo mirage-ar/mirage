@@ -36,7 +36,7 @@ struct EditProfileView: View {
                                     .aspectRatio(contentMode: .fill)
 
                             } else {
-                                AsyncImage(url: URL(string: user.profileImage)) { image in
+                                AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
                                     image
                                         .resizable()
                                         .scaledToFill()
@@ -68,7 +68,7 @@ struct EditProfileView: View {
                             Spacer()
                         }
                         HStack {
-                            Text(user.userName ?? "")
+                            Text(stateManager.loggedInUser?.userName ?? "")
                                 .font(.body1)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.white.swiftUIColor)
@@ -145,14 +145,14 @@ struct EditProfileView: View {
             }
         }
         .onAppear {
-            bioText = user.profileDescription ?? ""
+            bioText = stateManager.loggedInUser?.profileDescription ?? ""
         }
         .navigationTitle("EDIT PRPFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
-            NavigationRoute.updateUser(title: "USERNAME", value: user.userName ?? "", user: user).screen
+            NavigationRoute.updateUser(title: "USERNAME", value: stateManager.loggedInUser?.userName ?? "", user: stateManager.loggedInUser ?? user).screen
         }
         .navigationDestination(isPresented: $gotoEditBio) {
-            NavigationRoute.updateUser(title: "BIO", value: user.profileDescription ?? "", user: user).screen
+            NavigationRoute.updateUser(title: "BIO", value: stateManager.loggedInUser?.profileDescription ?? "", user:stateManager.loggedInUser ?? user).screen
         }
         .sheet(isPresented: $showMediaPicker, onDismiss: loadMedia) {
             MediaPicker(media: $media)
@@ -162,19 +162,11 @@ struct EditProfileView: View {
     func loadMedia() {
         guard let media = media else { return }
         if let image = media.image {
-            DownloadManager.shared.upload(image: image) { url in
-                if let url = url, var user = UserDefaultsStorage().getUser() {
-                    user.profileImage = url
-                    viewModel.update(user: user)
-                    
-                    DispatchQueue.main.async {
-                        stateManager.updateCurrentUser(user: user)
-                    }
-                }
-            }
+            stateManager.uploadUserImage(image)
         }
     }
 }
+
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {

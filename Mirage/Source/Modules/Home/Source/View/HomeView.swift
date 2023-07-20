@@ -30,15 +30,15 @@ struct HomeView: View {
                             Spacer()
 
                             VStack {
-                                if stateManager.currentUser != nil {
+                                if stateManager.loggedInUser != nil {
                                     Button {
-                                        stateManager.selectedUser = stateManager.currentUser
+                                        stateManager.selectedUserOnMap = stateManager.loggedInUser
                                         showProfileView = true
                                     } label: {
-                                        AsyncImage(url: URL(string: stateManager.currentUser!.profileImage)) { image in
+                                        AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
                                             image
                                                 .resizable()
-                                                .scaledToFit()
+                                                .scaledToFill()
                                         } placeholder: {
                                             ProgressView()
                                         }
@@ -75,13 +75,13 @@ struct HomeView: View {
                 NavigationRoute.homeToARCameraView.screen
             })
             .fullScreenCover(isPresented: $showProfileView, content: {
-                NavigationRoute.myProfile(userId: stateManager.selectedUser?.id.uuidString ?? "").screen
+                NavigationRoute.myProfile(userId: stateManager.selectedUserOnMap?.id.uuidString ?? "").screen
             })
             .sheet(isPresented: $showCollectedByList) {
                 NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
                     .presentationDetents([.medium, .large])
             }
-            .onChange(of: stateManager.selectedUser) { selectedUser in
+            .onChange(of: stateManager.selectedUserOnMap) { selectedUser in
                 showCollectedByList = false
                 // fix for swiftUI animation collision
                 if let _ = selectedUser {
