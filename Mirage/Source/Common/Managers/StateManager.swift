@@ -9,7 +9,8 @@ import SwiftUI
 final class StateManager: ObservableObject {
     @Published var loggedInUser: User?
     @Published var selectedUserOnMap: User?
-    
+    let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
+
     // TODO: update to state apollo repo
     let userApolloRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
     
@@ -36,11 +37,40 @@ final class StateManager: ObservableObject {
     }
     
     func updateLoggedInUser(user: User) {
-        loggedInUser = user
+        DispatchQueue.main.async {
+            self.loggedInUser = user
+        }
         UserDefaultsStorage().save(user)
     }
     
     func updateMapSelectedUser(user: User) {
-        selectedUserOnMap = user
+        DispatchQueue.main.async {
+            self.selectedUserOnMap = user
+        }
     }
+}
+
+//MARK:- User Profile Methods
+extension StateManager {
+    func uploadUserImage(_ image: UIImage) {
+        DownloadManager.shared.upload(image: image) { [weak self] url in
+            if let url = url, var user = UserDefaultsStorage().getUser() {
+                user.profileImage = url
+                self?.update(user: user)
+                self?.updateLoggedInUser(user: user)
+                self?.updateMapSelectedUser(user: user)
+            }
+        }
+    }
+
+    func update(user: User) {
+        userProfileRepository.updateUser(user: user)
+            .receive(on: DispatchQueue.main)
+            .receiveAndCancel { user in
+                UserDefaultsStorage().save(user)
+            } receiveError: { error in
+                print("UpdateUser profileimage error \(error)" )
+            }
+    }
+
 }

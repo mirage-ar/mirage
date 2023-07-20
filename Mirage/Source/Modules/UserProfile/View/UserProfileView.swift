@@ -63,6 +63,7 @@ struct UserProfileView: View {
 
                                         } label: {
                                             Text("EDIT PROFILE")
+                                                .font(.subtitle1)
                                                 .frame(maxWidth: .infinity)
                                         }
                                         .background(Colors.white.swiftUIColor)
@@ -90,7 +91,7 @@ struct UserProfileView: View {
                     
                     Group {
                         HStack {
-                            Text("38")
+                            Text("\((stateManager.selectedUserOnMap?.createdMiraIds?.count ?? 0) + (stateManager.selectedUserOnMap?.collectedMiraIds?.count ?? 0))")
                                 .foregroundColor(.white)
                                 .font(.body1)
                             

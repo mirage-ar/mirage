@@ -162,20 +162,11 @@ struct EditProfileView: View {
     func loadMedia() {
         guard let media = media else { return }
         if let image = media.image {
-            DownloadManager.shared.upload(image: image) { url in
-                if let url = url, var user = UserDefaultsStorage().getUser() {
-                    user.profileImage = url
-                    viewModel.update(user: user)
-                    
-                    DispatchQueue.main.async {
-                        stateManager.updateLoggedInUser(user: user)
-                        stateManager.updateMapSelectedUser(user: user)
-                    }
-                }
-            }
+            stateManager.uploadUserImage(image)
         }
     }
 }
+
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
