@@ -22,7 +22,7 @@ struct SettingsView: View {
                     
                     HStack {
                         Images.profile48.swiftUIImage
-                        Text(stateManager.selectedUserOnMap?.userName ?? "NaN")
+                        Text(stateManager.loggedInUser?.userName ?? "NaN")
                             .font(.body1)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)

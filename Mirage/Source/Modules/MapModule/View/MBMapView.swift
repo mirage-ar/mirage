@@ -91,11 +91,16 @@ struct MBMapView: UIViewRepresentable {
     private func updateAnnotationsForMiras(mapView: MapView, miras: [Mira], userLocation: CLLocationCoordinate2D?, context: Context) {
         var filteredMiras = miras
 
-        debugPrint("here")
-        debugPrint(stateManager.selectedUserOnMap)
-        if isProfile, let user = stateManager.selectedUserOnMap, let createdMiraIds = user.createdMiraIds, let collectedMiraIds = user.collectedMiraIds {
-            let userMiraIds = createdMiraIds + collectedMiraIds
+        debugPrint("\(stateManager.selectedUserOnMap) isProfile: \(isProfile)")
+        if isProfile, let user = stateManager.selectedUserOnMap {
+            let createdMiraIds = user.createdMiraIds
+            let collectedMiraIds = user.collectedMiraIds
+            let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
             filteredMiras = miras.filter { userMiraIds.contains($0.id) }
+            if filteredMiras.count > 0 {
+                debugPrint("here")
+
+            }
         }
 
         for (i, mira) in filteredMiras.enumerated() {

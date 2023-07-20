@@ -66,6 +66,7 @@ struct UpdateUserView: View {
         }
         .onChange(of: viewModel.userUpdated) { newValue in
             stateManager.updateLoggedInUser(user: viewModel.user)
+            stateManager.updateMapSelectedUser(user: viewModel.user)
             presentation.wrappedValue.dismiss()
         }
         .navigationTitle(title.uppercased())
