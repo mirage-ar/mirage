@@ -34,9 +34,9 @@ public extension MirageAPI {
       case "Mutation": return MirageAPI.Objects.Mutation
       case "AuthorizationResult": return MirageAPI.Objects.AuthorizationResult
       case "User": return MirageAPI.Objects.User
+      case "Mira": return MirageAPI.Objects.Mira
       case "VerificationResult": return MirageAPI.Objects.VerificationResult
       case "Query": return MirageAPI.Objects.Query
-      case "Mira": return MirageAPI.Objects.Mira
       case "ArMedia": return MirageAPI.Objects.ArMedia
       case "Position": return MirageAPI.Objects.Position
       case "Modifier": return MirageAPI.Objects.Modifier

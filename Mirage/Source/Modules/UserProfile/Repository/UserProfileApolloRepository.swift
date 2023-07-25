@@ -20,13 +20,13 @@ extension ApolloRepository: UserProfileApolloRepository {
         let mutaiton = MirageAPI.UpdateUserMutation(updateUserInput: input)
         return perform(mutation: mutaiton)
             .map {
-                return (user.updated(apiUpdatedUser: $0.updateUser))
+                return (User(apiUser: $0.updateUser))
             }
             .eraseToAnyPublisher()
     }
 
     func getUser(id: String?) -> AnyPublisher<User, Error> {
-        print("getUser, userId: \(String(describing: id))")
+        debugPrint("getUser, userId: \(String(describing: id))")
         let query = MirageAPI.UserQuery(userId: id ?? "")
         return fetch(query: query)
             .map {

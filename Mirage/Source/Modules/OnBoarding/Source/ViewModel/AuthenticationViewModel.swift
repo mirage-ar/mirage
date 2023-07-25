@@ -42,9 +42,9 @@ final class AuthenticationViewModel: ObservableObject {
                 debugPrint("ID: \($0?.id ?? UUID()) access token: " + ($1 ?? ""))
                 if $0 != nil && $1?.isEmpty == false {
                     self.verifyUserSuccess = true
+                    AppConfiguration.shared.authentication = true
                 }
                 self.isLoading = false
-                AppConfiguration.shared.authentication = true
             }, receiveError: { error in
                 print("Error: \(error)")
             })

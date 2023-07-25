@@ -5,5 +5,11 @@ mutation UpdateUser($updateUserInput: UpdateUserInput!) {
     username
     profileImage
     profileDescription
+    collected {
+        id
+    }
+    miras {
+        id
+    }
   }
 }

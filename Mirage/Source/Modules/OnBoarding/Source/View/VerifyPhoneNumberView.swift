@@ -18,57 +18,62 @@ struct VerifyPhoneNumberView: View {
     
     var body: some View {
         ZStack {
-            VStack (alignment: .center, spacing: 10) {
-                Text("SING UP")
-                    .foregroundColor(Colors.white.just)
-                    .font(.subtitle1)
-                    .padding()
-                Text("Sent code to +1 \(phoneNumber)")
-                    .foregroundColor(Colors.white.just)
-                    .padding()
+            GeometryReader { geo in
                 
-                HStack (alignment: .center, spacing: 20) {
-                    ForEach((0...3), id: \.self) { id in
-                        iPhoneNumberField("", text: $code[id])
-                            .multilineTextAlignment(.leading)
-                            .flagHidden(true)
-                            .autofillPrefix(false)
-                            .defaultRegion("UK") //to accept all numbers
-                            .maximumDigits(1)
-                            .multilineTextAlignment(.center)
-                            .formatted(true)
-                            .onEdit{ number in
-                                if number.text?.count == 1 {
-                                    focusNextField(from: id)
+                VStack (alignment: .center, spacing: 10) {
+                    Text("SING UP")
+                        .foregroundColor(Colors.white.just)
+                        .font(.subtitle1)
+                        .padding()
+                    Text("Sent code to +1 \(phoneNumber)")
+                        .foregroundColor(Colors.white.just)
+                        .padding()
+                    
+                    HStack (alignment: .center, spacing: 20) {
+                        ForEach((0...3), id: \.self) { id in
+                            iPhoneNumberField("", text: $code[id])
+                                .multilineTextAlignment(.leading)
+                                .flagHidden(true)
+                                .autofillPrefix(false)
+                                .defaultRegion("UK") //to accept all numbers
+                                .maximumDigits(1)
+                                .multilineTextAlignment(.center)
+                                .formatted(true)
+                                .onEdit{ number in
+                                    if number.text?.count == 1 {
+                                        focusNextField(from: id)
+                                    }
                                 }
-                            }
-                            .font(UIFont(size: 36, weight: .light, design: .monospaced))
-                            .foregroundColor(Colors.white.just)
-                            .border(Colors.white.just)
-                            .frame(width: 50, height: 50)
-                            .focused($focusField, equals: id)
+                                .font(UIFont(size: 36, weight: .light, design: .monospaced))
+                                .foregroundColor(Colors.white.just)
+                                .border(Colors.white.just)
+                                .frame(width: 50, height: 50)
+                                .focused($focusField, equals: id)
+                        }
                     }
-                }
-                
-                Spacer()
-                Group {
-                    if viewModel.isLoading {
-                        ActivityIndicator(color: Colors.white.just, size: 50)
-                    } else {
-                        LargeButton(title: "DONE") {
-                            if code.joined().count == 4 {
-                                viewModel.verifyUser(number: phoneNumber, code: code.joined())
+                    
+                    Spacer()
+                    Group {
+                        if viewModel.isLoading {
+                            ActivityIndicator(color: Colors.white.just, size: 50)
+                        } else {
+                            LargeButton(title: "DONE") {
+                                if code.joined().count == 4 {
+                                    viewModel.verifyUser(number: phoneNumber, code: code.joined())
+                                }
                             }
                         }
                     }
+                    //                .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
+                    //                    NavigationRoute.homeViewLanding.screen
+                    //                }
+                    .padding(.bottom, 5)
+                    
                 }
-//                .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
-//                    NavigationRoute.homeViewLanding.screen
-//                }
-                .padding(.bottom, 5)
-                
+                .padding(.top, 10)
             }
-            .padding(.top, 10)
+            .padding(.trailing, 5)
+            .padding(.leading, 5)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accentColor(Colors.white.just)

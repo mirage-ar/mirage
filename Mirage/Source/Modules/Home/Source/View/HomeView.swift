@@ -74,15 +74,18 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showArView, content: {
                 NavigationRoute.homeToARCameraView.screen
             })
-            .fullScreenCover(isPresented: $showProfileView, content: {
+            .fullScreenCover(isPresented: $showProfileView, onDismiss: {
+                stateManager.selectedUserOnMap = nil
+            }, content: {
                 NavigationRoute.myProfile(userId: stateManager.selectedUserOnMap?.id.uuidString ?? "").screen
             })
             .sheet(isPresented: $showCollectedByList) {
                 NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
                     .presentationDetents([.medium, .large])
             }
-            .onChange(of: stateManager.selectedUserOnMap) { selectedUser in
+            .onChange(of: stateManager.selectedUserOnMap) { [selectedUserOnMap = self.stateManager.selectedUserOnMap] selectedUser in
                 showCollectedByList = false
+                debugPrint(selectedUserOnMap.debugDescription)
                 // fix for swiftUI animation collision
                 if let _ = selectedUser {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

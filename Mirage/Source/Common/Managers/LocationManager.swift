@@ -19,6 +19,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         super.init()
         locationManager.desiredAccuracy = 5
         locationManager.delegate = self
+        locationManager.distanceFilter = 100
         requestAuthorizationIfNeeded()
     }
 
@@ -28,7 +29,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
-        locationManager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -57,6 +57,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             // TODO: LocationManager - setup alerts
             print("You have denied this app location permissions")
         case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
             break
         @unknown default:
             break

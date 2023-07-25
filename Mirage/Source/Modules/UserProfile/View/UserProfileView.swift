@@ -9,7 +9,6 @@ import SwiftUI
 
 struct UserProfileView: View {
     @EnvironmentObject var stateManager: StateManager
-    
     @Environment(\.presentationMode) var presentationMode
 
     @State var goToSettings = false
@@ -111,7 +110,6 @@ struct UserProfileView: View {
                                     Spacer()
                                     Button {
                                         presentationMode.wrappedValue.dismiss()
-                                        
                                     } label: {
                                         Images.goHome32.swiftUIImage
                                     }
@@ -128,7 +126,6 @@ struct UserProfileView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         debugPrint("Button go to Home")
-//                        stateManager.selectedUser = nil
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Images.arrowB24.swiftUIImage
@@ -166,6 +163,9 @@ struct UserProfileView: View {
             .edgesIgnoringSafeArea(.all)
         }
         .accentColor(Colors.white.swiftUIColor)
+        .onAppear {
+            stateManager.selectedUserOnMap = viewModel.user
+        }
     }
 }
 

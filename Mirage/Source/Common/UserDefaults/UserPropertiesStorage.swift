@@ -49,7 +49,7 @@ public enum UserProperty: String, CaseIterable {
     public var isUserSpecific: Bool {
         switch self {
             case .getStartedLaunched:
-            return false
+            return true//clear this at signout as well
             default: return true
         }
     }
