@@ -65,11 +65,9 @@ struct MBMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let mapView = uiView as? MapView {
-            if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
-                refreshMirasOnMap(mapView: mapView, context: context)
-            }
-            
             if isProfile {
+                refreshMirasOnMap(mapView: mapView, context: context)
+            } else  if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
                 refreshMirasOnMap(mapView: mapView, context: context)
             }
         }
@@ -90,7 +88,7 @@ struct MBMapView: UIViewRepresentable {
     private func updateAnnotationsForMiras(mapView: MapView, miras: [Mira], userLocation: CLLocationCoordinate2D?, context: Context) {
         var filteredMiras = miras
 
-        debugPrint("\(stateManager.selectedUserOnMap) isProfile: \(isProfile)")
+        debugPrint("\(stateManager.selectedUserOnMap.debugDescription) isProfile: \(isProfile)")
         if isProfile, let user = stateManager.selectedUserOnMap {
             let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds
