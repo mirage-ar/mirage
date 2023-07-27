@@ -21,7 +21,7 @@ struct VerifyPhoneNumberView: View {
             GeometryReader { geo in
                 
                 VStack (alignment: .center, spacing: 10) {
-                    Text("SING UP")
+                    Text("SIGN UP")
                         .foregroundColor(Colors.white.just)
                         .font(.subtitle1)
                         .padding()
