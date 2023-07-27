@@ -113,6 +113,7 @@ public struct UserDefaultsStorage: UserPropertiesStorage {
         properties.forEach {
             UserDefaults.standard.removeObject(forKey: $0.key)
         }
+        UserDefaults.standard.synchronize()
     }
 
     /// Removes all user specofoc `UserProperty` cases from a properties storage

@@ -9,7 +9,7 @@ import SwiftUI
 import AVKit
 
 struct WelcomeView: View {
-    let player = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "welcome-screen", ofType: "mov")!))
+    let player = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "welcome-screen", ofType: "mp4")!))
     @State var showAuthenticationView = false
     var body: some View {
         NavigationStack {
@@ -34,9 +34,9 @@ struct WelcomeView: View {
                             .lineLimit(2)
                         Spacer()
                         LargeButton(title: "GET STARTED") {
-                            UserDefaultsStorage().save(true, for: .getStartedLaunched)
+                            //Commented because it needs to be displayed on every launch
+//                            UserDefaultsStorage().save(true, for: .getStartedLaunched)
                             AppConfiguration.shared.getStartedLaunched = true
-
                         }
                         .cornerRadius(24)
                         

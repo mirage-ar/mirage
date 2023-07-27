@@ -27,7 +27,6 @@ struct CollectedByUsersView: View {
                                 .padding([.leading, .trailing], -paddingMargin)
                                 .onTapGesture {
                                     print("UPDATE: selected user set to: \(String(describing: user.userName))")
-
                                     // TODO: update to statemanager method (no mutations)
                                     stateManager.selectedUserOnMap = user
                                 }

@@ -26,8 +26,9 @@ final class AppConfiguration: ObservableObject {
 //        #else
 //        environmentConfig = MirageConfig.staging
 //        #endif
-        authentication = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
-        getStartedLaunched = UserDefaultsStorage().getBool(for: .getStartedLaunched)
+        let authenticated = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
+        authentication = authenticated
+        getStartedLaunched = authenticated//UserDefaultsStorage().getBool(for: .getStartedLaunched) // same as authentication
         environmentConfig = MirageConfig.development
         let _ = DownloadManager.shared
         let _ = LocationManager.shared

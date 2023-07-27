@@ -107,12 +107,16 @@ struct EditProfileView: View {
                         Text("Bio")
                             .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                        
-                        TextEditor(text: $bioText)
-                            .foregroundColor(Colors.white.swiftUIColor)
-                            .background(.clear)
-                            .scrollContentBackground(.hidden)
-                            .frame(maxHeight: 100)
+                            Text(stateManager.loggedInUser?.profileDescription ?? "")
+                                .font(.body1)
+                                .lineLimit(3, reservesSpace: true)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.white.swiftUIColor)
+//                        TextEditor(text: $bioText)
+//                            .foregroundColor(Colors.white.swiftUIColor)
+//                            .background(.clear)
+//                            .scrollContentBackground(.hidden)
+//                            .frame(maxHeight: 100)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -126,7 +130,6 @@ struct EditProfileView: View {
                 VStack {
                     Button {
                         viewModel.signoutUser()
-                        AppConfiguration.shared.authentication = false
                     } label: {
                         Text("SIGNOUT")
                             .font(.body1)

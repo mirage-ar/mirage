@@ -12,7 +12,8 @@ import SwiftUI
 struct MBMapView: UIViewRepresentable {
     @EnvironmentObject var stateManager: StateManager
     @ObservedObject private var viewModel = MapViewModel()
-    
+    @ObservedObject private var locationManager = LocationManager.shared
+
     @State var viewState: ViewState = .empty
     let clusterLayerID = "groupedMiras"
     
@@ -30,9 +31,8 @@ struct MBMapView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> some UIView {
         let myResourceOptions = ResourceOptions(accessToken: (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!)
-        let userLocation = LocationManager.shared.location
-        let latitude: Double = userLocation?.latitude ?? 40.70290414346796
-        let longitude: Double = userLocation?.longitude ?? -73.95591309248328
+        let latitude: Double = locationManager.location?.latitude ?? 40.70290414346796
+        let longitude: Double = locationManager.location?.longitude ?? -73.95591309248328
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 14.4, bearing: -25, pitch: 0)
         
@@ -65,11 +65,9 @@ struct MBMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let mapView = uiView as? MapView {
-            if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
-                refreshMirasOnMap(mapView: mapView, context: context)
-            }
-            
             if isProfile {
+                refreshMirasOnMap(mapView: mapView, context: context)
+            } else  if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
                 refreshMirasOnMap(mapView: mapView, context: context)
             }
         }
@@ -84,14 +82,13 @@ struct MBMapView: UIViewRepresentable {
     
     private func refreshMirasOnMap(mapView: MapView, context: Context) {
         guard let miras = viewModel.miras else { return } // server data
-        let userLocation = LocationManager.shared.location
-        updateAnnotationsForMiras(mapView: mapView, miras: miras, userLocation: userLocation, context: context)
+        updateAnnotationsForMiras(mapView: mapView, miras: miras, userLocation: locationManager.location, context: context)
     }
     
     private func updateAnnotationsForMiras(mapView: MapView, miras: [Mira], userLocation: CLLocationCoordinate2D?, context: Context) {
         var filteredMiras = miras
 
-        debugPrint("\(stateManager.selectedUserOnMap) isProfile: \(isProfile)")
+        debugPrint("\(stateManager.selectedUserOnMap.debugDescription) isProfile: \(isProfile)")
         if isProfile, let user = stateManager.selectedUserOnMap {
             let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds

@@ -91,6 +91,7 @@
 		9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49729AF8FEF00F8EE72 /* NetworkError.swift */; };
 		935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065132A43301700817130 /* CollectedByUsersViewModel.swift */; };
 		935065162A43302700817130 /* CollectedByUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065152A43302700817130 /* CollectedByUsersView.swift */; };
+		935268C32A6ED5F6002A2F0C /* welcome-screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 935268C22A6ED5F6002A2F0C /* welcome-screen.mp4 */; };
 		93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5529F88691000B08A4 /* UIImageView+Extension.swift */; };
 		93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */; };
 		93537E5A29F91590000B08A4 /* GetMirasQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */; };
@@ -134,7 +135,6 @@
 		93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */; };
 		93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 93BB0C5A2A4F0D4B008638D6 /* Alamofire */; };
 		93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */; };
-		93CA6CE92A607C91004F5751 /* welcome-screen.mov in Resources */ = {isa = PBXBuildFile; fileRef = 93CA6CE82A607C91004F5751 /* welcome-screen.mov */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
@@ -249,6 +249,7 @@
 		9331C49729AF8FEF00F8EE72 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		935065132A43301700817130 /* CollectedByUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersViewModel.swift; sourceTree = "<group>"; };
 		935065152A43302700817130 /* CollectedByUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersView.swift; sourceTree = "<group>"; };
+		935268C22A6ED5F6002A2F0C /* welcome-screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "welcome-screen.mp4"; sourceTree = "<group>"; };
 		93537E5529F88691000B08A4 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQuery.graphql.swift; sourceTree = "<group>"; };
 		93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQueryInput.graphql.swift; sourceTree = "<group>"; };
@@ -289,7 +290,6 @@
 		93B379482A210BF300C6C66C /* UserPropertiesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPropertiesStorage.swift; sourceTree = "<group>"; };
 		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
-		93CA6CE82A607C91004F5751 /* welcome-screen.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "welcome-screen.mov"; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
@@ -1003,7 +1003,7 @@
 		93CA6CE72A607C91004F5751 /* Videos */ = {
 			isa = PBXGroup;
 			children = (
-				93CA6CE82A607C91004F5751 /* welcome-screen.mov */,
+				935268C22A6ED5F6002A2F0C /* welcome-screen.mp4 */,
 			);
 			path = Videos;
 			sourceTree = "<group>";
@@ -1183,7 +1183,7 @@
 				3942F75D2A5C871F007DB731 /* AuthorizeUser.graphql in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
 				3942F75E2A5C871F007DB731 /* UpdateUser.graphql in Resources */,
-				93CA6CE92A607C91004F5751 /* welcome-screen.mov in Resources */,
+				935268C32A6ED5F6002A2F0C /* welcome-screen.mp4 in Resources */,
 				3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */,
 				93AD50C029C2087A002DA594 /* GetUser.graphql in Resources */,
 				9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */,
