@@ -1,9 +1,17 @@
-
-query User($userInput: UserInput!) {
-  user(input: $userInput) {
+query User($userId: ID) {
+  user(userId: $userId) {
     id
     phone
-        username
-        pfp
+    username
+    profileImage
+    profileDescription
+    accessToken
+    verificationSid
+    collected {
+        id
+    }
+    miras {
+        id
+    }
   }
 }

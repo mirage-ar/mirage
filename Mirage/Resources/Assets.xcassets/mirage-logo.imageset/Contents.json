@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "mirage-logo.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

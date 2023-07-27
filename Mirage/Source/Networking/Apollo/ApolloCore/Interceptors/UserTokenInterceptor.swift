@@ -27,6 +27,7 @@ class UserTokenInterceptor: ApolloInterceptor {
 
         if let header = userTokenService.getAuthorizationHeader() {
             request.addHeader(name: header.key, value: header.value)
+            request.addHeader(name: "userId", value: UserDefaultsStorage().getString(for: .userId) ?? "")
         }
 
         chain.proceedAsync(request: request,

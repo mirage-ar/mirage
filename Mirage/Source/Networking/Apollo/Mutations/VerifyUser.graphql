@@ -1,0 +1,12 @@
+mutation VerifyUser($verifyUserInput: VerificationInput!) {
+  verifyUser(input: $verifyUserInput) {
+    user {
+      id
+      phone
+      profileImage
+      profileDescription
+      username
+    }
+    accessToken
+  }
+}

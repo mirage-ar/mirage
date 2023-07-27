@@ -1,0 +1,9 @@
+
+mutation AuthorizeUser($authorizeUserInput: AuthorizationInput!) {
+  authorizeUser(input: $authorizeUserInput) {
+    user {
+      id
+    }
+    accountStage
+  }
+}

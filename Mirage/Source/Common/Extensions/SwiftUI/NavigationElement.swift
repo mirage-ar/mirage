@@ -74,7 +74,12 @@ extension View {
     func navigate(to route: NavigationRoute) -> some View {
         modifier(NavigationElement(route: route))
     }
+    
+    func navigate(to route: NavigationRoute,when binding: Binding<Bool>) -> some View {
+        modifier(NavigationElement(route: route))
+    }
 
+    
     func navigate<Style: ButtonStyle>(to route: NavigationRoute, buttonStyle: Style) -> some View {
         modifier(StyledNavigationElement(route: route, buttonStyle: buttonStyle))
     }

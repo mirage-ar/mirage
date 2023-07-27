@@ -1,8 +1,0 @@
-mutation VerifyUser($verifyUserInput: VerificationInput!) {
-  verifyUser(input: $verifyUserInput) {
-    user {
-      id
-    }
-    accessToken
-  }
-}

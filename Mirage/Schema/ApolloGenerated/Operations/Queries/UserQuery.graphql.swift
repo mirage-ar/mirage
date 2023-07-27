@@ -9,25 +9,36 @@ public extension MirageAPI {
     public static let document: ApolloAPI.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query User($userInput: UserInput!) {
-          user(input: $userInput) {
+        query User($userId: ID) {
+          user(userId: $userId) {
             __typename
             id
             phone
             username
-            pfp
+            profileImage
+            profileDescription
+            accessToken
+            verificationSid
+            collected {
+              __typename
+              id
+            }
+            miras {
+              __typename
+              id
+            }
           }
         }
         """#
       ))
 
-    public var userInput: UserInput
+    public var userId: GraphQLNullable<ID>
 
-    public init(userInput: UserInput) {
-      self.userInput = userInput
+    public init(userId: GraphQLNullable<ID>) {
+      self.userId = userId
     }
 
-    public var __variables: Variables? { ["userInput": userInput] }
+    public var __variables: Variables? { ["userId": userId] }
 
     public struct Data: MirageAPI.SelectionSet {
       public let __data: DataDict
@@ -35,7 +46,7 @@ public extension MirageAPI {
 
       public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("user", User?.self, arguments: ["input": .variable("userInput")]),
+        .field("user", User?.self, arguments: ["userId": .variable("userId")]),
       ] }
 
       public var user: User? { __data["user"] }
@@ -50,15 +61,55 @@ public extension MirageAPI {
         public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
-          .field("phone", String.self),
-          .field("username", String?.self),
-          .field("pfp", String?.self),
+          .field("phone", String?.self),
+          .field("username", String.self),
+          .field("profileImage", String?.self),
+          .field("profileDescription", String?.self),
+          .field("accessToken", String?.self),
+          .field("verificationSid", String?.self),
+          .field("collected", [Collected?]?.self),
+          .field("miras", [Mira?]?.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
-        public var phone: String { __data["phone"] }
-        public var username: String? { __data["username"] }
-        public var pfp: String? { __data["pfp"] }
+        public var phone: String? { __data["phone"] }
+        public var username: String { __data["username"] }
+        public var profileImage: String? { __data["profileImage"] }
+        public var profileDescription: String? { __data["profileDescription"] }
+        public var accessToken: String? { __data["accessToken"] }
+        public var verificationSid: String? { __data["verificationSid"] }
+        public var collected: [Collected?]? { __data["collected"] }
+        public var miras: [Mira?]? { __data["miras"] }
+
+        /// User.Collected
+        ///
+        /// Parent Type: `Mira`
+        public struct Collected: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("id", MirageAPI.ID.self),
+          ] }
+
+          public var id: MirageAPI.ID { __data["id"] }
+        }
+
+        /// User.Mira
+        ///
+        /// Parent Type: `Mira`
+        public struct Mira: MirageAPI.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("id", MirageAPI.ID.self),
+          ] }
+
+          public var id: MirageAPI.ID { __data["id"] }
+        }
       }
     }
   }

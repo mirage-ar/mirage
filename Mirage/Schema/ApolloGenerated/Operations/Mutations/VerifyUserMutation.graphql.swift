@@ -15,6 +15,10 @@ public extension MirageAPI {
             user {
               __typename
               id
+              phone
+              profileImage
+              profileDescription
+              username
             }
             accessToken
           }
@@ -67,9 +71,17 @@ public extension MirageAPI {
           public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("id", MirageAPI.ID.self),
+            .field("phone", String?.self),
+            .field("profileImage", String?.self),
+            .field("profileDescription", String?.self),
+            .field("username", String.self),
           ] }
 
           public var id: MirageAPI.ID { __data["id"] }
+          public var phone: String? { __data["phone"] }
+          public var profileImage: String? { __data["profileImage"] }
+          public var profileDescription: String? { __data["profileDescription"] }
+          public var username: String { __data["username"] }
         }
       }
     }

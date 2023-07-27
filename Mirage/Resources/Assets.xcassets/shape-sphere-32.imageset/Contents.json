@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "shape-sphere-32.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

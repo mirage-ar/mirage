@@ -10,20 +10,26 @@ import Combine
 
 
 final class AuthenticationViewModel: ObservableObject {
-    var isLoading = false
+    @Published var isLoading = false
     @Published var sid: String? = ""
-    
+    @Published var authorizeSuccess = false
+    @Published var verifyUserSuccess = false
+
     let authenticationRepository: AuthenticationRepository = AppConfiguration.shared.apollo
+    
     func authenticate(number: String) {
         authenticationRepository.authenticate(number: number)
-            .receiveAndCancel (receiveOutput: { sid in
-                print("Verficatino ID" + sid)
-                
-                DispatchQueue.main.async {
-                    self.sid = sid
-                }
+            .receive(on: DispatchQueue.main)
+            .receiveAndCancel (receiveOutput: { accountStage in
+                debugPrint("Account Stage: \(accountStage)")
                 self.isLoading = false
+                if accountStage == MirageAPI.AccountStage.new.rawValue || accountStage == MirageAPI.AccountStage.new.rawValue {
+                    self.authorizeSuccess = true
+                }
+            }, receiveError: { error in
+                print("Error: \(error)")
             })
+    
         
         isLoading = true
         
@@ -31,12 +37,16 @@ final class AuthenticationViewModel: ObservableObject {
     
     func verifyUser(number: String, code: String) {
         authenticationRepository.verifyUser(number: number, code: code)
+            .receive(on: DispatchQueue.main)
             .receiveAndCancel (receiveOutput: {
-                print("ID" + $0 + " access token: " + $1)
-//                DispatchQueue.main.async {
-//                    self.sid = sid
-//                }
+                debugPrint("ID: \($0?.id ?? UUID()) access token: " + ($1 ?? ""))
+                if $0 != nil && $1?.isEmpty == false {
+                    self.verifyUserSuccess = true
+                    AppConfiguration.shared.authentication = true
+                }
                 self.isLoading = false
+            }, receiveError: { error in
+                print("Error: \(error)")
             })
         
         isLoading = true

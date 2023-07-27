@@ -1,0 +1,40 @@
+query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
+  getMiras(input: $getMirasQueryInput) {
+    id
+    miraMedia {
+      contentType
+      assetUrl
+      shape
+      position {
+        id
+        transform
+      }
+      modifier {
+        id
+        type
+        amount
+      }
+    }
+    creator {
+      id
+      phone
+      username
+      profileImage
+      profileDescription
+    }
+    location {
+      id
+      latitude
+      longitude
+    }
+    viewed
+    isFriend
+    collectors {
+      id
+      phone
+      username
+      profileImage
+      profileDescription
+    }
+  }
+}
