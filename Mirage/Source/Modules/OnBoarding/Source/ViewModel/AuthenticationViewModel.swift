@@ -23,7 +23,7 @@ final class AuthenticationViewModel: ObservableObject {
             .receiveAndCancel (receiveOutput: { accountStage in
                 debugPrint("Account Stage: \(accountStage)")
                 self.isLoading = false
-                if accountStage == MirageAPI.AccountStage.new.rawValue || accountStage == MirageAPI.AccountStage.new.rawValue {
+                if accountStage == MirageAPI.AccountStage.new.rawValue || accountStage == MirageAPI.AccountStage.existing.rawValue {
                     self.authorizeSuccess = true
                 }
             }, receiveError: { error in

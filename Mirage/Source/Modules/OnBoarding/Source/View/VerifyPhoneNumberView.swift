@@ -49,6 +49,8 @@ struct VerifyPhoneNumberView: View {
                                 .border(Colors.white.just)
                                 .frame(width: 50, height: 50)
                                 .focused($focusField, equals: id)
+                                .autocorrectionDisabled()
+
                         }
                     }
                     

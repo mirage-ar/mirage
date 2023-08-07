@@ -102,6 +102,7 @@ struct UserProfileView: View {
                         .padding(.leading, 10)
                         ZStack {
                             MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
+                                .clipped()
                             
                             
                             VStack {
