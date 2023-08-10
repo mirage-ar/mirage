@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import SwiftUI
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
@@ -63,6 +64,16 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             break
         }
 
+    }
+    func shouldDisplayAccessAlert() -> Bool {
+        let statusesToCheck: [CLAuthorizationStatus] = [.denied, .restricted]
+        return statusesToCheck.contains(locationManager.authorizationStatus)
+    }
+    func alert() -> Alert {
+        return Alert(title: Text("Location Restricted"),message: Text("Location is required to measure how far you are from Mira."),  primaryButton: .default(Text("Settings"), action: {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+
+        }), secondaryButton: .cancel())
     }
     
 }

@@ -24,4 +24,12 @@ public enum NetworkError: Error, Equatable {
             return true
         }
     }
+    var message: String {
+        switch self {
+        case .requestError(message: let e):
+            return e
+        default:
+            return ""
+        }
+    }
 }
