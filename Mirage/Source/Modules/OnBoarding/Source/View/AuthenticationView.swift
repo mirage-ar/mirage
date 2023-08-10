@@ -41,9 +41,7 @@ struct AuthenticationView: View {
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.just)
                             .clearButtonMode(.whileEditing)
-                            .onClear { _ in phoneNumber = "" }
-                            .keyboardType(.phonePad)
-                            .autocorrectionDisabled(true)
+                            .onClear { _ in isEditing.toggle() }
                             .frame(width: geo.size.width, height: 50)
                             .border(Colors.white.just)
                             .navigationDestination(isPresented: $viewModel.authorizeSuccess) {
@@ -57,6 +55,7 @@ struct AuthenticationView: View {
                                 ActivityIndicator(color: Colors.white.just, size: 50)
                             } else {
                                 LargeButton(title: "DONE") {
+                                    viewModel.authorizeSuccess = true // temp for quick navigation
                                     if phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false {
                                         viewModel.authenticate(number: phoneNumber)
                                     }
@@ -64,12 +63,15 @@ struct AuthenticationView: View {
                             }
                         }
                         .padding(.bottom, 5)
+
                     }
                     .padding(.top, 10)
                     .clipped()
                 }
                 .padding(.trailing, 5)
                 .padding(.leading, 5)
+
+
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .accentColor(Colors.white.just)
@@ -82,6 +84,7 @@ struct AuthenticationView: View {
             }
         }
         .accentColor(Colors.white.swiftUIColor)
+
     }
 }
 struct AuthenticationView_Previews: PreviewProvider {

@@ -35,9 +35,6 @@ struct UpdateUserView: View {
                         .background(.clear)
                         .scrollContentBackground(.hidden)
                         .frame(maxHeight: 100)
-                        .onReceive(value.publisher.collect()) {
-                                self.value = String($0.prefix(110))//username limit
-                        }
                     
                 } else {
                     TextField("Enter UserName", text: $value)

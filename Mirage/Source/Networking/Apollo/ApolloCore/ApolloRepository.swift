@@ -195,16 +195,11 @@ public class ApolloRepository {
             let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
             let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
 
-            let client =  ApolloClient(networkTransport: normalTransport,
+            return ApolloClient(networkTransport: normalTransport,
                                 store: getSQLStore())
-            client.clearCache()
-            return client
-
         } catch {
             print("Error creating ApolloSQLite Client: \(error)")
-            let client =  getClient()
-            client.clearCache()
-            return client
+            return getClient()
         }
     }
 
@@ -232,7 +227,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the query data or error
     ///
     func fetch<Query: GraphQLQuery>(query: Query,
-                                    cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                    cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                     callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Query.Data, Error>
     {
@@ -260,7 +255,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the mutation data or error
     ///
     func perform<Mutation: GraphQLMutation>(mutation: Mutation,
-                                            cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                            cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                             callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Mutation.Data, Error>
     {

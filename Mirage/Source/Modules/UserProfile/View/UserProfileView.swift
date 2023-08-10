@@ -34,21 +34,14 @@ struct UserProfileView: View {
                 VStack {
                     ZStack(alignment: .bottom) {
                         VStack {
-                            ZStack {
-                                AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                } placeholder: {
-                                    ProgressView()
-                                        .foregroundColor(.white)
-                                }
-                                if ownProfile && stateManager.isLoadingUserProfile {
-                                    ProgressView()
-                                        .foregroundColor(.white)
-                                }
+                            AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            } placeholder: {
+                                ProgressView()
+                                    .foregroundColor(Colors.white8p.swiftUIColor)
                             }
-                            
                             Spacer()
                         }
                         .frame(width: UIScreen.main.bounds.width, height: 350, alignment: .top)
@@ -109,7 +102,6 @@ struct UserProfileView: View {
                         .padding(.leading, 10)
                         ZStack {
                             MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
-                                .clipped()
                             
                             
                             VStack {
