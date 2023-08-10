@@ -82,19 +82,24 @@ struct ARViewRepresentable: UIViewRepresentable {
         let currentConfiguration = arView.session.configuration
         
         if viewModel.arViewMode == .EXPLORE {
-            if ARGeoTrackingConfiguration.isSupported {
-                if !(currentConfiguration is ARGeoTrackingConfiguration) {
-                    print("UPDATE: AR configuration changed to GEO TRACKING")
-                    let configuration = ARGeoTrackingConfiguration()
-                    
-                    // Enable coaching.
-                    arView.setupCoachingOverlay()
-                    
-                    arView.session.run(configuration)
+            ARGeoTrackingConfiguration.checkAvailability { isAvailable, error in
+                
+                DispatchQueue.main.async {
+                    if ARGeoTrackingConfiguration.isSupported && isAvailable {
+                        if !(currentConfiguration is ARGeoTrackingConfiguration) {
+                            print("UPDATE: AR configuration changed to GEO TRACKING")
+                            let configuration = ARGeoTrackingConfiguration()
+                            
+                            // Enable coaching.
+                            arView.setupCoachingOverlay()
+                            
+                            arView.session.run(configuration)
+                        }
+                    } else {
+                        print("ERROR: Geo tracking not supported on this device")
+                        viewModel.arViewMode = .CREATE
+                    }
                 }
-            } else {
-                print("ERROR: Geo tracking not supported on this device")
-                viewModel.arViewMode = .CREATE
             }
         }
             
