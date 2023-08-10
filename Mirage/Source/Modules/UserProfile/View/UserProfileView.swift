@@ -34,14 +34,21 @@ struct UserProfileView: View {
                 VStack {
                     ZStack(alignment: .bottom) {
                         VStack {
-                            AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            } placeholder: {
-                                ProgressView()
-                                    .foregroundColor(Colors.white8p.swiftUIColor)
+                            ZStack {
+                                AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                } placeholder: {
+                                    ProgressView()
+                                        .foregroundColor(.white)
+                                }
+                                if ownProfile && stateManager.isLoadingUserProfile {
+                                    ProgressView()
+                                        .foregroundColor(.white)
+                                }
                             }
+                            
                             Spacer()
                         }
                         .frame(width: UIScreen.main.bounds.width, height: 350, alignment: .top)

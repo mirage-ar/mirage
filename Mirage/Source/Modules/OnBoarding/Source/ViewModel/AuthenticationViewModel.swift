@@ -14,6 +14,8 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var sid: String? = ""
     @Published var authorizeSuccess = false
     @Published var verifyUserSuccess = false
+    @Published var errorMsg = ""
+    @Published var showError = false
 
     let authenticationRepository: AuthenticationRepository = AppConfiguration.shared.apollo
     
@@ -27,6 +29,9 @@ final class AuthenticationViewModel: ObservableObject {
                     self.authorizeSuccess = true
                 }
             }, receiveError: { error in
+                self.isLoading = false
+                self.errorMsg = error.localizedDescription
+                self.showError = true
                 print("Error: \(error)")
             })
     
@@ -46,6 +51,13 @@ final class AuthenticationViewModel: ObservableObject {
                 }
                 self.isLoading = false
             }, receiveError: { error in
+                if let e = error as? NetworkError {
+                    self.errorMsg = e.message
+                } else {
+                    self.errorMsg = error.localizedDescription
+                }
+                self.isLoading = false
+                self.showError = true
                 print("Error: \(error)")
             })
         

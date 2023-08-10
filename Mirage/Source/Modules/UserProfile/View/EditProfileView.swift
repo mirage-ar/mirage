@@ -30,22 +30,28 @@ struct EditProfileView: View {
                         print("Edit Image")
                     } label: {
                         Group {
-                            if let image = media?.image {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-
-                            } else {
-                                AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
-                                    image
+                            ZStack {
+                                if let image = media?.image {
+                                    Image(uiImage: image)
                                         .resizable()
-                                        .scaledToFill()
-                                } placeholder: {
+                                        .aspectRatio(contentMode: .fill)
+
+                                } else {
+                                    AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        ProgressView()
+                                            .foregroundColor(.white)
+                                    }
+                                }
+                                if stateManager.isLoadingUserProfile {
                                     ProgressView()
-                                        .foregroundColor(Colors.white8p.swiftUIColor)
+                                        .foregroundColor(.white)
                                 }
                             }
-                        }
+                                                }
                         .frame(width: 150, height: 150)
                         .cornerRadius(75)
                         .scaledToFill()

@@ -36,7 +36,7 @@ struct HomeView: View {
                                         stateManager.selectedUserOnMap = stateManager.loggedInUser
                                         showProfileView = true
                                     } label: {
-                                        AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
+                                        AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
                                             image
                                                 .resizable()
                                                 .scaledToFill()
