@@ -11,10 +11,13 @@ public struct User {
     let id: UUID
     let phone: String
     let userName: String?
-    let profileImage: String
+    var profileImage: String
     let profileDescription: String?
     var collectedMiraCount = 0
     var mirasCount = 0
+    
+    var createdMiraIds: [UUID]?
+    var collectedMiraIds: [UUID]?
     
     init(id: UUID, profileImage: String, phone: String, userName: String?, profileDescription: String?) {
         self.id = id
@@ -44,6 +47,15 @@ extension User {
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0
+        
+        if let miras = apiUser?.miras, let collected = apiUser?.collected {
+            createdMiraIds = miras.map { mira in
+                return UUID(uuidString: mira!.id) ?? UUID()
+            }
+            collectedMiraIds = collected.map { mira in
+                return UUID(uuidString: mira!.id) ?? UUID()
+            }
+        }
     }
     
     init(verifyUser: MirageAPI.VerifyUserMutation.Data.VerifyUser.User) {
@@ -54,8 +66,23 @@ extension User {
         profileDescription = verifyUser.profileDescription
     }
 
-    func updated(apiUpdatedUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) -> User {
-        return User(id: id, profileImage: profileImage, phone: apiUpdatedUser?.phone ?? "", userName: apiUpdatedUser?.username ?? "", profileDescription: apiUpdatedUser?.username ?? "")
+    init(apiUser: MirageAPI.UpdateUserMutation.Data.UpdateUser?) {
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
+        userName = apiUser?.username ?? ""
+        profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        profileDescription = apiUser?.profileDescription
+        collectedMiraCount = apiUser?.collected?.count ?? 0
+        mirasCount = apiUser?.miras?.count ?? 0
+        
+        if let miras = apiUser?.miras, let collected = apiUser?.collected {
+            createdMiraIds = miras.map { mira in
+                return UUID(uuidString: mira!.id) ?? UUID()
+            }
+            collectedMiraIds = collected.map { mira in
+                return UUID(uuidString: mira!.id) ?? UUID()
+            }
+        }
     }
 
     init(creator: MirageAPI.GetMirasQuery.Data.GetMira.Creator?) {
@@ -87,7 +114,8 @@ extension User: Hashable {
 
 extension User {
     var isDescriptionEmpty: Bool {
-        return !(profileDescription?.isEmpty == true || userName?.isEmpty == true)
+//        return !(profileDescription?.isEmpty == true || userName?.isEmpty == true) for some reason this was incorrect logic
+        return (profileDescription?.isEmpty == true || userName?.isEmpty == true)
     }
 
     static var dummy: User {
@@ -102,6 +130,8 @@ extension User: Codable {
         case profileImage
         case userName
         case profileDescription
+        case collectedMiraCount
+        case mirasCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -111,6 +141,9 @@ extension User: Codable {
         profileImage = try values.decode(String.self, forKey: .profileImage)
         userName = try? values.decode(String.self, forKey: .userName)
         profileDescription = try? values.decode(String.self, forKey: .profileDescription)
+        collectedMiraCount = (try? values.decode(Int.self, forKey: .collectedMiraCount)) ?? 0
+        mirasCount = (try? values.decode(Int.self, forKey: .mirasCount)) ?? 0
+
     }
 
     func encode(with encoder: Encoder) throws {
@@ -120,5 +153,8 @@ extension User: Codable {
         try container.encode(profileImage, forKey: .profileImage)
         try container.encode(userName, forKey: .userName)
         try container.encode(profileDescription, forKey: .profileDescription)
+        try container.encode(collectedMiraCount, forKey: .collectedMiraCount)
+        try container.encode(mirasCount, forKey: .mirasCount)
+
     }
 }

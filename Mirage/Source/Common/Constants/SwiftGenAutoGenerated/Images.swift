@@ -74,6 +74,7 @@ internal enum Images {
   internal static let mic32 = ImageAsset(name: "mic-32")
   internal static let minus16 = ImageAsset(name: "minus-16")
   internal static let miraPosted = ImageAsset(name: "mira-posted")
+  internal static let mirageLogo = ImageAsset(name: "mirage-logo")
   internal static let modifier32 = ImageAsset(name: "modifier-32")
   internal static let more24 = ImageAsset(name: "more-24")
   internal static let more32 = ImageAsset(name: "more-32")

@@ -9,15 +9,13 @@ import SwiftUI
 // import MapboxMaps
 
 struct HomeView: View {
-//    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-
-    @ObservedObject private var viewModel = HomeViewModel()
+    @EnvironmentObject var stateManager: StateManager
+    
     @State var showArView = false
     @State var showProfileView = false
     @State var selectedMiraOnMap: Mira?
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
-    @State var selectedUser: User?
     
     let miras = Mira.dummyMiras()
     let buttonSize = 48.0
@@ -32,21 +30,19 @@ struct HomeView: View {
                             Spacer()
 
                             VStack {
-                                if viewModel.currentUser != nil {
+                                if stateManager.loggedInUser != nil {
                                     Button {
-                                        print("UPDATE: show user profile for: \(String(describing: selectedUser?.userName))")
-                                        selectedUser = viewModel.currentUser
+                                        stateManager.selectedUserOnMap = stateManager.loggedInUser
                                         showProfileView = true
                                     } label: {
-                                        AsyncImage(url: URL(string: viewModel.currentUser!.profileImage)) { image in
+                                        AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
                                             image
                                                 .resizable()
-                                                .scaledToFit()
+                                                .scaledToFill()
                                         } placeholder: {
                                             ProgressView()
                                         }
                                         .frame(width: buttonSize, height: buttonSize)
-                                        
                                         .background(Colors.g3Grey.just)
                                         .clipShape(Circle())
                                     }
@@ -78,15 +74,18 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showArView, content: {
                 NavigationRoute.homeToARCameraView.screen
             })
-            .fullScreenCover(isPresented: $showProfileView, content: {
-                NavigationRoute.myProfile(userId: selectedUser?.id.uuidString ?? "").screen
+            .fullScreenCover(isPresented: $showProfileView, onDismiss: {
+                stateManager.selectedUserOnMap = nil
+            }, content: {
+                NavigationRoute.myProfile(userId: stateManager.selectedUserOnMap?.id.uuidString ?? "").screen
             })
             .sheet(isPresented: $showCollectedByList) {
-                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira, selectedUser: $selectedUser).screen
+                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
                     .presentationDetents([.medium, .large])
             }
-            .onChange(of: selectedUser) { selectedUser in
+            .onChange(of: stateManager.selectedUserOnMap) { [selectedUserOnMap = self.stateManager.selectedUserOnMap] selectedUser in
                 showCollectedByList = false
+                debugPrint(selectedUserOnMap.debugDescription)
                 // fix for swiftUI animation collision
                 if let _ = selectedUser {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -96,44 +95,5 @@ struct HomeView: View {
             }
         }
         .accentColor(Colors.white.swiftUIColor)
-        .onAppear {
-            hideKeyboard()
-            //TODO: To be removed. Added as a testing
-           
-            
-//            DownloadManager.shared.download(url: "https://download.samplelib.com/mp4/sample-15s.mp4") { progress in
-//                print("Progress 2 \(progress)")
-//            } completion: { filePath in
-//                print("Complete 2 " + (filePath ?? ""))
-//            }
-//            
-//            
-//            DownloadManager.shared.download(url: "https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4") { progress in
-//                print("Progress 3 \(progress)")
-//            } completion: { filePath in
-//                print("Complete 3 " + (filePath ?? ""))
-//            }
-//            DownloadManager.shared.download(url: "https://download.samplelib.com/mp4/sample-20s.mp4") { progress in
-//                print("Progress 4 \(progress)")
-//            } completion: { filePath in
-//                print("Complete 4 " + (filePath ?? ""))
-//            }
-//            DownloadManager.shared.download(url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4") { progress in
-//                print("Progress 1 \(progress)")
-//            } completion: { filePath in
-//                print("Complete 1 " + (filePath ?? ""))
-//            }
-//            
-//            DownloadManager.shared.upload(image: Images.buttonStopRecording.image) { url in
-//                print(url)
-//                guard let url = url else { return }
-//                DownloadManager.shared.download(url: url) { progress in
-//                    print("Progress \(progress)")
-//                } completion: { filePath in
-//                    print(filePath)
-//                }
-//
-//            }
-        }
     }
 }

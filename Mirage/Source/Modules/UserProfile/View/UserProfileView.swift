@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct UserProfileView: View {
-    @State var goToSettings = false
-    @State var goToEditProfile = false
-    @State var goToHome = false
+    @EnvironmentObject var stateManager: StateManager
     @Environment(\.presentationMode) var presentationMode
-    
+
+    @State var goToSettings = false
+    @State var goToHome = false
+
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
 
     @ObservedObject private var viewModel: UserProfileViewModel
-    
+
     var ownProfile = true
     let userId: String
 
     init(userId: String) {
         self.userId = userId
-        ownProfile = UserDefaultsStorage().getString(for: .userId) == userId
-        self.viewModel = UserProfileViewModel(userId: userId)
+        ownProfile = UserDefaultsStorage().getString(for: .userId)?.uppercased() == userId.uppercased()
+        viewModel = UserProfileViewModel(userId: userId)
     }
 
     var body: some View {
@@ -33,8 +34,7 @@ struct UserProfileView: View {
                 VStack {
                     ZStack(alignment: .bottom) {
                         VStack {
-                            AsyncImage(url: URL(string: viewModel.user.profileImage)) { image in
-                                //                        AsyncImage(url: URL(string: "https://i.pinimg.com/736x/73/6d/65/736d65181843edcf06c220cbf79933fb.jpg")) { image in
+                            AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
                                 image
                                     .resizable()
                                     .scaledToFill()
@@ -44,33 +44,35 @@ struct UserProfileView: View {
                             }
                             Spacer()
                         }
-                        .frame(width: UIScreen.main.bounds.width, height: 436, alignment: .top)
+                        .frame(width: UIScreen.main.bounds.width, height: 350, alignment: .top)
                         .clipped()
 
                         HStack(alignment: .bottom) {
                             VStack(alignment: .leading) {
                                 Spacer()
                                 Group {
-                                    Text(viewModel.user.userName ?? "...")
+                                    Text(stateManager.selectedUserOnMap?.userName ?? "___")
                                         .font(.h2)
                                         .textCase(.uppercase)
                                         .lineLimit(2)
-                                    if ownProfile && viewModel.user.isDescriptionEmpty {
+                                    // TODO: clean up
+                                    if ownProfile, let selectedUser = stateManager.selectedUserOnMap, selectedUser.isDescriptionEmpty {
                                         Button {
-                                            goToEditProfile = true
+                                            goToSettings = true
 
                                         } label: {
                                             Text("EDIT PROFILE")
+                                                .font(.subtitle1)
                                                 .frame(maxWidth: .infinity)
                                         }
                                         .background(Colors.white.swiftUIColor)
                                         .foregroundColor(Colors.black.swiftUIColor)
                                         .cornerRadius(10)
                                         .frame(width: 150)
-                                        .hiddenConditionally(isHidden: viewModel.user.isDescriptionEmpty)
+//                                        .hiddenConditionally(isHidden: stateManager.currentUser!.isDescriptionEmpty)
 
                                     } else {
-                                        Text(viewModel.user.profileDescription ?? "")
+                                        Text(stateManager.selectedUserOnMap?.profileDescription ?? "")
                                             .font(.body1)
                                     }
                                 }
@@ -78,84 +80,48 @@ struct UserProfileView: View {
                             }
                             Spacer()
                         }
-                        .padding([.leading, .trailing], 16)
+                        .padding([.leading, .trailing], 10)
                         .background(
                             LinearGradient(gradient: Gradient(colors: [Colors.black.swiftUIColor, .clear]), startPoint: .bottom, endPoint: .top)
                         )
                         .frame(maxHeight: 150)
                     }
                     .background(Colors.black.swiftUIColor)
-
-                    HStack {
-                        VStack {
-                            ZStack {
-                                MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
-                                    .opacity(0.7)
-                                VStack {
-                                    HStack(alignment: .top) {
-                                        Text("Collection")
-                                            .foregroundColor(Colors.white.swiftUIColor)
-                                            .font(.body1)
-                                            .multilineTextAlignment(.leading)
-                                        Spacer()
-                                    }
-                                    .padding(.leading, 5)
-                                    .padding(.top, 5)
+                    
+                    Group {
+                        HStack {
+                            Text("\((stateManager.selectedUserOnMap?.createdMiraIds?.count ?? 0) + (stateManager.selectedUserOnMap?.collectedMiraIds?.count ?? 0))")
+                                .foregroundColor(.white)
+                                .font(.body1)
+                            
+                            Text("collects + visits")
+                                .foregroundColor(.gray)
+                                .font(.body1)
+                            Spacer()
+                        }
+                        .padding(.leading, 10)
+                        ZStack {
+                            MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
+                            
+                            
+                            VStack {
+                                Spacer()
+                                HStack {
                                     Spacer()
-                                    ZStack {
-                                        Rectangle()
-                                            .cornerRadius(20)
-                                            .foregroundColor(Colors.green.swiftUIColor)
-                                            .frame(width: 80, height: 40)
-                                        HStack {
-                                            Text("\(viewModel.user.mirasCount)")
-                                            Images.collectMiraWhite.swiftUIImage
-                                                .renderingMode(.template)
-                                                .foregroundColor(Colors.black.swiftUIColor)
-                                        }
+                                    Button {
+                                        presentationMode.wrappedValue.dismiss()
+                                    } label: {
+                                        Images.goHome32.swiftUIImage
                                     }
-                                    Spacer()
+                                    .padding(.trailing, 30)
                                 }
                             }
-                            .frame(maxHeight: 160)
-                            .disabled(true)
-                            .cornerRadius(10)
-                        }
-                        VStack {
-                            HStack {
-                                Text("Miras")
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(.body1)
-                                Spacer()
-                                Text("\(viewModel.user.collectedMiraCount)")
-                                    .multilineTextAlignment(.trailing)
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                    .font(.body1)
-                            }
-                            .padding(.top, -70) // to bind the view at top
-                            .padding(.leading, 5)
-                            Divider()
-                                .overlay(Colors.g3Grey.swiftUIColor)
-                                .padding(.top, -55)
-                                .padding(.leading, 5)
+                            .padding(.bottom, 50)
                         }
                     }
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-
-                        } label: {
-                            Images.goHome32.swiftUIImage
-                        }
-                        .padding(.trailing, 30)
-                    }
-                    .padding(.bottom, 50)
+                    .padding(.top, 5)
                 }
             }
-            .padding([.leading, .trailing], 16)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
@@ -174,7 +140,6 @@ struct UserProfileView: View {
                             goToSettings = true
                         } else {
                             debugPrint("more Button profile")
-
                         }
                     } label: {
                         if ownProfile {
@@ -191,15 +156,26 @@ struct UserProfileView: View {
             }
             .background(Colors.black.swiftUIColor)
             .navigationDestination(isPresented: $goToSettings) {
-                NavigationRoute.settings(user: viewModel.user).screen
-            }
-            .navigationDestination(isPresented: $goToEditProfile) {
-            
-                // TODO: remove dummy user here
-                NavigationRoute.editProfile(user: .dummy).screen
+                if let user = stateManager.loggedInUser {
+                    NavigationRoute.settings(user: user).screen
+                }
             }
             .edgesIgnoringSafeArea(.all)
         }
         .accentColor(Colors.white.swiftUIColor)
+        .onAppear {
+            stateManager.selectedUserOnMap = viewModel.user
+        }
     }
 }
+
+//struct UserProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        // Here I'm just assuming that StateManager and UserProfileViewModel have default initialisers
+//        // Replace this with actual initialisation of these objects
+//        let stateManager = StateManager()
+//        let userId = "d240958e-7aaa-4cf8-870d-d8fb5b078f8a"
+//        UserProfileView(userId: userId)
+//            .environmentObject(stateManager)
+//    }
+//}

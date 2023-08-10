@@ -20,6 +20,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         super.init()
         locationManager.desiredAccuracy = 5
         locationManager.delegate = self
+        locationManager.distanceFilter = 100
         requestAuthorizationIfNeeded()
     }
 
@@ -59,6 +60,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             // TODO: LocationManager - setup alerts
             print("You have denied this app location permissions")
         case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
             break
         @unknown default:
             break

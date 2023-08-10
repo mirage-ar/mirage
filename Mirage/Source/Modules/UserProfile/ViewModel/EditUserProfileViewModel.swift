@@ -9,8 +9,10 @@ import Foundation
 import Combine
 
 final class EditUserProfileViewModel: ObservableObject {
-    
+
     func signoutUser() {
         UserDefaultsStorage().clearAllUserSpecificProperties()
+        AppConfiguration.shared.authentication = false
+        AppConfiguration.shared.getStartedLaunched = false
     }
 }

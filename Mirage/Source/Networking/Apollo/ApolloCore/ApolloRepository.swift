@@ -1,19 +1,18 @@
 //
-//  ApolloRepositery.swift
+//  ApolloRepository.swift
 //  Mirage
 //
 //  Created by Saad on 01/03/2023.
 //
 
 import Apollo
+import ApolloAPI
+import ApolloSQLite
+import ApolloWebSocket
 import Combine
 import Foundation
-import Apollo
-import ApolloWebSocket
-import ApolloAPI
 
 public class ApolloRepository {
-
     private weak var appRestoredFromBackgroundPhaseObserver: NSObjectProtocol?
     private weak var appEnteredBackgroundPhaseObserver: NSObjectProtocol?
 
@@ -37,7 +36,7 @@ public class ApolloRepository {
         let sessionConfiguration = URLSessionConfiguration.default
 
         let client = URLSessionClient(sessionConfiguration: sessionConfiguration, callbackQueue: nil)
-        let provider = NetworkInterceptorProvider(store: store,
+        let provider = NetworkInterceptorProvider(store: getSQLStore(),
                                                   client: client,
                                                   userTokenService: tokenService)
         let url = URL(string: endpoint)!
@@ -46,7 +45,7 @@ public class ApolloRepository {
                                             endpointURL: url)
     }()
 
-    private lazy var client: ApolloClient = getClient()
+    private lazy var client: ApolloClient = getSQLClient()
 
     private let endpoint: String
     private let webSocketEndpoint: String
@@ -59,7 +58,8 @@ public class ApolloRepository {
 
     public init(endpoint: String,
                 webSocketEndpoint: String,
-                reachabilityProvider: ReachabilityProvider) {
+                reachabilityProvider: ReachabilityProvider)
+    {
         self.endpoint = endpoint
         self.webSocketEndpoint = webSocketEndpoint
         self.reachabilityProvider = reachabilityProvider
@@ -112,11 +112,11 @@ public class ApolloRepository {
 
     /// Removes app foreground and background observers from the NotificationCenter if they exist
     private func removeAppPhaseNotifications() {
-        if let appRestoredFromBackgroundPhaseObserver = self.appRestoredFromBackgroundPhaseObserver {
+        if let appRestoredFromBackgroundPhaseObserver = appRestoredFromBackgroundPhaseObserver {
             NotificationCenter.default.removeObserver(appRestoredFromBackgroundPhaseObserver)
         }
 
-        if let appRestoredFromBackgroundPhaseObserver = self.appRestoredFromBackgroundPhaseObserver {
+        if let appRestoredFromBackgroundPhaseObserver = appRestoredFromBackgroundPhaseObserver {
             NotificationCenter.default.removeObserver(appRestoredFromBackgroundPhaseObserver)
         }
     }
@@ -173,14 +173,47 @@ public class ApolloRepository {
     private func getClient() -> ApolloClient {
         // A split network transport to allow the use of both of the above
         // transports through a single `NetworkTransport` instance.
-        
+
         // This code is commited to be used when subscriptions are there
-        //let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
         //                                                webSocketNetworkTransport: webSocketTransport)
 
-        
         return ApolloClient(networkTransport: normalTransport,
                             store: store)
+    }
+
+    private func getSQLClient() -> ApolloClient {
+        // A split network transport to allow the use of both of the above
+        // transports through a single `NetworkTransport` instance.
+
+        // This code is commited to be used when subscriptions are there
+        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+        //                                                webSocketNetworkTransport: webSocketTransport)
+
+        do {
+            let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
+            let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
+
+            return ApolloClient(networkTransport: normalTransport,
+                                store: getSQLStore())
+        } catch {
+            print("Error creating ApolloSQLite Client: \(error)")
+            return getClient()
+        }
+    }
+
+    private func getSQLStore() -> ApolloStore {
+        do {
+            let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
+            let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
+
+            return ApolloStore(cache: sqliteCache)
+        } catch {
+            print("Error creating ApolloSQLite Client: \(error)")
+            return store
+        }
     }
 
     // MARK: Data manipulations
@@ -194,9 +227,10 @@ public class ApolloRepository {
     ///  - returns: A publisher of the query data or error
     ///
     func fetch<Query: GraphQLQuery>(query: Query,
-                                    cachePolicy: CachePolicy = .fetchIgnoringCacheCompletely,
+                                    cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                     callbackQueue: DispatchQueue = .global(qos: .userInitiated))
-        -> AnyPublisher<Query.Data, Error> {
+        -> AnyPublisher<Query.Data, Error>
+    {
         Future<Query.Data, Error> { [weak self] promise in
 
             guard let self else {
@@ -208,7 +242,6 @@ public class ApolloRepository {
                 print("Response: \(response)")
                 promise(result)
             }
-
 
         }.eraseToAnyPublisher()
     }
@@ -222,8 +255,10 @@ public class ApolloRepository {
     ///  - returns: A publisher of the mutation data or error
     ///
     func perform<Mutation: GraphQLMutation>(mutation: Mutation,
+                                            cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                             callbackQueue: DispatchQueue = .global(qos: .userInitiated))
-        -> AnyPublisher<Mutation.Data, Error> {
+        -> AnyPublisher<Mutation.Data, Error>
+    {
         Future<Mutation.Data, Error> { [weak self] promise in
 
             guard let self else {
@@ -236,7 +271,6 @@ public class ApolloRepository {
                 print("res: \(result)")
                 promise(result)
             }
-            
 
         }.eraseToAnyPublisher()
     }
@@ -255,7 +289,8 @@ public class ApolloRepository {
     func subscribe<Subscription: GraphQLSubscription>(to subscription: Subscription,
                                                       subscriptionName: SubscriptionName,
                                                       callbackQueue: DispatchQueue = .global(qos: .userInitiated))
-        -> AnyPublisher<Subscription.Data, Error> {
+        -> AnyPublisher<Subscription.Data, Error>
+    {
         let subject = PassthroughSubject<Subscription.Data, Error>()
 
         let cancellable = client.subscribe(subscription: subscription,
@@ -284,11 +319,11 @@ public class ApolloRepository {
         subscriptions.forEach { self.cancelSubscription(name: $0.key) }
         webSocketTransport.closeConnection()
 
-        self.walletSubscription = nil
+        walletSubscription = nil
     }
 
     enum SubscriptionName {
-        //Subscriptions name goes here. e.g.
+        // Subscriptions name goes here. e.g.
         case nearbyMirage
     }
 
@@ -339,7 +374,7 @@ public class ApolloRepository {
         switch response {
         case .success(let graphQLResult):
             if let graphQLError = graphQLResult.errors?.first {
-                let error = self.handleGraphQLError(graphQLError)
+                let error = handleGraphQLError(graphQLError)
 
                 return .failure(error)
             }
@@ -351,7 +386,7 @@ public class ApolloRepository {
             return .success(data)
 
         case .failure(let error):
-            let error = self.handleError(error)
+            let error = handleError(error)
 
             return .failure(error)
         }
@@ -366,7 +401,8 @@ public class ApolloRepository {
     ///
     private func handleGraphQLError(_ error: GraphQLError) -> Error {
         if let statusCode = error[.statusCodeResponseKey] as? Int,
-           let statusCodeError = getStatusCodeError(for: statusCode) {
+           let statusCodeError = getStatusCodeError(for: statusCode)
+        {
             return statusCodeError
         }
 
@@ -387,12 +423,14 @@ public class ApolloRepository {
     private func handleError(_ error: Error) -> Error {
         if case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(let response, let data) = error {
             if let statusCode = response?.statusCode,
-               let statusCodeError = getStatusCodeError(for: statusCode) {
+               let statusCodeError = getStatusCodeError(for: statusCode)
+            {
                 return statusCodeError
             }
 
             if let dictionary = data?.toDictionary(),
-               let errorMessage = dictionary.firstDictionary(key: .errorResponseKey)?.getErrorMessage() {
+               let errorMessage = dictionary.firstDictionary(key: .errorResponseKey)?.getErrorMessage()
+            {
                 return NetworkError.requestError(message: errorMessage)
             }
         }
@@ -425,16 +463,16 @@ private extension String {
 
 private extension NetworkError {
     static var unauthenticatedErrorCode = 401
-    static var clientErrorsCodes = 402...499
+    static var clientErrorsCodes = 402 ... 499
 }
 
 private protocol ErrorSubscript {
     subscript(key: String) -> Any? { get }
 }
 
-extension GraphQLError: ErrorSubscript { }
+extension GraphQLError: ErrorSubscript {}
 
-extension Dictionary: ErrorSubscript where Key == String, Value == Any { }
+extension Dictionary: ErrorSubscript where Key == String, Value == Any {}
 
 private extension ErrorSubscript {
     func firstDictionary(key: String) -> [String: Any]? {
@@ -442,7 +480,7 @@ private extension ErrorSubscript {
     }
 
     func getErrorMessage() -> String? {
-        (self.firstDictionary(key: .errorFieldsResponseKey)?.first?.value as? [String])?.first ??
+        (firstDictionary(key: .errorFieldsResponseKey)?.first?.value as? [String])?.first ??
             (self[.errorMessageResponseKey] as? String)
     }
 }

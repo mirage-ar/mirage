@@ -10,7 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     @State var showEditProfile = false
     @State var user: User
-    
+    @EnvironmentObject var stateManager: StateManager
+
     var body: some View {
         ZStack {
             Colors.black.swiftUIColor
@@ -21,7 +22,7 @@ struct SettingsView: View {
                     
                     HStack {
                         Images.profile48.swiftUIImage
-                        Text(user.userName ?? "NaN")
+                        Text(stateManager.loggedInUser?.userName ?? "NaN")
                             .font(.body1)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)

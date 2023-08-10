@@ -10,19 +10,29 @@ import MapKit
 import SwiftUI
 
 struct MBMapView: UIViewRepresentable {
+    @EnvironmentObject var stateManager: StateManager
     @ObservedObject private var viewModel = MapViewModel()
-    
+    @ObservedObject private var locationManager = LocationManager.shared
+
     @State var viewState: ViewState = .empty
     let clusterLayerID = "groupedMiras"
     
+    var isProfile: Bool
+    
     @Binding var selectedMira: Mira?
     @Binding var showCollectedByList: Bool
+    
+    // Initializer with a default parameter
+    init(selectedMira: Binding<Mira?>, showCollectedByList: Binding<Bool>, isProfile: Bool = false) {
+        self._selectedMira = selectedMira
+        self._showCollectedByList = showCollectedByList
+        self.isProfile = isProfile
+    }
 
     func makeUIView(context: Context) -> some UIView {
         let myResourceOptions = ResourceOptions(accessToken: (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!)
-        let userLocation = LocationManager.shared.location
-        let latitude: Double = userLocation?.latitude ?? 40.70290414346796
-        let longitude: Double = userLocation?.longitude ?? -73.95591309248328
+        let latitude: Double = locationManager.location?.latitude ?? 40.70290414346796
+        let longitude: Double = locationManager.location?.longitude ?? -73.95591309248328
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 14.4, bearing: -25, pitch: 0)
         
@@ -55,7 +65,9 @@ struct MBMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let mapView = uiView as? MapView {
-            if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
+            if isProfile {
+                refreshMirasOnMap(mapView: mapView, context: context)
+            } else  if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
                 refreshMirasOnMap(mapView: mapView, context: context)
             }
         }
@@ -70,12 +82,25 @@ struct MBMapView: UIViewRepresentable {
     
     private func refreshMirasOnMap(mapView: MapView, context: Context) {
         guard let miras = viewModel.miras else { return } // server data
-//        let miras = Mira.dummyMiras() //commented for dummy miras
-        
-        mapView.viewAnnotations.removeAll()
-        let userLocation = LocationManager.shared.location
-        var i = 0
-        for mira in miras {
+        updateAnnotationsForMiras(mapView: mapView, miras: miras, userLocation: locationManager.location, context: context)
+    }
+    
+    private func updateAnnotationsForMiras(mapView: MapView, miras: [Mira], userLocation: CLLocationCoordinate2D?, context: Context) {
+        var filteredMiras = miras
+
+        debugPrint("\(stateManager.selectedUserOnMap.debugDescription) isProfile: \(isProfile)")
+        if isProfile, let user = stateManager.selectedUserOnMap {
+            let createdMiraIds = user.createdMiraIds
+            let collectedMiraIds = user.collectedMiraIds
+            let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
+            filteredMiras = miras.filter { userMiraIds.contains($0.id) }
+            if filteredMiras.count > 0 {
+                debugPrint("here")
+
+            }
+        }
+
+        for (i, mira) in filteredMiras.enumerated() {
             let options = ViewAnnotationOptions(
                 geometry: Point(mira.location),
                 width: 40,
@@ -84,7 +109,6 @@ struct MBMapView: UIViewRepresentable {
                 anchor: .center
             )
             try? mapView.viewAnnotations.add(annotationView(mira: mira, sourceLocation: userLocation, tag: i, context: context), options: options)
-            i += 1
         }
     }
 
@@ -94,10 +118,13 @@ struct MBMapView: UIViewRepresentable {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         imageView.layer.cornerRadius = imageView.bounds.width / 2
         imageView.layer.masksToBounds = true
-        if mira.isFriend {
-            imageView.layer.borderWidth = 1
-            imageView.layer.borderColor = Colors.green.color.cgColor
-        }
+        
+        // removing friend details
+//        if mira.isFriend {
+//            imageView.layer.borderWidth = 1
+//            imageView.layer.borderColor = Colors.green.color.cgColor
+//        }
+        
         imageView.setImage(from: mira.imageUrl)
         view.addSubview(imageView)
         
@@ -140,7 +167,9 @@ struct MBMapView: UIViewRepresentable {
         stack.frame = CGRect(x: 5, y: 20, width: 80, height: 20)
         descriptionView.addSubview(stack)
         
-        view.addSubview(descriptionView)
+        if !isProfile {
+            view.addSubview(descriptionView)
+        }
         view.addGestureRecognizer(context.coordinator.tapGesture())
         view.tag = tag
         return view
