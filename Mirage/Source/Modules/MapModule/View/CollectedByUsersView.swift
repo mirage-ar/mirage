@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MapKit
 
 struct CollectedByUsersView: View {
     @EnvironmentObject var stateManager: StateManager
@@ -71,21 +70,7 @@ struct CollectedByUsersView: View {
 
                 } footer: {
                     LargeButton(title: "Navigate") {
-                        if let mira = selectedMira, let userLoc = LocationManager.shared.location {
-                            
-                            let source = MKMapItem(placemark: MKPlacemark(coordinate: userLoc))
-                            source.name = "Your Location"
-                                    
-                            let destination = MKMapItem(placemark: MKPlacemark(coordinate: mira.location))
-                            destination.name = "Mira"
-                                    
-                            MKMapItem.openMaps(
-                              with: [source, destination],
-                              launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-                            )
-                        }
-
-                        debugPrint("google map")
+                        print("google map")
                     }
                 }
             }

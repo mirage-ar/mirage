@@ -68,9 +68,7 @@ struct MBMapView: UIViewRepresentable {
             if isProfile {
                 refreshMirasOnMap(mapView: mapView, context: context)
             } else  if $viewModel.hasLoadedMiras.wrappedValue, viewState != .updated {
-                DispatchQueue.main.async {
-                    refreshMirasOnMap(mapView: mapView, context: context)
-                }
+                refreshMirasOnMap(mapView: mapView, context: context)
             }
         }
     }

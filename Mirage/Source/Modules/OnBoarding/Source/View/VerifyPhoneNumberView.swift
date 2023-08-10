@@ -7,7 +7,6 @@
 
 import SwiftUI
 import iPhoneNumberField
-import AlertToast
 
 struct VerifyPhoneNumberView: View {
     @ObservedObject private var viewModel = AuthenticationViewModel()
@@ -31,7 +30,6 @@ struct VerifyPhoneNumberView: View {
                         .padding()
                     
                     HStack (alignment: .center, spacing: 20) {
-                        Spacer()
                         ForEach((0...3), id: \.self) { id in
                             iPhoneNumberField("", text: $code[id])
                                 .multilineTextAlignment(.leading)
@@ -51,10 +49,7 @@ struct VerifyPhoneNumberView: View {
                                 .border(Colors.white.just)
                                 .frame(width: 50, height: 50)
                                 .focused($focusField, equals: id)
-                                .autocorrectionDisabled()
                         }
-                        Spacer()
-
                     }
                     
                     Spacer()
@@ -90,9 +85,6 @@ struct VerifyPhoneNumberView: View {
         }
         .onTapGesture {
             hideKeyboard()
-        }
-        .toast(isPresenting: $viewModel.showError) {
-            AlertToast(type: .error(.red), title: viewModel.errorMsg)
         }
     }
     private func focusNextField(from index: Int) {

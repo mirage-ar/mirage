@@ -30,28 +30,22 @@ struct EditProfileView: View {
                         print("Edit Image")
                     } label: {
                         Group {
-                            ZStack {
-                                if let image = media?.image {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
+                            if let image = media?.image {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
 
-                                } else {
-                                    AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        ProgressView()
-                                            .foregroundColor(.white)
-                                    }
-                                }
-                                if stateManager.isLoadingUserProfile {
+                            } else {
+                                AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                } placeholder: {
                                     ProgressView()
-                                        .foregroundColor(.white)
+                                        .foregroundColor(Colors.white8p.swiftUIColor)
                                 }
                             }
-                                                }
+                        }
                         .frame(width: 150, height: 150)
                         .cornerRadius(75)
                         .scaledToFill()
@@ -67,20 +61,21 @@ struct EditProfileView: View {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
-                            Text("Username")
-                                .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                            Text("UserName")
                                 .font(.body1)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                             Spacer()
                         }
                         HStack {
                             Text(stateManager.loggedInUser?.userName ?? "")
                                 .font(.body1)
+                                .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.white.swiftUIColor)
                             Spacer()
                         }
                         .padding(.leading, 5)
                     }
-                    .padding(.leading, 5)
                     .frame(width: UIScreen.main.bounds.width)
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -110,22 +105,19 @@ struct EditProfileView: View {
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Bio")
+                            .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                            .font(.body1)
-                        Text(stateManager.loggedInUser?.profileDescription ?? "")
-                            .font(.body1)
-                            .lineLimit(3, reservesSpace: true)
-                            .foregroundColor(Colors.white.swiftUIColor)
-                            .padding(.leading, 5)
-
+                            Text(stateManager.loggedInUser?.profileDescription ?? "")
+                                .font(.body1)
+                                .lineLimit(3, reservesSpace: true)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.white.swiftUIColor)
 //                        TextEditor(text: $bioText)
 //                            .foregroundColor(Colors.white.swiftUIColor)
 //                            .background(.clear)
 //                            .scrollContentBackground(.hidden)
 //                            .frame(maxHeight: 100)
                     }
-                    .padding(.leading, 5)
-                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         gotoEditBio = true
@@ -143,15 +135,15 @@ struct EditProfileView: View {
                             .font(.body1)
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
-                    //TODO: uncomment after testflight version
-//                    Divider()
-//                        .overlay(Colors.g4LightGrey.swiftUIColor)
-//
-//                    Button {} label: {
-//                        Text("DELETE ACCOUNT")
-//                            .font(.body1)
-//                            .foregroundColor(Colors.red.swiftUIColor)
-//                    }
+                    
+                    Divider()
+                        .overlay(Colors.g4LightGrey.swiftUIColor)
+
+                    Button {} label: {
+                        Text("DELETE ACCOUNT")
+                            .font(.body1)
+                            .foregroundColor(Colors.red.swiftUIColor)
+                    }
                 }
             }
         }
