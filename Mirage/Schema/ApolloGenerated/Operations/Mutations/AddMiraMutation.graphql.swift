@@ -41,6 +41,7 @@ public extension MirageAPI {
               __typename
               latitude
               longitude
+              elevation
             }
           }
         }
@@ -177,10 +178,12 @@ public extension MirageAPI {
           public static var __selections: [ApolloAPI.Selection] { [
             .field("latitude", Double.self),
             .field("longitude", Double.self),
+            .field("elevation", Double?.self),
           ] }
 
           public var latitude: Double { __data["latitude"] }
           public var longitude: Double { __data["longitude"] }
+          public var elevation: Double? { __data["elevation"] }
         }
       }
     }

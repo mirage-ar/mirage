@@ -32,7 +32,7 @@ extension ApolloRepository: ARApolloRepository {
     }
 
     func addMira(_ mira: Mira) -> AnyPublisher<[Mira]?, Error> {
-        let location = MirageAPI.LocationInput(latitude: mira.location.latitude, longitude: mira.location.longitude)
+        let location = MirageAPI.LocationInput(latitude: mira.location.latitude, longitude: mira.location.longitude, elevation: mira.elevation ?? nil)
         let arMedia = mira.arMedia.map { media in
             let position = MirageAPI.PositionInput(transform: convertTo2DArray(media.transform))
             return MirageAPI.ArMediaInput(contentType: GraphQLEnum(media.contentType.rawValue), assetUrl: media.assetUrl, shape: GraphQLEnum(media.shape.rawValue), position: position)
@@ -62,25 +62,3 @@ func convertTo2DArray(_ matrix: simd_float4x4) -> [[Double]] {
 
     return result
 }
-
-// {
-//  "addMiraInput": {
-//    "location": {
-//      "latitude": 42.35650039877033,
-//      "longitude": -71.13754999374828
-//    },
-//    "arMedia": {
-//      "assetUrl": "https://mirage-pfp.s3.amazonaws.com/profileImage2.jpg",
-//      "contentType": "PHOTO",
-//      "position": {
-//        "transform": [
-//          [0, 0, 0, 0],
-//          [0, 0, 0, 0],
-//          [0, 0, 0, 0],
-//          [0 ,0 ,0, 0]
-//        ]
-//      },
-//      "shape": "PLANE"
-//    }
-//  }
-// }

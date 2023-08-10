@@ -43,6 +43,7 @@ public extension MirageAPI {
               id
               latitude
               longitude
+              elevation
             }
             viewed
             isFriend
@@ -198,11 +199,13 @@ public extension MirageAPI {
             .field("id", MirageAPI.ID.self),
             .field("latitude", Double.self),
             .field("longitude", Double.self),
+            .field("elevation", Double?.self),
           ] }
 
           public var id: MirageAPI.ID { __data["id"] }
           public var latitude: Double { __data["latitude"] }
           public var longitude: Double { __data["longitude"] }
+          public var elevation: Double? { __data["elevation"] }
         }
 
         /// GetMira.Collector

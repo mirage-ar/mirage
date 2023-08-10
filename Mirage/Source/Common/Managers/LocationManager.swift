@@ -14,6 +14,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
 
     @Published var location: CLLocationCoordinate2D?
+    @Published var elevation: Double?
 
     override init() {
         super.init()
@@ -28,6 +29,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
+        elevation = locations.first?.altitude
         locationManager.stopUpdatingLocation()
     }
     

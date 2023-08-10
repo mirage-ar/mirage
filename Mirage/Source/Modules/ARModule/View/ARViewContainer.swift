@@ -54,6 +54,7 @@ struct ARViewContainer: View {
                                 // Handle Mira if necessary
                                 if viewModel.arViewLocalized {
                                     if viewModel.currentMira == nil {
+                                        // TODO: clean this up
                                         viewModel.initializeMira()
                                         viewModel.addMediaEntityToMira(mediaEntity)
                                     } else {

@@ -58,7 +58,7 @@ final class ARViewModel: ObservableObject {
     @Published var currentMira: Mira?
     @Published var createdMira: Mira?
     
-    @Published var currentARMedia: [ARMedia] = []
+    private var currentARMedia: [ARMedia] = []
     
     @Published var viewingMiras: [Mira]?
     
@@ -69,16 +69,21 @@ final class ARViewModel: ObservableObject {
             return
         }
         
-        // TODO: update to current creator and UserProfileStorage.getUser()
-        // Temporary user initialization
+        guard let elevation = LocationManager.shared.elevation else {
+            print("ERROR: could not get elevation")
+            return
+        }
+        
         guard let userId = UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") else {
             print("ERROR: Initialize Mira failed - no user id available.")
             return
         }
-        let creator = User(id: userId, profileImage: "", phone: "", userName: "test", profileDescription: "")
+        
+        // TODO: use stored User
+        let creator = User(id: userId, profileImage: "", phone: "", userName: "", profileDescription: "")
         
         // Create new Mira with an empty array of ARMedia
-        let mira = Mira(id: UUID(), creator: creator, location: location, arMedia: [], collectors: nil)
+        let mira = Mira(id: UUID(), creator: creator, location: location, elevation: elevation, arMedia: [], collectors: nil)
         currentMira = mira
     }
     
@@ -349,31 +354,22 @@ final class ARViewModel: ObservableObject {
             return
         }
         
-        var arMedia: [ARMedia] = []
+        var arMediaArray: [ARMedia] = []
         
-        // TODO: ! update all transforms here
+        // TODO: clean up scene data, and currentArMedia
         for entity in sceneData.mediaEntities {
-            if entity.contentType == .photo {
-                guard let image = entity.image else {
-                    print("ERROR: no image found")
-                    return
-                }
+            let media = currentARMedia.first(where: { $0.id == entity.id })
+            
+            // create new ARMedia entity based on sceneData info
+            if let media = media {
+                let arMedia = ARMedia(id: entity.id, contentType: entity.contentType, assetUrl: media.assetUrl, shape: entity.shape, modifier: entity.modifier, transform: entity.entity.transform.matrix)
                 
-                DownloadManager.shared.upload(image: image) { url in
-                    guard let url = url else {
-                        print("ERROR: Failed to upload image.")
-                        return
-                    }
-                    
-                    let media = ARMedia(id: entity.id, contentType: entity.contentType, assetUrl: url, shape: entity.shape, modifier: entity.modifier, transform: entity.entity.transform.matrix)
-                    
-                    arMedia.append(media)
-                }
+                arMediaArray.append(arMedia)
             }
         }
         
-        mira.arMedia = arMedia
-        
+        mira.arMedia = arMediaArray
+
         arApolloRepository.addMira(mira)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel(receiveOutput: { mira in
@@ -399,17 +395,16 @@ final class ARViewModel: ObservableObject {
 
     func initializeAllViewingMiras(_ miras: [Mira]) {
         for item in miras {
-            if !arView.scene.anchors.contains(where: { $0.name == item.id.uuidString }) {
+//            if !arView.scene.anchors.contains(where: { $0.name == item.id.uuidString }) {
+                let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
+                let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location, altitude: item.elevation ?? nil)
+                
+                arView.session.add(anchor: geoAnchor)
+                
+                let cameraTransform = arView.cameraTransform
+                
                 for arMedia in item.arMedia {
                     print("UPDATE: Placing model into scene")
-                    let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
-                    let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location)
-                    
-                    arView.session.add(anchor: geoAnchor)
-                    
-                    let cameraPosition = arView.cameraTransform.translation
-                    let cameraOrientation = arView.cameraTransform.rotation
-                    let forwardVector = simd_float3(0, 0, -0.4)
                     
                     DownloadManager.shared.download(url: arMedia.assetUrl) { progress in
                         print("Progress 4 \(progress)")
@@ -426,7 +421,11 @@ final class ARViewModel: ObservableObject {
                                         return
                                     }
                                     DispatchQueue.main.async {
+                                        // update the transform based on our camera:
+                                        
                                         if let anchorEntity = self.createGeoImageEntity(id: UUID(), image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                            debugPrint("adding anchor entity")
+                                            
                                             self.arView.scene.anchors.append(anchorEntity)
                                         } else {
                                             print("ERROR: could not create geo entity")
@@ -450,7 +449,7 @@ final class ARViewModel: ObservableObject {
                         }
                     }
                 }
-            }
+//            }
         }
     }
     

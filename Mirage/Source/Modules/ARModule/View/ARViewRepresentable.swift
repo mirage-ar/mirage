@@ -28,7 +28,6 @@ struct ARViewRepresentable: UIViewRepresentable {
     func updateUIView(_ arView: ARViewController, context: Context) {
         // if view mode has changed update configuration
         if viewModel.arViewLocalized {
-            
 //            if arView.session.currentFrame?.anchors.count == 0 {
 //                // add mira to arView
 //                viewModel.addMiraToScene()
@@ -153,11 +152,8 @@ struct ARViewRepresentable: UIViewRepresentable {
             if geoTrackingStatus.state == .localized {
                 print("UPDATE: ARGeo Session Localized")
                 parent.viewModel.arViewLocalized = true
+                parent.viewModel.addMiraToScene()
                 
-                if !addedMiras {
-                    addedMiras = true
-                    parent.viewModel.addMiraToScene()
-                }
             } else {
                 parent.viewModel.arViewLocalized = false
             }
