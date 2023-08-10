@@ -14,6 +14,7 @@ public struct Mira {
     let id: UUID
     let creator: User
     let location: CLLocationCoordinate2D
+    let elevation: Double?
     let collectors: [User]?
 
     // aditional social properties
@@ -27,10 +28,11 @@ public struct Mira {
     
     var arMedia: [ARMedia]
 
-    init(id: UUID, creator: User, location: CLLocationCoordinate2D, arMedia: [ARMedia], collectors: [User]?) {
+    init(id: UUID, creator: User, location: CLLocationCoordinate2D, elevation: Double, arMedia: [ARMedia], collectors: [User]?) {
         self.id = id
         self.creator = creator
         self.location = location
+        self.elevation = elevation
         self.arMedia = arMedia
         self.collectors = collectors
         isViewed = false
@@ -38,10 +40,11 @@ public struct Mira {
         hasCollected = false
     }
 
-    init(id: UUID, creator: User, location: CLLocationCoordinate2D, arMedia: [ARMedia], collectors: [User]?, isViewed: Bool, isFriend: Bool, hasCollected: Bool) {
+    init(id: UUID, creator: User, location: CLLocationCoordinate2D, elevation: Double, arMedia: [ARMedia], collectors: [User]?, isViewed: Bool, isFriend: Bool, hasCollected: Bool) {
         self.id = id
         self.creator = creator
         self.location = location
+        self.elevation = elevation
         self.arMedia = arMedia
         self.collectors = collectors
         self.isViewed = isViewed
@@ -56,8 +59,10 @@ extension Mira {
 
         if let loc = mira?.location {
             location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            elevation = loc.elevation ?? nil
         } else {
             location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            elevation = nil
         }
 
         var collected = false
@@ -103,8 +108,10 @@ extension Mira {
 
         if let loc = mira?.location {
             location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            elevation = loc.elevation ?? nil
         } else {
             location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            elevation = nil
         }
 
 
@@ -157,7 +164,7 @@ func convertToSIMD4x4(_ matrix: [[Double]]) -> simd_float4x4? {
 extension Mira {
     static var dummy: Mira {
         let creator = User(id: UUID(), profileImage: "Dummy", phone: "1231234", userName: "Dummy", profileDescription: "Dummy")
-        let mira = Mira(id: UUID(), creator: creator, location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.932842), arMedia: [], collectors: nil)
+        let mira = Mira(id: UUID(), creator: creator, location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.932842), elevation: 0.0, arMedia: [], collectors: nil)
         return mira
     }
 
@@ -205,7 +212,7 @@ extension Mira {
         var miras = [Mira]()
         for i in 0 ..< colorImages.count {
             let creator = User(id: UUID(), profileImage: "\(i)", phone: "1231234", userName: colorImages[i], profileDescription: "")
-            let mira = Mira(id: UUID(), creator: creator, location: coordinates[i], arMedia: [], collectors: nil, isViewed: i%2 == 0, isFriend: i%3 == 0, hasCollected: i%4 == 0)
+            let mira = Mira(id: UUID(), creator: creator, location: coordinates[i], elevation: 0.0, arMedia: [], collectors: nil, isViewed: i%2 == 0, isFriend: i%3 == 0, hasCollected: i%4 == 0)
             miras.append(mira)
         }
 

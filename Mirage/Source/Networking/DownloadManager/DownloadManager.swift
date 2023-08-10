@@ -66,7 +66,7 @@ public class DownloadManager {
 
     }
     func upload(image: UIImage, completion: ((String?) -> ())?) {
-        let data = image.jpegData(compressionQuality: 0.5)
+        let data = image.jpegData(compressionQuality: 0.8)
         let fileName = UUID().uuidString + ".jpg"
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileUrl = documentsURL.appendingPathComponent(fileName)
