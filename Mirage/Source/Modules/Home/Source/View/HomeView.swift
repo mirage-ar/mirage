@@ -16,6 +16,7 @@ struct HomeView: View {
     @State var selectedMiraOnMap: Mira?
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
+    @State var showLocationAlert = false
     
     let miras = Mira.dummyMiras()
     let buttonSize = 48.0
@@ -35,7 +36,7 @@ struct HomeView: View {
                                         stateManager.selectedUserOnMap = stateManager.loggedInUser
                                         showProfileView = true
                                     } label: {
-                                        AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
+                                        AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
                                             image
                                                 .resizable()
                                                 .scaledToFill()
@@ -95,5 +96,11 @@ struct HomeView: View {
             }
         }
         .accentColor(Colors.white.swiftUIColor)
+        .alert(isPresented: $showLocationAlert) {
+            LocationManager.shared.alert()
+        }
+        .onAppear {
+            showLocationAlert = LocationManager.shared.shouldDisplayAccessAlert()
+        }
     }
 }
