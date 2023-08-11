@@ -453,6 +453,16 @@ final class ARViewModel: ObservableObject {
         }
     }
     
+    func collectMira(id: UUID) {
+        arApolloRepository.collectMira(id: id)
+            .receive(on: DispatchQueue.main)
+            .receiveAndCancel(receiveOutput: { collected in
+                print(collected)
+            }, receiveError: { error in
+                print("Error: \(error)")
+            })
+    }
+    
     func createGeoImageEntity(id: UUID, image: UIImage, geoAnchor: ARGeoAnchor, transform: simd_float4x4) -> AnchorEntity? {
         do {
             let imageOrientation = image.imageOrientation

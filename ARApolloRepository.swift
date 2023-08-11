@@ -15,6 +15,7 @@ protocol ARApolloRepository {
     // TODO: should be moved up one level for broader use @saad
     func getARMiras(location: CLLocationCoordinate2D, zoomLevel: Int) -> AnyPublisher<[Mira]?, Error>
     func addMira(_ mira: Mira) -> AnyPublisher<[Mira]?, Error>
+    func collectMira(id: UUID) -> AnyPublisher<Bool?, Error>
 }
 
 extension ApolloRepository: ARApolloRepository {
@@ -44,6 +45,21 @@ extension ApolloRepository: ARApolloRepository {
                 // assuming that 'addMira' is a property that returns an array of Mira
                 // and 'Mira' is a type that has an initializer accepting a 'Mira'
                 data.addMira.map { [Mira(mira: $0)] }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func collectMira(id: UUID) -> AnyPublisher<Bool?, Error> {
+        let input = MirageAPI.CollectMiraInput(miraId: id.uuidString)
+        let mutation = MirageAPI.CollectMiraMutation(collectMiraInput: input)
+        
+        // convert to result boolean
+        // TODO: update collected value
+        return perform(mutation: mutation)
+            .map { data in
+                print(data)
+                // if successful mutation
+                return true
             }
             .eraseToAnyPublisher()
     }

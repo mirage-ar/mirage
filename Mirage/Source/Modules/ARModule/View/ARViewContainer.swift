@@ -25,6 +25,7 @@ struct ARViewContainer: View {
                     .onTapGesture { gesture in
                         if let entity = viewModel.arView.entity(at: gesture) {
                             // user tapped on an entity
+                            print("HERE HERE HERE")
                             viewModel.sceneData.updateSelectedEntity(entity)
                         } else if viewModel.sceneData.selectedEntity != nil {
                             // return user to create screen
