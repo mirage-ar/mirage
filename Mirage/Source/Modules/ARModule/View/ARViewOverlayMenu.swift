@@ -9,11 +9,13 @@ import SwiftUI
 
 // TODO: refactor to be in colummns like in bottom bar
 struct ARViewOverlayMenu: View {
+    @EnvironmentObject var stateManager: StateManager
     @StateObject var viewModel: ARViewModel
     @State var showImage: Bool = false
     
     let generator = UIImpactFeedbackGenerator(style: .medium)
 
+    // TODO: this needs a refactor
     var body: some View {
         // mira posted notification
         VStack {
@@ -147,9 +149,12 @@ struct ARViewOverlayMenu: View {
                         .padding(16)
                     }
                 }
-            } else if viewModel.selectedMira != nil {
-                ARViewSocialMenu()
+                //            } else if viewModel.selectedMira != nil {
+                //                ARViewSocialMenu(viewModel: viewModel, userId: stateManager.loggedInUser?.id)
+                //            }
             }
+                            
+            ARViewSocialMenu(viewModel: viewModel, userId: stateManager.loggedInUser?.id)
         }
         .padding([.leading, .trailing, .bottom])
     }

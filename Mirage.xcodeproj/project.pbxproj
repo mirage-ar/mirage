@@ -37,6 +37,8 @@
 		394EC76B2A5E50DF0002AAE1 /* AddMiraInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC7672A5E50DF0002AAE1 /* AddMiraInput.graphql.swift */; };
 		394EC76D2A5E532F0002AAE1 /* AddMiraMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC76C2A5E532F0002AAE1 /* AddMiraMutation.graphql.swift */; };
 		394EC76F2A5F653A0002AAE1 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC76E2A5F653A0002AAE1 /* StateManager.swift */; };
+		3955F0E32A869758003555FA /* CollectMiraMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3955F0E22A869758003555FA /* CollectMiraMutation.graphql.swift */; };
+		3955F0E52A86977B003555FA /* CollectMiraInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3955F0E42A86977B003555FA /* CollectMiraInput.graphql.swift */; };
 		3988CD392A44E9D5007BCD37 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 3988CD382A44E9D5007BCD37 /* schema.graphqls */; };
 		39BD18EF2A2D081000A9F95C /* GestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18EE2A2D081000A9F95C /* GestureHandler.swift */; };
 		39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F02A2D081D00A9F95C /* MediaPicker.swift */; };
@@ -204,6 +206,9 @@
 		394EC7672A5E50DF0002AAE1 /* AddMiraInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMiraInput.graphql.swift; sourceTree = "<group>"; };
 		394EC76C2A5E532F0002AAE1 /* AddMiraMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMiraMutation.graphql.swift; sourceTree = "<group>"; };
 		394EC76E2A5F653A0002AAE1 /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
+		3955F0E12A869656003555FA /* CollectMira.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CollectMira.graphql; sourceTree = "<group>"; };
+		3955F0E22A869758003555FA /* CollectMiraMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectMiraMutation.graphql.swift; sourceTree = "<group>"; };
+		3955F0E42A86977B003555FA /* CollectMiraInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectMiraInput.graphql.swift; sourceTree = "<group>"; };
 		3988CD382A44E9D5007BCD37 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		39BD18EE2A2D081000A9F95C /* GestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureHandler.swift; sourceTree = "<group>"; };
 		39BD18F02A2D081D00A9F95C /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
@@ -350,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				93AD50BC29C2087A002DA594 /* VerifyUser.graphql */,
+				3955F0E12A869656003555FA /* CollectMira.graphql */,
 				3942F75B2A5C871F007DB731 /* AuthorizeUser.graphql */,
 				3942F75C2A5C871F007DB731 /* UpdateUser.graphql */,
 				394EC7622A5E4FD30002AAE1 /* AddMira.graphql */,
@@ -737,6 +743,7 @@
 		931FF5C729B80037002C62AB /* Mutations */ = {
 			isa = PBXGroup;
 			children = (
+				3955F0E22A869758003555FA /* CollectMiraMutation.graphql.swift */,
 				931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */,
 				394EC76C2A5E532F0002AAE1 /* AddMiraMutation.graphql.swift */,
 				936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */,
@@ -794,6 +801,7 @@
 		931FF5D129B80037002C62AB /* InputObjects */ = {
 			isa = PBXGroup;
 			children = (
+				3955F0E42A86977B003555FA /* CollectMiraInput.graphql.swift */,
 				931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */,
 				394EC7672A5E50DF0002AAE1 /* AddMiraInput.graphql.swift */,
 				394EC7652A5E50DF0002AAE1 /* ArMediaInput.graphql.swift */,
@@ -1334,6 +1342,7 @@
 				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
 				93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */,
 				9310E5E829D10955000E6019 /* HomeView.swift in Sources */,
+				3955F0E32A869758003555FA /* CollectMiraMutation.graphql.swift in Sources */,
 				9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */,
 				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
 				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,
@@ -1348,6 +1357,7 @@
 				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,
 				93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */,
 				9392634229F01FF5005B1F3E /* Location.graphql.swift in Sources */,
+				3955F0E52A86977B003555FA /* CollectMiraInput.graphql.swift in Sources */,
 				3942F74B2A5C5548007DB731 /* ModifierType.graphql.swift in Sources */,
 				931FF5DB29B80037002C62AB /* Mutation.graphql.swift in Sources */,
 				394B4959296CCAD300E2F8E4 /* MirageApp.swift in Sources */,
