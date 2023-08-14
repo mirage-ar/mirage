@@ -25,8 +25,13 @@ struct ARViewContainer: View {
                     .onTapGesture { gesture in
                         if let entity = viewModel.arView.entity(at: gesture) {
                             // user tapped on an entity
-                            print("HERE HERE HERE")
-                            viewModel.sceneData.updateSelectedEntity(entity)
+                            if viewModel.arViewMode == .EXPLORE {
+                                // find mira by entity
+                                viewModel.selectedMira = viewModel.findMiraByEntity(name: entity.name)
+                                
+                            } else {
+                                viewModel.sceneData.updateSelectedEntity(entity)
+                            }
                         } else if viewModel.sceneData.selectedEntity != nil {
                             // return user to create screen
                             if viewModel.miraCreateMenuType == .DEFAULT {

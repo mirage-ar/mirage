@@ -135,6 +135,14 @@ final class ARViewModel: ObservableObject {
         }
     }
     
+    func findMiraByEntity(name: String) -> Mira? {
+        return viewingMiras?.first(where: { $0.arMedia.contains(where: { $0.id.uuidString == name }) })
+    }
+    
+    func updateSelectedMira(_ mira: Mira) {
+        self.selectedMira = mira
+    }
+    
     // Create ARMedia Entities
     func createImageEntity(_ image: UIImage, cameraPosition: XYZ, cameraOrientation: simd_quatf, forwardVector: simd_float3) -> (AnchorEntity?, MediaEntity)? {
         do {
@@ -360,6 +368,9 @@ final class ARViewModel: ObservableObject {
         for entity in sceneData.mediaEntities {
             let media = currentARMedia.first(where: { $0.id == entity.id })
             
+            print("LOCKING TRANSFORM")
+            print(entity.entity.transform.matrix)
+            
             // create new ARMedia entity based on sceneData info
             if let media = media {
                 let arMedia = ARMedia(id: entity.id, contentType: entity.contentType, assetUrl: media.assetUrl, shape: entity.shape, modifier: entity.modifier, transform: entity.entity.transform.matrix)
@@ -423,7 +434,7 @@ final class ARViewModel: ObservableObject {
                                     DispatchQueue.main.async {
                                         // update the transform based on our camera:
                                         
-                                        if let anchorEntity = self.createGeoImageEntity(id: UUID(), image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                        if let anchorEntity = self.createGeoImageEntity(id: arMedia.id, image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
                                             debugPrint("adding anchor entity")
                                             
                                             self.arView.scene.anchors.append(anchorEntity)
@@ -441,7 +452,7 @@ final class ARViewModel: ObservableObject {
                                 print("ERROR: could not create video")
                                 return
                             }
-                            if let anchorEntity = self.createGeoVideoEntity(id: UUID(), video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                            if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
                                 self.arView.scene.anchors.append(anchorEntity)
                             } else {
                                 print("ERROR: could not create geo entity")
@@ -453,11 +464,11 @@ final class ARViewModel: ObservableObject {
         }
     }
     
+    // TODO: not functioning properly
     func collectMira(id: UUID) {
         arApolloRepository.collectMira(id: id)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel(receiveOutput: { collected in
-                print(collected)
             }, receiveError: { error in
                 print("Error: \(error)")
             })
@@ -492,6 +503,7 @@ final class ARViewModel: ObservableObject {
             entity.generateCollisionShapes(recursive: true)
 
             entity.transform.matrix = transform
+            entity.name = id.uuidString
 
             let anchorEntity = AnchorEntity(anchor: geoAnchor)
             anchorEntity.name = id.uuidString
@@ -545,6 +557,7 @@ final class ARViewModel: ObservableObject {
         sceneData.updateSelectedEntity(mediaEntity)
         
         entity.transform.matrix = transform
+        entity.name = id.uuidString
 
         let anchorEntity = AnchorEntity(anchor: geoAnchor)
         anchorEntity.name = id.uuidString

@@ -85,6 +85,9 @@ struct HomeView: View {
             }
             .onChange(of: stateManager.selectedUserOnMap) { [selectedUserOnMap = self.stateManager.selectedUserOnMap] selectedUser in
                 showCollectedByList = false
+                
+                // TODO: need to be able to show profile view over ARView
+                showArView = false
                 debugPrint(selectedUserOnMap.debugDescription)
                 // fix for swiftUI animation collision
                 if let _ = selectedUser {

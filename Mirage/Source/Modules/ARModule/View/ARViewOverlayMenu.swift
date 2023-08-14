@@ -149,12 +149,9 @@ struct ARViewOverlayMenu: View {
                         .padding(16)
                     }
                 }
-                //            } else if viewModel.selectedMira != nil {
-                //                ARViewSocialMenu(viewModel: viewModel, userId: stateManager.loggedInUser?.id)
-                //            }
+            } else if viewModel.selectedMira != nil {
+                ARViewSocialMenu(viewModel: viewModel, selectedUserOnMap: $stateManager.selectedUserOnMap, userId: stateManager.loggedInUser?.id)
             }
-                            
-            ARViewSocialMenu(viewModel: viewModel, userId: stateManager.loggedInUser?.id)
         }
         .padding([.leading, .trailing, .bottom])
     }

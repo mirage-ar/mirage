@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ARViewSocialMenu: View {
+//    @EnvironmentObject var stateManager: StateManager
     @StateObject var viewModel: ARViewModel
+    @Binding var selectedUserOnMap: User?
+    
     @State var collected: Bool = false
 
     let buttonSize = 32.0
@@ -22,6 +25,7 @@ struct ARViewSocialMenu: View {
                 VStack {
                     Button {
                         print("View Profile")
+                        selectedUserOnMap = viewModel.selectedMira?.creator
                     } label: {
                         AsyncImage(url: URL(string: viewModel.selectedMira?.creator.profileImage ?? "")) { image in
                             image
@@ -43,6 +47,12 @@ struct ARViewSocialMenu: View {
                             .resizable()
                             .frame(width: buttonSize, height: buttonSize)
                             .foregroundColor(collected ? Colors.green.swiftUIColor : Colors.white.swiftUIColor)
+                    }
+                    
+                    Button {
+                        debugPrint("UPDATE: Social Menu - more")
+                    } label: {
+                        Images.more32.swiftUIImage
                     }
                 }
             }
