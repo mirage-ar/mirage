@@ -57,7 +57,6 @@ extension ApolloRepository: ARApolloRepository {
         // TODO: update collected value
         return perform(mutation: mutation)
             .map { data in
-                print(data)
                 // if successful mutation
                 return true
             }

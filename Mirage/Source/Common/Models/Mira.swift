@@ -86,6 +86,8 @@ extension Mira {
             let arMedia = mediaArry.map { arMedia in
                 let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
                 let transform: simd_float4x4 = convertToSIMD4x4(arMedia.position.transform) ?? simd_float4x4()
+                print("TRANSFORM")
+                print(transform)
                 // TODO: ! update to returned id
                 return ARMedia(id: UUID(), contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
             }
@@ -151,10 +153,10 @@ func convertToSIMD4x4(_ matrix: [[Double]]) -> simd_float4x4? {
         }
     }
 
-    let col0 = SIMD4<Float>(Float(matrix[0][0]), Float(matrix[1][0]), Float(matrix[2][0]), Float(matrix[3][0]))
-    let col1 = SIMD4<Float>(Float(matrix[0][1]), Float(matrix[1][1]), Float(matrix[2][1]), Float(matrix[3][1]))
-    let col2 = SIMD4<Float>(Float(matrix[0][2]), Float(matrix[1][2]), Float(matrix[2][2]), Float(matrix[3][2]))
-    let col3 = SIMD4<Float>(Float(matrix[0][3]), Float(matrix[1][3]), Float(matrix[2][3]), Float(matrix[3][3]))
+    let col0 = SIMD4<Float>(Float(matrix[0][0]), Float(matrix[0][1]), Float(matrix[0][2]), Float(matrix[0][3]))
+    let col1 = SIMD4<Float>(Float(matrix[1][0]), Float(matrix[1][1]), Float(matrix[1][2]), Float(matrix[1][3]))
+    let col2 = SIMD4<Float>(Float(matrix[2][0]), Float(matrix[2][1]), Float(matrix[2][2]), Float(matrix[2][3]))
+    let col3 = SIMD4<Float>(Float(matrix[3][0]), Float(matrix[3][1]), Float(matrix[3][2]), Float(matrix[3][3]))
 
     return simd_float4x4(columns: (col0, col1, col2, col3))
 }
