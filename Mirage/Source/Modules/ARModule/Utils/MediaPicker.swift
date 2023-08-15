@@ -47,7 +47,9 @@ struct MediaPicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let uiImage = info[.originalImage] as? UIImage {
-                parent.media = Media(type: .image(uiImage), image: uiImage, videoURL: nil)
+                if let resizedImage = resizeImage(image: uiImage, toWidth: 300) {
+                    parent.media = Media(type: .image(resizedImage), image: resizedImage, videoURL: nil)
+                }
             } else if let videoURL = info[.mediaURL] as? URL {
                 parent.media = Media(type: .video(videoURL), image: nil, videoURL: videoURL)
             }
@@ -57,4 +59,17 @@ struct MediaPicker: UIViewControllerRepresentable {
     }
 }
 
+func resizeImage(image: UIImage, toWidth width: CGFloat) -> UIImage? {
+    let imageSize = image.size
+    let widthRatio = width / imageSize.width
 
+    let newSize = CGSize(width: imageSize.width * widthRatio, height: imageSize.height * widthRatio)
+    let newRect = CGRect(origin: .zero, size: newSize)
+
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+    image.draw(in: newRect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+
+    return newImage
+}

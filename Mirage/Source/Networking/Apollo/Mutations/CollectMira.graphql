@@ -1,0 +1,6 @@
+mutation CollectMira($collectMiraInput: CollectMiraInput!) {
+  collectMira(input: $collectMiraInput) {
+    id
+  }
+}
+
