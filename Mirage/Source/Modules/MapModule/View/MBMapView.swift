@@ -138,12 +138,12 @@ struct MBMapView: UIViewRepresentable {
         
         let nameLabel = UILabel(frame: CGRect(x: 5, y: 0, width: 80, height: 20))
         nameLabel.text = mira.creator.userName
-        nameLabel.setFont(.body3, textColor: Colors.white)
+        nameLabel.setFont(.subtitle2, textColor: Colors.white)
         descriptionView.addSubview(nameLabel)
         
         let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 20))
         distanceLabel.textColor = Colors.white.color
-        distanceLabel.setFont(.body3, textColor: Colors.white)
+        distanceLabel.setFont(.caption2, textColor: Colors.white)
 
         if let userCoordinates = sourceLocation {
             let userLocation = CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)
@@ -160,7 +160,7 @@ struct MBMapView: UIViewRepresentable {
         
         let collectedMiraCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
         collectedMiraCountLabel.text = "\(mira.collectors?.count ?? 0)"
-        collectedMiraCountLabel.setFont(.body3, textColor: Colors.white)
+        collectedMiraCountLabel.setFont(.caption2, textColor: Colors.white)
         
         let stack = UIStackView(arrangedSubviews: [distanceLabel, collecedMiraIconView, collectedMiraCountLabel])
         stack.axis = .horizontal

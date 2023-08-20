@@ -24,10 +24,11 @@ struct VerifyPhoneNumberView: View {
                 VStack (alignment: .center, spacing: 10) {
                     Text("SIGN UP")
                         .foregroundColor(Colors.white.just)
-                        .font(.subtitle1)
+                        .font(.bodyUpper)
                         .padding()
                     Text("Sent code to +1 \(phoneNumber)")
                         .foregroundColor(Colors.white.just)
+                        .font(.body12)
                         .padding()
                     
                     HStack (alignment: .center, spacing: 20) {
@@ -46,7 +47,7 @@ struct VerifyPhoneNumberView: View {
                                         focusNextField(from: id)
                                     }
                                 }
-                                .font(UIFont(size: 36, weight: .light, design: .monospaced))
+                                .font(FontConvertible.Font.customUIKit(type: .h2))
                                 .foregroundColor(Colors.white.just)
                                 .border(Colors.white.just)
                                 .frame(width: 50, height: 50)

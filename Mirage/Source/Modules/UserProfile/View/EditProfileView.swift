@@ -69,12 +69,12 @@ struct EditProfileView: View {
                         HStack {
                             Text("Username")
                                 .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                                .font(.body1)
+                                .font(.subtitle2)
                             Spacer()
                         }
                         HStack {
                             Text(stateManager.loggedInUser?.userName ?? "")
-                                .font(.body1)
+                                .font(.subtitle2)
                                 .foregroundColor(Colors.white.swiftUIColor)
                             Spacer()
                         }
@@ -111,9 +111,9 @@ struct EditProfileView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Bio")
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                            .font(.body1)
+                            .font(.subtitle2)
                         Text(stateManager.loggedInUser?.profileDescription ?? "")
-                            .font(.body1)
+                            .font(.subtitle2)
                             .lineLimit(3, reservesSpace: true)
                             .foregroundColor(Colors.white.swiftUIColor)
                             .padding(.leading, 5)
@@ -139,8 +139,8 @@ struct EditProfileView: View {
                     Button {
                         viewModel.signoutUser()
                     } label: {
-                        Text("SIGNOUT")
-                            .font(.body1)
+                        Text("SIGNOUT".uppercased())
+                            .font(.body)
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
                     //TODO: uncomment after testflight version

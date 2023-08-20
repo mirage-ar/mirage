@@ -41,7 +41,7 @@ struct CollectedByUsersView: View {
                                 .scaledToFit()
                                 .frame(width: 15, height: 15)
                             Text("\(selectedMira?.collectors?.count ?? 0)")
-                                .font(.body1)
+                                .font(.bodyUpper)
                             Spacer()
                             Button {
                                 if selectedMira?.creator.id == stateManager.loggedInUser?.id {
@@ -51,7 +51,7 @@ struct CollectedByUsersView: View {
                                 }
                             } label: {
                                 Text("Mira by " + (selectedMira?.creator.userName ?? "NaN"))
-                                    .font(.body2)
+                                    .font(.body)
                                 Images.arrowR24.swiftUIImage
                                     .resizable()
                                     .scaledToFit()
@@ -63,7 +63,7 @@ struct CollectedByUsersView: View {
                             .overlay(Colors.g4LightGrey.swiftUIColor)
                             .padding([.trailing, .leading], -paddingMargin)
                         Text("Collected By")
-                            .font(.body2)
+                            .font(.body)
                             .padding([.leading, .trailing], -paddingMargin)
 
                         Spacer()

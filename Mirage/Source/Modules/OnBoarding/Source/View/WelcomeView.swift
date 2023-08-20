@@ -30,7 +30,7 @@ struct WelcomeView: View {
                             .scaledToFit()
                             .frame(width: 124, height: 69)
                         Text("In Mirage you can create and collect geolocated AR Miras")
-                            .font(.body1)
+                            .font(.title)
                             .lineLimit(2)
                         Spacer()
                         LargeButton(title: "GET STARTED") {
@@ -39,6 +39,7 @@ struct WelcomeView: View {
                             AppConfiguration.shared.getStartedLaunched = true
                         }
                         .cornerRadius(24)
+                        .font(.title)
                         
                     }
                 }

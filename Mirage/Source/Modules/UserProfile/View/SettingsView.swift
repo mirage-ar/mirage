@@ -22,8 +22,8 @@ struct SettingsView: View {
                     
                     HStack {
                         Images.profile48.swiftUIImage
-                        Text(stateManager.loggedInUser?.userName ?? "NaN")
-                            .font(.body1)
+                        Text(stateManager.loggedInUser?.userName?.uppercased() ?? "NaN")
+                            .font(.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
                         Spacer()
@@ -39,8 +39,8 @@ struct SettingsView: View {
                     
                     HStack {
                         Images.contactUs48.swiftUIImage
-                        Text("CONTACT US")
-                            .font(.body1)
+                        Text("CONTACT US".uppercased()) //Uppercased in case if this is changed in future
+                            .font(.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(Colors.white.swiftUIColor)
                         
@@ -56,6 +56,7 @@ struct SettingsView: View {
                         openInstagramPage()
                     } label: {
                         Text("Instagram")
+                            .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                     }
 
@@ -64,6 +65,7 @@ struct SettingsView: View {
                         openTwitterPage()
                     } label: {
                         Text("Twitter")
+                            .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                     }
                     
@@ -72,6 +74,7 @@ struct SettingsView: View {
                         openPrivacyPolicy()
                     } label: {
                         Text("Terms and Privacy Policy")
+                            .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
                     }
                     Spacer()

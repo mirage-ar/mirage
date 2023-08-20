@@ -59,7 +59,7 @@ struct UserProfileView: View {
                                 Spacer()
                                 Group {
                                     Text(stateManager.selectedUserOnMap?.userName ?? "___")
-                                        .font(.h2)
+                                        .font(.h1)
                                         .textCase(.uppercase)
                                         .lineLimit(2)
                                     // TODO: clean up
@@ -80,7 +80,7 @@ struct UserProfileView: View {
 
                                     } else {
                                         Text(stateManager.selectedUserOnMap?.profileDescription ?? "")
-                                            .font(.body1)
+                                            .font(.body)
                                     }
                                 }
                                 .foregroundColor(Colors.white.swiftUIColor)
@@ -99,11 +99,11 @@ struct UserProfileView: View {
                         HStack {
                             Text("\((stateManager.selectedUserOnMap?.createdMiraIds?.count ?? 0) + (stateManager.selectedUserOnMap?.collectedMiraIds?.count ?? 0))")
                                 .foregroundColor(.white)
-                                .font(.body1)
+                                .font(.title2)
                             
                             Text("collects + visits")
                                 .foregroundColor(.gray)
-                                .font(.body1)
+                                .font(.body)
                             Spacer()
                         }
                         .padding(.leading, 10)

@@ -26,7 +26,7 @@ struct UserListRow: View {
                 // added to fix image cutoff
                     .padding(.leading, 5)
                 Text(user.userName ?? "")
-                    .font(.body2)
+                    .font(.body)
                 Spacer()
                 Images.collectMiraGreen.swiftUIImage
                     .resizable()

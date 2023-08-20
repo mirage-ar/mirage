@@ -23,12 +23,12 @@ struct AuthenticationView: View {
 
                         Text("SIGN UP")
                             .foregroundColor(Colors.white.just)
-                            .font(.subtitle1)
+                            .font(.bodyUpper)
                             .padding()
                         Text("Your phone number is used to log in and won’t be vesible to others.")
                             .multilineTextAlignment(.center)
                             .foregroundColor(Colors.white.just)
-                            .font(.body)
+                            .font(.body12)
                             .padding()
                         
                         iPhoneNumberField("(000) 000-0000", text: $phoneNumber, isEditing: $isEditing)

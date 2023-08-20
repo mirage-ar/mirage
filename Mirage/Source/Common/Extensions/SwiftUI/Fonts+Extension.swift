@@ -11,25 +11,32 @@ enum FontType {
     case h1
     case h2
     case h3
+    case title1
+    case title2
+    case title3
     case subtitle1
     case subtitle2
-    case body1
-    case body2
-    case body3
+    case body
+    case bodyUpper
+    case body12
+    case caption1
+    case caption2
     case button
     case custom(FontConvertible, CGFloat)
 
     var letterSpacing: CGFloat {
         switch self {
-        case .h1, .h2, .h3, .subtitle1, .subtitle2, .button, .custom:
-            return 4
-        case .body1, .body2, .body3:
-            return 2
+        case .h1:
+            return 2.5
+        case .h2, .h3, .title1, .title2, .title3, .subtitle1, .subtitle2, .button, .body, .bodyUpper, .caption1, .body12:
+            return 0
+        default:
+            return 0
         }
     }
 
     var lineHeight: CGFloat {
-        return textLineHeight - size
+        return size * 0.1 + size
     }
 
     private var textLineHeight: CGFloat {
@@ -38,24 +45,34 @@ enum FontType {
 
     var size: CGFloat {
         switch self {
-        case .h1:
+        case .h1: //display 1 in design
             return 48
-        case .h2:
+        case .h2: //display 2 in design
             return 36
-        case .h3:
+        case .h3://display 3 in design
             return 28
         case .subtitle1:
             return 20
         case .subtitle2:
+            return 20
+        case .title1:
             return 18
-        case .body1:
+        case .title2:
+            return 20
+        case .title3:
+            return 20
+        case .body:
             return 16
-        case .body2:
+        case .bodyUpper:
             return 14
-        case .body3:
+        case .body12:
             return 12
+        case .caption1:
+            return 16
+        case .caption2:
+            return 16
         case .button:
-            return 18
+            return 20
         case .custom(_, let size):
             return size
         }
@@ -67,28 +84,12 @@ extension FontConvertible.Font {
     typealias DiaTypeMono = FontFamily.ABCDiatypeMono
 //TODO: fix font weight here when fonts are imported
     static func custom(type: FontType) -> Font {
+
         switch type {
-        case .h1:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .h2:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .h3:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .subtitle1:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .subtitle2:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .body1:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .body2:
-            return DiaTypeMono.regular.just(size: type.size)
-        case .body3:
-            return DiaTypeMono.regular.just(size: type.size)
-        
-        case .button:
-            return DiaTypeMono.regular.just(size: type.size)
         case .custom(let font, let size):
             return font.just(size: size)
+        default:
+            return DiaTypeMono.regular.just(size: type.size)
         }
     }
     

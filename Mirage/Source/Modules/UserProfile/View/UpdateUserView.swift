@@ -32,6 +32,7 @@ struct UpdateUserView: View {
                 if title.uppercased() == "BIO" {
                     TextEditor(text: $value)
                         .foregroundColor(Colors.white.swiftUIColor)
+                        .font(.subtitle2)
                         .background(.clear)
                         .scrollContentBackground(.hidden)
                         .frame(maxHeight: 100)
@@ -41,7 +42,7 @@ struct UpdateUserView: View {
                     
                 } else {
                     TextField("Enter UserName", text: $value)
-                        .font(.title)
+                        .font(.h2)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(Colors.white.swiftUIColor)
                         .onReceive(value.publisher.collect()) {

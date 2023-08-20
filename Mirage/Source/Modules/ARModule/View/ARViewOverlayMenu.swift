@@ -57,7 +57,7 @@ struct ARViewOverlayMenu: View {
                                 // TODO: update to better handle state ? loading
                                 Text(viewModel.createdMira != nil ? "Mira Locked" : "Lock Mira")
                                     .foregroundColor(.black)
-                                    .font(.body1)
+                                    .font(.title2)
                                     .padding()
                                     .textCase(.uppercase)
                                     .frame(maxWidth: 158)
