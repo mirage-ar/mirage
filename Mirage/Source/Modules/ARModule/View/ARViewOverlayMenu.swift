@@ -12,6 +12,8 @@ struct ARViewOverlayMenu: View {
     @EnvironmentObject var stateManager: StateManager
     @StateObject var viewModel: ARViewModel
     @State var showImage: Bool = false
+    @State var previewView: RecordingPreviewView?
+    @State var isShowPreviewVideo = false
     
     let generator = UIImpactFeedbackGenerator(style: .medium)
 
@@ -28,7 +30,11 @@ struct ARViewOverlayMenu: View {
             Spacer()
         }
         .padding(.top, -10)
-        
+        if isShowPreviewVideo {
+            previewView
+                .transition(.move(edge: .bottom))
+                .edgesIgnoringSafeArea(.all)
+        }
         Group {
             if viewModel.arViewMode == .CREATE {
                 if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil && viewModel.arViewLocalized {
@@ -143,8 +149,32 @@ struct ARViewOverlayMenu: View {
                     }
                 } else {
                     HStack {
+                        Button(action: {
+                            stateManager.isScreenRecording.toggle()
+                            if stateManager.isScreenRecording {
+                                ScreenRecordManager.shared.startRecord()
+                            } else {
+                                ScreenRecordManager.shared.stopRecord { preview in
+                                    self.previewView = RecordingPreviewView(rpPreviewViewController: preview, isShow: self.$isShowPreviewVideo)
+                                    withAnimation {
+                                        self.isShowPreviewVideo = true
+                                    }
+                                }
+
+                            }
+                        }, label: {
+                            if  stateManager.isScreenRecording {
+                                Images.recordingOn.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                            } else {
+                                Images.recordingOff.swiftUIImage
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                            }
+                        })
                         Spacer()
-                        
+
                         Button(action: {
                             viewModel.triggerHapticFeedback()
                             viewModel.sceneData.showMediaPicker = true

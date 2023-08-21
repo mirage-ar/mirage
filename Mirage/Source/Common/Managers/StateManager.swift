@@ -13,6 +13,7 @@ final class StateManager: ObservableObject {
     
     // TODO: remove once we have realtime data
     @Published var temporaryAllMiras: [Mira] = []
+    @Published var isScreenRecording = false
 
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
 
