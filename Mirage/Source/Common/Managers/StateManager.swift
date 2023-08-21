@@ -9,6 +9,11 @@ import SwiftUI
 final class StateManager: ObservableObject {
     @Published var loggedInUser: User?
     @Published var selectedUserOnMap: User?
+    @Published var isLoadingUserProfile = false
+    
+    // TODO: remove once we have realtime data
+    @Published var temporaryAllMiras: [Mira] = []
+
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
 
     // TODO: update to state apollo repo

@@ -38,14 +38,19 @@ struct ARViewOverlayMenu: View {
                             Button {
                                 print("UPDATE: Create Mira")
                                 viewModel.lockMira()
+                                
+                                if let currentMira = viewModel.currentMira {
+                                    stateManager.temporaryAllMiras.append(currentMira)
+                                }
+                                
                                 viewModel.currentMira = nil
                                 // show animation
                                 
-                                withAnimation(.easeInOut(duration: 1)) { // Change 1 to the number of seconds you want the animation to last
+                                withAnimation(.easeInOut(duration: 1)) {
                                     self.showImage = true
                                 }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Change 2 to the number of seconds you want the image to stay on screen before it starts to exit
-                                    withAnimation(.easeInOut(duration: 1)) { // Change 1 to the number of seconds you want the exit animation to last
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    withAnimation(.easeInOut(duration: 1)) {
                                         self.showImage = false
                                     }
                                 }
