@@ -146,6 +146,8 @@
 		93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 93BB0C5A2A4F0D4B008638D6 /* Alamofire */; };
 		93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
+		93DD4FE12A9404890040D232 /* RecordingPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DD4FE02A9404890040D232 /* RecordingPreviewView.swift */; };
+		93DD4FE32A9407480040D232 /* ScreenRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DD4FE22A9407480040D232 /* ScreenRecordManager.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
 		93E2169429B6687600EE907D /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169329B6687600EE907D /* ApolloAPI */; };
 		93E2169629B6687600EE907D /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169529B6687600EE907D /* ApolloSQLite */; };
@@ -312,6 +314,8 @@
 		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
+		93DD4FE02A9404890040D232 /* RecordingPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPreviewView.swift; sourceTree = "<group>"; };
+		93DD4FE22A9407480040D232 /* ScreenRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordManager.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		93E216A029B6804100EE907D /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
@@ -545,6 +549,7 @@
 				39BD18FA2A2D089100A9F95C /* ARViewBottomBar.swift */,
 				39BD18FC2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift */,
 				394AC3A12A40A892002AFF77 /* ARViewSocialMenu.swift */,
+				93DD4FDF2A94045B0040D232 /* ScreenRecorder */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1039,6 +1044,15 @@
 			path = Videos;
 			sourceTree = "<group>";
 		};
+		93DD4FDF2A94045B0040D232 /* ScreenRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				93DD4FE02A9404890040D232 /* RecordingPreviewView.swift */,
+				93DD4FE22A9407480040D232 /* ScreenRecordManager.swift */,
+			);
+			path = ScreenRecorder;
+			sourceTree = "<group>";
+		};
 		93E2169929B6804100EE907D /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -1334,6 +1348,8 @@
 				39BD18F92A2D087700A9F95C /* ARSceneData.swift in Sources */,
 				93537E5A29F91590000B08A4 /* GetMirasQueryInput.graphql.swift in Sources */,
 				3942F7592A5C8524007DB731 /* Shape.graphql.swift in Sources */,
+				93DD4FE32A9407480040D232 /* ScreenRecordManager.swift in Sources */,
+				93DD4FE12A9404890040D232 /* RecordingPreviewView.swift in Sources */,
 				937728EF2A607B5E00E3555C /* WelcomeView.swift in Sources */,
 				9318454329CB183800DD07CB /* Images.swift in Sources */,
 				9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */,

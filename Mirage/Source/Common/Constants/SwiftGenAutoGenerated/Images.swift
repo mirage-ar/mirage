@@ -94,6 +94,8 @@ internal enum Images {
   internal static let qr24 = ImageAsset(name: "qr-24")
   internal static let rate48 = ImageAsset(name: "rate-48")
   internal static let reaction32 = ImageAsset(name: "reaction-32")
+  internal static let recordingOff = ImageAsset(name: "recordingOff")
+  internal static let recordingOn = ImageAsset(name: "recordingOn")
   internal static let refresh24 = ImageAsset(name: "refresh-24")
   internal static let refresh = ImageAsset(name: "refresh")
   internal static let route24 = ImageAsset(name: "route-24")
