@@ -80,7 +80,10 @@ final class ARViewModel: ObservableObject {
         }
         
         // TODO: use stored User
-        let creator = User(id: userId, profileImage: "", phone: "", userName: "", profileDescription: "")
+        guard let creator = UserDefaultsStorage().getUser() else {
+            print("ERROR: Could not access current user")
+            return
+        }
         
         // Create new Mira with an empty array of ARMedia
         let mira = Mira(id: UUID(), creator: creator, location: location, elevation: elevation, arMedia: [], collectors: nil)
@@ -140,7 +143,7 @@ final class ARViewModel: ObservableObject {
     }
     
     func updateSelectedMira(_ mira: Mira) {
-        self.selectedMira = mira
+        selectedMira = mira
     }
     
     // Create ARMedia Entities
@@ -407,59 +410,59 @@ final class ARViewModel: ObservableObject {
     func initializeAllViewingMiras(_ miras: [Mira]) {
         for item in miras {
 //            if !arView.scene.anchors.contains(where: { $0.name == item.id.uuidString }) {
-                let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
-                let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location, altitude: item.elevation ?? nil)
+            let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
+            let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location, altitude: item.elevation ?? nil)
                 
-                arView.session.add(anchor: geoAnchor)
+            arView.session.add(anchor: geoAnchor)
                 
-                let cameraTransform = arView.cameraTransform
+            let cameraTransform = arView.cameraTransform
                 
-                for arMedia in item.arMedia {
-                    print("UPDATE: Placing model into scene")
+            for arMedia in item.arMedia {
+                print("UPDATE: Placing ar media into scene")
                     
-                    DownloadManager.shared.download(url: arMedia.assetUrl) { progress in
-                        print("Progress 4 \(progress)")
-                    } completion: { filePath in
-                        print("Complete 4 " + (filePath ?? ""))
+                DownloadManager.shared.download(url: arMedia.assetUrl) { progress in
+                    print("Progress 4 \(progress)")
+                } completion: { filePath in
+                    print("Complete 4 " + (filePath ?? ""))
 
-                        if arMedia.contentType == .photo {
-                            if let urlString = filePath {
-                                let url = URL(string: urlString)
-                                do {
-                                    let data = try Data(contentsOf: url!)
-                                    guard let image = UIImage(data: data) else {
-                                        print("ERROR: Could not create image")
-                                        return
-                                    }
-                                    DispatchQueue.main.async {
-                                        // update the transform based on our camera:
-                                        
-                                        if let anchorEntity = self.createGeoImageEntity(id: arMedia.id, image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
-                                            debugPrint("adding anchor entity")
-                                            
-                                            self.arView.scene.anchors.append(anchorEntity)
-                                        } else {
-                                            print("ERROR: could not create geo entity")
-                                        }
-                                    }
-                                        
-                                } catch {
-                                    print("Unable to load data: \(error)")
+                    if arMedia.contentType == .photo {
+                        if let urlString = filePath {
+                            let url = URL(string: urlString)
+                            do {
+                                let data = try Data(contentsOf: url!)
+                                guard let image = UIImage(data: data) else {
+                                    print("ERROR: Could not create image")
+                                    return
                                 }
+                                DispatchQueue.main.async {
+                                    // update the transform based on our camera:
+                                        
+                                    if let anchorEntity = self.createGeoImageEntity(id: arMedia.id, image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                        debugPrint("adding anchor entity")
+                                            
+                                        self.arView.scene.anchors.append(anchorEntity)
+                                    } else {
+                                        print("ERROR: could not create geo entity")
+                                    }
+                                }
+                                        
+                            } catch {
+                                print("Unable to load data: \(error)")
                             }
-                        } else if arMedia.contentType == .video {
-                            guard let video = URL(string: filePath!) else {
-                                print("ERROR: could not create video")
-                                return
-                            }
-                            if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
-                                self.arView.scene.anchors.append(anchorEntity)
-                            } else {
-                                print("ERROR: could not create geo entity")
-                            }
+                        }
+                    } else if arMedia.contentType == .video {
+                        guard let video = URL(string: filePath!) else {
+                            print("ERROR: could not create video")
+                            return
+                        }
+                        if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                            self.arView.scene.anchors.append(anchorEntity)
+                        } else {
+                            print("ERROR: could not create geo entity")
                         }
                     }
                 }
+            }
 //            }
         }
     }
@@ -468,7 +471,7 @@ final class ARViewModel: ObservableObject {
     func collectMira(id: UUID) {
         arApolloRepository.collectMira(id: id)
             .receive(on: DispatchQueue.main)
-            .receiveAndCancel(receiveOutput: { collected in
+            .receiveAndCancel(receiveOutput: { _ in
             }, receiveError: { error in
                 print("Error: \(error)")
             })
