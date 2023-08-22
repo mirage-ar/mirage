@@ -82,6 +82,9 @@ struct AuthenticationView: View {
             .onAppear {
                 viewModel.isLoading = false
             }
+            .onDisappear {
+                hideKeyboard()
+            }
         }
         .accentColor(Colors.white.swiftUIColor)
 
