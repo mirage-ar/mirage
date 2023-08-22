@@ -29,7 +29,7 @@ final class AppConfiguration: ObservableObject {
         let authenticated = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
         authentication = authenticated
         getStartedLaunched = authenticated//UserDefaultsStorage().getBool(for: .getStartedLaunched) // same as authentication
-        environmentConfig = MirageConfig.development
+        environmentConfig = MirageConfig.production
         let _ = DownloadManager.shared
         let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()
