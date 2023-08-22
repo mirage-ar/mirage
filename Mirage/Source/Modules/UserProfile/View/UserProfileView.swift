@@ -90,6 +90,7 @@ struct UserProfileView: View {
                     
                     Group {
                         HStack {
+                            // TODO: update to collects and visits
                             Text("\((stateManager.selectedUserOnMap?.createdMiraIds?.count ?? 0) + (stateManager.selectedUserOnMap?.collectedMiraIds?.count ?? 0))")
                                 .foregroundColor(.white)
                                 .font(.body1)

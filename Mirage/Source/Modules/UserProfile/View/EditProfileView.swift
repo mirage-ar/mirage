@@ -22,7 +22,7 @@ struct EditProfileView: View {
         ZStack {
             Colors.black.swiftUIColor
                 .edgesIgnoringSafeArea(.all)
-                        
+                
             VStack {
                 ZStack {
                     Button {
@@ -34,7 +34,7 @@ struct EditProfileView: View {
                                 Image(uiImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-
+                                    
                             } else {
                                 AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
                                     image
@@ -57,7 +57,7 @@ struct EditProfileView: View {
                         }
                 }
                 .padding(.all, 50)
-               
+                    
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
@@ -81,43 +81,44 @@ struct EditProfileView: View {
                     .onTapGesture {
                         gotoEditUserName = true
                     }
-                    
+                        
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
-                    
+                        
                     // Temporarily Hidden for MPV Version
                     /*
                      VStack(spacing: 5) {
-                         Text("Pronouns")
-                             .font(.body1)
-                             .multilineTextAlignment(.leading)
-                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                        
-                         Text("She/They")
-                             .font(.body1)
-                             .multilineTextAlignment(.leading)
-                             .foregroundColor(Colors.white.swiftUIColor)
-                        
+                     Text("Pronouns")
+                     .font(.body1)
+                     .multilineTextAlignment(.leading)
+                     .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                         
+                     Text("She/They")
+                     .font(.body1)
+                     .multilineTextAlignment(.leading)
+                     .foregroundColor(Colors.white.swiftUIColor)
+                         
                      }
                      Divider()
-                         .overlay(Colors.g4LightGrey.swiftUIColor)
+                     .overlay(Colors.g4LightGrey.swiftUIColor)
                      */
-                    
+                        
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Bio")
                             .font(.body)
                             .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                            Text(stateManager.loggedInUser?.profileDescription ?? "")
-                                .font(.body1)
-                                .lineLimit(3, reservesSpace: true)
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(Colors.white.swiftUIColor)
-//                        TextEditor(text: $bioText)
-//                            .foregroundColor(Colors.white.swiftUIColor)
-//                            .background(.clear)
-//                            .scrollContentBackground(.hidden)
-//                            .frame(maxHeight: 100)
+                        Text(stateManager.loggedInUser?.profileDescription ?? "")
+                            .font(.body1)
+                            .lineLimit(3, reservesSpace: true)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(Colors.white.swiftUIColor)
+                        //                        TextEditor(text: $bioText)
+                        //                            .foregroundColor(Colors.white.swiftUIColor)
+                        //                            .background(.clear)
+                        //                            .scrollContentBackground(.hidden)
+                        //                            .frame(maxHeight: 100)
                     }
+                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         gotoEditBio = true
@@ -126,7 +127,7 @@ struct EditProfileView: View {
                         .overlay(Colors.g4LightGrey.swiftUIColor)
                 }
                 Spacer()
-                
+                    
                 VStack {
                     Button {
                         viewModel.signoutUser()
@@ -135,10 +136,10 @@ struct EditProfileView: View {
                             .font(.body1)
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
-                    
+                        
                     Divider()
                         .overlay(Colors.g4LightGrey.swiftUIColor)
-
+                        
                     Button {} label: {
                         Text("DELETE ACCOUNT")
                             .font(.body1)
@@ -150,12 +151,12 @@ struct EditProfileView: View {
         .onAppear {
             bioText = stateManager.loggedInUser?.profileDescription ?? ""
         }
-        .navigationTitle("EDIT PRPFILE")
+        .navigationTitle("EDIT PROFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
             NavigationRoute.updateUser(title: "USERNAME", value: stateManager.loggedInUser?.userName ?? "", user: stateManager.loggedInUser ?? user).screen
         }
         .navigationDestination(isPresented: $gotoEditBio) {
-            NavigationRoute.updateUser(title: "BIO", value: stateManager.loggedInUser?.profileDescription ?? "", user:stateManager.loggedInUser ?? user).screen
+            NavigationRoute.updateUser(title: "BIO", value: stateManager.loggedInUser?.profileDescription ?? "", user: stateManager.loggedInUser ?? user).screen
         }
         .sheet(isPresented: $showMediaPicker, onDismiss: loadMedia) {
             MediaPicker(media: $media)
@@ -169,7 +170,6 @@ struct EditProfileView: View {
         }
     }
 }
-
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
