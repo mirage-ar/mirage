@@ -34,14 +34,23 @@ struct UserProfileView: View {
                 VStack {
                     ZStack(alignment: .bottom) {
                         VStack {
-                            AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
-                                image
+                            // TODO: move default image to user object
+                            if stateManager.loggedInUser?.isProfileImageEmpty == true {
+                                Images.green.swiftUIImage
                                     .resizable()
                                     .scaledToFill()
-                            } placeholder: {
-                                ProgressView()
-                                    .foregroundColor(Colors.white8p.swiftUIColor)
+
+                            } else {
+                                AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                } placeholder: {
+                                    ProgressView()
+                                        .foregroundColor(Colors.white8p.swiftUIColor)
+                                }
                             }
+
                             Spacer()
                         }
                         .frame(width: UIScreen.main.bounds.width, height: 350, alignment: .top)
@@ -87,13 +96,13 @@ struct UserProfileView: View {
                         .frame(maxHeight: 150)
                     }
                     .background(Colors.black.swiftUIColor)
-                    
+
                     Group {
                         HStack {
                             Text("\((stateManager.selectedUserOnMap?.createdMiraIds?.count ?? 0) + (stateManager.selectedUserOnMap?.collectedMiraIds?.count ?? 0))")
                                 .foregroundColor(.white)
                                 .font(.body1)
-                            
+
                             Text("collects + visits")
                                 .foregroundColor(.gray)
                                 .font(.body1)
@@ -102,8 +111,7 @@ struct UserProfileView: View {
                         .padding(.leading, 10)
                         ZStack {
                             MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
-                            
-                            
+
                             VStack {
                                 Spacer()
                                 HStack {
@@ -169,7 +177,7 @@ struct UserProfileView: View {
     }
 }
 
-//struct UserProfileView_Previews: PreviewProvider {
+// struct UserProfileView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        // Here I'm just assuming that StateManager and UserProfileViewModel have default initialisers
 //        // Replace this with actual initialisation of these objects
@@ -178,4 +186,4 @@ struct UserProfileView: View {
 //        UserProfileView(userId: userId)
 //            .environmentObject(stateManager)
 //    }
-//}
+// }

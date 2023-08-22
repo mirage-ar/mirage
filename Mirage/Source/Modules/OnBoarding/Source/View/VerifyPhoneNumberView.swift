@@ -81,9 +81,9 @@ struct VerifyPhoneNumberView: View {
                 focusField = 0
             }
         }
-//        .onTapGesture {
-//            hideKeyboard()
-//        }
+        .onDisappear {
+            hideKeyboard()
+        }
     }
 
     private func focusNextField(from index: Int) {

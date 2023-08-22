@@ -43,7 +43,7 @@ extension User {
         id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
         phone = apiUser?.phone ?? ""
         userName = apiUser?.username ?? ""
-        profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        profileImage = apiUser?.profileImage ?? ""
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0
@@ -120,6 +120,10 @@ extension User {
 
     static var dummy: User {
         User(id: UUID(uuidString: "1") ?? UUID(), profileImage: "", phone: "1231234", userName: "Dummy", profileDescription: "Dummy profile")
+    }
+    
+    var isProfileImageEmpty: Bool {
+        return profileImage.isEmpty == true
     }
 }
 

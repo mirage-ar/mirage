@@ -36,13 +36,21 @@ struct EditProfileView: View {
                                     .aspectRatio(contentMode: .fill)
 
                             } else {
-                                AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
-                                    image
+                                // TODO: move default image to user object
+                                if stateManager.loggedInUser?.isProfileImageEmpty == true {
+                                    Images.green.swiftUIImage
                                         .resizable()
                                         .scaledToFill()
-                                } placeholder: {
-                                    ProgressView()
-                                        .foregroundColor(Colors.white8p.swiftUIColor)
+
+                                } else {
+                                    AsyncImage(url: URL(string: stateManager.selectedUserOnMap?.profileImage ?? "")) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        ProgressView()
+                                            .foregroundColor(Colors.white8p.swiftUIColor)
+                                    }
                                 }
                             }
                         }
