@@ -84,9 +84,9 @@ struct MBMapView: UIViewRepresentable {
     }
     
     private func refreshMirasOnMap(mapView: MapView, context: Context) {
-//        guard let miras = viewModel.miras else { return } // server data
+        guard let miras = viewModel.miras else { return } // server data
         // TODO: remove temporary miras fix
-        let miras = stateManager.temporaryAllMiras
+//        let miras = stateManager.temporaryAllMiras
         updateAnnotationsForMiras(mapView: mapView, miras: miras, userLocation: locationManager.location, context: context)
     }
     
