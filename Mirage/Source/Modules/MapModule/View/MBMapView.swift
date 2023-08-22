@@ -115,7 +115,8 @@ struct MBMapView: UIViewRepresentable {
     }
 
     private func annotationView(mira: Mira, sourceLocation: CLLocationCoordinate2D?, tag: Int, context: Context) -> UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 40))
+        let descriptionViewWidth = 110.0
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: descriptionViewWidth + 40 /*image*/, height: 40))
 
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         imageView.layer.cornerRadius = imageView.bounds.width / 2
@@ -130,21 +131,22 @@ struct MBMapView: UIViewRepresentable {
         imageView.setImage(from: mira.imageUrl)
         view.addSubview(imageView)
         
-        let descriptionView = UIView(frame: CGRect(x: 45, y: 0, width: 100, height: 40))
+        let descriptionView = UIView(frame: CGRect(x: 45, y: 0, width: descriptionViewWidth, height: 50))
         descriptionView.backgroundColor = Colors.g1DarkGrey.color
         descriptionView.layer.cornerRadius = 10
         descriptionView.clipsToBounds = true
         descriptionView.layer.maskedCorners = [.layerMaxXMaxYCorner]
         
-        let nameLabel = UILabel(frame: CGRect(x: 5, y: 0, width: 80, height: 20))
+        let nameLabel = UILabel(frame: CGRect(x: 5, y: 3, width: descriptionViewWidth - 10, height: 20))
         nameLabel.text = mira.creator.userName
         nameLabel.setFont(.subtitle2, textColor: Colors.white)
         descriptionView.addSubview(nameLabel)
         
-        let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 20))
+        let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: descriptionViewWidth * 0.6, height: 20))
         distanceLabel.textColor = Colors.white.color
         distanceLabel.setFont(.caption2, textColor: Colors.white)
-
+        distanceLabel.textAlignment = .left
+        
         if let userCoordinates = sourceLocation {
             let userLocation = CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)
             let miraLocation = CLLocation(latitude: mira.location.latitude, longitude: mira.location.longitude)
@@ -155,18 +157,19 @@ struct MBMapView: UIViewRepresentable {
         }
  
         let collecedMiraIconView = UIImageView(image: Images.collectMiraWhite.image)
-        collecedMiraIconView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        collecedMiraIconView.frame = CGRect(x: 0, y: 0, width: descriptionViewWidth * 0.1, height: 10)
         collecedMiraIconView.contentMode = .scaleAspectFit
         
-        let collectedMiraCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
+        let collectedMiraCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: descriptionViewWidth * 0.2, height: 20))
         collectedMiraCountLabel.text = "\(mira.collectors?.count ?? 0)"
         collectedMiraCountLabel.setFont(.caption2, textColor: Colors.white)
-        
+        distanceLabel.textAlignment = .right
+
         let stack = UIStackView(arrangedSubviews: [distanceLabel, collecedMiraIconView, collectedMiraCountLabel])
         stack.axis = .horizontal
-        stack.spacing = 5
-        stack.distribution = .equalCentering
-        stack.frame = CGRect(x: 5, y: 20, width: 80, height: 20)
+        stack.spacing = 2
+        stack.distribution = .equalSpacing
+        stack.frame = CGRect(x: 5, y: 25, width: descriptionViewWidth * 0.9, height: 20)
         descriptionView.addSubview(stack)
         
         if !isProfile {

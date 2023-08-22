@@ -59,7 +59,7 @@ struct UserProfileView: View {
                                 Spacer()
                                 Group {
                                     Text(stateManager.selectedUserOnMap?.userName ?? "___")
-                                        .font(.h1)
+                                        .font(.h2)
                                         .textCase(.uppercase)
                                         .lineLimit(2)
                                     // TODO: clean up
