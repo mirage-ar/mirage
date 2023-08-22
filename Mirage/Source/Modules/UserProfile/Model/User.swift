@@ -43,7 +43,7 @@ extension User {
         id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
         phone = apiUser?.phone ?? ""
         userName = apiUser?.username ?? ""
-        profileImage = apiUser?.profileImage ?? colorImages[Int.random(in: 0..<colorImages.count)]
+        profileImage = apiUser?.profileImage ?? "https://mirage-pfp.s3.amazonaws.com/green.png"
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0

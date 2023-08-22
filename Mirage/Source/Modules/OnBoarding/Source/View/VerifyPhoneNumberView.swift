@@ -5,8 +5,8 @@
 //  Created by Saad on 15/03/2023.
 //
 
-import SwiftUI
 import iPhoneNumberField
+import SwiftUI
 
 struct VerifyPhoneNumberView: View {
     @ObservedObject private var viewModel = AuthenticationViewModel()
@@ -15,12 +15,11 @@ struct VerifyPhoneNumberView: View {
     @State var code: [String] = Array(repeating: "", count: 4)
     @FocusState private var focusField: Int?
 
-    
     var body: some View {
         ZStack {
-            GeometryReader { geo in
-                
-                VStack (alignment: .center, spacing: 10) {
+            GeometryReader { _ in
+
+                VStack(alignment: .center, spacing: 10) {
                     Text("SIGN UP")
                         .foregroundColor(Colors.white.just)
                         .font(.subtitle1)
@@ -28,18 +27,18 @@ struct VerifyPhoneNumberView: View {
                     Text("Sent code to +1 \(phoneNumber)")
                         .foregroundColor(Colors.white.just)
                         .padding()
-                    
-                    HStack (alignment: .center, spacing: 20) {
-                        ForEach((0...3), id: \.self) { id in
+
+                    HStack(alignment: .center, spacing: 20) {
+                        ForEach(0 ... 3, id: \.self) { id in
                             iPhoneNumberField("", text: $code[id])
                                 .multilineTextAlignment(.leading)
                                 .flagHidden(true)
                                 .autofillPrefix(false)
-                                .defaultRegion("UK") //to accept all numbers
+                                .defaultRegion("UK") // to accept all numbers
                                 .maximumDigits(1)
                                 .multilineTextAlignment(.center)
                                 .formatted(true)
-                                .onEdit{ number in
+                                .onEdit { number in
                                     if number.text?.count == 1 {
                                         focusNextField(from: id)
                                     }
@@ -51,7 +50,7 @@ struct VerifyPhoneNumberView: View {
                                 .focused($focusField, equals: id)
                         }
                     }
-                    
+
                     Spacer()
                     Group {
                         if viewModel.isLoading {
@@ -64,11 +63,10 @@ struct VerifyPhoneNumberView: View {
                             }
                         }
                     }
-                    //                .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
-                    //                    NavigationRoute.homeViewLanding.screen
-                    //                }
-                    .padding(.bottom, 5)
-                    
+//                    .fullScreenCover(isPresented: $viewModel.verifyUserSuccess) {
+//                        NavigationRoute.homeViewLanding.screen
+//                    }
+//                    .padding(.bottom, 5)
                 }
                 .padding(.top, 10)
             }
@@ -83,16 +81,14 @@ struct VerifyPhoneNumberView: View {
                 focusField = 0
             }
         }
-        .onTapGesture {
-            hideKeyboard()
-        }
+//        .onTapGesture {
+//            hideKeyboard()
+//        }
     }
+
     private func focusNextField(from index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             focusField = index + 1
         }
     }
-
-    
 }
-
