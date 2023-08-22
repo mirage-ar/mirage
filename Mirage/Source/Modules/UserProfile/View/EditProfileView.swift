@@ -19,133 +19,131 @@ struct EditProfileView: View {
     @State var media: Media?
 
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                Colors.black.swiftUIColor
-                    .edgesIgnoringSafeArea(.all)
+        ZStack {
+            Colors.black.swiftUIColor
+                .edgesIgnoringSafeArea(.all)
                 
-                VStack {
-                    ZStack {
-                        Button {
-                            showMediaPicker = true
-                            print("Edit Image")
-                        } label: {
-                            Group {
-                                if let image = media?.image {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
+            VStack {
+                ZStack {
+                    Button {
+                        showMediaPicker = true
+                        print("Edit Image")
+                    } label: {
+                        Group {
+                            if let image = media?.image {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
                                     
-                                } else {
-                                    AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        ProgressView()
-                                            .foregroundColor(Colors.white8p.swiftUIColor)
-                                    }
+                            } else {
+                                AsyncImage(url: URL(string: stateManager.loggedInUser?.profileImage ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                } placeholder: {
+                                    ProgressView()
+                                        .foregroundColor(Colors.white8p.swiftUIColor)
                                 }
                             }
-                            .frame(width: 150, height: 150)
-                            .cornerRadius(75)
-                            .scaledToFill()
                         }
-                        Images.refresh.swiftUIImage
-                            .padding(.top, 150)
-                            .onTapGesture {
-                                showMediaPicker = true
-                            }
+                        .frame(width: 150, height: 150)
+                        .cornerRadius(75)
+                        .scaledToFill()
                     }
-                    .padding(.all, 50)
-                    
-                    VStack(alignment: .leading) {
-                        VStack(alignment: .leading, spacing: 5) {
-                            HStack {
-                                Text("UserName")
-                                    .font(.body1)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                                Spacer()
-                            }
-                            HStack {
-                                Text(stateManager.loggedInUser?.userName ?? "")
-                                    .font(.body1)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Colors.white.swiftUIColor)
-                                Spacer()
-                            }
-                            .padding(.leading, 5)
-                        }
-                        .frame(width: UIScreen.main.bounds.width)
-                        .contentShape(Rectangle())
+                    Images.refresh.swiftUIImage
+                        .padding(.top, 150)
                         .onTapGesture {
-                            gotoEditUserName = true
+                            showMediaPicker = true
                         }
-                        
-                        Divider()
-                            .overlay(Colors.g4LightGrey.swiftUIColor)
-                        
-                        // Temporarily Hidden for MPV Version
-                        /*
-                         VStack(spacing: 5) {
-                         Text("Pronouns")
-                         .font(.body1)
-                         .multilineTextAlignment(.leading)
-                         .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                         
-                         Text("She/They")
-                         .font(.body1)
-                         .multilineTextAlignment(.leading)
-                         .foregroundColor(Colors.white.swiftUIColor)
-                         
-                         }
-                         Divider()
-                         .overlay(Colors.g4LightGrey.swiftUIColor)
-                         */
-                        
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text("Bio")
-                                .font(.body)
-                                .foregroundColor(Colors.g4LightGrey.swiftUIColor)
-                            Text(stateManager.loggedInUser?.profileDescription ?? "")
+                }
+                .padding(.all, 50)
+                    
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Text("UserName")
                                 .font(.body1)
-                                .lineLimit(3, reservesSpace: true)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                            Spacer()
+                        }
+                        HStack {
+                            Text(stateManager.loggedInUser?.userName ?? "")
+                                .font(.body1)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(Colors.white.swiftUIColor)
-                            //                        TextEditor(text: $bioText)
-                            //                            .foregroundColor(Colors.white.swiftUIColor)
-                            //                            .background(.clear)
-                            //                            .scrollContentBackground(.hidden)
-                            //                            .frame(maxHeight: 100)
+                            Spacer()
                         }
-                        .contentShape(Rectangle())
-                        .frame(width: geo.size.width, alignment: .leading)
-                        .onTapGesture {
-                            gotoEditBio = true
-                        }
-                        Divider()
-                            .overlay(Colors.g4LightGrey.swiftUIColor)
+                        .padding(.leading, 5)
                     }
-                    Spacer()
+                    .frame(width: UIScreen.main.bounds.width)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        gotoEditUserName = true
+                    }
+                        
+                    Divider()
+                        .overlay(Colors.g4LightGrey.swiftUIColor)
+                        
+                    // Temporarily Hidden for MPV Version
+                    /*
+                     VStack(spacing: 5) {
+                     Text("Pronouns")
+                     .font(.body1)
+                     .multilineTextAlignment(.leading)
+                     .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                         
+                     Text("She/They")
+                     .font(.body1)
+                     .multilineTextAlignment(.leading)
+                     .foregroundColor(Colors.white.swiftUIColor)
+                         
+                     }
+                     Divider()
+                     .overlay(Colors.g4LightGrey.swiftUIColor)
+                     */
+                        
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Bio")
+                            .font(.body)
+                            .foregroundColor(Colors.g4LightGrey.swiftUIColor)
+                        Text(stateManager.loggedInUser?.profileDescription ?? "")
+                            .font(.body1)
+                            .lineLimit(3, reservesSpace: true)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(Colors.white.swiftUIColor)
+                        //                        TextEditor(text: $bioText)
+                        //                            .foregroundColor(Colors.white.swiftUIColor)
+                        //                            .background(.clear)
+                        //                            .scrollContentBackground(.hidden)
+                        //                            .frame(maxHeight: 100)
+                    }
+                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        gotoEditBio = true
+                    }
+                    Divider()
+                        .overlay(Colors.g4LightGrey.swiftUIColor)
+                }
+                Spacer()
                     
-                    VStack {
-                        Button {
-                            viewModel.signoutUser()
-                        } label: {
-                            Text("SIGNOUT")
-                                .font(.body1)
-                                .foregroundColor(Colors.white.swiftUIColor)
-                        }
+                VStack {
+                    Button {
+                        viewModel.signoutUser()
+                    } label: {
+                        Text("SIGNOUT")
+                            .font(.body1)
+                            .foregroundColor(Colors.white.swiftUIColor)
+                    }
                         
-                        Divider()
-                            .overlay(Colors.g4LightGrey.swiftUIColor)
+                    Divider()
+                        .overlay(Colors.g4LightGrey.swiftUIColor)
                         
-                        Button {} label: {
-                            Text("DELETE ACCOUNT")
-                                .font(.body1)
-                                .foregroundColor(Colors.red.swiftUIColor)
-                        }
+                    Button {} label: {
+                        Text("DELETE ACCOUNT")
+                            .font(.body1)
+                            .foregroundColor(Colors.red.swiftUIColor)
                     }
                 }
             }
@@ -153,7 +151,7 @@ struct EditProfileView: View {
         .onAppear {
             bioText = stateManager.loggedInUser?.profileDescription ?? ""
         }
-        .navigationTitle("EDIT PRPFILE")
+        .navigationTitle("EDIT PROFILE")
         .navigationDestination(isPresented: $gotoEditUserName) {
             NavigationRoute.updateUser(title: "USERNAME", value: stateManager.loggedInUser?.userName ?? "", user: stateManager.loggedInUser ?? user).screen
         }
