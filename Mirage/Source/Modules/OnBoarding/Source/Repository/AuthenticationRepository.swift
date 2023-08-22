@@ -19,6 +19,7 @@ extension ApolloRepository: AuthenticationRepository {
     public func authenticate(number: String) -> AnyPublisher<String, Error> {
                 
         let input = MirageAPI.AuthorizationInput(phone: number)
+        // TODO: incorrect spelling
         let mutaiton = MirageAPI.AuthorizeUserMutation(authorizeUserInput: input)
         return perform(mutation: mutaiton)
             .map {

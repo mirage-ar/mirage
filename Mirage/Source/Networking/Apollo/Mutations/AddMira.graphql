@@ -1,0 +1,30 @@
+mutation AddMira($addMiraInput: AddMiraInput!) {
+  addMira(input: $addMiraInput) {
+    id
+    miraMedia {
+      assetUrl
+      contentType
+      shape
+      modifier {
+        id
+        type
+      }
+      position {
+        id
+        transform
+      }
+    }
+    creator {
+      id
+      phone
+      username
+      profileImage
+      profileDescription
+    }
+    location {
+      latitude
+      longitude
+      elevation
+    }
+  }
+}

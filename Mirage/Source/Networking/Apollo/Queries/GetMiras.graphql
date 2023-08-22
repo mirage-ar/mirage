@@ -26,6 +26,7 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
       id
       latitude
       longitude
+      elevation
     }
     viewed
     isFriend

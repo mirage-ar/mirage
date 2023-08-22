@@ -28,7 +28,10 @@ struct ARViewRepresentable: UIViewRepresentable {
     func updateUIView(_ arView: ARViewController, context: Context) {
         // if view mode has changed update configuration
         if viewModel.arViewLocalized {
-            // do nothing
+//            if arView.session.currentFrame?.anchors.count == 0 {
+//                // add mira to arView
+//                viewModel.addMiraToScene()
+//            }
             
         } else {
             setupARViewConfiguration(arView)
@@ -79,19 +82,24 @@ struct ARViewRepresentable: UIViewRepresentable {
         let currentConfiguration = arView.session.configuration
         
         if viewModel.arViewMode == .EXPLORE {
-            if ARGeoTrackingConfiguration.isSupported {
-                if !(currentConfiguration is ARGeoTrackingConfiguration) {
-                    print("UPDATE: AR configuration changed to GEO TRACKING")
-                    let configuration = ARGeoTrackingConfiguration()
-                    
-                    // Enable coaching.
-                    arView.setupCoachingOverlay()
-                    
-                    arView.session.run(configuration)
+            ARGeoTrackingConfiguration.checkAvailability { isAvailable, error in
+                
+                DispatchQueue.main.async {
+                    if ARGeoTrackingConfiguration.isSupported && isAvailable {
+                        if !(currentConfiguration is ARGeoTrackingConfiguration) {
+                            print("UPDATE: AR configuration changed to GEO TRACKING")
+                            let configuration = ARGeoTrackingConfiguration()
+                            
+                            // Enable coaching.
+                            arView.setupCoachingOverlay()
+                            
+                            arView.session.run(configuration)
+                        }
+                    } else {
+                        print("ERROR: Geo tracking not supported on this device")
+                        viewModel.arViewMode = .CREATE
+                    }
                 }
-            } else {
-                print("ERROR: Geo tracking not supported on this device")
-                viewModel.arViewMode = .CREATE
             }
         }
             
@@ -117,10 +125,6 @@ struct ARViewRepresentable: UIViewRepresentable {
     }
 
     func setupARView(_ arView: ARViewController) -> ARViewController {
-        print("HERE HERE")
-        print(viewModel.arViewMode)
-        print("setup config here")
-        
         arView.automaticallyConfigureSession = false
         
         setupARViewConfiguration(arView)
@@ -139,6 +143,8 @@ struct ARViewRepresentable: UIViewRepresentable {
     class Coordinator: NSObject, ARSessionDelegate {
         var parent: ARViewRepresentable
         
+        var addedMiras: Bool = false
+        
         init(_ parent: ARViewRepresentable) {
             self.parent = parent
         }
@@ -151,6 +157,8 @@ struct ARViewRepresentable: UIViewRepresentable {
             if geoTrackingStatus.state == .localized {
                 print("UPDATE: ARGeo Session Localized")
                 parent.viewModel.arViewLocalized = true
+                parent.viewModel.addMiraToScene()
+                
             } else {
                 parent.viewModel.arViewLocalized = false
             }

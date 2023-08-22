@@ -66,13 +66,13 @@ public class DownloadManager {
 
     }
     func upload(image: UIImage, completion: ((String?) -> ())?) {
-        let data = image.jpegData(compressionQuality: 0.5)
+        let data = image.jpegData(compressionQuality: 0.8)
         let fileName = UUID().uuidString + ".jpg"
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileUrl = documentsURL.appendingPathComponent(fileName)
         do {
             try data?.write(to: fileUrl)
-            upload(filePath: fileUrl.absoluteString, completion: completion)
+                upload(filePath: fileUrl.absoluteString, completion: completion)
             } catch (let e){
                 debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
                 completion?(nil)
@@ -141,7 +141,6 @@ public class DownloadManager {
         }
         file?.filePath = filePath
         file?.completedAt = .now
-        fileSet[url] = file
         synchronizeFileSet()
     }
     private func fileFailed(url: String) {
