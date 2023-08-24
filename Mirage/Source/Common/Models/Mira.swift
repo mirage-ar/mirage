@@ -13,7 +13,7 @@ import simd
 public struct Mira {
     let id: UUID
     let creator: User
-    let location: CLLocationCoordinate2D
+    var location: CLLocationCoordinate2D
     let elevation: Double?
     let collectors: [User]?
 

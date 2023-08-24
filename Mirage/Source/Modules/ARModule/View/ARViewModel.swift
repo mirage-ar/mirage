@@ -508,7 +508,7 @@ final class ARViewModel: ObservableObject {
             entity.transform.matrix = transform
             entity.name = id.uuidString
 
-            let anchorEntity = AnchorEntity(anchor: geoAnchor)
+            let anchorEntity = AnchorEntity(.face)
             anchorEntity.name = id.uuidString
             anchorEntity.addChild(entity)
 
@@ -562,7 +562,7 @@ final class ARViewModel: ObservableObject {
         entity.transform.matrix = transform
         entity.name = id.uuidString
 
-        let anchorEntity = AnchorEntity(anchor: geoAnchor)
+        let anchorEntity = AnchorEntity(.face)
         anchorEntity.name = id.uuidString
         anchorEntity.addChild(entity)
 

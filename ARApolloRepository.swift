@@ -42,9 +42,11 @@ extension ApolloRepository: ARApolloRepository {
         let mutation = MirageAPI.AddMiraMutation(addMiraInput: input)
         return perform(mutation: mutation)
             .map { data in
+                
+                self.client.store.clearCache()
                 // assuming that 'addMira' is a property that returns an array of Mira
                 // and 'Mira' is a type that has an initializer accepting a 'Mira'
-                data.addMira.map { [Mira(mira: $0)] }
+                return data.addMira.map { [Mira(mira: $0)] }
             }
             .eraseToAnyPublisher()
     }

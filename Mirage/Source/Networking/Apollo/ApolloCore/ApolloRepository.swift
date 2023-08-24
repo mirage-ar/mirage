@@ -45,7 +45,7 @@ public class ApolloRepository {
                                             endpointURL: url)
     }()
 
-    private lazy var client: ApolloClient = getSQLClient()
+    lazy var client: ApolloClient = getSQLClient()
 
     private let endpoint: String
     private let webSocketEndpoint: String
@@ -246,6 +246,36 @@ public class ApolloRepository {
         }.eraseToAnyPublisher()
     }
 
+    /// Performs the query fetch from the server
+    ///
+    ///  - parameters:
+    ///     - query: The query to fetch
+    ///     - callbackQueue: The dispatch queue to receive data on
+    ///
+    ///  - returns: A publisher of the query data or error
+    ///
+    func watch<Query: GraphQLQuery>(query: Query,
+                                    cachePolicy: CachePolicy = .returnCacheDataAndFetch,
+                                    callbackQueue: DispatchQueue = .global(qos: .userInitiated))
+        -> AnyPublisher<Query.Data, Error>
+    {
+        Future<Query.Data, Error> { [weak self] promise in
+
+            guard let self else {
+                return
+            }
+
+            let _ = self.client.watch(query: query) { response in
+                let result = self.handleGraphQLResponse(response)
+                print("Response: \(response)")
+                promise(result)
+
+            }
+        }.eraseToAnyPublisher()
+    }
+
+    
+    
     /// Performs the mutation on the server
     ///
     ///  - parameters:

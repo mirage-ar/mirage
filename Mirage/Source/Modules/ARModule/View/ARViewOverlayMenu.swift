@@ -48,7 +48,7 @@ struct ARViewOverlayMenu: View {
                 
                 Group {
                     if viewModel.arViewMode == .CREATE {
-                        if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil && viewModel.arViewLocalized {
+                        if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil {
                             ZStack {
                                 HStack {
                                     Spacer()

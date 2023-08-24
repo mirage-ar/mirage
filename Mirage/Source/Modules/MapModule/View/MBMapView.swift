@@ -221,11 +221,15 @@ extension MBMapView {
         }
         
         @objc func pinTapped(gesture: UITapGestureRecognizer) {
+
             guard let index = gesture.view?.tag else { return }
             
             if let mira = parent.viewModel.miras?[index] {
                 parent.selectedMira = mira
-                parent.showCollectedByList = true
+                parent.viewModel.hasLoadedMiras = false
+                parent.viewModel.update()
+                
+//                parent.showCollectedByList = true
                 print(parent.selectedMira?.creator.userName ?? "")
             }
         }

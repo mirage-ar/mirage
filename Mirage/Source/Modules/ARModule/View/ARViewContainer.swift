@@ -79,14 +79,14 @@ struct ARViewContainer: View {
                                 viewModel.arView.scene.addAnchor(anchorEntity)
                                 
                                 // Handle Mira if necessary
-                                if viewModel.arViewLocalized {
+//                                if viewModel.arViewLocalized {
                                     if viewModel.currentMira == nil {
                                         viewModel.initializeMira()
                                         viewModel.addMediaEntityToMira(mediaEntity)
                                     } else {
                                         viewModel.addMediaEntityToMira(mediaEntity)
                                     }
-                                }
+//                                }
                             }
                         }
                     }
