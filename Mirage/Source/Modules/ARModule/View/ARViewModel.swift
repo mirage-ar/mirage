@@ -56,7 +56,6 @@ final class ARViewModel: ObservableObject {
     @Published var modiferAmount: Float = 1.0
     
     @Published var currentMira: Mira?
-    @Published var createdMira: Mira?
     
     private var currentARMedia: [ARMedia] = []
     
@@ -130,6 +129,19 @@ final class ARViewModel: ObservableObject {
     
     func initializSceneData(arView: ARView) {
         sceneData.setupGestureHandler(arView: arView)
+    }
+    
+    func closeARSession() {
+        arView.session.pause()
+        
+        for (id,player) in sceneData.avPlayers {
+            player.pause()
+            sceneData.avPlayers[id] = nil
+        }
+        
+        sceneData.avPlayers = [:]
+        sceneDataCancellable?.cancel()
+        sceneData.sceneObserver?.cancel()
     }
     
     func removeAllMedia() {
@@ -371,9 +383,6 @@ final class ARViewModel: ObservableObject {
         for entity in sceneData.mediaEntities {
             let media = currentARMedia.first(where: { $0.id == entity.id })
             
-            print("LOCKING TRANSFORM")
-            print(entity.entity.transform.matrix)
-            
             // create new ARMedia entity based on sceneData info
             if let media = media {
                 let arMedia = ARMedia(id: entity.id, contentType: entity.contentType, assetUrl: media.assetUrl, shape: entity.shape, modifier: entity.modifier, transform: entity.entity.transform.matrix)
@@ -388,7 +397,6 @@ final class ARViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .receiveAndCancel(receiveOutput: { mira in
                 guard let mira = mira else { return }
-                self.createdMira = mira[0]
             }, receiveError: { error in
                 print("Error: \(error)")
             })
@@ -409,7 +417,6 @@ final class ARViewModel: ObservableObject {
 
     func initializeAllViewingMiras(_ miras: [Mira]) {
         for item in miras {
-//            if !arView.scene.anchors.contains(where: { $0.name == item.id.uuidString }) {
             let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
             let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location, altitude: item.elevation ?? nil)
                 
@@ -418,10 +425,7 @@ final class ARViewModel: ObservableObject {
             let cameraTransform = arView.cameraTransform
                 
             for arMedia in item.arMedia {
-                print("UPDATE: Placing ar media into scene")
-                    
                 DownloadManager.shared.download(url: arMedia.assetUrl) { progress in
-                    print("Progress 4 \(progress)")
                 } completion: { filePath in
                     print("Complete 4 " + (filePath ?? ""))
 
@@ -438,8 +442,6 @@ final class ARViewModel: ObservableObject {
                                     // update the transform based on our camera:
                                         
                                     if let anchorEntity = self.createGeoImageEntity(id: arMedia.id, image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
-                                        debugPrint("adding anchor entity")
-                                            
                                         self.arView.scene.anchors.append(anchorEntity)
                                     } else {
                                         print("ERROR: could not create geo entity")
@@ -455,15 +457,16 @@ final class ARViewModel: ObservableObject {
                             print("ERROR: could not create video")
                             return
                         }
-                        if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
-                            self.arView.scene.anchors.append(anchorEntity)
-                        } else {
-                            print("ERROR: could not create geo entity")
+                        DispatchQueue.main.async {
+                            if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                self.arView.scene.anchors.append(anchorEntity)
+                            } else {
+                                print("ERROR: could not create geo entity")
+                            }
                         }
                     }
                 }
             }
-//            }
         }
     }
     
@@ -527,10 +530,10 @@ final class ARViewModel: ObservableObject {
         let material = VideoMaterial(avPlayer: player)
         
         // quick fix to loop the video
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: .main) { _ in
-            player.seek(to: CMTime.zero)
-            player.play()
-        }
+//        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: playerItem, queue: .main) { _ in
+//            player.seek(to: CMTime.zero)
+//            player.play()
+//        }
         player.volume = 0.1
         player.play()
         
@@ -555,10 +558,7 @@ final class ARViewModel: ObservableObject {
         sceneData.avPlayers[entity.id] = player
         
         let transform = entity.transform.matrix
-        
-        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, translationGesture: translationGesture)
-        sceneData.updateSelectedEntity(mediaEntity)
-        
+           
         entity.transform.matrix = transform
         entity.name = id.uuidString
 

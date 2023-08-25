@@ -2,6 +2,7 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
   getMiras(input: $getMirasQueryInput) {
     id
     miraMedia {
+      id
       contentType
       assetUrl
       shape

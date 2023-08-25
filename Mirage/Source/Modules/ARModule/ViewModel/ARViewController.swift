@@ -15,8 +15,6 @@ class ARViewController: ARView, ARCoachingOverlayViewDelegate {
 
     required init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
-        
-        configureViewing()
     }
 
     @available(*, unavailable)
@@ -48,46 +46,5 @@ class ARViewController: ARView, ARCoachingOverlayViewDelegate {
             coachingOverlay.widthAnchor.constraint(equalTo: widthAnchor),
             coachingOverlay.heightAnchor.constraint(equalTo: heightAnchor)
         ])
-    }
-}
-
-extension ARView {
-    func configureViewing(restart: Bool = false) {
-        guard ARGeoTrackingConfiguration.isSupported else {
-            // Geo-tracking not supported on this
-            print("ERROR: ARGeoTrackingConfiguration not supported")
-            return
-        }
-        
-        ARGeoTrackingConfiguration.checkAvailability { available, error in
-            guard available else {
-                // TODO: ARViewController - switch to create mode with placing off
-                
-                print("Geo-tracking not supported at current location: \(String(describing: error))")
-                return
-            }
-            
-            let configuration = ARGeoTrackingConfiguration()
-            configuration.planeDetection = [.horizontal]
-            
-            // trying to lighten models
-//            configuration.isLightEstimationEnabled = false
-            
-            // setup people occlusion
-            if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
-                configuration.frameSemantics.insert(.personSegmentationWithDepth)
-            }
-            
-            if restart {
-                // Re-run the ARKit session.
-                let geoTrackingConfig = ARGeoTrackingConfiguration()
-                geoTrackingConfig.planeDetection = [.horizontal]
-                geoTrackingConfig.isLightEstimationEnabled = false
-                self.session.run(geoTrackingConfig, options: .removeExistingAnchors)
-                self.scene.anchors.removeAll()
-            }
-            // run AR session
-            self.session.run(configuration, options: .resetTracking)
-        }
     }
 }
