@@ -127,9 +127,9 @@ struct ARViewBottomBar: View {
                             
                         } else if viewModel.currentMira == nil {
                             Button {
-                                // close AR view
+                                // UPDATE - close AR view -
+                                viewModel.closeARSession()
                                 presentationMode.wrappedValue.dismiss()
-                                viewModel.arViewMode = .EXPLORE
                             } label: {
                                 Images.arrowB24.swiftUIImage
                             }

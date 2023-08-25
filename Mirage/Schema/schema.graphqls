@@ -1,12 +1,12 @@
 type Mira {
   id: ID!
-  creator: User!
-  location: Location!
-  miraMedia: [ArMedia!]!
-  collectors: [User]!
-  flags: [Flag]!
-  viewed: Boolean!
-  isFriend: Boolean!
+  creator: User
+  location: Location
+  miraMedia: [ArMedia!]
+  collectors: [User!]
+  flags: [Flag!]
+  viewed: Boolean
+  isFriend: Boolean
 }
 
 type User {
@@ -19,7 +19,6 @@ type User {
   accessToken: String
   verificationSid: String
   miras: [Mira]
-  clips: [Clip]
   collected: [Mira]
   viewed: [Mira]
   friends: [User]
@@ -35,10 +34,11 @@ type Location {
 }
 
 type ArMedia {
+  id: ID!
   contentType: ContentType!
   assetUrl: String!
   shape: Shape!
-  position: Position!
+  position: Position
   modifier: Modifier
 }
 
@@ -53,46 +53,18 @@ type Modifier {
   amount: Float!
 }
 
-type Clip {
-  id: ID!
-  assetUrl: String!
-  creator: User
-  contentType: ContentType
-  mira: Mira
-  reactions: [Reaction]
-  visibility: Visibility!
-  shares: Int
-}
-
-type Comment {
-  id: ID!
-  content: String!
-  author: User!
-}
-
-type Reaction {
-  id: ID!
-  type: ReactionType!
-  clip: Clip!
-  author: User!
-}
-
-type Settings {
-  id: ID!
-  user: User!
-  Unit: Unit!
-  reactions: Boolean!
-  folowers: Boolean!
-  monuments: Boolean!
-  friendActivity: Boolean!
-  miraProximity: Boolean!
-}
-
 type Flag {
   id: ID!
-  author: User!
+  author: User
   type: FlagType!
   parent: Mira
+}
+
+type FriendRequest {
+  id: ID!
+  inviter: User!
+  recipient: User!
+  status: FriendshipStatus!
 }
 
 type Query {
@@ -117,6 +89,8 @@ type Mutation {
   authorizeUser(input: AuthorizationInput!): AuthorizationResult
   verifyUser(input: VerificationInput!): VerificationResult
   updateUser(input: UpdateUserInput!): User
+  sendFriendRequest(recipientId: ID!): FriendRequest!
+  updateFriendRequest(input: UpdateFriendshipInput!): FriendRequest!
   addMira(input: AddMiraInput!): Mira
   collectMira(input: CollectMiraInput!): Mira
   flagMira(input: FlagMiraInput!): Mira
@@ -135,6 +109,11 @@ input UpdateUserInput {
   username: String
   profileImage: String
   profileDescription: String
+}
+
+input UpdateFriendshipInput {
+  recipientId: ID!
+  status: FriendshipStatus!
 }
 
 input AddMiraInput {
@@ -195,26 +174,6 @@ enum ModifierType {
   ROTATE
 }
 
-enum Visibility {
-  PUBLIC
-  PRIVATE
-  EXPIRED
-}
-
-enum ReactionType {
-  LIKE
-  LOVE
-  WOW
-  HAHA
-  SAD
-  ANGRY
-}
-
-enum Unit {
-  METRIC
-  IMPERIAL
-}
-
 enum FlagType {
   INAPPROPRIATE
   SPAM
@@ -224,6 +183,12 @@ enum FlagType {
 enum AccountStage {
   NEW
   EXISTING
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 scalar Date

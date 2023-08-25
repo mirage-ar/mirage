@@ -59,7 +59,6 @@ public class DownloadManager {
                             debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
                             completion?(nil)
                     }
-                    print(fileUrl)
                 }
 
             }

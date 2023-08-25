@@ -239,7 +239,8 @@ public class ApolloRepository {
 
             self.client.fetch(query: query, cachePolicy: cachePolicy, queue: callbackQueue) { response in
                 let result = self.handleGraphQLResponse(response)
-                print("Response: \(response)")
+//                print("Response: \(response)")
+                print("result: \(result)")
                 promise(result)
             }
 
@@ -267,8 +268,8 @@ public class ApolloRepository {
 
             self.client.perform(mutation: mutation, queue: callbackQueue) { response in
                 let result = self.handleGraphQLResponse(response)
-                print("response: \(response)")
-                print("res: \(result)")
+//                print("response: \(response)")
+                print("result: \(result)")
                 promise(result)
             }
 

@@ -72,7 +72,7 @@ struct ARViewOverlayMenu: View {
                                         //                        viewModel.arViewMode = .EXPLORE
                                     } label: {
                                         // TODO: update to better handle state ? loading
-                                        Text(viewModel.createdMira != nil ? "Mira Locked" : "Lock Mira")
+                                        Text("Lock Mira")
                                             .foregroundColor(.black)
                                             .font(.body1)
                                             .padding()
@@ -80,7 +80,6 @@ struct ARViewOverlayMenu: View {
                                             .frame(maxWidth: 158)
                                             .background(Color.white)
                                             .cornerRadius(100) // Change this to modify corner roundness
-                                            .disabled(viewModel.createdMira == nil)
                                     }
                                     Spacer()
                                 }
