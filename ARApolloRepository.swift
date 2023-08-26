@@ -21,7 +21,8 @@ protocol ARApolloRepository {
 extension ApolloRepository: ARApolloRepository {
     func getARMiras(location: CLLocationCoordinate2D, zoomLevel: Int = 7) -> AnyPublisher<[Mira]?, Error> {
         let locationInput = MirageAPI.LocationInput(latitude: location.latitude, longitude: location.longitude)
-        let input = MirageAPI.GetMirasQueryInput(location: locationInput, zoomLevel: GraphQLNullable<Int>(integerLiteral: zoomLevel), radius: 30)
+        // Query all miras within a 50 meter radius
+        let input = MirageAPI.GetMirasQueryInput(location: locationInput, radius: 50)
         let query = MirageAPI.GetMirasQuery(getMirasQueryInput: input)
         return fetch(query: query)
             .map {

@@ -15,6 +15,7 @@ public extension MirageAPI {
             id
             miraMedia {
               __typename
+              id
               contentType
               assetUrl
               shape
@@ -89,21 +90,21 @@ public extension MirageAPI {
         public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", MirageAPI.ID.self),
-          .field("miraMedia", [MiraMedium].self),
-          .field("creator", Creator.self),
-          .field("location", Location.self),
-          .field("viewed", Bool.self),
-          .field("isFriend", Bool.self),
-          .field("collectors", [Collector?].self),
+          .field("miraMedia", [MiraMedium]?.self),
+          .field("creator", Creator?.self),
+          .field("location", Location?.self),
+          .field("viewed", Bool?.self),
+          .field("isFriend", Bool?.self),
+          .field("collectors", [Collector]?.self),
         ] }
 
         public var id: MirageAPI.ID { __data["id"] }
-        public var miraMedia: [MiraMedium] { __data["miraMedia"] }
-        public var creator: Creator { __data["creator"] }
-        public var location: Location { __data["location"] }
-        public var viewed: Bool { __data["viewed"] }
-        public var isFriend: Bool { __data["isFriend"] }
-        public var collectors: [Collector?] { __data["collectors"] }
+        public var miraMedia: [MiraMedium]? { __data["miraMedia"] }
+        public var creator: Creator? { __data["creator"] }
+        public var location: Location? { __data["location"] }
+        public var viewed: Bool? { __data["viewed"] }
+        public var isFriend: Bool? { __data["isFriend"] }
+        public var collectors: [Collector]? { __data["collectors"] }
 
         /// GetMira.MiraMedium
         ///
@@ -114,17 +115,19 @@ public extension MirageAPI {
 
           public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.ArMedia }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("id", MirageAPI.ID.self),
             .field("contentType", GraphQLEnum<MirageAPI.ContentType>.self),
             .field("assetUrl", String.self),
             .field("shape", GraphQLEnum<MirageAPI.Shape>.self),
-            .field("position", Position.self),
+            .field("position", Position?.self),
             .field("modifier", Modifier?.self),
           ] }
 
+          public var id: MirageAPI.ID { __data["id"] }
           public var contentType: GraphQLEnum<MirageAPI.ContentType> { __data["contentType"] }
           public var assetUrl: String { __data["assetUrl"] }
           public var shape: GraphQLEnum<MirageAPI.Shape> { __data["shape"] }
-          public var position: Position { __data["position"] }
+          public var position: Position? { __data["position"] }
           public var modifier: Modifier? { __data["modifier"] }
 
           /// GetMira.MiraMedium.Position
