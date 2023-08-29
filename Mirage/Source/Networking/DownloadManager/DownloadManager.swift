@@ -139,8 +139,13 @@ public class DownloadManager {
             file = File(url: url, status: .completed, operation: operation)
         }
         file?.filePath = filePath
+        file?.status = .completed
         file?.completedAt = .now
-        synchronizeFileSet()
+        let serialQueue = DispatchQueue(label: "com.fileSetUpdateQueue")
+        serialQueue.sync {
+            fileSet[url] = file
+            synchronizeFileSet()
+        }
     }
     private func fileFailed(url: String) {
         guard var file = fileSet[url] else { return }
