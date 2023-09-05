@@ -35,7 +35,7 @@ struct ARViewContainer: View {
                         } else if viewModel.sceneData.selectedEntity != nil {
                             // return user to create screen
                             if viewModel.miraCreateMenuType == .DEFAULT {
-                                viewModel.sceneData.selectedEntity = nil
+                                viewModel.removeSelectedEntity()
                             }
                             
                             // user is creating mira

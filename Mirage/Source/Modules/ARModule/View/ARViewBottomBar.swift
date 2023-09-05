@@ -118,7 +118,7 @@ struct ARViewBottomBar: View {
                             }
                         } else if viewModel.miraCreateMenuType == .DEFAULT && viewModel.sceneData.selectedEntity != nil {
                             Button {
-                                viewModel.sceneData.selectedEntity = nil
+                                viewModel.removeSelectedEntity()
                             } label: {
                                 Text("DONE")
                                     .foregroundColor(.white)
