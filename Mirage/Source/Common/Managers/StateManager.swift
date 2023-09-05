@@ -1,4 +1,4 @@
-//  GestureHandler.swift
+//  StateManager.swift
 //  Mirage Mira Creator
 //
 //  Created by fiigmnt on 3/28/23.

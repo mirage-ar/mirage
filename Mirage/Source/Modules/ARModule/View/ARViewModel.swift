@@ -139,6 +139,10 @@ final class ARViewModel: ObservableObject {
             sceneData.avPlayers[id] = nil
         }
         
+        for transformCancelable in sceneData.transformCancellables {
+            transformCancelable.cancel()
+        }
+        
         sceneData.avPlayers = [:]
         sceneDataCancellable?.cancel()
         sceneData.sceneObserver?.cancel()
@@ -416,6 +420,7 @@ final class ARViewModel: ObservableObject {
     }
 
     func initializeAllViewingMiras(_ miras: [Mira]) {
+        debugPrint("ADDING MIRAS")
         for item in miras {
             let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
             let geoAnchor = ARGeoAnchor(name: item.id.uuidString, coordinate: location, altitude: item.elevation ?? nil)

@@ -44,7 +44,7 @@ struct ARViewContainer: View {
                             let cameraPosition = viewModel.arView.cameraTransform.translation
                             let cameraOrientation = viewModel.arView.cameraTransform.rotation
                             let forwardVector = simd_float3(0, 0, -0.4)
-
+                            
                             // Handle video media
                             if let videoURL = media?.videoURL {
                                 let (anchor, mediaEntity) = viewModel.createVideoEntity(videoURL, cameraPosition: cameraPosition, cameraOrientation: cameraOrientation, forwardVector: forwardVector)
@@ -94,15 +94,10 @@ struct ARViewContainer: View {
                     Spacer()
                     ARViewOverlayMenu(viewModel: viewModel)
                 }
-            }
-            .sheet(isPresented: $viewModel.sceneData.showMediaPicker, onDismiss: loadMedia) {
-                MediaPicker(media: $media)
+            }            
+            .sheet(isPresented: $viewModel.sceneData.showMediaPicker) {
+                PhotosPickerView(media: $media, isPresented: $viewModel.sceneData.showMediaPicker)
             }
         }
-    }
-    
-    func loadMedia() {
-        guard let media = media else { return }
-        self.media = media
     }
 }
