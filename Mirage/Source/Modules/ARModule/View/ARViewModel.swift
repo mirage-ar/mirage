@@ -123,6 +123,10 @@ final class ARViewModel: ObservableObject {
         }
     }
     
+    func removeMediaEntityFromMira(id: UUID) {
+        currentARMedia.removeAll(where: { $0.id == id })
+    }
+    
     private var workItem: DispatchWorkItem?
     
     let generator = UIImpactFeedbackGenerator(style: .medium)

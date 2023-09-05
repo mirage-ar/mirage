@@ -22,7 +22,6 @@ struct ARViewOverlayMenu: View {
 
     // TODO: this needs a refactor
     var body: some View {
-        
         ZStack {
             if isShowPreviewVideo {
                 previewView
@@ -43,7 +42,6 @@ struct ARViewOverlayMenu: View {
             .padding(.top, -10)
             
             VStack {
-                
                 Spacer()
                 
                 Group {
@@ -127,9 +125,14 @@ struct ARViewOverlayMenu: View {
                                         Button {
                                             haptic()
                                             
-                                            if let entity = viewModel.sceneData.selectedEntity?.entity {
-                                                viewModel.removeEntity(entity)
+                                            if let selectedEntity = viewModel.sceneData.selectedEntity {
+                                                if viewModel.currentMira != nil {
+                                                    viewModel.removeMediaEntityFromMira(id: selectedEntity.id)
+                                                }
+                                                
+                                                viewModel.removeEntity(selectedEntity.entity)
                                             }
+                                            
                                         } label: {
                                             Images.buttonTrash.swiftUIImage
                                                 .resizable()
@@ -165,7 +168,6 @@ struct ARViewOverlayMenu: View {
                                                 self.isShowPreviewVideo = true
                                             }
                                         }
-                                        
                                     }
                                 }, label: {
                                     if isScreenRecording {
@@ -194,10 +196,8 @@ struct ARViewOverlayMenu: View {
                     }
                 }
                 .padding([.leading, .trailing, .bottom])
-                
             }
         }
-        
     }
     
     func haptic() {
