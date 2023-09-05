@@ -37,24 +37,26 @@ public class DownloadManager {
     }
     
     func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {
-        let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
-        if let file = fileSet[url], file.status == .completed, !file.filePath.isEmpty {
-            let url = URL(fileURLWithPath: file.filePath)
-            let filePath = documentDirectory.appendingPathComponent(url.lastPathComponent).absoluteString
-            if FileManager.default.fileExists(atPath: filePath) {
-                completion?(filePath)
-                return
+        let serialQueue = DispatchQueue(label: "com.fileSetUpdateQueue")
+        serialQueue.sync {
+            let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
+            if let file = fileSet[url], file.status == .completed, !file.filePath.isEmpty {
+                let url = URL(fileURLWithPath: file.filePath)
+                let filePath = documentDirectory.appendingPathComponent(url.lastPathComponent).absoluteString
+                if FileManager.default.fileExists(atPath: filePath) {
+                    completion?(filePath)
+                    return
+                }
             }
-        }
-        fileStarted(url: url, operation: .download)
-        AF.request(
-            url,
-            method: .get,
-            headers: [])
-        .downloadProgress(closure: { progress in
+            fileStarted(url: url, operation: .download)
+            AF.request(
+                url,
+                method: .get,
+                headers: [])
+            .downloadProgress(closure: { progress in
                 //progress update
                 progressHandler?(progress)
-        }).responseData (queue: queue) { [weak self] response in
+            }).responseData (queue: queue) { [weak self] response in
                 
                 if let data = response.value, let URL = response.request?.url{
                     let fileName = URL.lastPathComponent
@@ -63,14 +65,15 @@ public class DownloadManager {
                             try data.write(to: fileUrl)
                             self?.fileCompleted(url: url, filePath: fileUrl.absoluteString , operation: .download)
                             completion?(fileUrl.absoluteString)
-                            } catch (let e){
-                                debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
-                                completion?(nil)
+                        } catch (let e){
+                            debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
+                            completion?(nil)
                         }
                     }
                 }
-
+                
             }
+        }
 
     }
     func upload(image: UIImage, completion: ((String?) -> ())?) {
