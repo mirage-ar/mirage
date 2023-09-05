@@ -136,10 +136,14 @@ struct ARViewRepresentable: UIViewRepresentable {
         }
         
         func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-            print("ADDED")
+            debugPrint("ADDED")
             for anchor in anchors {
-                print(anchor.name)
+                debugPrint(anchor.name)
             }
+        }
+        
+        func sessionWasInterrupted(_ session: ARSession) {
+            debugPrint("AR SESSION INTERRUPT")
         }
         
         func session(_ session: ARSession, didUpdate frame: ARFrame) {}
