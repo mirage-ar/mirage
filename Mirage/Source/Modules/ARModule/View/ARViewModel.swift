@@ -369,7 +369,7 @@ final class ARViewModel: ObservableObject {
         }
         
         entity.removeFromParent()
-        sceneData.selectedEntity = nil
+        removeSelectedEntity()
     }
     
     func removeEntity(_ mediaEntity: MediaEntity) {
