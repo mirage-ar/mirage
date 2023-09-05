@@ -154,6 +154,12 @@ final class ARViewModel: ObservableObject {
         }
     }
     
+    func removeSelectedEntity() {
+        sceneData.selectedEntity = nil
+        sceneData.selectedShape = .plane
+        sceneData.selectedModifier = .none
+    }
+    
     func findMiraByEntity(name: String) -> Mira? {
         return viewingMiras?.first(where: { $0.arMedia.contains(where: { $0.id.uuidString == name }) })
     }
@@ -363,7 +369,7 @@ final class ARViewModel: ObservableObject {
         }
         
         entity.removeFromParent()
-        sceneData.selectedEntity = nil
+        removeSelectedEntity()
     }
     
     func removeEntity(_ mediaEntity: MediaEntity) {
