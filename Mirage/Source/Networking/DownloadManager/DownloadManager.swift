@@ -15,6 +15,11 @@ public class DownloadManager {
     private let fileSetKey = (Bundle.main.bundleIdentifier ?? "") + "_DownloadFileSet"
     private let accessToken =  "Bearer \(UserDefaultsStorage().getString(for: .accessToken) ?? "")"
     private let maxRetries = 3
+    private var documentDirectory: URL  {
+        get {
+            return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? URL(fileURLWithPath: "") //to avoid crash using default
+        }
+    }
     
     init() {
         AF.sessionConfiguration.timeoutIntervalForRequest = 30
@@ -34,8 +39,12 @@ public class DownloadManager {
     func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {
         let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
         if let file = fileSet[url], file.status == .completed, !file.filePath.isEmpty {
-            completion?(file.filePath)
-            return
+            let url = URL(fileURLWithPath: file.filePath)
+            let filePath = documentDirectory.appendingPathComponent(url.lastPathComponent).absoluteString
+            if FileManager.default.fileExists(atPath: filePath) {
+                completion?(filePath)
+                return
+            }
         }
         fileStarted(url: url, operation: .download)
         AF.request(
@@ -49,15 +58,15 @@ public class DownloadManager {
                 
                 if let data = response.value, let URL = response.request?.url{
                     let fileName = URL.lastPathComponent
-                    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    let fileUrl = documentsURL.appendingPathComponent(fileName)
-                    do {
-                        try data.write(to: fileUrl)
-                        self?.fileCompleted(url: url, filePath: fileUrl.absoluteString , operation: .download)
-                        completion?(fileUrl.absoluteString)
-                        } catch (let e){
-                            debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
-                            completion?(nil)
+                    if let fileUrl = self?.documentDirectory.appendingPathComponent(fileName) {
+                        do {
+                            try data.write(to: fileUrl)
+                            self?.fileCompleted(url: url, filePath: fileUrl.absoluteString , operation: .download)
+                            completion?(fileUrl.absoluteString)
+                            } catch (let e){
+                                debugPrint("Error Saving File:\(fileUrl) Error:\(e)")
+                                completion?(nil)
+                        }
                     }
                 }
 
@@ -67,8 +76,7 @@ public class DownloadManager {
     func upload(image: UIImage, completion: ((String?) -> ())?) {
         let data = image.jpegData(compressionQuality: 0.8)
         let fileName = UUID().uuidString + ".jpg"
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileUrl = documentsURL.appendingPathComponent(fileName)
+        let fileUrl = documentDirectory.appendingPathComponent(fileName)
         do {
             try data?.write(to: fileUrl)
                 upload(filePath: fileUrl.absoluteString, completion: completion)
