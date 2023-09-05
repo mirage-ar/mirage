@@ -47,40 +47,6 @@ struct ARViewRepresentable: UIViewRepresentable {
     }
     
     private func updateScene(for arView: ARViewController) {
-//        guard let selectedEntity = viewModel.sceneData.selectedEntity else { return }
-//
-//        if let entity = selectedEntity.entity as? HasCollision {
-//            // Extract the translation components from both transforms
-//            let entityPosition = entity.transform.translation
-//            let cameraPosition = arView.cameraTransform.translation
-//
-//            // Calculate the distance between the two positions
-//            let distance = simd_distance(entityPosition, cameraPosition)
-//            let entityScale = entity.scale.x
-//            let multiplier = 1.5 * entityScale > 80 ? 80 : entityScale
-//
-//            if distance > multiplier, selectedEntity.withinBounds {
-//                // select translation gesture from MediaEntity
-//                guard let translationGesture = selectedEntity.translationGesture else { return }
-//                let recognizerIndex = arView.gestureRecognizers?.firstIndex(of: translationGesture)
-//
-//                // remove translation gesture from the view
-//                guard let recognizerIndex = recognizerIndex else { return }
-//                arView.gestureRecognizers?.remove(at: recognizerIndex)
-//
-//                // update MediaEntity properties
-//                // TODO: change these updates to method on MediaEntity
-//                viewModel.sceneData.selectedEntity?.withinBounds = false
-//                //                stateManager.sceneData.selectedEntity?.translationGesture = nil
-//                let newTranslationGesture = arView.installGestures(.translation, for: entity).first
-//                viewModel.sceneData.selectedEntity?.translationGesture = newTranslationGesture
-//
-//                viewModel.triggerHapticFeedback()
-//
-//            } else if distance < multiplier, !selectedEntity.withinBounds {
-//                viewModel.sceneData.selectedEntity?.withinBounds = true
-//            }
-//        }
     }
     
     func setupARViewConfiguration(_ arView: ARViewController) {

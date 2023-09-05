@@ -37,7 +37,9 @@ extension ApolloRepository: ARApolloRepository {
         let location = MirageAPI.LocationInput(latitude: mira.location.latitude, longitude: mira.location.longitude, elevation: mira.elevation ?? nil)
         let arMedia = mira.arMedia.map { media in
             let position = MirageAPI.PositionInput(transform: convertTo2DArray(media.transform))
-            return MirageAPI.ArMediaInput(contentType: GraphQLEnum(media.contentType.rawValue), assetUrl: media.assetUrl, shape: GraphQLEnum(media.shape.rawValue), position: position)
+            let modifier = MirageAPI.ModifierInput(type: GraphQLEnum(media.modifier.rawValue), amount: 1.0)
+            let nullableModifier = GraphQLNullable<MirageAPI.ModifierInput>.some(modifier)
+            return MirageAPI.ArMediaInput(contentType: GraphQLEnum(media.contentType.rawValue), assetUrl: media.assetUrl, shape: GraphQLEnum(media.shape.rawValue), position: position, modifier: nullableModifier)
         }
         let input = MirageAPI.AddMiraInput(location: location, arMedia: arMedia)
         let mutation = MirageAPI.AddMiraMutation(addMiraInput: input)

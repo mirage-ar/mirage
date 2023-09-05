@@ -134,7 +134,7 @@ final class ARViewModel: ObservableObject {
     func closeARSession() {
         arView.session.pause()
         
-        for (id,player) in sceneData.avPlayers {
+        for (id, player) in sceneData.avPlayers {
             player.pause()
             sceneData.avPlayers[id] = nil
         }
@@ -192,16 +192,14 @@ final class ARViewModel: ObservableObject {
             let mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.0)
             let entity = ModelEntity(mesh: mesh, materials: [material])
             entity.generateCollisionShapes(recursive: true)
-            arView.installGestures([.scale, .rotation], for: entity)
-            
-            let translationGesture = arView.installGestures(.translation, for: entity).first
+            let gestures = arView.installGestures([.scale, .rotation, .translation], for: entity)
             
             entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
             entity.orientation = cameraOrientation
             
             let transform = entity.transform.matrix
             
-            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, image: image, translationGesture: translationGesture, texture: texture)
+            let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, image: image, gestures: gestures, texture: texture)
             sceneData.updateSelectedEntity(mediaEntity)
             
             entity.name = String(anchor.id)
@@ -243,9 +241,7 @@ final class ARViewModel: ObservableObject {
         let mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.002)
         let entity = ModelEntity(mesh: mesh, materials: [material])
         entity.generateCollisionShapes(recursive: true)
-        arView.installGestures([.scale, .rotation], for: entity)
-        
-        let translationGesture = arView.installGestures(.translation, for: entity).first
+        let gestures = arView.installGestures([.scale, .rotation, .translation], for: entity)
         
         // Store the AVPlayer instance in the dictionary using entity's identifier as the key
         sceneData.avPlayers[entity.id] = player
@@ -266,7 +262,8 @@ final class ARViewModel: ObservableObject {
         
         let transform = entity.transform.matrix
         
-        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, videoUrl: videoUrl, translationGesture: translationGesture)
+        let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, videoUrl: videoUrl, gestures: gestures)
+        
         sceneData.updateSelectedEntity(mediaEntity)
         
         entity.name = String(anchor.id)
@@ -289,6 +286,7 @@ final class ARViewModel: ObservableObject {
             }
             
             // TODO: update shape for media entity
+            sceneData.updateSelectedEntity(selectedEntity)
         }
     }
     
@@ -387,6 +385,11 @@ final class ARViewModel: ObservableObject {
             return
         }
         
+        // remove gestures on mira
+        for mediaEntity in sceneData.mediaEntities {
+            mediaEntity.gestures.forEach { $0.isEnabled = false }
+        }
+        
         var arMediaArray: [ARMedia] = []
         
         // TODO: clean up scene data, and currentArMedia
@@ -436,7 +439,7 @@ final class ARViewModel: ObservableObject {
             let cameraTransform = arView.cameraTransform
                 
             for arMedia in item.arMedia {
-                DownloadManager.shared.download(url: arMedia.assetUrl) { progress in
+                DownloadManager.shared.download(url: arMedia.assetUrl) { _ in
                 } completion: { filePath in
                     print("Complete 4 " + (filePath ?? ""))
 
@@ -452,7 +455,7 @@ final class ARViewModel: ObservableObject {
                                 DispatchQueue.main.async {
                                     // update the transform based on our camera:
                                         
-                                    if let anchorEntity = self.createGeoImageEntity(id: arMedia.id, image: image, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                                    if let anchorEntity = self.createGeoImageEntity(id: arMedia.id, image: image, shape: arMedia.shape, modifier: arMedia.modifier, geoAnchor: geoAnchor, transform: arMedia.transform) {
                                         self.arView.scene.anchors.append(anchorEntity)
                                     } else {
                                         print("ERROR: could not create geo entity")
@@ -469,7 +472,7 @@ final class ARViewModel: ObservableObject {
                             return
                         }
                         DispatchQueue.main.async {
-                            if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, geoAnchor: geoAnchor, transform: arMedia.transform) {
+                            if let anchorEntity = self.createGeoVideoEntity(id: arMedia.id, video: video, shape: arMedia.shape, modifier: arMedia.modifier, geoAnchor: geoAnchor, transform: arMedia.transform) {
                                 self.arView.scene.anchors.append(anchorEntity)
                             } else {
                                 print("ERROR: could not create geo entity")
@@ -491,7 +494,7 @@ final class ARViewModel: ObservableObject {
             })
     }
     
-    func createGeoImageEntity(id: UUID, image: UIImage, geoAnchor: ARGeoAnchor, transform: simd_float4x4) -> AnchorEntity? {
+    func createGeoImageEntity(id: UUID, image: UIImage, shape: ShapeType, modifier: ModifierType, geoAnchor: ARGeoAnchor, transform: simd_float4x4) -> AnchorEntity? {
         do {
             let imageOrientation = image.imageOrientation
             let rotatedImage = image.rotated(to: imageOrientation)
@@ -515,12 +518,24 @@ final class ARViewModel: ObservableObject {
             let width: Float = 0.02 * 9 // default width value
             let height: Float = width / aspectRatio
 
-            let mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.0)
+            var mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.002)
+            
+            // TODO: cleanup shape logic
+            if shape == .cube {
+                mesh = .generateBox(width: width, height: height, depth: width)
+            } else if shape == .sphere {
+                mesh = .generateSphere(radius: width / 1.5)
+            }
+        
             let entity = ModelEntity(mesh: mesh, materials: [material])
             entity.generateCollisionShapes(recursive: true)
 
             entity.transform.matrix = transform
             entity.name = id.uuidString
+            
+            if modifier == .rotate {
+                rotateModel(entity)
+            }
 
             let anchorEntity = AnchorEntity(anchor: geoAnchor)
             anchorEntity.name = id.uuidString
@@ -534,7 +549,7 @@ final class ARViewModel: ObservableObject {
         }
     }
     
-    func createGeoVideoEntity(id: UUID, video: URL, geoAnchor: ARGeoAnchor, transform _: simd_float4x4) -> AnchorEntity? {
+    func createGeoVideoEntity(id: UUID, video: URL, shape: ShapeType, modifier: ModifierType, geoAnchor: ARGeoAnchor, transform _: simd_float4x4) -> AnchorEntity? {
         let asset = AVURLAsset(url: video)
         let playerItem = AVPlayerItem(asset: asset)
         let player = AVPlayer(playerItem: playerItem)
@@ -558,12 +573,17 @@ final class ARViewModel: ObservableObject {
         let width: Float = 0.02 * 9 // default width value
         let height: Float = width / aspectRatio
         
-        let mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.002)
+        var mesh: MeshResource = .generateBox(width: width, height: height, depth: 0.002)
+        
+        // TODO: cleanup shape logic
+        if shape == .cube {
+            mesh = .generateBox(width: width, height: height, depth: width)
+        } else if shape == .sphere {
+            mesh = .generateSphere(radius: width / 1.5)
+        }
+        
         let entity = ModelEntity(mesh: mesh, materials: [material])
         entity.generateCollisionShapes(recursive: true)
-        arView.installGestures([.scale, .rotation], for: entity)
-        
-        let translationGesture = arView.installGestures(.translation, for: entity).first
         
         // Store the AVPlayer instance in the dictionary using entity's identifier as the key
         sceneData.avPlayers[entity.id] = player
@@ -572,6 +592,10 @@ final class ARViewModel: ObservableObject {
            
         entity.transform.matrix = transform
         entity.name = id.uuidString
+        
+        if modifier == .rotate {
+            rotateModel(entity)
+        }
 
         let anchorEntity = AnchorEntity(anchor: geoAnchor)
         anchorEntity.name = id.uuidString

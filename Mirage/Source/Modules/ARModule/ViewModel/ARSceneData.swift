@@ -36,7 +36,7 @@ struct MediaEntity {
     
     // needed for create flow
     var withinBounds: Bool = true
-    var translationGesture: EntityGestureRecognizer?
+    var gestures: [EntityGestureRecognizer]
     
     var texture: TextureResource?
 }
@@ -88,6 +88,8 @@ class ARSceneData: ObservableObject {
             previousModifier = selectedModifier
             
             mediaEntities.remove(at: selectedIndex)
+            
+            print("MEDIA ENTITY SHAPE: \(mediaEntity.shape)")
             mediaEntities.append(mediaEntity)
         } else {
             selectedEntity = mediaEntity
@@ -106,6 +108,8 @@ class ARSceneData: ObservableObject {
                 
                 selectedModifier = selectedEntity.modifier
                 previousModifier = selectedModifier
+                
+                print("MEDIA ENTITY SHAPE: \(selectedEntity.shape)")
                 
                 mediaEntities.remove(at: selectedIndex)
                 mediaEntities.append(selectedEntity)
