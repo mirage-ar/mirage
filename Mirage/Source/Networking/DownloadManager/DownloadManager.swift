@@ -15,6 +15,7 @@ public class DownloadManager {
     private let fileSetKey = (Bundle.main.bundleIdentifier ?? "") + "_DownloadFileSet"
     private let accessToken =  "Bearer \(UserDefaultsStorage().getString(for: .accessToken) ?? "")"
     private let maxRetries = 3
+    private let serialQueue = DispatchQueue(label: "com.fileSetUpdateQueue")
     private var documentDirectory: URL  {
         get {
             return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? URL(fileURLWithPath: "") //to avoid crash using default
@@ -37,9 +38,9 @@ public class DownloadManager {
     }
     
     func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {
-        let serialQueue = DispatchQueue(label: "com.fileSetUpdateQueue")
         serialQueue.sync {
-            let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
+            
+            let queue = DispatchQueue(label: "downloadFiles", qos: .background)
             if let file = fileSet[url], file.status == .completed, !file.filePath.isEmpty {
                 let url = URL(fileURLWithPath: file.filePath)
                 let filePath = documentDirectory.appendingPathComponent(url.lastPathComponent).absoluteString
@@ -74,7 +75,6 @@ public class DownloadManager {
                 
             }
         }
-
     }
     func upload(image: UIImage, completion: ((String?) -> ())?) {
         let data = image.jpegData(compressionQuality: 0.8)
@@ -90,116 +90,132 @@ public class DownloadManager {
 
     }
     func upload(filePath: String, completion: ((String?) -> ())?) {
-        if !filePath.isEmpty, let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
-            //this is just to return url. to display. please use local file path to display
-            completion?(file.filePath)
-            return
-        }
-        
-        guard let fileUrl = URL(string: filePath) else { return }
-        let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
-
-        let headers: HTTPHeaders = ["content-type": "multipart/form-data; boundary=---011000010111000001101001", "authorization": accessToken]
-        fileStarted(url: filePath, operation: .upload)
-
-        AF.upload(multipartFormData: { (multipartFormData) in
-            multipartFormData.append(fileUrl, withName: fileUrl.lastPathComponent)
-        }, to: "https://3dke7yk5g5hlo2nhfinpnbf3h40mauci.lambda-url.us-east-1.on.aws", method: .post, headers: headers).responseDecodable(of: [UploadResponse].self, queue: queue) { response in
-            let result = response.result.map { $0.first?.url ?? "" }
-            print(result)
-
-            switch result {
-            case .success(let url):
-                debugPrint(url)
-                self.fileCompleted(url: filePath, filePath: url, operation: .upload)
-                completion?(url)
-            case .failure(let encodingError):
-                self.fileFailed(url: filePath)
-                debugPrint(encodingError)
-                completion?(nil)
+        serialQueue.sync {
+            
+            if !filePath.isEmpty, let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
+                //this is just to return url. to display. please use local file path to display
+                completion?(file.filePath)
+                return
+            }
+            
+            guard let fileUrl = URL(string: filePath) else { return }
+            let queue = DispatchQueue(label: "downloadFiles", qos: .background)
+            
+            let headers: HTTPHeaders = ["content-type": "multipart/form-data; boundary=---011000010111000001101001", "authorization": accessToken]
+            fileStarted(url: filePath, operation: .upload)
+            
+            AF.upload(multipartFormData: { (multipartFormData) in
+                multipartFormData.append(fileUrl, withName: fileUrl.lastPathComponent)
+            }, to: "https://3dke7yk5g5hlo2nhfinpnbf3h40mauci.lambda-url.us-east-1.on.aws", method: .post, headers: headers).responseDecodable(of: [UploadResponse].self, queue: queue) { response in
+                let result = response.result.map { $0.first?.url ?? "" }
+                print(result)
+                
+                switch result {
+                case .success(let url):
+                    debugPrint(url)
+                    self.fileCompleted(url: filePath, filePath: url, operation: .upload)
+                    completion?(url)
+                case .failure(let encodingError):
+                    self.fileFailed(url: filePath)
+                    debugPrint(encodingError)
+                    completion?(nil)
+                }
             }
         }
     }
     //MARK: File Actions
     private func synchronizeFileSet() {
-        let data = try? JSONEncoder().encode(fileSet)
-        UserDefaults.standard.set(data, forKey: fileSetKey)
-        UserDefaults.standard.synchronize()
+//        serialQueue.sync {
+            
+            let data = try? JSONEncoder().encode(fileSet)
+            UserDefaults.standard.set(data, forKey: fileSetKey)
+            UserDefaults.standard.synchronize()
+//        }
     }
     private func fileStarted(url: String, operation: File.Operation) {
-        var file = fileSet[url] //to accomodate retries
-        if file == nil {
-            file = File(url: url, operation: operation)
-        }
-        file?.status = .inProgress
-        fileSet[url] = file
-        synchronizeFileSet()
+//        serialQueue.sync {
+            var file = fileSet[url] //to accomodate retries
+            if file == nil {
+                file = File(url: url, operation: operation)
+            }
+            file?.status = .inProgress
+            fileSet[url] = file
+            synchronizeFileSet()
+//        }
     }
     private func update(url: String, status: File.Status, operation: File.Operation) {
-        var file = fileSet[url]
-        if file == nil {
-            file = File(url: url, operation: operation)
+        serialQueue.sync {
+            
+            var file = fileSet[url]
+            if file == nil {
+                file = File(url: url, operation: operation)
+            }
+            file?.status = status
+            fileSet[url] = file
+            synchronizeFileSet()
         }
-        file?.status = status
-        fileSet[url] = file
-        synchronizeFileSet()
     }
     private func fileCompleted(url: String, filePath: String, operation: File.Operation) {
-        var file = fileSet[url]
-        if file == nil {
-            file = File(url: url, status: .completed, operation: operation)
-        }
-        file?.filePath = filePath
-        file?.status = .completed
-        file?.completedAt = .now
-        let serialQueue = DispatchQueue(label: "com.fileSetUpdateQueue")
         serialQueue.sync {
+            var file = fileSet[url]
+            if file == nil {
+                file = File(url: url, status: .completed, operation: operation)
+            }
+            file?.filePath = filePath
+            file?.status = .completed
+            file?.completedAt = .now
             fileSet[url] = file
             synchronizeFileSet()
         }
     }
     private func fileFailed(url: String) {
-        guard var file = fileSet[url] else { return }
-        
-        if file.retries < maxRetries {
-            file.retries += 1
-            file.failedAt = .now
-            file.lastRetry = .now
-            fileSet[url] = file
-            synchronizeFileSet()
-            if file.operation == .download {
-                download(url: file.url, progressHandler: nil, completion: nil)
-            } else {
-                upload(filePath: file.filePath, completion: nil)
+        serialQueue.sync {
+            
+            guard var file = fileSet[url] else { return }
+            
+            if file.retries < maxRetries {
+                file.retries += 1
+                file.failedAt = .now
+                file.lastRetry = .now
+                fileSet[url] = file
+                synchronizeFileSet()
+                if file.operation == .download {
+                    download(url: file.url, progressHandler: nil, completion: nil)
+                } else {
+                    upload(filePath: file.filePath, completion: nil)
+                }
             }
         }
     }
     
     private func processPreviousFiles() {
-        let incompleteFiles = fileSet.values.filter { $0.status != .completed }
-        for var file in incompleteFiles {
-            file.priority = .low
-            file.status = .inProgress
-            file.retries = 0
-            file.failedAt = nil
-            file.lastRetry = nil
-            fileSet[file.url] = file
-            if file.operation == .download {
-                download(url: file.url) { progress in
-                    debugPrint("Progress \(file.url) \(progress)")
-                } completion: { filePath in
-                    debugPrint("Completed \(file.url) " + (filePath ?? ""))
-                }
-
-                download(url: file.url, progressHandler: nil, completion: nil)
-            } else {
-                
-                upload(filePath: file.filePath) { url in
-                    debugPrint("Completed \(file.filePath) with \(url ?? "NA")")
+        serialQueue.sync {
+            
+            let incompleteFiles = fileSet.values.filter { $0.status != .completed }
+            for var file in incompleteFiles {
+                file.priority = .low
+                file.status = .inProgress
+                file.retries = 0
+                file.failedAt = nil
+                file.lastRetry = nil
+                fileSet[file.url] = file
+                if file.operation == .download {
+                    download(url: file.url) { progress in
+                        debugPrint("Progress \(file.url) \(progress)")
+                    } completion: { filePath in
+                        debugPrint("Completed \(file.url) " + (filePath ?? ""))
+                    }
+                    
+                    download(url: file.url, progressHandler: nil, completion: nil)
+                } else {
+                    
+                    upload(filePath: file.filePath) { url in
+                        debugPrint("Completed \(file.filePath) with \(url ?? "NA")")
+                    }
                 }
             }
+            synchronizeFileSet()
         }
-        synchronizeFileSet()
     }
     
 }
