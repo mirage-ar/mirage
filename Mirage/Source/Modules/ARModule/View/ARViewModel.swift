@@ -139,6 +139,7 @@ final class ARViewModel: ObservableObject {
             sceneData.avPlayers[id] = nil
         }
         
+        
         sceneData.avPlayers = [:]
         sceneDataCancellable?.cancel()
         sceneData.sceneObserver?.cancel()
