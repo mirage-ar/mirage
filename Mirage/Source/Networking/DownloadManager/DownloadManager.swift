@@ -40,7 +40,7 @@ public class DownloadManager {
     func download(url: String, progressHandler: ((Progress) -> Void)?, completion: ((String?) -> ())?) {
         serialQueue.sync {
             
-            let queue = DispatchQueue(label: "downloadFiles", qos: .background)
+            let queue = DispatchQueue(label: "downloadFiles", qos: .background, attributes: .concurrent)
             if let file = fileSet[url], file.status == .completed, !file.filePath.isEmpty {
                 let url = URL(fileURLWithPath: file.filePath)
                 let filePath = documentDirectory.appendingPathComponent(url.lastPathComponent).absoluteString
