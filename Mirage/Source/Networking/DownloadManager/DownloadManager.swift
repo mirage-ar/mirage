@@ -125,15 +125,12 @@ public class DownloadManager {
     }
     //MARK: File Actions
     private func synchronizeFileSet() {
-//        serialQueue.sync {
             
             let data = try? JSONEncoder().encode(fileSet)
             UserDefaults.standard.set(data, forKey: fileSetKey)
             UserDefaults.standard.synchronize()
-//        }
     }
     private func fileStarted(url: String, operation: File.Operation) {
-//        serialQueue.sync {
             var file = fileSet[url] //to accomodate retries
             if file == nil {
                 file = File(url: url, operation: operation)
@@ -141,7 +138,6 @@ public class DownloadManager {
             file?.status = .inProgress
             fileSet[url] = file
             synchronizeFileSet()
-//        }
     }
     private func update(url: String, status: File.Status, operation: File.Operation) {
         serialQueue.sync {

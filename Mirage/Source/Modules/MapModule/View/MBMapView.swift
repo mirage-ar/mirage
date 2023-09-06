@@ -85,23 +85,6 @@ struct MBMapView: UIViewRepresentable {
     
     private func refreshMirasOnMap(mapView: MapView, context: Context) {
         guard let miras = viewModel.miras else { return } // server data
-        DispatchQueue.global(qos: .userInitiated).async {
-            let imageView = UIImageView()
-            for m in miras {
-                for media in m.arMedia {
-                    DownloadManager.shared.download(url: media.assetUrl) { p in
-                        print(p.description)
-                    } completion: { filePath in
-                        print("Image completed \(filePath)")
-
-                        imageView.image = UIImage(contentsOfFile: filePath ?? "")
-                    }
-
-
-                }
-            }
-        }
-
         // TODO: remove temporary miras fix
 //        let miras = stateManager.temporaryAllMiras
         updateAnnotationsForMiras(mapView: mapView, miras: miras, userLocation: locationManager.location, context: context)
