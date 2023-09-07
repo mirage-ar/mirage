@@ -36,7 +36,9 @@ struct MediaEntity {
     
     // needed for create flow
     var withinBounds: Bool = true
-    var gestures: [EntityGestureRecognizer]
+    
+    var gestures: [EntityGestureRecognizer]?
+    var translationGesture: EntityGestureRecognizer?
     
     var texture: TextureResource?
 }
@@ -88,8 +90,6 @@ class ARSceneData: ObservableObject {
             previousModifier = selectedModifier
             
             mediaEntities.remove(at: selectedIndex)
-            
-            print("MEDIA ENTITY SHAPE: \(mediaEntity.shape)")
             mediaEntities.append(mediaEntity)
         } else {
             selectedEntity = mediaEntity
@@ -109,8 +109,6 @@ class ARSceneData: ObservableObject {
                 selectedModifier = selectedEntity.modifier
                 previousModifier = selectedModifier
                 
-                print("MEDIA ENTITY SHAPE: \(selectedEntity.shape)")
-                
                 mediaEntities.remove(at: selectedIndex)
                 mediaEntities.append(selectedEntity)
             }
@@ -124,5 +122,33 @@ class ARSceneData: ObservableObject {
         
         print("ERROR: could not retieve MediaEntity from Entity")
         return nil
+    }
+    
+    func removeEntity(_ entity: Entity) {
+        // TODO: remove entity from mira as well
+        
+        // Stop the AVPlayer if it exists in the avPlayers dictionary
+        if let player = avPlayers[entity.id] {
+            player.pause()
+            avPlayers.removeValue(forKey: entity.id)
+        }
+        
+        // remove entity from array
+        if let entityIndex = mediaEntities.firstIndex(where: { $0.entity.id == entity.id }) {
+            mediaEntities.remove(at: entityIndex)
+        }
+        
+        entity.removeFromParent()
+        selectedEntity = nil
+    }
+    
+    func removeEntity(_ mediaEntity: MediaEntity) {
+        removeEntity(mediaEntity.entity)
+    }
+    
+    func removeAllMedia() {
+        for mediaEntity in mediaEntities {
+            removeEntity(mediaEntity)
+        }
     }
 }

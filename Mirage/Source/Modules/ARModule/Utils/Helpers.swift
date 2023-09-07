@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import RealityKit
+import ARKit
 
 // SIMD3 typealias
 typealias XYZ = SIMD3<Float>
@@ -106,4 +107,31 @@ extension Color {
             opacity: alpha
         )
     }
+}
+
+// Matrix math helpers
+func distanceBetween(lat1: Double, lon1: Double, lat2: Double, lon2: Double) -> CLLocationDistance {
+    let location1 = CLLocation(latitude: lat1, longitude: lon1)
+    let location2 = CLLocation(latitude: lat2, longitude: lon2)
+    return location1.distance(from: location2)
+}
+
+func matrix_from_coordinates(distanceNorthSouth: Float, distanceEastWest: Float, elevationDifference: Float) -> matrix_float4x4 {
+    var translation = matrix_identity_float4x4
+    translation.columns.3.z = -distanceNorthSouth
+    translation.columns.3.x = -distanceEastWest
+    translation.columns.3.y = elevationDifference
+    return translation
+}
+
+func rotationMatrixForDegrees(degrees: Float) -> matrix_float4x4 {
+    let radians = degrees * (Float.pi / 180.0)
+
+    var matrix = matrix_identity_float4x4
+    matrix.columns.0.x = cos(radians)
+    matrix.columns.0.z = -sin(radians)
+    matrix.columns.2.x = sin(radians)
+    matrix.columns.2.z = cos(radians)
+
+    return matrix
 }
