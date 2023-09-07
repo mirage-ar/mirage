@@ -20,32 +20,29 @@ struct ARViewRepresentable: UIViewRepresentable {
         Coordinator(self)
     }
     
-    func makeUIView(context: Context) -> ARViewController {
+    func makeUIView(context: Context) -> ARView {
         let arView = viewModel.arView
         arView.automaticallyConfigureSession = false
         
         setupARViewConfiguration(arView)
         
         // Setup scene observer
-        viewModel.sceneData.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
+        viewModel.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self) { _ in
             updateScene(for: arView)
         }
-        
-        // Initialize sceneData on view model
-        viewModel.initializSceneData(arView: arView)
         
         arView.session.delegate = context.coordinator
         
         return arView
     }
     
-    func updateUIView(_ arView: ARViewController, context: Context) {
+    func updateUIView(_ arView: ARView, context: Context) {
         setupARViewConfiguration(arView)
     }
     
-    private func updateScene(for arView: ARViewController) {}
+    private func updateScene(for arView: ARView) {}
     
-    func setupARViewConfiguration(_ arView: ARViewController) {
+    func setupARViewConfiguration(_ arView: ARView) {
         let currentConfiguration = arView.session.configuration
             
         if !(currentConfiguration is ARWorldTrackingConfiguration) {

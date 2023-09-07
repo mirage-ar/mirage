@@ -24,12 +24,12 @@ struct ARViewBottomBar: View {
                         if viewModel.miraCreateMenuType != .DEFAULT {
                             Button {
                                 if viewModel.miraCreateMenuType == .MODIFY {
-                                    viewModel.sceneData.selectedModifier = viewModel.sceneData.previousModifier
+                                    viewModel.selectedModifier = viewModel.previousModifier
                                     viewModel.removeModifier(.rotate)
                                 }
                                     
                                 if viewModel.miraCreateMenuType == .SHAPE {
-                                    viewModel.sceneData.selectedShape = viewModel.sceneData.previousShape
+                                    viewModel.selectedShape = viewModel.previousShape
                                     viewModel.revertShape()
                                 }
                                     
@@ -38,11 +38,11 @@ struct ARViewBottomBar: View {
                             } label: {
                                 Images.buttonClose.swiftUIImage
                             }
-                        } else if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil {
+                        } else if viewModel.currentMira != nil && viewModel.selectedEntity == nil {
                             Button {
                                 print("UPDATE: Cancel current Mira create")
                                 viewModel.currentMira = nil
-                                viewModel.sceneData.removeAllMedia()
+                                viewModel.removeAllMedia()
                             } label: {
                                 Text("CANCEL")
                                     .foregroundColor(.white)
@@ -74,11 +74,11 @@ struct ARViewBottomBar: View {
                         if viewModel.miraCreateMenuType == .MODIFY || viewModel.miraCreateMenuType == .SHAPE {
                             Button {
                                 if viewModel.miraCreateMenuType == .MODIFY {
-                                    viewModel.sceneData.previousModifier = viewModel.sceneData.selectedModifier
+                                    viewModel.previousModifier = viewModel.selectedModifier
                                 }
                                 
                                 if viewModel.miraCreateMenuType == .SHAPE {
-                                    viewModel.sceneData.previousShape = viewModel.sceneData.selectedShape
+                                    viewModel.previousShape = viewModel.selectedShape
                                 }
                                 
                                 viewModel.miraCreateMenuType = .DEFAULT
@@ -86,9 +86,9 @@ struct ARViewBottomBar: View {
                             } label: {
                                 Images.buttonCheck.swiftUIImage
                             }
-                        } else if viewModel.miraCreateMenuType == .DEFAULT && viewModel.sceneData.selectedEntity != nil {
+                        } else if viewModel.miraCreateMenuType == .DEFAULT && viewModel.selectedEntity != nil {
                             Button {
-                                viewModel.sceneData.selectedEntity = nil
+                                viewModel.selectedEntity = nil
                             } label: {
                                 Text("DONE")
                                     .foregroundColor(.white)

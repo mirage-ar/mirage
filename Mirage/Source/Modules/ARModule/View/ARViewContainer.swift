@@ -28,11 +28,11 @@ struct ARViewContainer: View {
                         if let entity = viewModel.arView.entity(at: gesture) {
                             // user tapped on an entity
                             viewModel.selectedMira = viewModel.findMiraByEntity(name: entity.name)
-                            viewModel.sceneData.updateSelectedEntity(entity)
-                        } else if viewModel.sceneData.selectedEntity != nil || viewModel.selectedMira != nil {
+                            viewModel.updateSelectedEntity(entity)
+                        } else if viewModel.selectedEntity != nil || viewModel.selectedMira != nil {
                             // return user to create screen
                             viewModel.selectedMira = nil
-                            viewModel.sceneData.selectedEntity = nil
+                            viewModel.selectedEntity = nil
                             viewModel.miraCreateMenuType = .DEFAULT
                             viewModel.revertShape()
                             
@@ -74,8 +74,8 @@ struct ARViewContainer: View {
                     ARViewOverlayMenu(viewModel: viewModel)
                 }
             }
-            .sheet(isPresented: $viewModel.sceneData.showMediaPicker) {
-                PhotosPickerView(media: $media, isPresented: $viewModel.sceneData.showMediaPicker)
+            .sheet(isPresented: $viewModel.showMediaPicker) {
+                PhotosPickerView(media: $media, isPresented: $viewModel.showMediaPicker)
             }
         }
     }

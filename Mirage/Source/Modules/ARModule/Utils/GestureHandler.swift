@@ -8,19 +8,27 @@ import Foundation
 import RealityKit
 import UIKit
 
+class EntityLongPressGestureRecognizer: UILongPressGestureRecognizer {
+    weak var arEntity: Entity?
+    var initialTouchLocation: CGPoint?
+}
+
 class GestureHandler: NSObject {
     private weak var arView: ARView?
-    private weak var sceneData: ARSceneData?
+    
+    
     private var distanceToCamera: Float?
     
     var updateShowMediaPicker: (Bool) -> Void
+    var retrieveMediaEntity: (Entity) -> MediaEntity?
+    
     var elevationEntity: MediaEntity?
     
     let generator = UIImpactFeedbackGenerator(style: .soft)
     
-    init(arView: ARView, sceneData: ARSceneData, updateShowMediaPicker: @escaping (Bool) -> Void) {
+    init(arView: ARView, retrieveMediaEntity: @escaping (Entity) -> MediaEntity?, updateShowMediaPicker: @escaping (Bool) -> Void) {
         self.arView = arView
-        self.sceneData = sceneData
+        self.retrieveMediaEntity = retrieveMediaEntity
         self.updateShowMediaPicker = updateShowMediaPicker
     }
 
@@ -37,7 +45,7 @@ class GestureHandler: NSObject {
             
             if let firstResult = results.first {
 //                sceneData?.updateSelectedEntity(firstResult.entity)
-                elevationEntity = sceneData?.retrieveMediaEntity(firstResult.entity)
+                elevationEntity = retrieveMediaEntity(firstResult.entity)
                 
                 // FIND DISTANCE TO ENTITY HERE
                 let cameraPosition = arView.cameraTransform.translation
