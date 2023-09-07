@@ -5,9 +5,12 @@
 //  Created by fiigmnt on 6/7/23.
 //
 
+import ApolloAPI
 import ARKit
+import AVKit
 import Combine
 import RealityKit
+import simd
 import SwiftUI
 
 enum MiraCreateMenuType {
@@ -21,6 +24,28 @@ enum ARViewMode {
     case CREATE
 }
 
+enum MediaEntityType {
+    case PHOTO
+    case VIDEO
+}
+
+struct MediaEntity {
+    let id: UUID = .init()
+    let entity: Entity
+    var height: Float
+    var width: Float
+    var shape: ShapeType
+    var modifier: ModifierType
+    var transform: simd_float4x4
+    
+    var contentType: ARMediaContentType
+    var image: UIImage?
+    var videoUrl: URL?
+    
+    var gestures: [EntityGestureRecognizer]
+    var texture: TextureResource?
+}
+
 final class ARViewModel: ObservableObject {
     @Published var arViewLocalized: Bool = false
     @Published var showMediaPicker: Bool = false
@@ -28,29 +53,40 @@ final class ARViewModel: ObservableObject {
     @Published var modiferAmount: Float = 1.0
     @Published var currentMira: Mira?
     @Published var viewingMiras: [Mira]?
-    @Published var arView: ARViewController = .init(frame: .zero)
+    @Published var arView: ARView
     @Published var arViewMode: ARViewMode = .EXPLORE
     
     @Published var selectedMira: Mira? = nil
     @Published var miraPosted: Bool = false
     
-    // Handle updates to scene data properties
-    @Published var sceneData: ARSceneData = .init() {
-        didSet {
-            sceneDataCancellable = sceneData.objectWillChange.sink { [weak self] _ in
-                self?.objectWillChange.send()
-            }
-        }
-    }
+    @Published var transformCancellables: [AnyCancellable] = []
+    @Published var mediaEntities: [MediaEntity] = []
+    @Published var selectedEntity: MediaEntity?
+    @Published var avPlayers: [UInt64: AVPlayer] = [:]
+    
+    @Published var selectedShape: ShapeType = .plane
+    @Published var previousShape: ShapeType = .plane
+    
+    @Published var selectedModifier: ModifierType = .none
+    @Published var previousModifier: ModifierType = .none
+    
+    private var gestureHandler: GestureHandler?
+    
+    var sceneObserver: Cancellable?
     
     let arApolloRepository: ARApolloRepository = AppConfiguration.shared.apollo
-    private var sceneDataCancellable: AnyCancellable?
+    
     private var currentARMedia: [ARMedia] = []
     
     init() {
-        sceneDataCancellable = sceneData.objectWillChange.sink { [weak self] _ in
-            self?.objectWillChange.send()
-        }
+        self.arView = ARView()
+        
+        // Initialize the GestureHandler
+        gestureHandler = GestureHandler(arView: arView, retrieveMediaEntity: retrieveMediaEntity, updateShowMediaPicker: updateShowMediaPicker)
+
+        // Add the long press gesture recognizer
+        let elevationGesture = EntityLongPressGestureRecognizer(target: gestureHandler, action: #selector(GestureHandler.handleLongPressGesture))
+        arView.addGestureRecognizer(elevationGesture)
     }
     
     func initializeCurrentMira() {
@@ -98,19 +134,15 @@ final class ARViewModel: ObservableObject {
         }
     }
     
-    func initializSceneData(arView: ARView) {
-        sceneData.setupGestureHandler(arView: arView)
-    }
-    
     func closeARSession() {
         arView.session.pause()
         
-        for (id, player) in sceneData.avPlayers {
+        for (id, player) in avPlayers {
             player.pause()
-            sceneData.avPlayers[id] = nil
+            avPlayers[id] = nil
         }
         
-        for transformCancellable in sceneData.transformCancellables {
+        for transformCancellable in transformCancellables {
             transformCancellable.cancel()
         }
         
@@ -119,9 +151,9 @@ final class ARViewModel: ObservableObject {
             rotationWorkItems[id] = nil
         }
         
-        sceneData.avPlayers = [:]
-        sceneDataCancellable?.cancel()
-        sceneData.sceneObserver?.cancel()
+        avPlayers = [:]
+        gestureHandler = nil
+        sceneObserver?.cancel()
     }
     
     func findMiraByEntity(name: String) -> Mira? {
@@ -166,7 +198,7 @@ final class ARViewModel: ObservableObject {
             
             let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .photo, image: image, gestures: gestures, texture: texture)
             
-            sceneData.updateSelectedEntity(mediaEntity)
+            updateSelectedEntity(mediaEntity)
             
             entity.name = String(anchor.id)
             anchor.addChild(entity)
@@ -210,7 +242,7 @@ final class ARViewModel: ObservableObject {
         let gestures = arView.installGestures([.scale, .rotation, .translation], for: entity)
         
         // Store the AVPlayer instance in the dictionary using entity's identifier as the key
-        sceneData.avPlayers[entity.id] = player
+        avPlayers[entity.id] = player
         
         entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
         
@@ -229,7 +261,7 @@ final class ARViewModel: ObservableObject {
         let transform = entity.transform.matrix
         
         let mediaEntity = MediaEntity(entity: entity, height: height, width: width, shape: .plane, modifier: .none, transform: transform, contentType: .video, videoUrl: videoUrl, gestures: gestures)
-        sceneData.updateSelectedEntity(mediaEntity)
+        updateSelectedEntity(mediaEntity)
         
         entity.name = String(anchor.id)
         anchor.addChild(entity)
@@ -237,10 +269,10 @@ final class ARViewModel: ObservableObject {
     }
     
     func applyShape(_ shape: ShapeType) {
-        sceneData.selectedShape = shape
-        sceneData.selectedEntity?.shape = shape
+        selectedShape = shape
+        selectedEntity?.shape = shape
         
-        if let selectedEntity = sceneData.selectedEntity {
+        if let selectedEntity = selectedEntity {
             switch shape {
             case .plane:
                 changeShape(to: .generateBox(width: selectedEntity.width, height: selectedEntity.height, depth: 0.002))
@@ -251,18 +283,18 @@ final class ARViewModel: ObservableObject {
             }
             
             // update media entity
-            if let selectedIndex = sceneData.mediaEntities.firstIndex(where: { $0.entity.id == selectedEntity.entity.id }) {
-                sceneData.mediaEntities[selectedIndex].shape = shape
+            if let selectedIndex = mediaEntities.firstIndex(where: { $0.entity.id == selectedEntity.entity.id }) {
+                mediaEntities[selectedIndex].shape = shape
             }
         }
     }
     
     func revertShape() {
-        applyShape(sceneData.previousShape)
+        applyShape(previousShape)
     }
     
     func changeShape(to newShape: MeshResource) {
-        if let entity = sceneData.selectedEntity?.entity as? ModelEntity {
+        if let entity = selectedEntity?.entity as? ModelEntity {
             entity.model?.mesh = newShape
             entity.collision = nil
             entity.generateCollisionShapes(recursive: true)
@@ -270,17 +302,17 @@ final class ARViewModel: ObservableObject {
     }
     
     func applyModifier(_ modifier: ModifierType) {
-        sceneData.selectedModifier = modifier
+        selectedModifier = modifier
         print("APPLYING MODIFIER: \(modifier)")
-        if let selectedEntity = sceneData.selectedEntity {
+        if let selectedEntity = selectedEntity {
             // update media entity
-            if let selectedIndex = sceneData.mediaEntities.firstIndex(where: { $0.entity.id == selectedEntity.entity.id }) {
-                sceneData.mediaEntities[selectedIndex].modifier = modifier
+            if let selectedIndex = mediaEntities.firstIndex(where: { $0.entity.id == selectedEntity.entity.id }) {
+                mediaEntities[selectedIndex].modifier = modifier
             }
         }
         
         if modifier == .rotate {
-            guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
+            guard let modelEntity = selectedEntity?.entity as? ModelEntity else { return }
             rotateModel(modelEntity)
         }
     }
@@ -302,13 +334,11 @@ final class ARViewModel: ObservableObject {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem)
         rotationWorkItems[modelEntity.id] = workItem
-        
-        print("ROTATION WORK ITEMS: \(rotationWorkItems.count)")
     }
     
     func removeModifier(_ modifier: ModifierType) {
         if modifier == .rotate {
-            guard let modelEntity = sceneData.selectedEntity?.entity as? ModelEntity else { return }
+            guard let modelEntity = selectedEntity?.entity as? ModelEntity else { return }
             
             // Cancel DispatchQueue
             rotationWorkItems[modelEntity.id]?.cancel()
@@ -320,15 +350,12 @@ final class ARViewModel: ObservableObject {
         var arMediaArray: [ARMedia] = []
         
         // remove gestures on mira
-        for mediaEntity in sceneData.mediaEntities {
-//            mediaEntity.gestures.forEach { $0.isEnabled = false }
+        for mediaEntity in mediaEntities {
+            mediaEntity.gestures.forEach { $0.isEnabled = false }
         }
         
-        for entity in sceneData.mediaEntities {
+        for entity in mediaEntities {
             let media = currentARMedia.first(where: { $0.id == entity.id })
-            
-            print("SHAPE TYPE ON LOCK")
-            print(entity.shape)
             
             // create new ARMedia entity based on sceneData info
             if let media = media {
@@ -543,7 +570,7 @@ final class ARViewModel: ObservableObject {
         entity.generateCollisionShapes(recursive: true)
         
         // Store the AVPlayer instance in the dictionary using entity's identifier as the key
-        sceneData.avPlayers[entity.id] = player
+        avPlayers[entity.id] = player
         
         let transform = entity.transform.matrix
            
@@ -559,5 +586,79 @@ final class ARViewModel: ObservableObject {
         anchorEntity.addChild(entity)
 
         return anchorEntity
+    }
+    
+    func updateShowMediaPicker(_ value: Bool) {
+        showMediaPicker = value
+    }
+    
+    func updateSelectedEntity(_ mediaEntity: MediaEntity) {
+        if let selectedIndex = mediaEntities.firstIndex(where: { $0.entity.id == mediaEntity.entity.id }) {
+            selectedShape = mediaEntity.shape
+            previousShape = selectedShape
+            
+            selectedModifier = mediaEntity.modifier
+            previousModifier = selectedModifier
+            
+            mediaEntities.remove(at: selectedIndex)
+            mediaEntities.append(mediaEntity)
+        } else {
+            selectedEntity = mediaEntity
+            mediaEntities.append(mediaEntity)
+        }
+    }
+    
+    func updateSelectedEntity(_ entity: Entity) {
+        if let selectedIndex = mediaEntities.firstIndex(where: { $0.entity.id == entity.id }) {
+            selectedEntity = mediaEntities[selectedIndex]
+            
+            if let selectedEntity = selectedEntity {
+                selectedShape = selectedEntity.shape
+                previousShape = selectedShape
+                
+                selectedModifier = selectedEntity.modifier
+                previousModifier = selectedModifier
+                
+                mediaEntities.remove(at: selectedIndex)
+                mediaEntities.append(selectedEntity)
+            }
+        }
+    }
+    
+    func removeEntity(_ entity: Entity) {
+        // TODO: remove entity from mira as well
+        
+        // Stop the AVPlayer if it exists in the avPlayers dictionary
+        if let player = avPlayers[entity.id] {
+            player.pause()
+            avPlayers.removeValue(forKey: entity.id)
+        }
+        
+        // remove entity from array
+        if let entityIndex = mediaEntities.firstIndex(where: { $0.entity.id == entity.id }) {
+            mediaEntities.remove(at: entityIndex)
+        }
+        
+        entity.removeFromParent()
+        selectedEntity = nil
+    }
+    
+    func removeEntity(_ mediaEntity: MediaEntity) {
+        removeEntity(mediaEntity.entity)
+    }
+    
+    func removeAllMedia() {
+        for mediaEntity in mediaEntities {
+            removeEntity(mediaEntity)
+        }
+    }
+    
+    func retrieveMediaEntity(_ entity: Entity) -> MediaEntity? {
+        if let selectedIndex = mediaEntities.firstIndex(where: { $0.entity.id == entity.id }) {
+            return mediaEntities[selectedIndex]
+        }
+        
+        print("ERROR: could not retieve MediaEntity from Entity")
+        return nil
     }
 }

@@ -29,7 +29,6 @@
 		394B496A296CCAD400E2F8E4 /* MirageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4969296CCAD400E2F8E4 /* MirageTests.swift */; };
 		394B4974296CCAD400E2F8E4 /* MirageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4973296CCAD400E2F8E4 /* MirageUITests.swift */; };
 		394B4976296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */; };
-		394EC76F2A5F653A0002AAE1 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC76E2A5F653A0002AAE1 /* StateManager.swift */; };
 		394EC7612A5E4F3B0002AAE1 /* ARApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC7602A5E4F3B0002AAE1 /* ARApolloRepository.swift */; };
 		394EC7632A5E4FD30002AAE1 /* AddMira.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 394EC7622A5E4FD30002AAE1 /* AddMira.graphql */; };
 		394EC7682A5E50DF0002AAE1 /* ModifierInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394EC7642A5E50DF0002AAE1 /* ModifierInput.graphql.swift */; };
@@ -45,13 +44,11 @@
 		39BD18F12A2D081D00A9F95C /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F02A2D081D00A9F95C /* MediaPicker.swift */; };
 		39BD18F32A2D083B00A9F95C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */; };
 		39BD18F52A2D085000A9F95C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F42A2D085000A9F95C /* Helpers.swift */; };
-		39BD18F92A2D087700A9F95C /* ARSceneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18F82A2D087700A9F95C /* ARSceneData.swift */; };
 		39BD18FB2A2D089100A9F95C /* ARViewBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18FA2A2D089100A9F95C /* ARViewBottomBar.swift */; };
 		39BD18FD2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18FC2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift */; };
 		39BD18FF2A2D08B100A9F95C /* ARViewOverlayMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD18FE2A2D08B100A9F95C /* ARViewOverlayMenu.swift */; };
 		39BD19012A2D08C100A9F95C /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD19002A2D08C100A9F95C /* ARViewContainer.swift */; };
 		39BD19032A2D08D000A9F95C /* ARViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BD19022A2D08D000A9F95C /* ARViewRepresentable.swift */; };
-		39CA4F962A2F8BE6002CCE88 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F952A2F8BE6002CCE88 /* ARViewController.swift */; };
 		39CA4F992A3106BB002CCE88 /* ARViewCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */; };
 		39CA4F9B2A3106FD002CCE88 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */; };
 		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
@@ -201,7 +198,6 @@
 		394B496F296CCAD400E2F8E4 /* MirageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MirageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		394B4973296CCAD400E2F8E4 /* MirageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITests.swift; sourceTree = "<group>"; };
 		394B4975296CCAD400E2F8E4 /* MirageUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirageUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		394EC76E2A5F653A0002AAE1 /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		394EC7602A5E4F3B0002AAE1 /* ARApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARApolloRepository.swift; sourceTree = SOURCE_ROOT; };
 		394EC7622A5E4FD30002AAE1 /* AddMira.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AddMira.graphql; sourceTree = "<group>"; };
 		394EC7642A5E50DF0002AAE1 /* ModifierInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifierInput.graphql.swift; sourceTree = "<group>"; };
@@ -218,13 +214,11 @@
 		39BD18F02A2D081D00A9F95C /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		39BD18F42A2D085000A9F95C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		39BD18F82A2D087700A9F95C /* ARSceneData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARSceneData.swift; path = Mirage/Source/Modules/ARModule/ViewModel/ARSceneData.swift; sourceTree = SOURCE_ROOT; };
 		39BD18FA2A2D089100A9F95C /* ARViewBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewBottomBar.swift; sourceTree = "<group>"; };
 		39BD18FC2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewModifierMenu.swift.swift; sourceTree = "<group>"; };
 		39BD18FE2A2D08B100A9F95C /* ARViewOverlayMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewOverlayMenu.swift; sourceTree = "<group>"; };
 		39BD19002A2D08C100A9F95C /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 		39BD19022A2D08D000A9F95C /* ARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewRepresentable.swift; sourceTree = "<group>"; };
-		39CA4F952A2F8BE6002CCE88 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewController.swift; path = Mirage/Source/Modules/ARModule/ViewModel/ARViewController.swift; sourceTree = SOURCE_ROOT; };
 		39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCamera.swift; sourceTree = "<group>"; };
 		39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewModel.swift; path = Mirage/Source/Modules/ARModule/View/ARViewModel.swift; sourceTree = SOURCE_ROOT; };
 		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
@@ -518,8 +512,6 @@
 			isa = PBXGroup;
 			children = (
 				39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */,
-				39BD18F82A2D087700A9F95C /* ARSceneData.swift */,
-				39CA4F952A2F8BE6002CCE88 /* ARViewController.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1267,7 +1259,6 @@
 				3942F7452A5C5539007DB731 /* Position.graphql.swift in Sources */,
 				9331C48B29AF8C0100F8EE72 /* ApolloRepository.swift in Sources */,
 				3942F7512A5C851A007DB731 /* ArMedia.graphql.swift in Sources */,
-				39CA4F962A2F8BE6002CCE88 /* ARViewController.swift in Sources */,
 				394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */,
 				9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */,
 				936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */,
@@ -1345,7 +1336,6 @@
 				394EC7682A5E50DF0002AAE1 /* ModifierInput.graphql.swift in Sources */,
 				93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */,
 				931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */,
-				39BD18F92A2D087700A9F95C /* ARSceneData.swift in Sources */,
 				93537E5A29F91590000B08A4 /* GetMirasQueryInput.graphql.swift in Sources */,
 				3942F7592A5C8524007DB731 /* Shape.graphql.swift in Sources */,
 				93DD4FE32A9407480040D232 /* ScreenRecordManager.swift in Sources */,

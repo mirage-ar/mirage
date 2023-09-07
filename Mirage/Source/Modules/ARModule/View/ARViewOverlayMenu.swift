@@ -45,7 +45,7 @@ struct ARViewOverlayMenu: View {
                 Spacer()
                 
                 Group {
-                    if viewModel.currentMira != nil && viewModel.sceneData.selectedEntity == nil {
+                    if viewModel.currentMira != nil && viewModel.selectedEntity == nil {
                         ZStack {
                             HStack {
                                 Spacer()
@@ -80,13 +80,13 @@ struct ARViewOverlayMenu: View {
                                 Spacer()
                                 Button(action: {
                                     triggerHapticFeedback()
-                                    viewModel.sceneData.showMediaPicker = true
+                                    viewModel.showMediaPicker = true
                                 }, label: {
                                     Images.buttonMedia.swiftUIImage
                                 })
                             }
                         }
-                    } else if viewModel.sceneData.selectedEntity != nil {
+                    } else if viewModel.selectedEntity != nil {
                         switch viewModel.miraCreateMenuType {
                         case .DEFAULT:
                             ZStack {
@@ -119,8 +119,8 @@ struct ARViewOverlayMenu: View {
                                     Button {
                                         triggerHapticFeedback()
                                         
-                                        if let entity = viewModel.sceneData.selectedEntity?.entity {
-                                            viewModel.sceneData.removeEntity(entity)
+                                        if let entity = viewModel.selectedEntity?.entity {
+                                            viewModel.removeEntity(entity)
                                         }
                                     } label: {
                                         Images.buttonTrash.swiftUIImage
@@ -137,11 +137,11 @@ struct ARViewOverlayMenu: View {
                             
                         case .SHAPE:
                             HStack {
-                                ShapeButton(shape: .plane, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                                ShapeButton(shape: .plane, enabledShape: $viewModel.selectedShape, buttonAction: viewModel.applyShape)
                                 
-                                ShapeButton(shape: .cube, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                                ShapeButton(shape: .cube, enabledShape: $viewModel.selectedShape, buttonAction: viewModel.applyShape)
                                 
-                                ShapeButton(shape: .sphere, enabledShape: $viewModel.sceneData.selectedShape, buttonAction: viewModel.applyShape)
+                                ShapeButton(shape: .sphere, enabledShape: $viewModel.selectedShape, buttonAction: viewModel.applyShape)
                             }
                         }
                     } else {
@@ -173,7 +173,7 @@ struct ARViewOverlayMenu: View {
                             
                             Button(action: {
                                 triggerHapticFeedback()
-                                viewModel.sceneData.showMediaPicker = true
+                                viewModel.showMediaPicker = true
                             }, label: {
                                 Images.buttonMedia.swiftUIImage
                             })

@@ -34,7 +34,7 @@ struct MBMapView: UIViewRepresentable {
         let latitude: Double = locationManager.location?.latitude ?? 40.70290414346796
         let longitude: Double = locationManager.location?.longitude ?? -73.95591309248328
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 14.4, bearing: -25, pitch: 0)
+        let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 20, bearing: -25, pitch: 0)
         
         let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: StyleURI(rawValue: "mapbox://styles/fiigmnt/cl4evbfs6001q14lqhwnmjo11"))
 
