@@ -52,6 +52,7 @@
 		39CA4F992A3106BB002CCE88 /* ARViewCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */; };
 		39CA4F9B2A3106FD002CCE88 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */; };
 		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
+		39FED8B42AAAAA4D0059DADB /* LocationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FED8B32AAAAA4D0059DADB /* LocationPublisher.swift */; };
 		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
 		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
 		93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */; };
@@ -221,6 +222,7 @@
 		39BD19022A2D08D000A9F95C /* ARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewRepresentable.swift; sourceTree = "<group>"; };
 		39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCamera.swift; sourceTree = "<group>"; };
 		39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewModel.swift; path = Mirage/Source/Modules/ARModule/View/ARViewModel.swift; sourceTree = SOURCE_ROOT; };
+		39FED8B32AAAAA4D0059DADB /* LocationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPublisher.swift; sourceTree = "<group>"; };
 		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
 		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserViewModel.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				39BD18F02A2D081D00A9F95C /* MediaPicker.swift */,
 				39BD18F22A2D083B00A9F95C /* ViewModifiers.swift */,
 				39BD18F42A2D085000A9F95C /* Helpers.swift */,
+				39FED8B32AAAAA4D0059DADB /* LocationPublisher.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1262,6 +1265,7 @@
 				394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */,
 				9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */,
 				936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */,
+				39FED8B42AAAAA4D0059DADB /* LocationPublisher.swift in Sources */,
 				3942F7582A5C8524007DB731 /* ModifierType.graphql.swift in Sources */,
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
 				93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */,

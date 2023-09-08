@@ -31,6 +31,7 @@ type Location {
   latitude: Float!
   longitude: Float!
   elevation: Float
+  heading: Float
 }
 
 type ArMedia {
@@ -83,6 +84,7 @@ input LocationInput {
   latitude: Float!
   longitude: Float!
   elevation: Float
+  heading: Float
 }
 
 type Mutation {
