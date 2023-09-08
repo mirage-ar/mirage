@@ -18,15 +18,19 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     override init() {
         super.init()
-        locationManager.desiredAccuracy = 5
         locationManager.delegate = self
-        locationManager.distanceFilter = 100
+
+//        locationManager.desiredAccuracy = 5
+//        locationManager.distanceFilter = 100
+
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.headingFilter = kCLHeadingFilterNone
         requestAuthorizationIfNeeded()
     }
 
     func requestLocation() {
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -37,8 +41,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         heading = newHeading.trueHeading
-        
-        // Then stop updating to reduce performance impact
         locationManager.stopUpdatingHeading()
     }
 
@@ -52,11 +54,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         {
             // we're good.
             locationManager.startUpdatingLocation()
-            
-            Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { _ in
-                self.locationManager.startUpdatingHeading()
-            }
             locationManager.startUpdatingHeading()
+
         } else {
             requestLocation()
         }

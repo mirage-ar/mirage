@@ -45,7 +45,9 @@ struct ARViewOverlayMenu: View {
                 Spacer()
                 
                 Group {
-                    if viewModel.currentMira != nil && viewModel.selectedEntity == nil {
+                    if viewModel.selectedMira != nil {
+                        ARViewSocialMenu(viewModel: viewModel, selectedUserOnMap: $stateManager.selectedUserOnMap, userId: stateManager.loggedInUser?.id)
+                    } else if viewModel.currentMira != nil && viewModel.selectedEntity == nil {
                         ZStack {
                             HStack {
                                 Spacer()
@@ -179,9 +181,6 @@ struct ARViewOverlayMenu: View {
                             })
                         }
                     }
-                }
-                if viewModel.selectedMira != nil {
-                    ARViewSocialMenu(viewModel: viewModel, selectedUserOnMap: $stateManager.selectedUserOnMap, userId: stateManager.loggedInUser?.id)
                 }
             }
             .padding([.leading, .trailing, .bottom])

@@ -58,8 +58,6 @@ final class ARViewModel: ObservableObject {
     
     @Published var selectedMira: Mira? = nil
     @Published var miraPosted: Bool = false
-    
-    @Published var transformCancellables: [AnyCancellable] = []
     @Published var mediaEntities: [MediaEntity] = []
     @Published var selectedEntity: MediaEntity?
     @Published var avPlayers: [UInt64: AVPlayer] = [:]
@@ -72,34 +70,54 @@ final class ARViewModel: ObservableObject {
     
     private var gestureHandler: GestureHandler?
     
-    var sceneObserver: Cancellable?
-    
     let arApolloRepository: ARApolloRepository = AppConfiguration.shared.apollo
-    
     private var currentARMedia: [ARMedia] = []
+    private var miraAnchors: [UUID: ARAnchor] = [:]
+    
+    private var locationPublisher = LocationPublisher()
+    private var cancellables: Set<AnyCancellable> = []
+    private var userLocation: CLLocationCoordinate2D?
+    private var userHeading: Double?
+    private var userElevation: Double?
+    
+    var creator: User?
+    
+    var sceneObserver: Cancellable?
     
     init() {
         self.arView = ARView()
         
         // Initialize the GestureHandler
-        gestureHandler = GestureHandler(arView: arView, retrieveMediaEntity: retrieveMediaEntity, updateShowMediaPicker: updateShowMediaPicker)
+        self.gestureHandler = GestureHandler(arView: arView, retrieveMediaEntity: retrieveMediaEntity, updateShowMediaPicker: updateShowMediaPicker)
 
         // Add the long press gesture recognizer
         let elevationGesture = EntityLongPressGestureRecognizer(target: gestureHandler, action: #selector(GestureHandler.handleLongPressGesture))
         arView.addGestureRecognizer(elevationGesture)
+        
+        self.creator = UserDefaultsStorage().getUser()
+        
+        // recieve location values
+        locationPublisher
+            .first()
+            .sink(receiveCompletion: { _ in
+                self.cancellables.removeAll()
+            }, receiveValue: { data in
+                print("Received location: \(data.location) and heading: \(data.heading)")
+                self.userLocation = data.location.coordinate
+                self.userHeading = data.heading.trueHeading
+                self.userElevation = data.elevation
+            })
+            .store(in: &cancellables)
     }
     
     func initializeCurrentMira() {
-        guard let location = LocationManager.shared.location else {
-            print("ERROR: Initialize Mira failed - no location available.")
-            return
-        }
-        
-        guard let elevation = LocationManager.shared.elevation else { return }
-        guard let creator = UserDefaultsStorage().getUser() else { return }
+        guard let location = userLocation else { return }
+        guard let elevation = userElevation else { return }
+        guard let heading = userHeading else { return }
+        guard let creator = creator else { return }
         
         // Create new Mira with an empty array of ARMedia
-        let mira = Mira(id: UUID(), creator: creator, location: location, elevation: elevation, arMedia: [], collectors: nil)
+        let mira = Mira(id: UUID(), creator: creator, location: location, elevation: elevation, heading: heading, arMedia: [], collectors: nil)
         currentMira = mira
     }
     
@@ -142,10 +160,6 @@ final class ARViewModel: ObservableObject {
             avPlayers[id] = nil
         }
         
-        for transformCancellable in transformCancellables {
-            transformCancellable.cancel()
-        }
-        
         for (id, workItem) in rotationWorkItems {
             workItem.cancel()
             rotationWorkItems[id] = nil
@@ -153,7 +167,10 @@ final class ARViewModel: ObservableObject {
         
         avPlayers = [:]
         gestureHandler = nil
+        
         sceneObserver?.cancel()
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
     }
     
     func findMiraByEntity(name: String) -> Mira? {
@@ -388,6 +405,16 @@ final class ARViewModel: ObservableObject {
             })
     }
     
+    func deleteMira() {
+        print("UPDATE: Delete selected Mira")
+        // remove from view
+        if let anchor = miraAnchors[selectedMira?.id ?? .init()] {
+            arView.session.remove(anchor: anchor)
+        }
+        
+        // run delete mutation
+    }
+    
     func addMiraToScene() {
         guard let userLocation = LocationManager.shared.location else {
             // TODO: show request location notification
@@ -401,32 +428,54 @@ final class ARViewModel: ObservableObject {
             .receiveAndCancel(receiveOutput: { miras in
                 guard let miras = miras else { return }
                 self.viewingMiras = miras
-                self.initializeAllViewingMiras(miras, userLocation: userLocation)
+                
+                // wait until we have location and heading to create miras
+                self.locationPublisher
+                    .first()
+                    .sink(receiveCompletion: { _ in
+                        self.cancellables.removeAll()
+                    }, receiveValue: { data in
+                        print("Received location: \(data.location) and heading: \(data.heading)")
+                        self.userLocation = data.location.coordinate
+                        self.userHeading = data.heading.trueHeading
+                        self.userElevation = data.elevation
+                        
+                        // initialize all miras in ar view
+                        self.initializeAllViewingMiras(miras, userLocation: userLocation)
+                    })
+                    .store(in: &self.cancellables)
             }, receiveError: { error in
                 print("Error: \(error)")
-                                
             })
     }
 
     func initializeAllViewingMiras(_ miras: [Mira], userLocation _: CLLocationCoordinate2D) {
         for item in miras {
             let location = CLLocationCoordinate2D(latitude: item.location.latitude, longitude: item.location.longitude)
-            guard let userLocation = LocationManager.shared.location else { return }
-            guard let userElevation = LocationManager.shared.elevation else { return }
-            guard let userHeading = LocationManager.shared.heading else { return }
+            
+            // get user location data
+            guard let userLocation = userLocation else { return }
+            guard let userHeading = userHeading else { return }
+            guard let userElevation = userElevation else { return }
+            
+            // Calculate the difference between both heading values
+            let angleDifference = userHeading - (item.heading ?? 0.0)
+            let normalizedAngleDifference = (angleDifference.truncatingRemainder(dividingBy: 360) + 360).truncatingRemainder(dividingBy: 360)
             
             // Calculate the distance to the target location in North/South & East/West directions:
             let distanceNorthSouth = distanceBetween(lat1: userLocation.latitude, lon1: userLocation.longitude, lat2: location.latitude, lon2: userLocation.longitude)
             let distanceEastWest = distanceBetween(lat1: userLocation.latitude, lon1: userLocation.longitude, lat2: userLocation.latitude, lon2: location.longitude)
-            let elevationDifference = item.elevation ?? 0.0 - userElevation
+//            let elevationDifference = (item.elevation ?? 0.0) - userElevation
 
             // TODO: should use elevationDifference
-            // TODO: heading transform is not working - move heading to db?
+//            let translationMatrix = matrix_from_coordinates(distanceNorthSouth: Float(distanceNorthSouth), distanceEastWest: Float(distanceEastWest), elevationDifference: Float(elevationDifference))
+            
             let translationMatrix = matrix_from_coordinates(distanceNorthSouth: Float(distanceNorthSouth), distanceEastWest: Float(distanceEastWest), elevationDifference: Float(0.0))
-            let rotationMatrix = rotationMatrixForDegrees(degrees: Float(userHeading))
+            let rotationMatrix = rotationMatrixForDegrees(degrees: Float(normalizedAngleDifference))
             let combinedTransform = simd_mul(rotationMatrix, translationMatrix)
             
-            let geoAnchor = ARAnchor(transform: translationMatrix)
+            let geoAnchor = ARAnchor(name: item.id.uuidString, transform: combinedTransform)
+            miraAnchors[item.id] = geoAnchor
                 
             arView.session.add(anchor: geoAnchor)
                 

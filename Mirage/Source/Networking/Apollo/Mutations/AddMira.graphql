@@ -25,6 +25,7 @@ mutation AddMira($addMiraInput: AddMiraInput!) {
       latitude
       longitude
       elevation
+      heading
     }
   }
 }

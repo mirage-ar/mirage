@@ -21,6 +21,14 @@ struct ARViewSocialMenu: View {
         VStack {
             Spacer()
             HStack {
+                // TODO: delete mira button
+//                if viewModel.selectedMira?.creator.id == viewModel.creator?.id {
+//                    Button {
+//                        viewModel.deleteMira()
+//                    } label: {
+//                        Text("DELETE")
+//                    }
+//                }
                 Spacer()
                 VStack {
                     Button {
