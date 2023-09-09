@@ -137,14 +137,14 @@ struct EditProfileView: View {
                             .foregroundColor(Colors.white.swiftUIColor)
                     }
                         
-                    Divider()
-                        .overlay(Colors.g4LightGrey.swiftUIColor)
-                        
-                    Button {} label: {
-                        Text("DELETE ACCOUNT")
-                            .font(.body1)
-                            .foregroundColor(Colors.red.swiftUIColor)
-                    }
+//                    Divider()
+//                        .overlay(Colors.g4LightGrey.swiftUIColor)
+//                        
+//                    Button {} label: {
+//                        Text("DELETE ACCOUNT")
+//                            .font(.body1)
+//                            .foregroundColor(Colors.red.swiftUIColor)
+//                    }
                 }
             }
         }
