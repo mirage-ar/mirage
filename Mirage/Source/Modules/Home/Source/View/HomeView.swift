@@ -10,67 +10,62 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var stateManager: StateManager
-    
+
     @State var showArView = false
     @State var showProfileView = false
     @State var selectedMiraOnMap: Mira?
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
-    
+
     let miras = Mira.dummyMiras()
     let buttonSize = 48.0
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
-                MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
-                ZStack {
-                    VStack {
-                        HStack {
-                            Spacer()
+                MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
+                    .edgesIgnoringSafeArea(.all)
 
-                            VStack {
-                                if stateManager.loggedInUser != nil {
-                                    Button {
-                                        stateManager.selectedUserOnMap = stateManager.loggedInUser
-                                        showProfileView = true
-                                    } label: {
-                                        AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
-                                            image
-                                                .resizable()
-                                                .scaledToFill()
-                                        } placeholder: {
-                                            ProgressView()
-                                        }
-                                        .frame(width: buttonSize, height: buttonSize)
-                                        .background(Colors.g3Grey.just)
-                                        .clipShape(Circle())
-                                    }
-                                }
-                                Spacer()
-
-                                Button {
-                                    showArView = true
-                                    print("UPDATE: go to ARView")
-                                } label: {
-                                    Images.goAr32.swiftUIImage
+                VStack {
+                    HStack {
+                        Spacer()
+                        if stateManager.loggedInUser != nil {
+                            Button {
+                                stateManager.selectedUserOnMap = stateManager.loggedInUser
+                                showProfileView = true
+                            } label: {
+                                AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
+                                    image
                                         .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 32, height: 32)
+                                        .scaledToFill()
+                                } placeholder: {
+                                    ProgressView()
                                 }
                                 .frame(width: buttonSize, height: buttonSize)
                                 .background(Colors.g3Grey.just)
                                 .clipShape(Circle())
-                                .padding(.bottom, 50)
                             }
-                            .padding(.top, 70)
-                            .padding(.trailing, 20)
                         }
-                        Spacer()
                     }
+                    .padding()
+                    Spacer()
+                    
+                    Button {
+                        showArView = true
+                        print("UPDATE: go to ARView")
+                    } label: {
+                        Images.goAr32.swiftUIImage
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 32, height: 32)
+                    }
+                    .frame(width: buttonSize, height: buttonSize)
+                    .background(Colors.g3Grey.just)
+                    .clipShape(Circle())
+                    .padding(.bottom, 50)
+
                 }
             }
-            .edgesIgnoringSafeArea(.all)
             .fullScreenCover(isPresented: $showArView, content: {
                 NavigationRoute.homeToARCameraView.screen
             })
@@ -85,7 +80,7 @@ struct HomeView: View {
             }
             .onChange(of: stateManager.selectedUserOnMap) { [selectedUserOnMap = self.stateManager.selectedUserOnMap] selectedUser in
                 showCollectedByList = false
-                
+
                 // TODO: need to be able to show profile view over ARView
                 showArView = false
                 debugPrint(selectedUserOnMap.debugDescription)

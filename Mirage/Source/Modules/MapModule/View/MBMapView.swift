@@ -5,9 +5,10 @@
 //  Created by Saad on 10/04/2023.
 //
 
-import MapboxMaps
+//import MapboxMaps
 import MapKit
 import SwiftUI
+@_spi(Experimental) import MapboxMaps
 
 struct MBMapView: UIViewRepresentable {
     @EnvironmentObject var stateManager: StateManager
@@ -30,15 +31,29 @@ struct MBMapView: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> some UIView {
-        let myResourceOptions = ResourceOptions(accessToken: (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!)
+//        let myResourceOptions = ResourceOptions(accessToken: (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!)
         let latitude: Double = locationManager.location?.latitude ?? 40.70290414346796
         let longitude: Double = locationManager.location?.longitude ?? -73.95591309248328
         let centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 20, bearing: -25, pitch: 0)
+        let cameraOptions = CameraOptions(center: centerCoordinate, zoom: 20, bearing: -25, pitch: 60)
         
-        let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: cameraOptions, styleURI: StyleURI(rawValue: "mapbox://styles/fiigmnt/cl4evbfs6001q14lqhwnmjo11"))
+//        MapboxOptions.accessToken = (Bundle.main.object(forInfoDictionaryKey: "MBXAccessToken") as? String)!
+        
+        let myMapInitOptions = MapInitOptions(cameraOptions: cameraOptions)
 
         let mapView = MapView(frame: UIScreen.main.bounds, mapInitOptions: myMapInitOptions)
+        
+        do {
+            
+            mapView.mapboxMap.styleURI = .standard
+//            mapView.mapboxMap.lightPreset = .dusk
+            try mapView.mapboxMap.setStyleImportConfigProperty(for: "basemap", config: "showPointOfInterestLabels", value: false)
+            try mapView.mapboxMap.setStyleImportConfigProperty(for: "basemap", config: "lightPreset", value: "dusk")
+            
+        } catch {
+            print("ERROR: \(error)")
+        }
+
         
         // Create location identifier icon "puck"
         let puckImage = Puck2DConfiguration(topImage: UIImage(named: "me-pin"), bearingImage: UIImage(named: "me-pin"), shadowImage: UIImage(named: "me-pin"), scale: .constant(0.75), showsAccuracyRing: false)
@@ -50,7 +65,7 @@ struct MBMapView: UIViewRepresentable {
         mapView.location.options.puckType = .puck2D(puckImage)
         
         // Map view options [disable pitch, hide elements]
-        mapView.gestures.options.pitchEnabled = false
+//        mapView.gestures.options.pitchEnabled = false
         mapView.ornaments.options.logo.margins = .init(x: -10000, y: 0)
         mapView.ornaments.options.attributionButton.margins = .init(x: -10000, y: 0)
         mapView.ornaments.options.scaleBar.visibility = .hidden
