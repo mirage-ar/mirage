@@ -22,7 +22,6 @@ struct HomeView: View {
         NavigationStack {
             ZStack {
                 MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
-                    .edgesIgnoringSafeArea(.all)
 
                 VStack {
                     HStack {
@@ -43,6 +42,7 @@ struct HomeView: View {
                                 .background(Colors.g3Grey.just)
                                 .clipShape(Circle())
                             }
+                            .padding(.top, 48)
                         }
                     }
                     .padding()
@@ -60,17 +60,18 @@ struct HomeView: View {
                     .frame(width: buttonSize, height: buttonSize)
                     .background(Colors.g3Grey.just)
                     .clipShape(Circle())
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 48)
 
                 }
             }
+            .edgesIgnoringSafeArea(.all)
             .fullScreenCover(isPresented: $showArView, content: {
                 NavigationRoute.homeToARCameraView.screen
             })
             .fullScreenCover(isPresented: $showProfileView, onDismiss: {
                 stateManager.selectedUserOnMap = nil
             }, content: {
-                NavigationRoute.myProfile(userId: stateManager.selectedUserOnMap?.id.uuidString ?? "").screen
+                NavigationRoute.myProfile.screen
             })
             .sheet(isPresented: $showCollectedByList) {
                 NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen

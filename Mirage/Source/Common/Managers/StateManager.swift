@@ -10,27 +10,34 @@ final class StateManager: ObservableObject {
     @Published var loggedInUser: User?
     @Published var selectedUserOnMap: User?
     @Published var isLoadingUserProfile = false
-    
-    // TODO: remove once we have realtime data
-    @Published var temporaryAllMiras: [Mira] = []
     @Published var isScreenRecording = false
 
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
-
-    // TODO: update to state apollo repo
-    let userApolloRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
     
     init() {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
         }
         
-        loadUser()
+        loadCurrentUser()
     }
     
-    func loadUser() {
+    func loadSelectedUser(id: String?) {
+        userProfileRepository.getUser(id: id)
+            .receive(on: DispatchQueue.main)
+            .receiveAndCancel { user in
+                self.loggedInUser = user
+                UserDefaultsStorage().save(user)
+                print("userProfileRepository.getUser, userId: \(user.id)")
+                print(user.collectedMiraCount)
+            } receiveError: { error in
+                print("Get profile user error \(error)")
+            }
+    }
+    
+    func loadCurrentUser() {
         // TODO: update to own repository
-        userApolloRepository.getUser(id: UserDefaultsStorage().getString(for: .userId) ?? "")
+        userProfileRepository.getUser(id: UserDefaultsStorage().getString(for: .userId) ?? "")
             .receive(on: DispatchQueue.main)
             .receiveAndCancel { user in
                 self.loggedInUser = user
