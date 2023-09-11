@@ -148,29 +148,29 @@ struct ARViewOverlayMenu: View {
                         }
                     } else {
                         HStack {
-                            Button(action: {
-                                isScreenRecording.toggle()
-                                if isScreenRecording {
-                                    ScreenRecordManager.shared.startRecord()
-                                } else {
-                                    ScreenRecordManager.shared.stopRecord { preview in
-                                        self.previewView = RecordingPreviewView(rpPreviewViewController: preview, isShow: self.$isShowPreviewVideo)
-                                        withAnimation {
-                                            self.isShowPreviewVideo = true
-                                        }
-                                    }
-                                }
-                            }, label: {
-                                if isScreenRecording {
-                                    Images.recordingOn.swiftUIImage
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                } else {
-                                    Images.recordingOff.swiftUIImage
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                }
-                            })
+//                            Button(action: {
+//                                isScreenRecording.toggle()
+//                                if isScreenRecording {
+//                                    ScreenRecordManager.shared.startRecord()
+//                                } else {
+//                                    ScreenRecordManager.shared.stopRecord { preview in
+//                                        self.previewView = RecordingPreviewView(rpPreviewViewController: preview, isShow: self.$isShowPreviewVideo)
+//                                        withAnimation {
+//                                            self.isShowPreviewVideo = true
+//                                        }
+//                                    }
+//                                }
+//                            }, label: {
+//                                if isScreenRecording {
+//                                    Images.recordingOn.swiftUIImage
+//                                        .resizable()
+//                                        .frame(width: 40, height: 40)
+//                                } else {
+//                                    Images.recordingOff.swiftUIImage
+//                                        .resizable()
+//                                        .frame(width: 40, height: 40)
+//                                }
+//                            })
                             Spacer()
                             
                             Button(action: {
