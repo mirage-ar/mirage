@@ -14,12 +14,14 @@ public extension MirageAPI {
     public init(
       latitude: Double,
       longitude: Double,
-      elevation: GraphQLNullable<Double> = nil
+      elevation: GraphQLNullable<Double> = nil,
+      heading: GraphQLNullable<Double> = nil
     ) {
       __data = InputDict([
         "latitude": latitude,
         "longitude": longitude,
-        "elevation": elevation
+        "elevation": elevation,
+        "heading": heading
       ])
     }
 
@@ -36,6 +38,11 @@ public extension MirageAPI {
     public var elevation: GraphQLNullable<Double> {
       get { __data["elevation"] }
       set { __data["elevation"] = newValue }
+    }
+
+    public var heading: GraphQLNullable<Double> {
+      get { __data["heading"] }
+      set { __data["heading"] = newValue }
     }
   }
 

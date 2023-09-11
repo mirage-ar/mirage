@@ -14,11 +14,11 @@ struct ARViewModifierMenu: View {
         HStack {
             
             Button {
-                viewModel.removeModifier(viewModel.sceneData.selectedModifier)
-                viewModel.sceneData.selectedModifier = .none
+                viewModel.removeModifier(viewModel.selectedModifier)
+                viewModel.selectedModifier = .none
             } label: {
                 Text("W/O")
-                    .foregroundColor(viewModel.sceneData.selectedModifier == .none ? .white : .gray)
+                    .foregroundColor(viewModel.selectedModifier == .none ? .white : .gray)
                     .font(.body1)
             }
             .padding(.trailing)
@@ -28,7 +28,7 @@ struct ARViewModifierMenu: View {
 //            } label: {
 //                Text("M1")
 //                    .font(.system(size: 16)) // TODO: convert to standard font
-//                    .foregroundColor(viewModel.sceneData.selectedModifier == .TRANSPARENCY ? .white : .gray)
+//                    .foregroundColor(viewModel.selectedModifier == .TRANSPARENCY ? .white : .gray)
 //            }
 //            .padding([.leading, .trailing])
             
@@ -36,7 +36,7 @@ struct ARViewModifierMenu: View {
                 viewModel.applyModifier(.rotate)
             } label: {
                 Text("SPIN")
-                    .foregroundColor(viewModel.sceneData.selectedModifier == .rotate ? .white : .gray)
+                    .foregroundColor(viewModel.selectedModifier == .rotate ? .white : .gray)
                     .font(.body1)
             }
             .padding(.leading)

@@ -26,5 +26,7 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>AR View</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Image Picker</string>
 </dict>
 </plist>

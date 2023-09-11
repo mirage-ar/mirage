@@ -28,6 +28,7 @@ query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
       latitude
       longitude
       elevation
+      heading
     }
     viewed
     isFriend
