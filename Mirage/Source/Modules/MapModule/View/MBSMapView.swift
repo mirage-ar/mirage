@@ -39,8 +39,7 @@ struct MBSMapView: View {
                                             .scaledToFill()
                                     }
                                     placeholder: {
-                                        ProgressView()
-                                            .foregroundColor(Colors.white8p.swiftUIColor)
+                                        // None
                                     }
                                     .frame(width: 30, height: 30)
                                     .clipShape(Circle())

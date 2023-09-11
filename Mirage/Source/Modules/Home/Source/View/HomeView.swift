@@ -13,11 +13,9 @@ struct HomeView: View {
 
     @State var showArView = false
     @State var showProfileView = false
-    @State var selectedMiraOnMap: Mira?
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
 
-    let miras = Mira.dummyMiras()
     let buttonSize = 48.0
 
     var body: some View {
