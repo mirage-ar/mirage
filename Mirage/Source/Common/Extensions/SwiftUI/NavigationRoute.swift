@@ -12,7 +12,7 @@ public enum NavigationRoute {
     case onboardingAuthentication
     case onboardingVerifyPhoneNumber(phoneNumer: String)
     case updateUser(title: String, value: String, user: User)
-    case myProfile(userId: String)
+    case myProfile
     case settings(user: User)
     case editProfile(user: User)
     case miraCollectedByUsersList(mira: Binding<Mira?>)
@@ -34,8 +34,8 @@ public enum NavigationRoute {
                 HomeView()
             case .homeToARCameraView:
                 ARViewCamera()
-            case .myProfile(let userId):
-                UserProfileView(userId: userId)
+            case .myProfile:
+                UserProfileView()
             case .settings(let user):
                 SettingsView(user: user)
             case .editProfile(let user):

@@ -92,9 +92,9 @@ struct MBMapView: UIViewRepresentable {
         if !viewModel.isLoading {
             viewState = .fetching
             viewModel.getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
-            if let miras = viewModel.miras {
-                stateManager.temporaryAllMiras = miras
-            }
+//            if let miras = viewModel.miras {
+//                stateManager.temporaryAllMiras = miras
+//            }
         }
     }
     
