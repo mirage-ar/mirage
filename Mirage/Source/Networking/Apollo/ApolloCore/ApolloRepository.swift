@@ -227,7 +227,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the query data or error
     ///
     func fetch<Query: GraphQLQuery>(query: Query,
-                                    cachePolicy: CachePolicy = .returnCacheDataAndFetch,
+                                    cachePolicy: CachePolicy = .fetchIgnoringCacheData,
                                     callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Query.Data, Error>
     {

@@ -11,22 +11,12 @@ struct UserProfileView: View {
     @EnvironmentObject var stateManager: StateManager
     @Environment(\.presentationMode) var presentationMode
 
-    @State var goToSettings = false
-    @State var goToHome = false
+    @ObservedObject private var viewModel = UserProfileViewModel()
 
+    @State var ownProfile: Bool = false
+    @State var goToSettings = false
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
-
-    @ObservedObject private var viewModel: UserProfileViewModel
-
-    var ownProfile = true
-    let userId: String
-
-    init(userId: String) {
-        self.userId = userId
-        ownProfile = UserDefaultsStorage().getString(for: .userId)?.uppercased() == userId.uppercased()
-        viewModel = UserProfileViewModel(userId: userId)
-    }
 
     var body: some View {
         GeometryReader { geo in
@@ -37,7 +27,7 @@ struct UserProfileView: View {
 
                         HStack {
                             // TODO: update to collects and visits
-                            Text("\((stateManager.selectedUserOnMap?.createdMiraIds?.count ?? 0) + (stateManager.selectedUserOnMap?.collectedMiraIds?.count ?? 0))")
+                            Text("\((viewModel.user?.createdMiraIds?.count ?? 0) + (viewModel.user?.collectedMiraIds?.count ?? 0))")
                                 .foregroundColor(.white)
                                 .font(.body1)
 
@@ -48,26 +38,28 @@ struct UserProfileView: View {
                         }
                         .padding(.leading, 10)
 
-                        Group {
-                            ZStack {
-                                MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
-
-                                VStack {
-                                    Spacer()
-                                    HStack {
+                        if viewModel.user != nil {
+                            Group {
+                                ZStack {
+                                    MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, user: viewModel.user)
+                                    
+                                    VStack {
                                         Spacer()
-                                        Button {
-                                            presentationMode.wrappedValue.dismiss()
-                                        } label: {
-                                            Images.goHome32.swiftUIImage
+                                        HStack {
+                                            Spacer()
+                                            Button {
+                                                presentationMode.wrappedValue.dismiss()
+                                            } label: {
+                                                Images.goHome32.swiftUIImage
+                                            }
+                                            .padding(.trailing, 30)
                                         }
-                                        .padding(.trailing, 30)
                                     }
+                                    .padding(.bottom, 50)
                                 }
-                                .padding(.bottom, 50)
                             }
+                            .padding(.top, 5)
                         }
-                        .padding(.top, 5)
                     }
                 }
                 .toolbar {
@@ -111,9 +103,14 @@ struct UserProfileView: View {
                 .edgesIgnoringSafeArea(.all)
             }
             .accentColor(Colors.white.swiftUIColor)
-            .onAppear {
-                stateManager.selectedUserOnMap = viewModel.user
-            }
+        }
+        .onAppear {
+            ownProfile = UserDefaultsStorage().getString(for: .userId)?.uppercased() == stateManager.selectedUserOnMap?.id.uuidString.uppercased()
+            viewModel.loadProfile(stateManager.selectedUserOnMap?.id.uuidString ?? "")
+        }
+        .sheet(isPresented: $showCollectedByList) {
+            NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
+                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -124,7 +121,7 @@ struct ProfileInfo: View {
     let profileDescription: String
     let height: Double
     let width: Double
-    
+
     @State private var dragOffset: CGFloat = 0
 
     var body: some View {

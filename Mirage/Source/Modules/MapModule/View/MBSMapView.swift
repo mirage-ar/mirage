@@ -19,7 +19,7 @@ struct MBSMapView: View {
     
     @Binding var selectedMira: Mira?
     @Binding var showCollectedByList: Bool
-    var isProfile: Bool = false
+    var user: User? = nil
     
     @State private var viewport: Viewport = .camera(zoom: 17, bearing: 0, pitch: 40)
     @State private var mapHasMoved: Bool = false
@@ -31,7 +31,7 @@ struct MBSMapView: View {
                 ZStack {
                     Map(viewport: $viewport) {
                         if let miras = viewModel.miras {
-                            ForEvery(isProfile ? profileFilter(miras) : miras) { mira in
+                            ForEvery(user != nil ? profileFilter(miras) : miras) { mira in
                                 let location = CLLocationCoordinate2D(latitude: mira.location.latitude, longitude: mira.location.longitude)
                                 ViewAnnotation(location, allowOverlap: true) {
                                     AsyncImage(url: URL(string: mira.imageUrl)) { image in
@@ -73,28 +73,32 @@ struct MBSMapView: View {
                         }
                     }
                     
-                    Button {
-                        withViewportAnimation(.default(maxDuration: 0.75)) {
-                            viewport = .camera(center: locationManager.location)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                withAnimation {
-                                    self.mapHasMoved = false
+                    VStack {
+                        Spacer()
+                        Button {
+                            withViewportAnimation(.default(maxDuration: 0.75)) {
+                                viewport = .camera(center: locationManager.location, bearing: 0, pitch: 40)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    withAnimation {
+                                        self.mapHasMoved = false
+                                    }
                                 }
                             }
+                        } label: {
+                            Images.findMe24.swiftUIImage
+                                .foregroundColor(Colors.green.swiftUIColor)
+                                .frame(width: 48, height: 48)
+                                .background(Colors.g3Grey.just.opacity(0.9))
+                                .clipShape(Circle())
+                            //                            .padding(.bottom, 30)
                         }
-                    } label: {
-                        Images.findMe24.swiftUIImage
-                            .foregroundColor(Colors.green.swiftUIColor)
-                            .frame(width: 48, height: 48)
-                            .background(Colors.g3Grey.just.opacity(0.9))
-                            .clipShape(Circle())
-//                            .padding(.bottom, 30)
+                        .offset(y: -100)
+                        .padding(.bottom, user != nil ? 48 : 120)
+                        .opacity(mapHasMoved ? 1.0 : 0.0)
+                        .animation(.easeInOut(duration: 0.2), value: mapHasMoved)
                     }
-                    .offset(y: 45)
-                    .opacity(mapHasMoved ? 1.0 : 0.0)
-                    .animation(.easeInOut(duration: 0.2), value: mapHasMoved)
                 }
-                .frame(width: geo.size.width, height: geo.size.height * 1.5)
+                .frame(width: geo.size.width, height: geo.size.height + 100)
             }
         }
     }
@@ -102,10 +106,12 @@ struct MBSMapView: View {
     func profileFilter(_ miras: [Mira]) -> [Mira] {
         var filteredMiras = miras
         
-        if let user = stateManager.selectedUserOnMap {
+        if let user = user {
             let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds
+            print("MIRA IDS: \(createdMiraIds)")
             let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
+            print("MIRA IDS: \(userMiraIds)")
             filteredMiras = miras.filter { userMiraIds.contains($0.id) }
         }
         return filteredMiras
