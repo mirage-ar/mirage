@@ -23,6 +23,7 @@ struct MBSMapView: View {
     
     @State private var viewport: Viewport = .camera(zoom: 17, bearing: 0, pitch: 40)
     @State private var mapHasMoved: Bool = false
+    @State private var userLocation: CLLocationCoordinate2D?
     
     var body: some View {
         GeometryReader { geo in
@@ -63,6 +64,8 @@ struct MBSMapView: View {
                         mapHasMoved = true
                     }
                     .onAppear {
+                        userLocation = locationManager.location
+                        
                         guard let map = proxy.map else { return }
                         map.setCamera(to: .init(center: locationManager.location))
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -81,7 +84,13 @@ struct MBSMapView: View {
                         }
                     } label: {
                         Images.findMe24.swiftUIImage
+                            .foregroundColor(Colors.green.swiftUIColor)
+                            .frame(width: 48, height: 48)
+                            .background(Colors.g3Grey.just.opacity(0.9))
+                            .clipShape(Circle())
+//                            .padding(.bottom, 30)
                     }
+                    .offset(y: 45)
                     .opacity(mapHasMoved ? 1.0 : 0.0)
                     .animation(.easeInOut(duration: 0.2), value: mapHasMoved)
                 }

@@ -16,7 +16,7 @@ struct HomeView: View {
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
 
-    let buttonSize = 48.0
+    let buttonSize = 60.0
 
     var body: some View {
         NavigationStack {
@@ -60,7 +60,7 @@ struct HomeView: View {
                     .frame(width: buttonSize, height: buttonSize)
                     .background(Colors.g3Grey.just)
                     .clipShape(Circle())
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 30)
 
                 }
             }
