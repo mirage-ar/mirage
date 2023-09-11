@@ -59,7 +59,7 @@ struct MBSMapView: View {
                             .shadowImage(UIImage(named: "me-pin"))
                             .scale(1.25)
                     }
-                    .mapStyle(.standard(lightPreset: .night, showPointOfInterestLabels: false, showTransitLabels: false, showPlaceLabels: false))
+                    .mapStyle(.standard(lightPreset: getLightPreset(), showPointOfInterestLabels: false, showTransitLabels: false, showPlaceLabels: false))
                     .onCameraChanged { _ in
                         mapHasMoved = true
                     }
@@ -115,5 +115,20 @@ struct MBSMapView: View {
             filteredMiras = miras.filter { userMiraIds.contains($0.id) }
         }
         return filteredMiras
+    }
+    
+    func getLightPreset() -> StandardLightPreset {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        
+        switch currentHour {
+        case 5..<7:
+            return .dawn
+        case 7..<18:
+            return .day
+        case 18..<20:
+            return .dusk
+        default:
+            return .night
+        }
     }
 }
