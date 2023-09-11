@@ -10,8 +10,8 @@ import CoreLocation
 import Foundation
 import simd
 
-public struct Mira {
-    let id: UUID
+public struct Mira: Identifiable {
+    public let id: UUID
     let creator: User
     let location: CLLocationCoordinate2D
     let elevation: Double?

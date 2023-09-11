@@ -50,7 +50,7 @@ struct UserProfileView: View {
 
                         Group {
                             ZStack {
-                                MBMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
+                                MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, isProfile: true)
 
                                 VStack {
                                     Spacer()

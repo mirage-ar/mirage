@@ -53,6 +53,7 @@
 		39CA4F9B2A3106FD002CCE88 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */; };
 		39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 39FD214B29DB739F0064FFBF /* MapboxMaps */; };
 		39FED8B42AAAAA4D0059DADB /* LocationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FED8B32AAAAA4D0059DADB /* LocationPublisher.swift */; };
+		39FED8B82AAE5E560059DADB /* MBSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FED8B72AAE5E560059DADB /* MBSMapView.swift */; };
 		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
 		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
 		93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */; };
@@ -223,6 +224,7 @@
 		39CA4F982A3106BB002CCE88 /* ARViewCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCamera.swift; sourceTree = "<group>"; };
 		39CA4F9A2A3106FD002CCE88 /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ARViewModel.swift; path = Mirage/Source/Modules/ARModule/View/ARViewModel.swift; sourceTree = SOURCE_ROOT; };
 		39FED8B32AAAAA4D0059DADB /* LocationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPublisher.swift; sourceTree = "<group>"; };
+		39FED8B72AAE5E560059DADB /* MBSMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSMapView.swift; sourceTree = "<group>"; };
 		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
 		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserViewModel.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				9300624829E43EA000816C46 /* MBMapView.swift */,
 				935065152A43302700817130 /* CollectedByUsersView.swift */,
 				936D307A2A43AEA00041FC0C /* UserListRow.swift */,
+				39FED8B72AAE5E560059DADB /* MBSMapView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1348,6 +1351,7 @@
 				9318454329CB183800DD07CB /* Images.swift in Sources */,
 				9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */,
 				394EC7692A5E50DF0002AAE1 /* ArMediaInput.graphql.swift in Sources */,
+				39FED8B82AAE5E560059DADB /* MBSMapView.swift in Sources */,
 				9300624929E43EA000816C46 /* MBMapView.swift in Sources */,
 				93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */,
 				9318454229CB183800DD07CB /* Fonts.swift in Sources */,
@@ -1554,6 +1558,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1588,6 +1595,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1759,6 +1769,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1886,6 +1899,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROD;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2013,6 +2029,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirage.MirageAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2116,8 +2135,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mapbox/mapbox-maps-ios.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = "11.0.0-beta.3";
 			};
 		};
 		9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */ = {
