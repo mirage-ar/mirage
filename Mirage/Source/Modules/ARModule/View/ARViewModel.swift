@@ -56,7 +56,10 @@ final class ARViewModel: ObservableObject {
     @Published var arView: ARView
     @Published var arViewMode: ARViewMode = .EXPLORE
     
+    //MARK: Collect Mira
+    @Published var collected: Bool = false
     @Published var selectedMira: Mira? = nil
+    
     @Published var miraPosted: Bool = false
     @Published var mediaEntities: [MediaEntity] = []
     @Published var selectedEntity: MediaEntity?
@@ -399,7 +402,9 @@ final class ARViewModel: ObservableObject {
     func collectMira(id: UUID) {
         arApolloRepository.collectMira(id: id)
             .receive(on: DispatchQueue.main)
-            .receiveAndCancel(receiveOutput: { _ in
+            .receiveAndCancel(receiveOutput: { [weak self] collected in
+                self?.collected = collected ?? false
+                
             }, receiveError: { error in
                 print("Error: \(error)")
             })
