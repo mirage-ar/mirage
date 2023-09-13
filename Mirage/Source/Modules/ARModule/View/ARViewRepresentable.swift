@@ -52,9 +52,9 @@ struct ARViewRepresentable: UIViewRepresentable {
                 
             // Check for LiDAR support
             if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
-                configuration.sceneReconstruction = .mesh
-                arView.environment.sceneUnderstanding.options.insert(.occlusion)
-                arView.debugOptions.insert(.showSceneUnderstanding)
+//                configuration.sceneReconstruction = .mesh
+//                arView.environment.sceneUnderstanding.options.insert(.occlusion)
+//                arView.debugOptions.insert(.showSceneUnderstanding)
             }
                 
             // Check for person segmentation with depth support
