@@ -49,6 +49,10 @@ struct ARViewSocialMenu: View {
 
                     Button {
                         print("Collect Mira")
+                        if let id =  viewModel.selectedMira? .id {
+                            viewModel.collectMira(id:id)
+                        }
+                        
                     } label: {
                         // TODO: turn green when mira is collected
                         Images.collectMiraWhite.swiftUIImage
