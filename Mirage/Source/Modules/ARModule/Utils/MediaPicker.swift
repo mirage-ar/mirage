@@ -5,59 +5,73 @@
 //  Created by fiigmnt on 2/13/23.
 //
 
-import MobileCoreServices
 import SwiftUI
-
-import Photos
 
 enum MediaType {
     case image(UIImage)
     case video(URL)
 }
 
-struct Media {
+public struct Media {
     let type: MediaType
     let image: UIImage?
     let videoURL: URL?
 }
 
-struct MediaPicker: UIViewControllerRepresentable {
-    @Binding var media: Media?
+public struct ImagePickerView: UIViewControllerRepresentable {
+    @Binding var showMediaPicker: Bool
+    private let sourceType: UIImagePickerController.SourceType
+    private let onImagePicked: (Media) -> Void
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<MediaPicker>) -> UIImagePickerController {
+    public init(showMediaPicker: Binding<Bool>, sourceType: UIImagePickerController.SourceType, onImagePicked: @escaping (Media) -> Void) {
+        self._showMediaPicker = showMediaPicker
+        self.sourceType = sourceType
+        self.onImagePicked = onImagePicked
+    }
+
+    public func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+        picker.sourceType = self.sourceType
         picker.delegate = context.coordinator
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<MediaPicker>) {}
+    public func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+    public func makeCoordinator() -> Coordinator {
+        Coordinator(
+            onDismiss: { self.showMediaPicker = false },
+            onImagePicked: self.onImagePicked
+        )
     }
 
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: MediaPicker
+    public final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        private let onDismiss: () -> Void
+        private let onImagePicked: (Media) -> Void
 
-        init(_ parent: MediaPicker) {
-            self.parent = parent
+        init(onDismiss: @escaping () -> Void, onImagePicked: @escaping (Media) -> Void) {
+            self.onDismiss = onDismiss
+            self.onImagePicked = onImagePicked
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let uiImage = info[.originalImage] as? UIImage {
-                if let resizedImage = resizeImage(image: uiImage, toWidth: 300) {
-                    parent.media = Media(type: .image(resizedImage), image: resizedImage, videoURL: nil)
-                }
+//                if let resizedImage = resizeImage(image: uiImage, toWidth: 300) {
+                self.onImagePicked(Media(type: .image(uiImage), image: uiImage, videoURL: nil))
+//                }
             } else if let videoURL = info[.mediaURL] as? URL {
-                parent.media = Media(type: .video(videoURL), image: nil, videoURL: videoURL)
+                self.onImagePicked(Media(type: .video(videoURL), image: nil, videoURL: videoURL))
             }
 
-            picker.dismiss(animated: true)
+            self.onDismiss()
+        }
+
+        public func imagePickerControllerDidCancel(_: UIImagePickerController) {
+            self.onDismiss()
         }
     }
 }
+
 
 func resizeImage(image: UIImage, toWidth width: CGFloat) -> UIImage? {
     let imageSize = image.size
@@ -72,88 +86,4 @@ func resizeImage(image: UIImage, toWidth width: CGFloat) -> UIImage? {
     UIGraphicsEndImageContext()
 
     return newImage
-}
-
-class PhotosViewModel: ObservableObject {
-    @Published var photos: [PHAsset] = []
-
-    func fetchPhotosAndVideos() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d || mediaType = %d", PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
-
-        let result = PHAsset.fetchAssets(with: fetchOptions)
-        photos = result.objects(at: IndexSet(0..<result.count))
-    }
-}
-
-struct PhotosPickerView: View {
-    @StateObject var viewModel = PhotosViewModel()
-    @Binding var media: Media?
-    @Binding var isPresented: Bool
-
-    private let columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 0), count: 3)
-
-    var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(viewModel.photos, id: \.self) { asset in
-                    Button(action: {
-                        if asset.mediaType == .image {
-                            let selectedImage = self.loadThumbnail(for: asset)
-                            media = Media(type: .image(selectedImage), image: selectedImage, videoURL: nil)
-                        } else if asset.mediaType == .video {
-                            loadVideoURL(for: asset) { videoURL in
-                                media = Media(type: .video(videoURL!), image: nil, videoURL: videoURL)
-                            }
-                        }
-                        isPresented = false
-                    }) {
-                        // Display the asset thumbnail
-                        Image(uiImage: self.loadThumbnail(for: asset))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.width/3)
-                            .clipped()
-                        // If the asset is a video, you might want to overlay a small video icon to indicate it's not a photo
-//                        if asset.mediaType == .video {
-//                            Image(systemName: "video.fill") // using SF Symbols for a video icon
-//                                .foregroundColor(.white)
-//                                .background(Color.black.opacity(0.6))
-//                                .clipShape(Circle())
-//                        }
-                    }
-                }
-            }
-        }
-        .onAppear {
-            viewModel.fetchPhotosAndVideos()
-        }
-    }
-
-    func loadThumbnail(for asset: PHAsset) -> UIImage {
-        let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
-        option.isNetworkAccessAllowed = true
-        
-        manager.requestImage(for: asset, targetSize: CGSize(width: 500, height: 500), contentMode: .aspectFill, options: option, resultHandler: {(result, _) -> Void in
-            thumbnail = result!
-        })
-        return thumbnail
-    }
-    
-    func loadVideoURL(for asset: PHAsset, completion: @escaping (URL?) -> Void) {
-        let options = PHVideoRequestOptions()
-        options.version = .original
-        
-        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { (asset, _, _) in
-            if let asset = asset as? AVURLAsset {
-                completion(asset.url)
-            } else {
-                completion(nil)
-            }
-        }
-    }
 }

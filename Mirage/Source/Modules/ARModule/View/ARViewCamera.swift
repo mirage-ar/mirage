@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ARKit
 
 struct ARViewCamera: View {
     @ObservedObject private var viewModel = ARViewModel()
@@ -18,7 +19,9 @@ struct ARViewCamera: View {
                     ZStack {
                         ARViewContainer(viewModel: viewModel)
                             .cornerRadius(20)
-                            .edgesIgnoringSafeArea(.top)
+                        
+                        // removing for now so media picker shows correctly
+//                            .edgesIgnoringSafeArea(.top)
                     }
 
                     ARViewBottomBar(viewModel: viewModel)
