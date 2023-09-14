@@ -18,7 +18,7 @@ final class MapViewModel: ObservableObject {
 
     init() {
         print("INIT MAP VIEW MODEL")
-        getMiras(location: CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
+        getMiras(location: LocationManager.shared.location ?? CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
     }
 
     func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int) {
