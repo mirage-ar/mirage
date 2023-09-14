@@ -12,8 +12,6 @@ struct ARViewSocialMenu: View {
     @StateObject var viewModel: ARViewModel
     @Binding var selectedUserOnMap: User?
     
-    @State var collected: Bool = false
-
     let buttonSize = 32.0
     let userId: UUID?
 
@@ -49,12 +47,16 @@ struct ARViewSocialMenu: View {
 
                     Button {
                         print("Collect Mira")
+                        if let id =  viewModel.selectedMira? .id {
+                            viewModel.collectMira(id:id)
+                        }
+                        
                     } label: {
                         // TODO: turn green when mira is collected
                         Images.collectMiraWhite.swiftUIImage
                             .resizable()
                             .frame(width: buttonSize, height: buttonSize)
-                            .foregroundColor(collected ? Colors.green.swiftUIColor : Colors.white.swiftUIColor)
+                            .foregroundColor($viewModel.collected.wrappedValue ? Colors.green.swiftUIColor : Colors.white.swiftUIColor)
                     }
                     
                     Button {
@@ -68,7 +70,7 @@ struct ARViewSocialMenu: View {
         .onAppear {
             print("COLLECTORS")
             viewModel.selectedMira?.collectors.map { print("\($0)") }
-            collected = viewModel.selectedMira?.collectors?.contains(where: { $0.id == userId }) != nil
+            $viewModel.collected.wrappedValue = viewModel.checkIfMiraIsCollected(userID: userId ?? UUID())
         }
     }
 }

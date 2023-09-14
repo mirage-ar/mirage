@@ -19,17 +19,17 @@ final class AppConfiguration: ObservableObject {
     // MARK: - Init
 
     init() {
-//        #if PROD
-//        environmentConfig = MirageConfig.production
-//        #elseif DEV
-//        environmentConfig = MirageConfig.development
-//        #else
-//        environmentConfig = MirageConfig.staging
-//        #endif
+        #if PROD
+        environmentConfig = MirageConfig.production
+        #elseif DEV
+        environmentConfig = MirageConfig.development
+        #else
+        environmentConfig = MirageConfig.development
+        #endif
+        print("environmentConfig: \(environmentConfig)")
         let authenticated = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
         authentication = authenticated
         getStartedLaunched = authenticated//UserDefaultsStorage().getBool(for: .getStartedLaunched) // same as authentication
-        environmentConfig = MirageConfig.production
         let _ = DownloadManager.shared
         let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()
