@@ -70,7 +70,7 @@ struct ARViewSocialMenu: View {
         .onAppear {
             print("COLLECTORS")
             viewModel.selectedMira?.collectors.map { print("\($0)") }
-            $viewModel.collected.wrappedValue = viewModel.selectedMira?.collectors?.contains(where: { $0.id == userId }) != nil
+            $viewModel.collected.wrappedValue = viewModel.checkIfMiraIsCollected(userID: userId ?? UUID())
         }
     }
 }

@@ -58,6 +58,7 @@ final class ARViewModel: ObservableObject {
     
     //MARK: Collect Mira
     @Published var collected: Bool = false
+    var collectedMirasIds: [UUID] = Array()
     @Published var selectedMira: Mira? = nil
     
     @Published var miraPosted: Bool = false
@@ -400,9 +401,13 @@ final class ARViewModel: ObservableObject {
     
     // TODO: not functioning properly
     func collectMira(id: UUID) {
+
         arApolloRepository.collectMira(id: id)
             .receive(on: DispatchQueue.main)
             .receiveAndCancel(receiveOutput: { [weak self] collected in
+                if collected == true {
+                    self?.collectedMirasIds.append(id)
+                }
                 self?.collected = collected ?? false
                 
             }, receiveError: { error in
@@ -714,5 +719,11 @@ final class ARViewModel: ObservableObject {
         
         print("ERROR: could not retieve MediaEntity from Entity")
         return nil
+    }
+    
+    func checkIfMiraIsCollected(userID: UUID) -> Bool {
+        let foundInCollectors = selectedMira?.collectors?.contains(where: { $0.id == userID }) ?? false
+        let foundInCurrentCollectedMiras = collectedMirasIds.contains(self.selectedMira?.id ?? UUID())
+        return foundInCollectors || foundInCurrentCollectedMiras
     }
 }
