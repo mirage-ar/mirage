@@ -52,9 +52,9 @@ struct ARViewRepresentable: UIViewRepresentable {
                 
             // Check for LiDAR support
             if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
-                configuration.sceneReconstruction = .mesh
-                arView.environment.sceneUnderstanding.options.insert(.occlusion)
-                arView.debugOptions.insert(.showSceneUnderstanding)
+//                configuration.sceneReconstruction = .mesh
+//                arView.environment.sceneUnderstanding.options.insert(.occlusion)
+//                arView.debugOptions.insert(.showSceneUnderstanding)
             }
                 
             // Check for person segmentation with depth support
@@ -70,18 +70,18 @@ struct ARViewRepresentable: UIViewRepresentable {
     
     class Coordinator: NSObject, ARSessionDelegate {
         var parent: ARViewRepresentable
-        
+
         init(_ parent: ARViewRepresentable) {
             self.parent = parent
         }
-        
+
         func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
             print("ADDED")
             for anchor in anchors {
                 print(anchor.name)
             }
         }
-        
+
         func session(_ session: ARSession, didUpdate frame: ARFrame) {}
     }
 }

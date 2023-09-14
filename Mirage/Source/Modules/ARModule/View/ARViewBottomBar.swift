@@ -95,7 +95,7 @@ struct ARViewBottomBar: View {
                                     .font(.body1)
                             }
                             
-                        } else if viewModel.currentMira == nil {
+                        } else if viewModel.currentMira == nil && !viewModel.showMediaPicker {
                             Button {
                                 // UPDATE - close AR view -
                                 viewModel.closeARSession()
