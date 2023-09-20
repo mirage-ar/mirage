@@ -100,6 +100,8 @@
 		9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49729AF8FEF00F8EE72 /* NetworkError.swift */; };
 		935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065132A43301700817130 /* CollectedByUsersViewModel.swift */; };
 		935065162A43302700817130 /* CollectedByUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065152A43302700817130 /* CollectedByUsersView.swift */; };
+		9351F2AB2AB9DBC100AD1CBA /* OnMiraAddSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2AA2AB9DBC000AD1CBA /* OnMiraAddSubscription.graphql.swift */; };
+		9351F2AD2AB9DC4F00AD1CBA /* Subscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2AC2AB9DC4F00AD1CBA /* Subscription.graphql.swift */; };
 		935268C32A6ED5F6002A2F0C /* welcome-screen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 935268C22A6ED5F6002A2F0C /* welcome-screen.mp4 */; };
 		93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5529F88691000B08A4 /* UIImageView+Extension.swift */; };
 		93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */; };
@@ -155,6 +157,7 @@
 		93E216A229B6804100EE907D /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E2169E29B6804100EE907D /* AuthenticationModel.swift */; };
 		93E216A329B6804100EE907D /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E216A029B6804100EE907D /* AuthenticationView.swift */; };
 		93E216A529B6807900EE907D /* AuthenticationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E216A429B6807900EE907D /* AuthenticationRepository.swift */; };
+		93F675302AB8AA9200029937 /* MiraAdded.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93F6752F2AB8AA9100029937 /* MiraAdded.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +273,8 @@
 		9331C49729AF8FEF00F8EE72 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		935065132A43301700817130 /* CollectedByUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersViewModel.swift; sourceTree = "<group>"; };
 		935065152A43302700817130 /* CollectedByUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersView.swift; sourceTree = "<group>"; };
+		9351F2AA2AB9DBC000AD1CBA /* OnMiraAddSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnMiraAddSubscription.graphql.swift; sourceTree = "<group>"; };
+		9351F2AC2AB9DC4F00AD1CBA /* Subscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.graphql.swift; sourceTree = "<group>"; };
 		935268C22A6ED5F6002A2F0C /* welcome-screen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "welcome-screen.mp4"; sourceTree = "<group>"; };
 		93537E5529F88691000B08A4 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQuery.graphql.swift; sourceTree = "<group>"; };
@@ -318,6 +323,7 @@
 		93E2169E29B6804100EE907D /* AuthenticationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		93E216A029B6804100EE907D /* AuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		93E216A429B6807900EE907D /* AuthenticationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepository.swift; sourceTree = "<group>"; };
+		93F6752F2AB8AA9100029937 /* MiraAdded.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MiraAdded.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -739,6 +745,7 @@
 		931FF5C629B80037002C62AB /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				9351F2A52AB9DB6E00AD1CBA /* Subscriptions */,
 				936E7DDB29C20A550008FBB9 /* Queries */,
 				931FF5C729B80037002C62AB /* Mutations */,
 			);
@@ -786,6 +793,7 @@
 		931FF5CC29B80037002C62AB /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				9351F2AC2AB9DC4F00AD1CBA /* Subscription.graphql.swift */,
 				936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */,
 				3942F74E2A5C851A007DB731 /* ArMedia.graphql.swift */,
 				3942F74F2A5C851A007DB731 /* Modifier.graphql.swift */,
@@ -845,6 +853,7 @@
 		9331C47629AF8C0100F8EE72 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
+				93F6752E2AB8AA9100029937 /* Subscriptions */,
 				3942F75A2A5C86D7007DB731 /* Mutations */,
 				93B24F0E29B6303500CCDDB7 /* Repositeries */,
 				9331C47729AF8C0100F8EE72 /* Queries */,
@@ -940,6 +949,14 @@
 				9331C49729AF8FEF00F8EE72 /* NetworkError.swift */,
 			);
 			path = General;
+			sourceTree = "<group>";
+		};
+		9351F2A52AB9DB6E00AD1CBA /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				9351F2AA2AB9DBC000AD1CBA /* OnMiraAddSubscription.graphql.swift */,
+			);
+			path = Subscriptions;
 			sourceTree = "<group>";
 		};
 		93537E5429F88680000B08A4 /* UIKit */ = {
@@ -1096,6 +1113,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		93F6752E2AB8AA9100029937 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				93F6752F2AB8AA9100029937 /* MiraAdded.graphql */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1224,6 +1249,7 @@
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
 				394EC7632A5E4FD30002AAE1 /* AddMira.graphql in Resources */,
+				93F675302AB8AA9200029937 /* MiraAdded.graphql in Resources */,
 				3942F75D2A5C871F007DB731 /* AuthorizeUser.graphql in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
 				3942F75E2A5C871F007DB731 /* UpdateUser.graphql in Resources */,
@@ -1286,6 +1312,7 @@
 				9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */,
 				93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */,
 				936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */,
+				9351F2AB2AB9DBC100AD1CBA /* OnMiraAddSubscription.graphql.swift in Sources */,
 				394EC76A2A5E50DF0002AAE1 /* PositionInput.graphql.swift in Sources */,
 				9310E5DD29CDD9A6000E6019 /* ActivityIndicator.swift in Sources */,
 				93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */,
@@ -1368,6 +1395,7 @@
 				9331C49229AF8C4100F8EE72 /* ReachabilityProvider.swift in Sources */,
 				936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */,
 				39BD18FD2A2D08A200A9F95C /* ARViewModifierMenu.swift.swift in Sources */,
+				9351F2AD2AB9DC4F00AD1CBA /* Subscription.graphql.swift in Sources */,
 				39BD18F32A2D083B00A9F95C /* ViewModifiers.swift in Sources */,
 				93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */,
 				931FF5DF29B80037002C62AB /* MirageAPI.graphql.swift in Sources */,

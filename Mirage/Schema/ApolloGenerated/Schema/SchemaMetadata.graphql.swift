@@ -41,6 +41,7 @@ public extension MirageAPI {
       case "Location": return MirageAPI.Objects.Location
       case "VerificationResult": return MirageAPI.Objects.VerificationResult
       case "Query": return MirageAPI.Objects.Query
+      case "Subscription": return MirageAPI.Objects.Subscription
       default: return nil
       }
     }

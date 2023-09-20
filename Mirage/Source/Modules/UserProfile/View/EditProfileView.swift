@@ -131,6 +131,7 @@ struct EditProfileView: View {
                 VStack {
                     Button {
                         viewModel.signoutUser()
+                        stateManager.handleUpdateAuth(isLoggedIn: false)
                     } label: {
                         Text("SIGNOUT")
                             .font(.body1)

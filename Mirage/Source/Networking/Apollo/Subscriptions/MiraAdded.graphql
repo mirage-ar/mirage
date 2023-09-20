@@ -1,0 +1,43 @@
+subscription OnMiraAdd {
+  miraAdded {
+    id
+    miraMedia {
+      id
+      contentType
+      assetUrl
+      shape
+      position {
+        id
+        transform
+      }
+      modifier {
+        id
+        type
+        amount
+      }
+    }
+    creator {
+      id
+      phone
+      username
+      profileImage
+      profileDescription
+    }
+    location {
+      id
+      latitude
+      longitude
+      elevation
+      heading
+    }
+    viewed
+    isFriend
+    collectors {
+      id
+      phone
+      username
+      profileImage
+      profileDescription
+    }
+  }
+}

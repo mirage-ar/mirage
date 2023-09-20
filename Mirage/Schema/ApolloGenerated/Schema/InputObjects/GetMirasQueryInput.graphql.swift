@@ -4,6 +4,7 @@
 import ApolloAPI
 
 public extension MirageAPI {
+  ///   NOTE: if location is not provided, return all miras
   struct GetMirasQueryInput: InputObject {
     public private(set) var __data: InputDict
 

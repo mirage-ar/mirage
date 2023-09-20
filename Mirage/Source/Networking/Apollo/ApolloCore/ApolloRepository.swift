@@ -20,8 +20,6 @@ public class ApolloRepository {
     var userPropertiesStorage: UserPropertiesStorage = UserDefaultsStorage()
     var userProfileStorage: UserProfileStorage = UserDefaultsStorage()
 
-    var walletSubscription: AnyPublisher<Int, Error>?
-
     /// For check internet connection
     private let reachabilityProvider: ReachabilityProvider
 
@@ -30,6 +28,9 @@ public class ApolloRepository {
 
     /// A web socket transport to use for subscriptions
     private lazy var webSocketTransport: WebSocketTransport = getWebSocketTransport()
+
+    /// Apollo Subscription when a new Mira is Added
+    var miraAddSubscription: AnyPublisher<Mira, Error>?
 
     /// An HTTP transport to use for queries and mutations
     private lazy var normalTransport: RequestChainNetworkTransport = {
@@ -60,6 +61,7 @@ public class ApolloRepository {
                 webSocketEndpoint: String,
                 reachabilityProvider: ReachabilityProvider)
     {
+        WSTest()
         self.endpoint = endpoint
         self.webSocketEndpoint = webSocketEndpoint
         self.reachabilityProvider = reachabilityProvider
@@ -175,10 +177,10 @@ public class ApolloRepository {
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-        //                                                webSocketNetworkTransport: webSocketTransport)
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+                                                        webSocketNetworkTransport: webSocketTransport)
 
-        return ApolloClient(networkTransport: normalTransport,
+        return ApolloClient(networkTransport: splitNetworkTransport,
                             store: store)
     }
 
@@ -187,15 +189,15 @@ public class ApolloRepository {
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-        //                                                webSocketNetworkTransport: webSocketTransport)
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+                                                        webSocketNetworkTransport: webSocketTransport)
 
         do {
             let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
             let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
 
-            return ApolloClient(networkTransport: normalTransport,
+            return ApolloClient(networkTransport: splitNetworkTransport,
                                 store: getSQLStore())
         } catch {
             print("Error creating ApolloSQLite Client: \(error)")
@@ -316,16 +318,15 @@ public class ApolloRepository {
     }
 
     /// Cancels all server event subscriptions
-    func cancelAllSubscriptions() {
+    public func cancelAllSubscriptions() {
         subscriptions.forEach { self.cancelSubscription(name: $0.key) }
         webSocketTransport.closeConnection()
-
-        walletSubscription = nil
+        miraAddSubscription = nil
     }
 
     enum SubscriptionName {
         // Subscriptions name goes here. e.g.
-        case nearbyMirage
+        case miraAdded
     }
 
     // MARK: Authentication status check
@@ -340,6 +341,7 @@ public class ApolloRepository {
 
         userAuthenticatedSubject.send(true)
     }
+    
 
     /// Checks whether an error code is of an authentication error or a server error
     ///
@@ -438,8 +440,63 @@ public class ApolloRepository {
 
         return reachabilityProvider.checkIfNetworkFailed(handled: error)
     }
+
 }
 
+class WSTest: NSObject, URLSessionWebSocketDelegate {
+    private var webSocket : URLSessionWebSocketTask?
+
+    override init () {
+        super.init()
+        websocketTest()
+    }
+    func websocketTest() {
+        
+        //Session
+        let session = 
+        URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+        
+        //Server API
+//        let url = URL(string:  "wss://demo.piesocket.com/v3/channel_1?api_key=oCdCMcMPQpbvNjUIzqtvF1d2X2okWpDQj4AwARJuAgtjhzKxVEjQU6IdCjwm&notify_self")
+        let url = URL(string:  "wss://sync-dev.protocol.im/graphql/realtime")
+        
+        var request = URLRequest(url: url!)
+        request.addValue("bearer \(UserDefaultsStorage().getString(for: .accessToken) ?? "")", forHTTPHeaderField: "Authorization")
+
+        //Socket
+        webSocket = session.webSocketTask(with: request)
+        
+        //Connect and hanles handshake
+        webSocket?.resume()
+//        self.webSocket?.send(.string("string"), completionHandler: { error in
+//            print("\(error))")
+//        })
+        
+    }
+    //MARK: Receive
+    func receive(){
+        
+    }
+    //MARK: Send
+    func send(){
+        
+    }
+    //MARK: Close Session
+    @objc func closeSession(){
+        
+    }
+    
+    //MARK: URLSESSION Protocols
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        print("Connected to server")
+
+    }
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        print("Disconnect from Server \(reason)")
+    }
+    
+    
+}
 extension ApolloRepository: UserTokenNetworkRepository {
     /// Updates user authentication token
     ///

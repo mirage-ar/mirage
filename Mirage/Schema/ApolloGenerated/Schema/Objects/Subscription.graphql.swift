@@ -4,9 +4,9 @@
 import ApolloAPI
 
 public extension MirageAPI.Objects {
-  ///   Mutation Types
-  static let Mutation = Object(
-    typename: "Mutation",
+  ///   Subscription Types
+  static let Subscription = Object(
+    typename: "Subscription",
     implementedInterfaces: []
   )
 }

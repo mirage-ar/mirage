@@ -33,4 +33,9 @@ final class MapViewModel: ObservableObject {
                 self.isLoading = false
             })
     }
+    
+    func handleMiraAdded(mira: Mira?) {
+        guard let mira = mira else { return }
+        self.miras?.append(mira)
+    }
 }

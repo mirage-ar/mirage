@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import Combine
 
 final class StateManager: ObservableObject {
     @Published var loggedInUser: User?
@@ -12,8 +13,14 @@ final class StateManager: ObservableObject {
     @Published var isLoadingUserProfile = false
     @Published var isScreenRecording = false
 
+    private var miraAddedNetworkSubscription: AnyCancellable?
+    private let miraAddedSubject = PassthroughSubject<Mira?, Never>()
+    public lazy var miraAddedPublisher = miraAddedSubject.eraseToAnyPublisher()
+
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
-    
+    let apolloRepository = AppConfiguration.shared.apollo
+    let mapApolloRepository: MapApolloRepository = AppConfiguration.shared.apollo
+
     init() {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
@@ -85,5 +92,24 @@ extension StateManager {
                 print("UpdateUser profileimage error \(error)" )
             }
     }
+    
+    public func subscribeToMiraAddChange() {
+        miraAddedNetworkSubscription = mapApolloRepository.subscribeToMiraAddChange()
+            .sink(receiveValue: { [weak self] mira in
+                debugPrint("miraadded \(mira)")
+                self?.publishMiraChange(mira: mira)
+            })
+    }
+    func publishMiraChange(mira: Mira?) {
+        guard let mira = mira else { return }
+        miraAddedSubject.send(mira)
+    }
+    func handleUpdateAuth(isLoggedIn: Bool = false) {
+        apolloRepository.cancelAllSubscriptions()
+        apolloRepository.handleTokenUpdate(nil)
+        miraAddedNetworkSubscription?.cancel()
+        miraAddedNetworkSubscription = nil
+    }
+
 
 }
