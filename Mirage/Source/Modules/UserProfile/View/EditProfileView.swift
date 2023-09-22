@@ -159,7 +159,7 @@ struct EditProfileView: View {
             NavigationRoute.updateUser(title: "BIO", value: stateManager.loggedInUser?.profileDescription ?? "", user: stateManager.loggedInUser ?? user).screen
         }
         .sheet(isPresented: $showMediaPicker, onDismiss: loadMedia) {
-            ImagePickerView(showMediaPicker: $showMediaPicker, sourceType: .photoLibrary) { media in
+            MediaPickerView(showMediaPicker: $showMediaPicker) { media in
                 self.media = media
             }
         }

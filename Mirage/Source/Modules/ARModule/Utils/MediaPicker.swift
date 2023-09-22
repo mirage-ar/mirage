@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 enum MediaType {
     case image(UIImage)
@@ -18,20 +19,19 @@ public struct Media {
     let videoURL: URL?
 }
 
-public struct ImagePickerView: UIViewControllerRepresentable {
+public struct MediaPickerView: UIViewControllerRepresentable {
     @Binding var showMediaPicker: Bool
-    private let sourceType: UIImagePickerController.SourceType
     private let onImagePicked: (Media) -> Void
 
-    public init(showMediaPicker: Binding<Bool>, sourceType: UIImagePickerController.SourceType, onImagePicked: @escaping (Media) -> Void) {
+    public init(showMediaPicker: Binding<Bool>, onImagePicked: @escaping (Media) -> Void) {
         self._showMediaPicker = showMediaPicker
-        self.sourceType = sourceType
         self.onImagePicked = onImagePicked
     }
 
     public func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
-        picker.sourceType = self.sourceType
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = [UTType.image.identifier, UTType.movie.identifier]
         picker.delegate = context.coordinator
         return picker
     }

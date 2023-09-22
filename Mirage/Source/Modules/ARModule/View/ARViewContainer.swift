@@ -74,13 +74,13 @@ struct ARViewContainer: View {
             }
                 
             if viewModel.showMediaPicker {
-                ImagePickerView(showMediaPicker: $viewModel.showMediaPicker, sourceType: .photoLibrary) { media in
+                MediaPickerView(showMediaPicker: $viewModel.showMediaPicker) { media in
                     self.media = media
                 }
             }
         }
 //            .sheet(isPresented: $viewModel.showMediaPicker) {
-//                ImagePickerView(showMediaPicker: $viewModel.showMediaPicker, sourceType: .photoLibrary) { image in
+//                MediaPickerView(showMediaPicker: $viewModel.showMediaPicker, sourceType: .photoLibrary) { image in
 //                    print(image)
 //                }
 //            }

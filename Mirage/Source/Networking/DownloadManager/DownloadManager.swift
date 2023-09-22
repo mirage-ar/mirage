@@ -88,38 +88,54 @@ public class DownloadManager {
     }
 
     func upload(filePath: String, completion: ((String?) -> ())?) {
-        serialQueue.sync {
-            if !filePath.isEmpty, let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
-                // this is just to return url. to display. please use local file path to display
-                completion?(file.filePath)
-                return
-            }
+    //        serialQueue.sync {
+        if !filePath.isEmpty, let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
+            // this is just to return url. to display. please use local file path to display
+            completion?(file.filePath)
+            return
+        }
+        
+        guard let fileUrl = URL(string: filePath) else {
+            debugPrint("Invalid file URL: \(filePath)")
+            return
+        }
+
+        do {
+            let fileAttributes = try FileManager.default.attributesOfItem(atPath: fileUrl.path)
+            let fileSize = fileAttributes[.size] as? Int64 ?? 0
+            debugPrint("Uploading file with size: \(fileSize) bytes")
+        } catch {
+            debugPrint("Error fetching file attributes: \(error)")
+        }
+
+        let queue = DispatchQueue(label: "downloadFiles", qos: .background)
+        
+        let headers: HTTPHeaders = ["content-type": "multipart/form-data; boundary=---011000010111000001101001", "authorization": accessToken]
+        fileStarted(url: filePath, operation: .upload)
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(fileUrl, withName: fileUrl.lastPathComponent)
+        }, to: "https://3dke7yk5g5hlo2nhfinpnbf3h40mauci.lambda-url.us-east-1.on.aws", method: .post, headers: headers)
+        .uploadProgress { progress in
+            debugPrint("Upload Progress: \(progress.fractionCompleted)")
+        }
+        .responseDecodable(of: [UploadResponse].self, queue: queue) { response in
+            debugPrint("Response: \(response)")
             
-            guard let fileUrl = URL(string: filePath) else { return }
-            let queue = DispatchQueue(label: "downloadFiles", qos: .background)
-            
-            let headers: HTTPHeaders = ["content-type": "multipart/form-data; boundary=---011000010111000001101001", "authorization": accessToken]
-            fileStarted(url: filePath, operation: .upload)
-            
-            AF.upload(multipartFormData: { multipartFormData in
-                multipartFormData.append(fileUrl, withName: fileUrl.lastPathComponent)
-            }, to: "https://3dke7yk5g5hlo2nhfinpnbf3h40mauci.lambda-url.us-east-1.on.aws", method: .post, headers: headers).responseDecodable(of: [UploadResponse].self, queue: queue) { response in
-                let result = response.result.map { $0.first?.url ?? "" }
-                print(result)
-                
-                switch result {
-                case .success(let url):
-                    debugPrint(url)
-                    self.fileCompleted(url: filePath, filePath: url, operation: .upload)
-                    completion?(url)
-                case .failure(let encodingError):
-                    self.fileFailed(url: filePath)
-                    debugPrint(encodingError)
-                    completion?(nil)
-                }
+            switch response.result {
+            case .success(let url):
+                debugPrint("Upload success, URL: \(url)")
+                self.fileCompleted(url: filePath, filePath: url.first?.url ?? "", operation: .upload)
+                completion?(url.first?.url)
+            case .failure(let encodingError):
+                self.fileFailed(url: filePath)
+                debugPrint("Upload failed with error: \(encodingError)")
+                completion?(nil)
             }
         }
+    //        }
     }
+
 
     // MARK: File Actions
 
