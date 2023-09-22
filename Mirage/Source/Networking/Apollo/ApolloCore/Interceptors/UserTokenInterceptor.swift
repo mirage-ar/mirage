@@ -13,6 +13,8 @@ import ApolloAPI
 /// Adds the access token to the header if it's present
 class UserTokenInterceptor: ApolloInterceptor {
 
+    var id: String = UUID().uuidString
+    
     private let userTokenService: UserTokenService
 
     init(userTokenService: UserTokenService) {

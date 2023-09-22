@@ -11,7 +11,7 @@ import ApolloAPI
 
 /// Adds the access token to the header if it's present
 class AddTokenInterceptor: ApolloInterceptor {
-
+    var id: String = UUID().uuidString
     func interceptAsync<Operation: GraphQLOperation>(
         chain: RequestChain,
         request: HTTPRequest<Operation>,

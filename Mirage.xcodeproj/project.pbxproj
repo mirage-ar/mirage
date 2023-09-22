@@ -122,9 +122,6 @@
 		937DB1AD2ABCE92C00ECFAE8 /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 937DB1AC2ABCE92C00ECFAE8 /* ApolloSQLite */; };
 		937DB1AF2ABCE92C00ECFAE8 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 937DB1AE2ABCE92C00ECFAE8 /* ApolloWebSocket */; };
 		937DB1B12ABCE92C00ECFAE8 /* apollo-ios-cli in Frameworks */ = {isa = PBXBuildFile; productRef = 937DB1B02ABCE92C00ECFAE8 /* apollo-ios-cli */; };
-		937DB1B42ABCE96A00ECFAE8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 937DB1B32ABCE96A00ECFAE8 /* Collections */; };
-		937DB1B62ABCE96A00ECFAE8 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 937DB1B52ABCE96A00ECFAE8 /* DequeModule */; };
-		937DB1B82ABCE96A00ECFAE8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 937DB1B72ABCE96A00ECFAE8 /* OrderedCollections */; };
 		938DFCF52A0EB1D100EF994A /* UpdateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938DFCF32A0EB1BC00EF994A /* UpdateUserView.swift */; };
 		9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9392633429F018C1005B1F3E /* GetMiras.graphql */; };
 		9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392633829F01FD5005B1F3E /* LocationInput.graphql.swift */; };
@@ -342,12 +339,9 @@
 				937DB1AD2ABCE92C00ECFAE8 /* ApolloSQLite in Frameworks */,
 				9310E5E029D0F4EE000E6019 /* iPhoneNumberField in Frameworks */,
 				937DB1AB2ABCE92C00ECFAE8 /* ApolloCodegenLib in Frameworks */,
-				937DB1B42ABCE96A00ECFAE8 /* Collections in Frameworks */,
-				937DB1B62ABCE96A00ECFAE8 /* DequeModule in Frameworks */,
 				93B24F0329B6152500CCDDB7 /* KeychainSwift in Frameworks */,
 				937DB1AF2ABCE92C00ECFAE8 /* ApolloWebSocket in Frameworks */,
 				937DB1A92ABCE92C00ECFAE8 /* ApolloAPI in Frameworks */,
-				937DB1B82ABCE96A00ECFAE8 /* OrderedCollections in Frameworks */,
 				39FD214C29DB739F0064FFBF /* MapboxMaps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +392,7 @@
 				394B4968296CCAD400E2F8E4 /* MirageTests */,
 				394B4972296CCAD400E2F8E4 /* MirageUITests */,
 				394B4956296CCAD300E2F8E4 /* Products */,
+				93E526AA2ABE0A7A00093D20 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1121,6 +1116,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		93E526AA2ABE0A7A00093D20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		93F6752E2AB8AA9100029937 /* Subscriptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1156,9 +1158,6 @@
 				937DB1AC2ABCE92C00ECFAE8 /* ApolloSQLite */,
 				937DB1AE2ABCE92C00ECFAE8 /* ApolloWebSocket */,
 				937DB1B02ABCE92C00ECFAE8 /* apollo-ios-cli */,
-				937DB1B32ABCE96A00ECFAE8 /* Collections */,
-				937DB1B52ABCE96A00ECFAE8 /* DequeModule */,
-				937DB1B72ABCE96A00ECFAE8 /* OrderedCollections */,
 				939C8CAE2ABCEBA900A6169B /* Alamofire */,
 			);
 			productName = Mirage;
@@ -1239,7 +1238,6 @@
 				9310E5DE29D0F4EE000E6019 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				39FD214A29DB739F0064FFBF /* XCRemoteSwiftPackageReference "mapbox-maps-ios" */,
 				937DB1A52ABCE92C00ECFAE8 /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				937DB1B22ABCE96A00ECFAE8 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				939C8CAD2ABCEBA900A6169B /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 394B4956296CCAD300E2F8E4 /* Products */;
@@ -2203,14 +2201,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		937DB1B22ABCE96A00ECFAE8 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		939C8CAD2ABCEBA900A6169B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -2274,21 +2264,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 937DB1A52ABCE92C00ECFAE8 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = "apollo-ios-cli";
-		};
-		937DB1B32ABCE96A00ECFAE8 /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 937DB1B22ABCE96A00ECFAE8 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
-		};
-		937DB1B52ABCE96A00ECFAE8 /* DequeModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 937DB1B22ABCE96A00ECFAE8 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = DequeModule;
-		};
-		937DB1B72ABCE96A00ECFAE8 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 937DB1B22ABCE96A00ECFAE8 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
 		};
 		939C8CAE2ABCEBA900A6169B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
