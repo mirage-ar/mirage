@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   enum Shape: String, EnumType {
     case plane = "PLANE"
     case cube = "CUBE"

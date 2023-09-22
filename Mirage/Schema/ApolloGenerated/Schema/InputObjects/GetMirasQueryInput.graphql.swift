@@ -3,16 +3,16 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   ///   NOTE: if location is not provided, return all miras
   struct GetMirasQueryInput: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       location: LocationInput,
       zoomLevel: GraphQLNullable<Int> = nil,
       radius: Double
@@ -24,17 +24,17 @@ public extension MirageAPI {
       ])
     }
 
-    public var location: LocationInput {
+    var location: LocationInput {
       get { __data["location"] }
       set { __data["location"] = newValue }
     }
 
-    public var zoomLevel: GraphQLNullable<Int> {
+    var zoomLevel: GraphQLNullable<Int> {
       get { __data["zoomLevel"] }
       set { __data["zoomLevel"] = newValue }
     }
 
-    public var radius: Double {
+    var radius: Double {
       get { __data["radius"] }
       set { __data["radius"] = newValue }
     }

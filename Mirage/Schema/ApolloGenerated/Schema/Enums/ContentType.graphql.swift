@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   enum ContentType: String, EnumType {
     case video = "VIDEO"
     case photo = "PHOTO"

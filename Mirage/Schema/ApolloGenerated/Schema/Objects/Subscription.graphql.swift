@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MirageAPI.Objects {
+extension MirageAPI.Objects {
   ///   Subscription Types
   static let Subscription = Object(
     typename: "Subscription",

@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   struct PositionInput: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       transform: [[Double]]
     ) {
       __data = InputDict([
@@ -19,7 +19,7 @@ public extension MirageAPI {
       ])
     }
 
-    public var transform: [[Double]] {
+    var transform: [[Double]] {
       get { __data["transform"] }
       set { __data["transform"] = newValue }
     }

@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   struct ModifierInput: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       type: GraphQLEnum<ModifierType>,
       amount: Double
     ) {
@@ -21,12 +21,12 @@ public extension MirageAPI {
       ])
     }
 
-    public var type: GraphQLEnum<ModifierType> {
+    var type: GraphQLEnum<ModifierType> {
       get { __data["type"] }
       set { __data["type"] = newValue }
     }
 
-    public var amount: Double {
+    var amount: Double {
       get { __data["amount"] }
       set { __data["amount"] = newValue }
     }

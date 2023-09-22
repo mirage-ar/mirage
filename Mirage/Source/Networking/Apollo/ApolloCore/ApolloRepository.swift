@@ -146,7 +146,9 @@ public class ApolloRepository {
     ///
     private func getWebSocketTransport() -> WebSocketTransport {
         let url = URL(string: webSocketEndpoint)!
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        request.addValue(tokenService.getAuthorizationHeader()?.value ?? "", forHTTPHeaderField: tokenService.getAuthorizationHeader()?.key ?? "Authorization")
+        request.addValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
 
         let webSocketClient = WebSocket(request: request,
                                         protocol: .graphql_ws)
@@ -462,15 +464,15 @@ class WSTest: NSObject, URLSessionWebSocketDelegate {
         
         var request = URLRequest(url: url!)
         request.addValue("bearer \(UserDefaultsStorage().getString(for: .accessToken) ?? "")", forHTTPHeaderField: "Authorization")
-
+        request.addValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
         //Socket
         webSocket = session.webSocketTask(with: request)
         
         //Connect and hanles handshake
         webSocket?.resume()
-//        self.webSocket?.send(.string("string"), completionHandler: { error in
-//            print("\(error))")
-//        })
+        self.webSocket?.send(.string("string"), completionHandler: { error in
+            print("\(error))")
+        })
         
     }
     //MARK: Receive
