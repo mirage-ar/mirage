@@ -3,7 +3,8 @@
 
 import ApolloAPI
 
-public extension MirageAPI.Objects {
+extension MirageAPI.Objects {
+  ///   Query Types
   static let Query = Object(
     typename: "Query",
     implementedInterfaces: []

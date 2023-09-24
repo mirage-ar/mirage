@@ -145,6 +145,9 @@
 		93BB0C5B2A4F0D4B008638D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 93BB0C5A2A4F0D4B008638D6 /* Alamofire */; };
 		93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */; };
 		93CB568629F034C700C5C9DB /* MapApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CB568529F034C700C5C9DB /* MapApolloRepository.swift */; };
+		93CD41AA2AC0E031008F8F84 /* MiraAdded.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93CD41A92AC0E031008F8F84 /* MiraAdded.graphql */; };
+		93CD41AC2AC0E040008F8F84 /* Subscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CD41AB2AC0E040008F8F84 /* Subscription.graphql.swift */; };
+		93CD41AF2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CD41AE2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift */; };
 		93DD4FE12A9404890040D232 /* RecordingPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DD4FE02A9404890040D232 /* RecordingPreviewView.swift */; };
 		93DD4FE32A9407480040D232 /* ScreenRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DD4FE22A9407480040D232 /* ScreenRecordManager.swift */; };
 		93E2169229B6687600EE907D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 93E2169129B6687600EE907D /* Apollo */; };
@@ -312,6 +315,9 @@
 		93B3794A2A210C3600C6C66C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		93BB0C5D2A4F366D008638D6 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		93CB568529F034C700C5C9DB /* MapApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApolloRepository.swift; sourceTree = "<group>"; };
+		93CD41A92AC0E031008F8F84 /* MiraAdded.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MiraAdded.graphql; sourceTree = "<group>"; };
+		93CD41AB2AC0E040008F8F84 /* Subscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.graphql.swift; sourceTree = "<group>"; };
+		93CD41AE2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnMiraAddSubscription.graphql.swift; sourceTree = "<group>"; };
 		93DD4FE02A9404890040D232 /* RecordingPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPreviewView.swift; sourceTree = "<group>"; };
 		93DD4FE22A9407480040D232 /* ScreenRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordManager.swift; sourceTree = "<group>"; };
 		93E2169B29B6804100EE907D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -739,6 +745,7 @@
 		931FF5C629B80037002C62AB /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				93CD41AD2AC0E0AB008F8F84 /* Subscriptions */,
 				936E7DDB29C20A550008FBB9 /* Queries */,
 				931FF5C729B80037002C62AB /* Mutations */,
 			);
@@ -786,6 +793,7 @@
 		931FF5CC29B80037002C62AB /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				93CD41AB2AC0E040008F8F84 /* Subscription.graphql.swift */,
 				936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */,
 				3942F74E2A5C851A007DB731 /* ArMedia.graphql.swift */,
 				3942F74F2A5C851A007DB731 /* Modifier.graphql.swift */,
@@ -845,6 +853,7 @@
 		9331C47629AF8C0100F8EE72 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
+				93CD41A62AC0DFF5008F8F84 /* Subscriptions */,
 				3942F75A2A5C86D7007DB731 /* Mutations */,
 				93B24F0E29B6303500CCDDB7 /* Repositeries */,
 				9331C47729AF8C0100F8EE72 /* Queries */,
@@ -1042,6 +1051,22 @@
 			path = Videos;
 			sourceTree = "<group>";
 		};
+		93CD41A62AC0DFF5008F8F84 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				93CD41A92AC0E031008F8F84 /* MiraAdded.graphql */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
+		93CD41AD2AC0E0AB008F8F84 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				93CD41AE2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
 		93DD4FDF2A94045B0040D232 /* ScreenRecorder */ = {
 			isa = PBXGroup;
 			children = (
@@ -1224,6 +1249,7 @@
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
 				394EC7632A5E4FD30002AAE1 /* AddMira.graphql in Resources */,
+				93CD41AA2AC0E031008F8F84 /* MiraAdded.graphql in Resources */,
 				3942F75D2A5C871F007DB731 /* AuthorizeUser.graphql in Resources */,
 				931FF5E029B80037002C62AB /* schema.json in Resources */,
 				3942F75E2A5C871F007DB731 /* UpdateUser.graphql in Resources */,
@@ -1268,6 +1294,7 @@
 				394AC3A22A40A892002AFF77 /* ARViewSocialMenu.swift in Sources */,
 				9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */,
 				936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */,
+				93CD41AC2AC0E040008F8F84 /* Subscription.graphql.swift in Sources */,
 				39FED8B42AAAAA4D0059DADB /* LocationPublisher.swift in Sources */,
 				3942F7582A5C8524007DB731 /* ModifierType.graphql.swift in Sources */,
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
@@ -1313,6 +1340,7 @@
 				935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
+				93CD41AF2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift in Sources */,
 				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,
 				39CA4F992A3106BB002CCE88 /* ARViewCamera.swift in Sources */,
 				9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */,

@@ -20,7 +20,8 @@ public class ApolloRepository {
     var userPropertiesStorage: UserPropertiesStorage = UserDefaultsStorage()
     var userProfileStorage: UserProfileStorage = UserDefaultsStorage()
 
-    var walletSubscription: AnyPublisher<Int, Error>?
+    /// Apollo Subscription when a new Mira is Added
+    var miraAddSubscription: AnyPublisher<Mira, Error>?
 
     /// For check internet connection
     private let reachabilityProvider: ReachabilityProvider
@@ -144,7 +145,9 @@ public class ApolloRepository {
     ///
     private func getWebSocketTransport() -> WebSocketTransport {
         let url = URL(string: webSocketEndpoint)!
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        request.addValue(tokenService.getAuthorizationHeader()?.value ?? "", forHTTPHeaderField: tokenService.getAuthorizationHeader()?.key ?? "Authorization")
+        request.addValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
 
         let webSocketClient = WebSocket(request: request,
                                         protocol: .graphql_ws)
@@ -175,10 +178,10 @@ public class ApolloRepository {
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-        //                                                webSocketNetworkTransport: webSocketTransport)
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+                                                        webSocketNetworkTransport: webSocketTransport)
 
-        return ApolloClient(networkTransport: normalTransport,
+        return ApolloClient(networkTransport: splitNetworkTransport,
                             store: store)
     }
 
@@ -187,15 +190,15 @@ public class ApolloRepository {
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-        //                                                webSocketNetworkTransport: webSocketTransport)
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+                                                        webSocketNetworkTransport: webSocketTransport)
 
         do {
             let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
             let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
 
-            return ApolloClient(networkTransport: normalTransport,
+            return ApolloClient(networkTransport: splitNetworkTransport,
                                 store: getSQLStore())
         } catch {
             print("Error creating ApolloSQLite Client: \(error)")
@@ -320,12 +323,12 @@ public class ApolloRepository {
         subscriptions.forEach { self.cancelSubscription(name: $0.key) }
         webSocketTransport.closeConnection()
 
-        walletSubscription = nil
+        miraAddSubscription = nil
     }
 
     enum SubscriptionName {
         // Subscriptions name goes here. e.g.
-        case nearbyMirage
+        case miraAdded
     }
 
     // MARK: Authentication status check

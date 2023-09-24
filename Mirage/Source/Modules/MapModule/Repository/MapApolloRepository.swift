@@ -12,7 +12,7 @@ import CoreLocation
 protocol MapApolloRepository {
     
     func getMiras(location: CLLocationCoordinate2D, zoomLevel: Int) -> AnyPublisher<Array<Mira>?, Error>
-
+    func subscribeToMiraAddChange() -> AnyPublisher<Mira, Error>
 }
 
 extension ApolloRepository: MapApolloRepository {
@@ -28,5 +28,22 @@ extension ApolloRepository: MapApolloRepository {
             }
             .eraseToAnyPublisher()
 
+    }
+    
+    public func subscribeToMiraAddChange() -> AnyPublisher<Mira, Error> {
+        if let subscription = miraAddSubscription {
+            return subscription
+        }
+        
+        let subscription = subscribe(to: MirageAPI.OnMiraAddSubscription(),
+                                     subscriptionName: .miraAdded)
+            .map({ data in
+                Mira(mira: data.miraAdded)
+            })
+            .eraseToAnyPublisher()
+        
+        self.miraAddSubscription = subscription
+        
+        return subscription
     }
 }

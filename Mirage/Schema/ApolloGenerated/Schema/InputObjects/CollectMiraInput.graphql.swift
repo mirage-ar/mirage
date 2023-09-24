@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   struct CollectMiraInput: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       miraId: ID
     ) {
       __data = InputDict([
@@ -19,7 +19,7 @@ public extension MirageAPI {
       ])
     }
 
-    public var miraId: ID {
+    var miraId: ID {
       get { __data["miraId"] }
       set { __data["miraId"] = newValue }
     }
