@@ -149,8 +149,8 @@ public class ApolloRepository {
         request.addValue(tokenService.getAuthorizationHeader()?.value ?? "", forHTTPHeaderField: tokenService.getAuthorizationHeader()?.key ?? "Authorization")
         request.addValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
 
-        let webSocketClient = WebSocket(request: request,
-                                        protocol: .graphql_ws)
+        let webSocketClient = WebSocket(request: request, protocol: .graphql_ws)
+                        
 
         guard let authorizationHeader = tokenService.getAuthorizationHeader() else {
             let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval)
@@ -164,9 +164,11 @@ public class ApolloRepository {
         ]
 
         let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval, connectingPayload: payload)
-        return WebSocketTransport(websocket: webSocketClient,
+        let transport = WebSocketTransport(websocket: webSocketClient,
                                   store: store,
                                   config: configuration)
+        transport.delegate = self
+        return transport
     }
 
     /// Creates an Apollo client with http and web socket transports
@@ -492,4 +494,43 @@ private extension ErrorSubscript {
 public extension Notification.Name {
     /// An event that subscriptions need to be restored
     static var restoreSubscriptions = Notification.Name("restoreSubscriptions")
+}
+
+//MARK: Apollo Subscriptions
+extension ApolloRepository: WebSocketTransportDelegate {
+    public func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {
+        debugPrint("webSocketTransportDidConnect")
+        let miraAddedNetworkSubscription = self.subscribeToMiraAddChange2()
+            .sink(receiveValue: { [weak self] mira in
+                debugPrint("miraadded \(mira)")
+            })
+
+    }
+    public func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {
+        debugPrint("webSocketTransportDidReconnect")
+        let miraAddedNetworkSubscription = self.subscribeToMiraAddChange2()
+            .sink(receiveValue: { [weak self] mira in
+                debugPrint("miraadded \(mira)")
+            })
+
+    }
+    public func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error: Error?) {
+        debugPrint("webSocketTransport:didDisconnectWithError\(error.debugDescription)")
+    }
+    public func subscribeToMiraAddChange2() -> AnyPublisher<Mira, Error> {
+        if let subscription = miraAddSubscription {
+            return subscription
+        }
+        
+        let subscription = subscribe(to: MirageAPI.OnMiraAddSubscription(),
+                                     subscriptionName: .miraAdded)
+            .map({ data in
+                Mira(mira: data.miraAdded)
+            })
+            .eraseToAnyPublisher()
+        
+        self.miraAddSubscription = subscription
+        
+        return subscription
+    }
 }

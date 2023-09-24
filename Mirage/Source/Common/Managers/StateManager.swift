@@ -25,6 +25,9 @@ final class StateManager: ObservableObject {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
         }
+        if AppConfiguration.shared.authentication {
+//            subscribeToMiraAddChange()
+        }
         
         loadCurrentUser()
     }
@@ -108,10 +111,14 @@ extension StateManager {
         miraAddedSubject.send(mira)
     }
     func handleUpdateAuth(isLoggedIn: Bool = false) {
-        apolloRepository.cancelAllSubscriptions()
-        apolloRepository.handleTokenUpdate(nil)
-        miraAddedNetworkSubscription?.cancel()
-        miraAddedNetworkSubscription = nil
+        if isLoggedIn {
+            self.subscribeToMiraAddChange()
+        } else {
+            apolloRepository.cancelAllSubscriptions()
+            apolloRepository.handleTokenUpdate(nil)
+            miraAddedNetworkSubscription?.cancel()
+            miraAddedNetworkSubscription = nil
+        }
     }
 
 
