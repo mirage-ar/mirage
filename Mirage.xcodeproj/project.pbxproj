@@ -122,6 +122,7 @@
 		9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634129F01FF5005B1F3E /* Mira.graphql.swift */; };
 		9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA442A0E955F00EB4038 /* EditUserProfileViewModel.swift */; };
 		9396AA472A0E978800EB4038 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA462A0E978800EB4038 /* SettingsViewModel.swift */; };
+		93A3A8752AC6343D00B1570D /* AppSyncRequestBodyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */; };
 		93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3872A0A9EE700179536 /* SettingsView.swift */; };
 		93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3892A0A9F7300179536 /* EditProfileView.swift */; };
 		93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */; };
@@ -295,6 +296,7 @@
 		9392634129F01FF5005B1F3E /* Mira.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mira.graphql.swift; sourceTree = "<group>"; };
 		9396AA442A0E955F00EB4038 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
 		9396AA462A0E978800EB4038 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSyncRequestBodyCreator.swift; sourceTree = "<group>"; };
 		93A4D3872A0A9EE700179536 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		93A4D3892A0A9F7300179536 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStorage.swift; sourceTree = "<group>"; };
@@ -875,6 +877,7 @@
 			isa = PBXGroup;
 			children = (
 				9331C47A29AF8C0100F8EE72 /* ApolloRepository.swift */,
+				93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */,
 				931472D529AFBFE3007ED805 /* NetworkInterceptorProvider.swift */,
 				93B24EFF29B6123A00CCDDB7 /* KeyChainStorage.swift */,
 				93593A8529B217E10058C5C2 /* Interceptors */,
@@ -1384,6 +1387,7 @@
 				93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */,
 				9318454229CB183800DD07CB /* Fonts.swift in Sources */,
 				931FF5DE29B80037002C62AB /* SchemaMetadata.graphql.swift in Sources */,
+				93A3A8752AC6343D00B1570D /* AppSyncRequestBodyCreator.swift in Sources */,
 				93196A4A29BA8D280087CFCD /* AppConfiguration.swift in Sources */,
 				9310E5E829D10955000E6019 /* HomeView.swift in Sources */,
 				3955F0E32A869758003555FA /* CollectMiraMutation.graphql.swift in Sources */,

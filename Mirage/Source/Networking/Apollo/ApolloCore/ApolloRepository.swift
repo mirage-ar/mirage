@@ -12,6 +12,7 @@ import ApolloWebSocket
 import Combine
 import Foundation
 
+
 public class ApolloRepository {
     private weak var appRestoredFromBackgroundPhaseObserver: NSObjectProtocol?
     private weak var appEnteredBackgroundPhaseObserver: NSObjectProtocol?
@@ -144,32 +145,48 @@ public class ApolloRepository {
     ///  - returns: A web socket transport object
     ///
     private func getWebSocketTransport() -> WebSocketTransport {
-        let url = URL(string: webSocketEndpoint)!
-        var request = URLRequest(url: url)
-        request.addValue(tokenService.getAuthorizationHeader()?.value ?? "", forHTTPHeaderField: tokenService.getAuthorizationHeader()?.key ?? "Authorization")
-        request.addValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
+        let hostValue = "sync-dev.protocol.im"
+        let authToken = tokenService.getAuthorizationHeader()?.value ?? ""
+        let authKey = tokenService.getAuthorizationHeader()?.key ?? "Authorization"
+        let authDict: [String: any JSONEncodable] = [
+            authKey: authToken,
+            "host": hostValue,
+        ]
+
+        let headerData: Data = try! JSONSerialization.data(withJSONObject: authDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+        let headerBase64 = headerData.base64EncodedString()
+
+        let payloadData = try! JSONSerialization.data(withJSONObject: [:], options: JSONSerialization.WritingOptions.prettyPrinted)
+        let payloadBase64 = payloadData.base64EncodedString()
+
+        let url = URL(string: webSocketEndpoint + "?header=\(headerBase64)&payload=\(payloadBase64)")!
+        let request = URLRequest(url: url)
 
         let webSocketClient = WebSocket(request: request, protocol: .graphql_ws)
-                        
 
         guard let authorizationHeader = tokenService.getAuthorizationHeader() else {
             let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval)
             return WebSocketTransport(websocket: webSocketClient,
                                       store: store)
         }
+        
 
-        let payload = [
-            authorizationHeader.key: authorizationHeader.value,
-            .deviceIdKey: .deviceId
-        ]
+       
+        
+        let requestBodyCreator = AppSyncRequestBodyCreator([authKey: authToken])
 
-        let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval, connectingPayload: payload)
+        let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval, requestBodyCreator: requestBodyCreator)
+        
         let transport = WebSocketTransport(websocket: webSocketClient,
-                                  store: store,
                                   config: configuration)
         transport.delegate = self
         return transport
     }
+    /// A endpoint request url that web socket conneting.
+    ///
+    /// header-parameter-format-based-on-appsync-api-authorization-mode
+    ///https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#header-parameter-format-based-on-appsync-api-authorization-mode)
+
 
     /// Creates an Apollo client with http and web socket transports
     ///
