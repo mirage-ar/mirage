@@ -2,7 +2,6 @@ subscription OnMiraAdd {
   miraAdded {
     id
     miraMedia {
-      id
       contentType
       assetUrl
       shape

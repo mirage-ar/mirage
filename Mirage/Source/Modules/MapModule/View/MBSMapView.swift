@@ -73,6 +73,7 @@ struct MBSMapView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             mapHasMoved = false
                         }
+                        stateManager.subscribeToMiraAddChange()
                     }
                     
                     VStack {

@@ -26,7 +26,7 @@ final class StateManager: ObservableObject {
             LocationManager.shared.requestLocation()
         }
         if AppConfiguration.shared.authentication {
-//            subscribeToMiraAddChange()
+            subscribeToMiraAddChange()
         }
         
         loadCurrentUser()
