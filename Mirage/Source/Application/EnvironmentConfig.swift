@@ -14,6 +14,7 @@ protocol EnvironmentConfig {
     // MARK: Apollo
     var apiEndpoint: String { get }
     var apiWebSocketEndpoint: String { get }
+    var host: String { get }
 }
 
 enum MirageConfig: EnvironmentConfig {
@@ -31,11 +32,11 @@ enum MirageConfig: EnvironmentConfig {
             
         case .staging:
             return "https://sync-dev.protocol.im/graphql/"
-
+            
             
         case .development:
             return "https://sync-dev.protocol.im/graphql/"
-
+            
         }
     }
     
@@ -49,6 +50,20 @@ enum MirageConfig: EnvironmentConfig {
             
         case .development:
             return "wss://sync-dev.protocol.im/graphql/realtime"
+        }
+    }
+    var host: String {
+        switch self {
+        case .production:
+            return "sync.protocol.im"
+            
+        case .staging:
+            return "sync-dev.protocol.im"
+            
+            
+        case .development:
+            return "sync-dev.protocol.im"
+            
         }
     }
 }

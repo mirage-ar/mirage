@@ -41,7 +41,7 @@ public class ApolloRepository {
         let provider = NetworkInterceptorProvider(store: getSQLStore(),
                                                   client: client,
                                                   userTokenService: tokenService)
-        let url = URL(string: endpoint)!
+        let url = URL(string: apiEndPoint)!
 
         return RequestChainNetworkTransport(interceptorProvider: provider,
                                             endpointURL: url)
@@ -49,7 +49,8 @@ public class ApolloRepository {
 
     private lazy var client: ApolloClient = getSQLClient()
 
-    private let endpoint: String
+    private let apiEndPoint: String
+    private let host: String
     private let webSocketEndpoint: String
 
     let tokenService: UserTokenService
@@ -58,11 +59,13 @@ public class ApolloRepository {
     /// An event of whether a user was automatically logged out
     public lazy var userAuthenticated = userAuthenticatedSubject.eraseToAnyPublisher()
 
-    public init(endpoint: String,
+    public init(apiEndPoint: String,
                 webSocketEndpoint: String,
+                host: String,
                 reachabilityProvider: ReachabilityProvider)
     {
-        self.endpoint = endpoint
+        self.apiEndPoint = apiEndPoint
+        self.host = host
         self.webSocketEndpoint = webSocketEndpoint
         self.reachabilityProvider = reachabilityProvider
         self.tokenService = DefaultUserTokenService()
@@ -145,12 +148,11 @@ public class ApolloRepository {
     ///  - returns: A web socket transport object
     ///
     private func getWebSocketTransport() -> WebSocketTransport {
-        let hostValue = "sync-dev.protocol.im"
         let authToken = tokenService.getAuthorizationHeader()?.value ?? ""
         let authKey = tokenService.getAuthorizationHeader()?.key ?? "Authorization"
         let authDict: [String: any JSONEncodable] = [
             authKey: authToken,
-            "host": hostValue,
+            "host": host,
         ]
 
         let headerData: Data = try! JSONSerialization.data(withJSONObject: authDict, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -173,7 +175,7 @@ public class ApolloRepository {
 
        
         
-        let requestBodyCreator = AppSyncRequestBodyCreator([authKey: authToken])
+        let requestBodyCreator = AppSyncRequestBodyCreator([authKey: authToken], host: host)
 
         let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval, requestBodyCreator: requestBodyCreator)
         

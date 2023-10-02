@@ -73,7 +73,6 @@ struct MBSMapView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             mapHasMoved = false
                         }
-                        stateManager.subscribeToMiraAddChange()
                         handleOnChangeOfMiraSubscription()
                     }
                     
@@ -137,6 +136,7 @@ struct MBSMapView: View {
     }
     
     func handleOnChangeOfMiraSubscription() {
+        stateManager.subscribeToMiraAddChange()
         miraAddedListenSubscription = stateManager.miraAddedPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { mira in

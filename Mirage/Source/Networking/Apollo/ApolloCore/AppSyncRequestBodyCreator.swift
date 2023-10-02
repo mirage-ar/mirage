@@ -19,10 +19,11 @@ public typealias GraphQLMap = [String: JSONEncodable?]
 
 
 class AppSyncRequestBodyCreator: RequestBodyCreator {
-    init(_ authorization: [String: String]) {
+    init(_ authorization: [String: String], host: String) {
         self.authorization = authorization
+        self.host = host
     }
-    let hostValue = "sync-dev.protocol.im"
+    let host: String
 
     private var authorization: [String: String]
 
@@ -64,14 +65,14 @@ class AppSyncRequestBodyCreator: RequestBodyCreator {
                     "persistedQuery": ["sha256Hash": operationIdentifier, "version": 1],
                     PayloadKey.authorization.rawValue: [
                         authKey: authToken,
-                        "host": hostValue,
+                        "host": host,
                     ],
                 ]
             } else {
                 body[PayloadKey.extensions.rawValue] = [
                     PayloadKey.authorization.rawValue: [
                         authKey: authToken,
-                        "host": hostValue,
+                        "host": host,
                     ],
                 ]
             }
