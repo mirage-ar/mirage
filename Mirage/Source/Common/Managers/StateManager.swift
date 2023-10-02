@@ -24,11 +24,7 @@ final class StateManager: ObservableObject {
     init() {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
-        }
-        if AppConfiguration.shared.authentication {
-            subscribeToMiraAddChange()
-        }
-        
+        }        
         loadCurrentUser()
     }
     

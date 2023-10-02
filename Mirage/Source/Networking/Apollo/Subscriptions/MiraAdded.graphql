@@ -23,7 +23,6 @@ subscription OnMiraAdd {
       profileDescription
     }
     location {
-      id
       latitude
       longitude
       elevation

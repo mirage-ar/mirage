@@ -50,19 +50,10 @@ extension ApolloRepository: MapApolloRepository, WebSocketTransportDelegate {
     
     public func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {
         debugPrint("webSocketTransportDidConnect")
-//        let cancelable = self.subscribeToMiraAddChange()
-//            .sink(receiveValue: { [weak self] mira in
-//                debugPrint("miraadded \(mira)")
-//            })
 
     }
     public func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {
         debugPrint("webSocketTransportDidReconnect")
-//        let cancelable = self.subscribeToMiraAddChange()
-//            .sink(receiveValue: { [weak self] mira in
-//                debugPrint("miraadded \(mira)")
-//            })
-
     }
     public func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error: Error?) {
         debugPrint("webSocketTransport:didDisconnectWithError\(error.debugDescription)")

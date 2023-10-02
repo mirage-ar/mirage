@@ -74,6 +74,7 @@ struct MBSMapView: View {
                             mapHasMoved = false
                         }
                         stateManager.subscribeToMiraAddChange()
+                        handleOnChangeOfMiraSubscription()
                     }
                     
                     VStack {
@@ -140,7 +141,8 @@ struct MBSMapView: View {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { mira in
                 debugPrint("Miraadded Subscription: \(mira)")
-                self.viewModel.handleMiraAdded(mira: mira)
+//                self.viewModel.handleMiraAdded(mira: mira)
+                self.viewModel.getMiras(location: LocationManager.shared.location ?? CLLocationCoordinate2D(latitude: 40.710610319784524, longitude: -73.91524212298014), zoomLevel: 7)
             })
 
     }

@@ -8,7 +8,7 @@ extension MirageAPI {
     static let operationName: String = "OnMiraAdd"
     static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"subscription OnMiraAdd { miraAdded { __typename id miraMedia { __typename id contentType assetUrl shape position { __typename id transform } modifier { __typename id type amount } } creator { __typename id phone username profileImage profileDescription } location { __typename id latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
+        #"subscription OnMiraAdd { miraAdded { __typename id miraMedia { __typename contentType assetUrl shape position { __typename id transform } modifier { __typename id type amount } } creator { __typename id phone username profileImage profileDescription } location { __typename latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
       ))
 
     public init() {}
@@ -61,7 +61,6 @@ extension MirageAPI {
           static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.ArMedia }
           static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
-            .field("id", MirageAPI.ID.self),
             .field("contentType", GraphQLEnum<MirageAPI.ContentType>.self),
             .field("assetUrl", String.self),
             .field("shape", GraphQLEnum<MirageAPI.Shape>.self),
@@ -69,7 +68,6 @@ extension MirageAPI {
             .field("modifier", Modifier?.self),
           ] }
 
-          var id: MirageAPI.ID { __data["id"] }
           var contentType: GraphQLEnum<MirageAPI.ContentType> { __data["contentType"] }
           var assetUrl: String { __data["assetUrl"] }
           var shape: GraphQLEnum<MirageAPI.Shape> { __data["shape"] }
@@ -149,14 +147,12 @@ extension MirageAPI {
           static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Location }
           static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
-            .field("id", MirageAPI.ID.self),
             .field("latitude", Double.self),
             .field("longitude", Double.self),
             .field("elevation", Double?.self),
             .field("heading", Double?.self),
           ] }
 
-          var id: MirageAPI.ID { __data["id"] }
           var latitude: Double { __data["latitude"] }
           var longitude: Double { __data["longitude"] }
           var elevation: Double? { __data["elevation"] }
