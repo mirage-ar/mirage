@@ -67,6 +67,10 @@ final class StateManager: ObservableObject {
             self.selectedUserOnMap = user
         }
     }
+    deinit {
+        miraAddedNetworkSubscription?.cancel()
+        miraAddedNetworkSubscription = nil
+    }
 }
 
 //MARK:- User Profile Methods
