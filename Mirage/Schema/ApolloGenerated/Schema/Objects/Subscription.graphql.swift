@@ -4,8 +4,9 @@
 import ApolloAPI
 
 extension MirageAPI.Objects {
-  static let Position = Object(
-    typename: "Position",
+  ///   Subscription Types
+  static let Subscription = Object(
+    typename: "Subscription",
     implementedInterfaces: []
   )
 }

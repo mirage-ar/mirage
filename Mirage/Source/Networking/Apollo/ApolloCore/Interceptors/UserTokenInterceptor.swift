@@ -12,6 +12,7 @@ import ApolloAPI
 
 /// Adds the access token to the header if it's present
 class UserTokenInterceptor: ApolloInterceptor {
+    var id: String = UUID().uuidString
 
     private let userTokenService: UserTokenService
 
@@ -45,10 +46,10 @@ protocol UserTokenService {
 extension UserTokenService {
     func getAuthorizationHeader() -> (key: String, value: String)? {
         if let token = getAccessToken() {
-            return (key: "authorization", value: "Bearer \(token)")
+            return (key: "authorization", value: "bearer \(token)")
 
         } else {
-            return (key: "authorization", value: "Bearer DUMMY")//this change is because of AppSync
+            return (key: "authorization", value: "bearer DUMMY")//this change is because of AppSync
         }
 
     }

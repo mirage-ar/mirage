@@ -8,12 +8,14 @@
 @_spi(Experimental) import MapboxMaps
 import MapKit
 import SwiftUI
+import Combine
 
 @available(iOS 14.0, *)
 struct MBSMapView: View {
     @EnvironmentObject var stateManager: StateManager
     @ObservedObject private var viewModel = MapViewModel()
     @ObservedObject private var locationManager = LocationManager.shared
+    @State private var miraAddedListenSubscription: AnyCancellable? //for combine subscription
     
     let bearingType = PuckBearing.heading
     
@@ -71,6 +73,7 @@ struct MBSMapView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             mapHasMoved = false
                         }
+                        handleOnChangeOfMiraSubscription()
                     }
                     
                     VStack {
@@ -131,4 +134,16 @@ struct MBSMapView: View {
             return .night
         }
     }
+    
+    func handleOnChangeOfMiraSubscription() {
+        stateManager.subscribeToMiraAddChange()
+        miraAddedListenSubscription = stateManager.miraAddedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { mira in
+                debugPrint("Miraadded Subscription: \(mira)")
+                self.viewModel.handleMiraAdded(mira: mira)
+            })
+
+    }
+
 }

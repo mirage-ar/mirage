@@ -143,6 +143,41 @@ extension Mira {
         creator = User()
         collectors = nil
     }
+    init(mira: MirageAPI.OnMiraAddSubscription.Data.MiraAdded?) {
+        id = UUID(uuidString: mira?.id ?? "") ?? UUID()
+
+        if let loc = mira?.location {
+            location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            elevation = loc.elevation ?? nil
+            heading = loc.heading ?? nil
+        } else {
+            location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            elevation = nil
+            heading = nil
+        }
+
+
+        if let mediaArry = mira?.miraMedia {
+            let arMedia = mediaArry.map { arMedia in
+                let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
+                let transform: simd_float4x4 = convertToSIMD4x4(arMedia.position!.transform) ?? simd_float4x4()
+                // TODO: ! update to returned id
+                return ARMedia(id: UUID(), contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
+            }
+
+            self.arMedia = arMedia
+        } else {
+            arMedia = []
+        }
+
+        hasCollected = false
+        isViewed = false
+        isFriend = false
+        // TODO: update to actual creator
+//        creator = User(creator: mira?.creator)
+        creator = User()
+        collectors = nil
+    }
 }
 
 func convertToSIMD4x4(_ matrix: [[Double]]) -> simd_float4x4? {

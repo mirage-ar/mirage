@@ -3,7 +3,11 @@
 
 import ApolloAPI
 
-public extension MirageAPI.Objects {
+extension MirageAPI.Objects {
+  /// ----------------------------------------------------------------------------------
+  /// Graph Service - GraphQL Schema
+  /// Mirage (( v0.2.0 ))
+  /// ---------------------------------------------------------------------------------
   static let Mira = Object(
     typename: "Mira",
     implementedInterfaces: []

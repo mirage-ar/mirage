@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   struct ArMediaInput: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       contentType: GraphQLEnum<ContentType>,
       assetUrl: String,
       shape: GraphQLEnum<Shape>,
@@ -27,27 +27,27 @@ public extension MirageAPI {
       ])
     }
 
-    public var contentType: GraphQLEnum<ContentType> {
+    var contentType: GraphQLEnum<ContentType> {
       get { __data["contentType"] }
       set { __data["contentType"] = newValue }
     }
 
-    public var assetUrl: String {
+    var assetUrl: String {
       get { __data["assetUrl"] }
       set { __data["assetUrl"] = newValue }
     }
 
-    public var shape: GraphQLEnum<Shape> {
+    var shape: GraphQLEnum<Shape> {
       get { __data["shape"] }
       set { __data["shape"] = newValue }
     }
 
-    public var position: PositionInput {
+    var position: PositionInput {
       get { __data["position"] }
       set { __data["position"] = newValue }
     }
 
-    public var modifier: GraphQLNullable<ModifierInput> {
+    var modifier: GraphQLNullable<ModifierInput> {
       get { __data["modifier"] }
       set { __data["modifier"] = newValue }
     }

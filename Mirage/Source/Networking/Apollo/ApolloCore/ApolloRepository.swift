@@ -12,6 +12,7 @@ import ApolloWebSocket
 import Combine
 import Foundation
 
+
 public class ApolloRepository {
     private weak var appRestoredFromBackgroundPhaseObserver: NSObjectProtocol?
     private weak var appEnteredBackgroundPhaseObserver: NSObjectProtocol?
@@ -20,7 +21,8 @@ public class ApolloRepository {
     var userPropertiesStorage: UserPropertiesStorage = UserDefaultsStorage()
     var userProfileStorage: UserProfileStorage = UserDefaultsStorage()
 
-    var walletSubscription: AnyPublisher<Int, Error>?
+    /// Apollo Subscription when a new Mira is Added
+    var miraAddSubscription: AnyPublisher<Mira, Error>?
 
     /// For check internet connection
     private let reachabilityProvider: ReachabilityProvider
@@ -39,7 +41,7 @@ public class ApolloRepository {
         let provider = NetworkInterceptorProvider(store: getSQLStore(),
                                                   client: client,
                                                   userTokenService: tokenService)
-        let url = URL(string: endpoint)!
+        let url = URL(string: apiEndPoint)!
 
         return RequestChainNetworkTransport(interceptorProvider: provider,
                                             endpointURL: url)
@@ -47,7 +49,8 @@ public class ApolloRepository {
 
     private lazy var client: ApolloClient = getSQLClient()
 
-    private let endpoint: String
+    private let apiEndPoint: String
+    private let host: String
     private let webSocketEndpoint: String
 
     let tokenService: UserTokenService
@@ -56,11 +59,13 @@ public class ApolloRepository {
     /// An event of whether a user was automatically logged out
     public lazy var userAuthenticated = userAuthenticatedSubject.eraseToAnyPublisher()
 
-    public init(endpoint: String,
+    public init(apiEndPoint: String,
                 webSocketEndpoint: String,
+                host: String,
                 reachabilityProvider: ReachabilityProvider)
     {
-        self.endpoint = endpoint
+        self.apiEndPoint = apiEndPoint
+        self.host = host
         self.webSocketEndpoint = webSocketEndpoint
         self.reachabilityProvider = reachabilityProvider
         self.tokenService = DefaultUserTokenService()
@@ -143,28 +148,47 @@ public class ApolloRepository {
     ///  - returns: A web socket transport object
     ///
     private func getWebSocketTransport() -> WebSocketTransport {
-        let url = URL(string: webSocketEndpoint)!
+        let authToken = tokenService.getAuthorizationHeader()?.value ?? ""
+        let authKey = tokenService.getAuthorizationHeader()?.key ?? "Authorization"
+        let authDict: [String: any JSONEncodable] = [
+            authKey: authToken,
+            "host": host,
+        ]
+
+        let headerData: Data = try! JSONSerialization.data(withJSONObject: authDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+        let headerBase64 = headerData.base64EncodedString()
+
+        let payloadData = try! JSONSerialization.data(withJSONObject: [:], options: JSONSerialization.WritingOptions.prettyPrinted)
+        let payloadBase64 = payloadData.base64EncodedString()
+
+        let url = URL(string: webSocketEndpoint + "?header=\(headerBase64)&payload=\(payloadBase64)")!
         let request = URLRequest(url: url)
 
-        let webSocketClient = WebSocket(request: request,
-                                        protocol: .graphql_ws)
+        let webSocketClient = WebSocket(request: request, protocol: .graphql_ws)
 
         guard let authorizationHeader = tokenService.getAuthorizationHeader() else {
             let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval)
             return WebSocketTransport(websocket: webSocketClient,
                                       store: store)
         }
+        
 
-        let payload = [
-            authorizationHeader.key: authorizationHeader.value,
-            .deviceIdKey: .deviceId
-        ]
+       
+        
+        let requestBodyCreator = AppSyncRequestBodyCreator([authKey: authToken], host: host)
 
-        let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval, connectingPayload: payload)
-        return WebSocketTransport(websocket: webSocketClient,
-                                  store: store,
+        let configuration = WebSocketTransport.Configuration(reconnect: true, reconnectionInterval: .subscriptionReconnectionInterval, requestBodyCreator: requestBodyCreator)
+        
+        let transport = WebSocketTransport(websocket: webSocketClient,
                                   config: configuration)
+        transport.delegate = self
+        return transport
     }
+    /// A endpoint request url that web socket conneting.
+    ///
+    /// header-parameter-format-based-on-appsync-api-authorization-mode
+    ///https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#header-parameter-format-based-on-appsync-api-authorization-mode)
+
 
     /// Creates an Apollo client with http and web socket transports
     ///
@@ -175,10 +199,10 @@ public class ApolloRepository {
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-        //                                                webSocketNetworkTransport: webSocketTransport)
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+                                                        webSocketNetworkTransport: webSocketTransport)
 
-        return ApolloClient(networkTransport: normalTransport,
+        return ApolloClient(networkTransport: splitNetworkTransport,
                             store: store)
     }
 
@@ -187,15 +211,15 @@ public class ApolloRepository {
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-        // let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
-        //                                                webSocketNetworkTransport: webSocketTransport)
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+                                                        webSocketNetworkTransport: webSocketTransport)
 
         do {
             let documentsPath = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileUrl = documentsPath.appendingPathComponent("apollo_cache.sqlite")
             let sqliteCache = try SQLiteNormalizedCache(fileURL: fileUrl)
 
-            return ApolloClient(networkTransport: normalTransport,
+            return ApolloClient(networkTransport: splitNetworkTransport,
                                 store: getSQLStore())
         } catch {
             print("Error creating ApolloSQLite Client: \(error)")
@@ -320,12 +344,12 @@ public class ApolloRepository {
         subscriptions.forEach { self.cancelSubscription(name: $0.key) }
         webSocketTransport.closeConnection()
 
-        walletSubscription = nil
+        miraAddSubscription = nil
     }
 
     enum SubscriptionName {
         // Subscriptions name goes here. e.g.
-        case nearbyMirage
+        case miraAdded
     }
 
     // MARK: Authentication status check
@@ -490,3 +514,4 @@ public extension Notification.Name {
     /// An event that subscriptions need to be restored
     static var restoreSubscriptions = Notification.Name("restoreSubscriptions")
 }
+

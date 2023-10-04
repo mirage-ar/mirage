@@ -5,20 +5,26 @@
 //
 
 import SwiftUI
+import Combine
 
 final class StateManager: ObservableObject {
     @Published var loggedInUser: User?
     @Published var selectedUserOnMap: User?
     @Published var isLoadingUserProfile = false
     @Published var isScreenRecording = false
+    
+    private var miraAddedNetworkSubscription: AnyCancellable?
+    private let miraAddedSubject = PassthroughSubject<Mira?, Never>()
+    public lazy var miraAddedPublisher = miraAddedSubject.eraseToAnyPublisher()
+    let apolloRepository = AppConfiguration.shared.apollo
+    let mapApolloRepository: MapApolloRepository = AppConfiguration.shared.apollo
 
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
     
     init() {
         if LocationManager.shared.location == nil {
             LocationManager.shared.requestLocation()
-        }
-        
+        }        
         loadCurrentUser()
     }
     
@@ -61,6 +67,10 @@ final class StateManager: ObservableObject {
             self.selectedUserOnMap = user
         }
     }
+    deinit {
+        miraAddedNetworkSubscription?.cancel()
+        miraAddedNetworkSubscription = nil
+    }
 }
 
 //MARK:- User Profile Methods
@@ -85,5 +95,31 @@ extension StateManager {
                 print("UpdateUser profileimage error \(error)" )
             }
     }
+
+}
+//MARK:- Subscriptions
+extension StateManager {
+    public func subscribeToMiraAddChange() {
+        miraAddedNetworkSubscription = mapApolloRepository.subscribeToMiraAddChange()
+            .sink(receiveValue: { [weak self] mira in
+                debugPrint("miraadded \(mira)")
+                self?.publishMiraChange(mira: mira)
+            })
+    }
+    func publishMiraChange(mira: Mira?) {
+        guard let mira = mira else { return }
+        miraAddedSubject.send(mira)
+    }
+    func handleUpdateAuth(isLoggedIn: Bool = false) {
+        if isLoggedIn {
+            self.subscribeToMiraAddChange()
+        } else {
+            apolloRepository.cancelAllSubscriptions()
+            apolloRepository.handleTokenUpdate(nil)
+            miraAddedNetworkSubscription?.cancel()
+            miraAddedNetworkSubscription = nil
+        }
+    }
+
 
 }
