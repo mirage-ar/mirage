@@ -74,6 +74,13 @@ struct MBSMapView: View {
                             mapHasMoved = false
                         }
                         handleOnChangeOfMiraSubscription()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                            print("HEREHEREHERE")
+//                            viewModel.handleMiraAdded(mira: nil)
+//                            viewModel.miras = []
+//                            print(viewModel.miras)
+                        }
                     }
                     
                     VStack {
@@ -93,7 +100,6 @@ struct MBSMapView: View {
                                 .frame(width: 48, height: 48)
                                 .background(Colors.g3Grey.just.opacity(0.9))
                                 .clipShape(Circle())
-                            //                            .padding(.bottom, 30)
                         }
                         .offset(y: -100)
                         .padding(.bottom, user != nil ? 48 : 120)
@@ -112,11 +118,10 @@ struct MBSMapView: View {
         if let user = user {
             let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds
-            print("MIRA IDS: \(createdMiraIds)")
             let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
-            print("MIRA IDS: \(userMiraIds)")
             filteredMiras = miras.filter { userMiraIds.contains($0.id) }
         }
+        
         return filteredMiras
     }
     
