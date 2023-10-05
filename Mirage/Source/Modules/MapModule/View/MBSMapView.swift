@@ -116,10 +116,9 @@ struct MBSMapView: View {
         var filteredMiras = miras
         
         if let user = user {
-            let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds
-            let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
-            filteredMiras = miras.filter { userMiraIds.contains($0.id) }
+            let userMiraIds = (collectedMiraIds ?? [])
+            filteredMiras = miras.filter { userMiraIds.contains($0.id) || $0.creator.id == user.id }
         }
         
         return filteredMiras
