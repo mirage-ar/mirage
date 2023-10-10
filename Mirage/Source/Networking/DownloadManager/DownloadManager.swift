@@ -75,8 +75,10 @@ public class DownloadManager {
     }
 
     func upload(image: UIImage, completion: ((String?) -> ())?) {
-        let data = image.jpegData(compressionQuality: 0.8)
-        let fileName = UUID().uuidString + ".jpg"
+        guard let ext = image.cgImage?.utType as? String else { return }
+        let isPng = ext.uppercased() == "PUBLIC.PNG" || ext == "PNG"
+        let data = isPng ? image.pngData() : image.jpegData(compressionQuality: 0.6)
+        let fileName = UUID().uuidString + (isPng ? ".png" : ".jpg")
         let fileUrl = documentDirectory.appendingPathComponent(fileName)
         do {
             try data?.write(to: fileUrl)
@@ -88,7 +90,7 @@ public class DownloadManager {
     }
 
     func upload(filePath: String, completion: ((String?) -> ())?) {
-        serialQueue.sync {
+//        serialQueue.sync {
             if !filePath.isEmpty, let file = fileSet[filePath], file.status == .completed, !file.filePath.isEmpty {
                 // this is just to return url. to display. please use local file path to display
                 completion?(file.filePath)
@@ -118,7 +120,7 @@ public class DownloadManager {
                     completion?(nil)
                 }
             }
-        }
+//        }
     }
 
     // MARK: File Actions
