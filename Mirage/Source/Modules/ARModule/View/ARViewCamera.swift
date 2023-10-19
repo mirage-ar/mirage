@@ -10,6 +10,7 @@ import ARKit
 
 struct ARViewCamera: View {
     @ObservedObject private var viewModel = ARViewModel()
+    @State var scaleLabelOpacity: Double = 0.6
 
     var body: some View {
         GeometryReader { geo in
@@ -26,8 +27,17 @@ struct ARViewCamera: View {
                             Spacer()
                             Text(viewModel.scaleText)
                                 .font(.bigScreen)
-                                .foregroundColor(.white)
-                                .hiddenConditionally(isHidden: viewModel.hideScaleLabel)
+                                .foregroundColor(Colors.g3Grey.swiftUIColor)
+                                .opacity(scaleLabelOpacity)
+                                .onChange(of: viewModel.hideScaleLabel) { newValue in
+                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                        if newValue == false {
+                                            scaleLabelOpacity = 0.6
+                                        } else {
+                                            scaleLabelOpacity = 0.0
+                                        }
+                                    }
+                                }
                         }
                         .padding(.bottom, 100)
                         
