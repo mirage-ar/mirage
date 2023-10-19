@@ -22,6 +22,15 @@ struct ARViewCamera: View {
                         
                         // removing for now so media picker shows correctly
 //                            .edgesIgnoringSafeArea(.top)
+                        VStack{
+                            Spacer()
+                            Text(viewModel.scaleText)
+                                .font(.bigScreen)
+                                .foregroundColor(.white)
+                                .hiddenConditionally(isHidden: viewModel.hideScaleLabel)
+                        }
+                        .padding(.bottom, 100)
+                        
                     }
 
                     ARViewBottomBar(viewModel: viewModel)

@@ -55,7 +55,9 @@ final class ARViewModel: ObservableObject {
     @Published var viewingMiras: [Mira]?
     @Published var arView: ARView
     @Published var arViewMode: ARViewMode = .EXPLORE
-    
+    @Published var scaleText: String = ""
+    @Published var hideScaleLabel: Bool = true
+
     //MARK: Collect Mira
     @Published var collected: Bool = false
     var collectedMirasIds: [UUID] = Array()
@@ -211,7 +213,8 @@ final class ARViewModel: ObservableObject {
             entity.generateCollisionShapes(recursive: true)
             
             let gestures = arView.installGestures([.scale, .rotation, .translation], for: entity)
-            
+            gestures.forEach { $0.addTarget(self, action: #selector(self.handleGestureTranslation(sender:)))}
+
             entity.look(at: cameraPosition, from: entity.position, upVector: [0, 0, 1], relativeTo: nil)
             entity.orientation = cameraOrientation
             
@@ -725,5 +728,22 @@ final class ARViewModel: ObservableObject {
         let foundInCollectors = selectedMira?.collectors?.contains(where: { $0.id == userID }) ?? false
         let foundInCurrentCollectedMiras = collectedMirasIds.contains(self.selectedMira?.id ?? UUID())
         return foundInCollectors || foundInCurrentCollectedMiras
+    }
+    //MARK: Scalling
+    @objc func handleGestureTranslation(sender: UIPinchGestureRecognizer) {
+        let entity = (sender as? EntityGestureRecognizer)?.entity
+        scaleText = String(format: "%.1fx", (entity?.transform.scale.x ?? 1.0))
+        if hideScaleLabel == true {
+            hideScaleLabel = false
+        }
+        
+        if sender.state == .ended {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                // set your var here
+                self.hideScaleLabel = true
+            }
+        }
+        
+
     }
 }
