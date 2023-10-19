@@ -40,7 +40,7 @@ enum FontType {
     var size: CGFloat {
         switch self {
         case .bigScreen:
-            return 80
+            return 132
         case .h1:
             return 48
         case .h2:

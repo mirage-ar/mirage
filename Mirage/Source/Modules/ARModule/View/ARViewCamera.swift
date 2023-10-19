@@ -27,6 +27,7 @@ struct ARViewCamera: View {
                             Spacer()
                             Text(viewModel.scaleText)
                                 .font(.bigScreen)
+                                .lineLimit(1)
                                 .foregroundColor(Colors.g3Grey.swiftUIColor)
                                 .opacity(scaleLabelOpacity)
                                 .onChange(of: viewModel.hideScaleLabel) { newValue in
