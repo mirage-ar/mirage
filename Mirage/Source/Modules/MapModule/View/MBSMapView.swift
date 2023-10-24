@@ -25,7 +25,6 @@ struct MBSMapView: View {
     
     @State private var viewport: Viewport = .camera(zoom: 17, bearing: 0, pitch: 40)
     @State private var mapHasMoved: Bool = false
-    @State private var userLocation: CLLocationCoordinate2D?
     
     var body: some View {
         GeometryReader { geo in
@@ -66,8 +65,6 @@ struct MBSMapView: View {
                         mapHasMoved = true
                     }
                     .onAppear {
-                        userLocation = locationManager.location
-                        
                         guard let map = proxy.map else { return }
                         map.setCamera(to: .init(center: locationManager.location))
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -79,8 +76,12 @@ struct MBSMapView: View {
                     VStack {
                         Spacer()
                         Button {
+//                            guard let userLocation = proxy else { return }
+                            
+                            print(proxy)
+                            
                             withViewportAnimation(.default(maxDuration: 0.75)) {
-                                viewport = .camera(center: locationManager.location, bearing: 0, pitch: 40)
+                                viewport = .followPuck(zoom: 17, pitch: 40)
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     withAnimation {
                                         self.mapHasMoved = false
