@@ -73,14 +73,7 @@ struct MBSMapView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             mapHasMoved = false
                         }
-                        handleOnChangeOfMiraSubscription()
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//                            print("HEREHEREHERE")
-//                            viewModel.handleMiraAdded(mira: nil)
-//                            viewModel.miras = []
-//                            print(viewModel.miras)
-                        }
+                        handleOnChangeOfMiraSubscription()                        
                     }
                     
                     VStack {
