@@ -12,7 +12,6 @@ subscription OnMiraAdd {
       modifier {
         id
         type
-        amount
       }
     }
     creator {
