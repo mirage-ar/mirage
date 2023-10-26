@@ -280,7 +280,7 @@ public class ApolloRepository {
     ///  - returns: A publisher of the mutation data or error
     ///
     func perform<Mutation: GraphQLMutation>(mutation: Mutation,
-                                            cachePolicy: CachePolicy = .fetchIgnoringCacheData,
+                                            cachePolicy: CachePolicy = .returnCacheDataAndFetch,
                                             callbackQueue: DispatchQueue = .global(qos: .userInitiated))
         -> AnyPublisher<Mutation.Data, Error>
     {
