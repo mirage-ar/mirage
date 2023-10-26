@@ -13,7 +13,7 @@ extension MirageAPI {
 
     init(
       type: GraphQLEnum<ModifierType>,
-      amount: GraphQLNullable<Double> = nil
+      amount: Double
     ) {
       __data = InputDict([
         "type": type,
@@ -26,7 +26,7 @@ extension MirageAPI {
       set { __data["type"] = newValue }
     }
 
-    var amount: GraphQLNullable<Double> {
+    var amount: Double {
       get { __data["amount"] }
       set { __data["amount"] = newValue }
     }

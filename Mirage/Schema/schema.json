@@ -835,7 +835,7 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
@@ -1907,7 +1907,7 @@
             "name": "amount",
             "description": null,
             "type": {
-              "kind": "SCALAR",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "SCALAR",

@@ -130,7 +130,7 @@ type Position {
 type Modifier {
   id: ID!
   type: ModifierType!
-  amount: Float
+  amount: Float!
 }
 
 enum ModifierType {
@@ -246,7 +246,7 @@ input PositionInput {
 
 input ModifierInput {
   type: ModifierType!
-  amount: Float
+  amount: Float!
 }
 
 input CollectMiraInput {
