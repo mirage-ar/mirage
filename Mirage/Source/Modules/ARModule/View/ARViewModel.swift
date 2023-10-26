@@ -442,23 +442,21 @@ final class ARViewModel: ObservableObject {
                 guard let miras = miras else { return }
                 self.viewingMiras = miras
                 
-                self.initializeAllViewingMiras(miras, userLocation: userLocation)
-                
                 // wait until we have location and heading to create miras
-//                self.locationPublisher
-//                    .first()
-//                    .sink(receiveCompletion: { _ in
-//                        self.cancellables.removeAll()
-//                    }, receiveValue: { data in
-//                        print("Received location: \(data.location) and heading: \(data.heading)")
-//                        self.userLocation = data.location.coordinate
-//                        self.userHeading = data.heading.trueHeading
-//                        self.userElevation = data.elevation
-//
-//                        // initialize all miras in ar view
-//                        self.initializeAllViewingMiras(miras, userLocation: userLocation)
-//                    })
-//                    .store(in: &self.cancellables)
+                self.locationPublisher
+                    .first()
+                    .sink(receiveCompletion: { _ in
+                        self.cancellables.removeAll()
+                    }, receiveValue: { data in
+                        print("Received location: \(data.location) and heading: \(data.heading)")
+                        self.userLocation = data.location.coordinate
+                        self.userHeading = data.heading.trueHeading
+                        self.userElevation = data.elevation
+                        
+                        // initialize all miras in ar view
+                        self.initializeAllViewingMiras(miras, userLocation: userLocation)
+                    })
+                    .store(in: &self.cancellables)
             }, receiveError: { error in
                 print("Error: \(error)")
             })
