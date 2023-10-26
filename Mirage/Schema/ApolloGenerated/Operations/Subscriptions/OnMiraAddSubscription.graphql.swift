@@ -8,7 +8,7 @@ extension MirageAPI {
     static let operationName: String = "OnMiraAdd"
     static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"subscription OnMiraAdd { miraAdded { __typename id miraMedia { __typename contentType assetUrl shape position { __typename id transform } modifier { __typename id type amount } } creator { __typename id phone username profileImage profileDescription } location { __typename latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
+        #"subscription OnMiraAdd { miraAdded { __typename id miraMedia { __typename contentType assetUrl shape position { __typename id transform } modifier { __typename id type } } creator { __typename id phone username profileImage profileDescription } location { __typename latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
       ))
 
     public init() {}
@@ -104,12 +104,10 @@ extension MirageAPI {
               .field("__typename", String.self),
               .field("id", MirageAPI.ID.self),
               .field("type", GraphQLEnum<MirageAPI.ModifierType>.self),
-              .field("amount", Double.self),
             ] }
 
             var id: MirageAPI.ID { __data["id"] }
             var type: GraphQLEnum<MirageAPI.ModifierType> { __data["type"] }
-            var amount: Double { __data["amount"] }
           }
         }
 
