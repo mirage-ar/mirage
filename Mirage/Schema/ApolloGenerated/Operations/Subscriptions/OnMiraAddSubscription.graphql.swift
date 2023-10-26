@@ -104,12 +104,12 @@ extension MirageAPI {
               .field("__typename", String.self),
               .field("id", MirageAPI.ID.self),
               .field("type", GraphQLEnum<MirageAPI.ModifierType>.self),
-              .field("amount", Double.self),
+              .field("amount", Double?.self),
             ] }
 
             var id: MirageAPI.ID { __data["id"] }
             var type: GraphQLEnum<MirageAPI.ModifierType> { __data["type"] }
-            var amount: Double { __data["amount"] }
+            var amount: Double? { __data["amount"] }
           }
         }
 

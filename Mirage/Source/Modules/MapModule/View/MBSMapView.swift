@@ -13,7 +13,7 @@ import Combine
 @available(iOS 14.0, *)
 struct MBSMapView: View {
     @EnvironmentObject var stateManager: StateManager
-    @ObservedObject private var viewModel = MapViewModel()
+    @ObservedObject var viewModel: MapViewModel
     @ObservedObject private var locationManager = LocationManager.shared
     @State private var miraAddedListenSubscription: AnyCancellable? //for combine subscription
     

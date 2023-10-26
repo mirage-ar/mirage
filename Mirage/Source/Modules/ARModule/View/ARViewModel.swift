@@ -579,7 +579,7 @@ final class ARViewModel: ObservableObject {
                 rotateModel(entity)
             }
 
-            let anchorEntity = AnchorEntity(anchor: geoAnchor)
+            let anchorEntity = AnchorEntity(.face)
             anchorEntity.name = id.uuidString
             anchorEntity.addChild(entity)
 
@@ -640,7 +640,7 @@ final class ARViewModel: ObservableObject {
             rotateModel(entity)
         }
 
-        let anchorEntity = AnchorEntity(anchor: geoAnchor)
+        let anchorEntity = AnchorEntity(.face)
         anchorEntity.name = id.uuidString
         anchorEntity.addChild(entity)
 

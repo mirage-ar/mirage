@@ -34,14 +34,9 @@ final class MapViewModel: ObservableObject {
     }
 
     func handleMiraAdded(mira: Mira?) {
-        guard let mira = mira else { return }
-        debugPrint("UPDATE: Added Mira")
-        var tempArray = miras
-//        tempArray?.append(mira)
-            guard let m = miras?.last else { return }
-        
-        DispatchQueue.main.async {
-            self.miras = [mira]
-        }
+        guard var mira = mira else { return }
+        var tempArray = self.miras
+        tempArray?.append(mira)
+        self.miras = [mira]
     }
 }
