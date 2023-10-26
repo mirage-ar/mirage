@@ -3,7 +3,7 @@
 //  Mirage
 //
 //  Created by Saad on 27/03/2023.
-// 
+//
 
 import ApolloAPI
 import CoreLocation
@@ -26,7 +26,7 @@ public struct Mira: Identifiable {
     var imageUrl: String {
         return creator.profileImage
     }
-    
+
     var arMedia: [ARMedia]
 
     init(id: UUID, creator: User, location: CLLocationCoordinate2D, elevation: Double, heading: Double, arMedia: [ARMedia], collectors: [User]?) {
@@ -121,7 +121,6 @@ extension Mira {
             heading = nil
         }
 
-
         if let mediaArry = mira?.miraMedia {
             let arMedia = mediaArry.map { arMedia in
                 let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
@@ -142,6 +141,57 @@ extension Mira {
 //        creator = User(creator: mira?.creator)
         creator = User()
         collectors = nil
+    }
+
+    init(mira: MirageAPI.OnMiraAddSubscription.Data.MiraAdded?) {
+        print("MIRA ADDED HERE")
+        id = UUID(uuidString: mira?.id ?? "") ?? UUID()
+
+        if let loc = mira?.location {
+            location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            elevation = loc.elevation ?? nil
+            heading = loc.heading ?? nil
+        } else {
+            print("NO LOCATION")
+            location = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            elevation = nil
+            heading = nil
+        }
+
+        var collected = false
+        if let collectors = mira?.collectors, collectors.count > 0 {
+            var collectorsList = [User]()
+            let userId = UUID(uuidString: UserDefaultsStorage().getString(for: .userId) ?? "") ?? UUID()
+            for collector in collectors {
+                let user = User(collector: collector)
+
+                if userId == user.id {
+                    collected = true
+                }
+                collectorsList.append(user)
+            }
+            self.collectors = collectorsList
+        } else {
+            collectors = nil
+        }
+
+        if let mediaArry = mira?.miraMedia {
+            let arMedia = mediaArry.map { arMedia in
+                let modifier = ModifierType(rawValue: arMedia.modifier?.type.rawValue ?? ModifierType.none.rawValue)
+                let transform: simd_float4x4 = convertToSIMD4x4(arMedia.position!.transform) ?? simd_float4x4()
+                // TODO: ! update to returned id
+                return ARMedia(id: UUID(), contentType: .withGraphEnum(arMedia.contentType), assetUrl: arMedia.assetUrl, shape: .withGraphEnum(arMedia.shape), modifier: modifier ?? .none, transform: transform)
+            }
+
+            self.arMedia = arMedia
+        } else {
+            arMedia = []
+        }
+
+        hasCollected = collected
+        isViewed = mira?.viewed ?? false
+        isFriend = mira?.isFriend ?? false
+        creator = User(creator: mira?.creator)
     }
 }
 

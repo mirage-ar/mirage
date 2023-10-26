@@ -1,12 +1,63 @@
-type Mira {
-  id: ID!
-  creator: User
-  location: Location
-  miraMedia: [ArMedia!]
-  collectors: [User!]
-  flags: [Flag!]
-  viewed: Boolean
-  isFriend: Boolean
+"""This directive allows results to be deferred during execution"""
+directive @defer on FIELD
+
+"""
+Tells the service this field/object has access authorized by a Lambda Authorizer.
+"""
+directive @aws_lambda on OBJECT | FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by an OIDC token.
+"""
+directive @aws_oidc on OBJECT | FIELD_DEFINITION
+
+"""Directs the schema to enforce authorization on a field"""
+directive @aws_auth(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by a Cognito User Pools token.
+"""
+directive @aws_cognito_user_pools(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on OBJECT | FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by sigv4 signing.
+"""
+directive @aws_iam on OBJECT | FIELD_DEFINITION
+
+"""
+Tells the service which subscriptions will be published to when this mutation is called. This directive is deprecated use @aws_susbscribe directive instead.
+"""
+directive @aws_publish(
+  """
+  List of subscriptions which will be published to when this mutation is called.
+  """
+  subscriptions: [String]
+) on FIELD_DEFINITION
+
+"""Tells the service which mutation triggers this subscription."""
+directive @aws_subscribe(
+  """
+  List of mutations which will trigger this subscription when they are called.
+  """
+  mutations: [String]
+) on FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by an API key.
+"""
+directive @aws_api_key on OBJECT | FIELD_DEFINITION
+
+"""  Query Types"""
+type Query {
+  user(userId: ID): User
+  getMiras(input: GetMirasQueryInput!): [Mira]
+  getMirasByIds(input: [ID!]!): [Mira]
 }
 
 type User {
@@ -26,6 +77,23 @@ type User {
   pendingRequests: [User]
 }
 
+"""
+----------------------------------------------------------------------------------
+Graph Service - GraphQL Schema
+Mirage (( v0.2.0 ))
+---------------------------------------------------------------------------------
+"""
+type Mira {
+  id: ID!
+  creator: User
+  location: Location
+  miraMedia: [ArMedia!]
+  collectors: [User!]
+  flags: [Flag!]
+  viewed: Boolean
+  isFriend: Boolean
+}
+
 type Location {
   id: ID!
   latitude: Float!
@@ -43,6 +111,17 @@ type ArMedia {
   modifier: Modifier
 }
 
+enum ContentType {
+  VIDEO
+  PHOTO
+}
+
+enum Shape {
+  PLANE
+  CUBE
+  SPHERE
+}
+
 type Position {
   id: ID!
   transform: [[Float!]!]!
@@ -54,6 +133,12 @@ type Modifier {
   amount: Float!
 }
 
+enum ModifierType {
+  NONE
+  WAVE
+  ROTATE
+}
+
 type Flag {
   id: ID!
   author: User
@@ -61,19 +146,13 @@ type Flag {
   parent: Mira
 }
 
-type FriendRequest {
-  id: ID!
-  inviter: User!
-  recipient: User!
-  status: FriendshipStatus!
+enum FlagType {
+  INAPPROPRIATE
+  SPAM
+  OTHER
 }
 
-type Query {
-  user(userId: ID): User
-  getMiras(input: GetMirasQueryInput!): [Mira]
-  getMirasByIds(input: [ID!]!): [Mira]
-}
-
+"""  NOTE: if location is not provided, return all miras"""
 input GetMirasQueryInput {
   location: LocationInput!
   zoomLevel: Int
@@ -87,6 +166,7 @@ input LocationInput {
   heading: Float
 }
 
+"""  Mutation Types"""
 type Mutation {
   authorizeUser(input: AuthorizationInput!): AuthorizationResult
   verifyUser(input: VerificationInput!): VerificationResult
@@ -96,10 +176,26 @@ type Mutation {
   addMira(input: AddMiraInput!): Mira
   collectMira(input: CollectMiraInput!): Mira
   flagMira(input: FlagMiraInput!): Mira
+  removeMira(miraId: ID!): Boolean!
+}
+
+type AuthorizationResult {
+  user: User!
+  accountStage: AccountStage!
+}
+
+enum AccountStage {
+  NEW
+  EXISTING
 }
 
 input AuthorizationInput {
   phone: String!
+}
+
+type VerificationResult {
+  user: User!
+  accessToken: String!
 }
 
 input VerificationInput {
@@ -111,6 +207,19 @@ input UpdateUserInput {
   username: String
   profileImage: String
   profileDescription: String
+}
+
+type FriendRequest {
+  id: ID!
+  inviter: User!
+  recipient: User!
+  status: FriendshipStatus!
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 input UpdateFriendshipInput {
@@ -149,48 +258,7 @@ input FlagMiraInput {
   flagType: FlagType!
 }
 
-type AuthorizationResult {
-  user: User!
-  accountStage: AccountStage!
+"""  Subscription Types"""
+type Subscription {
+  miraAdded: Mira
 }
-
-type VerificationResult {
-  user: User!
-  accessToken: String!
-}
-
-enum ContentType {
-  VIDEO
-  PHOTO
-}
-
-enum Shape {
-  PLANE
-  CUBE
-  SPHERE
-}
-
-enum ModifierType {
-  NONE
-  WAVE
-  ROTATE
-}
-
-enum FlagType {
-  INAPPROPRIATE
-  SPAM
-  OTHER
-}
-
-enum AccountStage {
-  NEW
-  EXISTING
-}
-
-enum FriendshipStatus {
-  PENDING
-  ACCEPTED
-  REJECTED
-}
-
-scalar Date

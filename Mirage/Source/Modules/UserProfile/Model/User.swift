@@ -100,6 +100,22 @@ extension User {
         profileImage = collector?.profileImage ?? ""
         profileDescription = collector?.profileDescription
     }
+    
+    init(collector: MirageAPI.OnMiraAddSubscription.Data.MiraAdded.Collector?) {
+        id = UUID(uuidString: collector?.id ?? "") ?? UUID()
+        phone = collector?.phone ?? ""
+        userName = collector?.username ?? ""
+        profileImage = collector?.profileImage ?? ""
+        profileDescription = collector?.profileDescription
+    }
+    
+    init(creator: MirageAPI.OnMiraAddSubscription.Data.MiraAdded.Creator?) {
+        id = UUID(uuidString: creator?.id ?? "") ?? UUID()
+        phone = creator?.phone ?? "1234"
+        userName = creator?.username ?? ""
+        profileImage = creator?.profileImage ?? ""
+        profileDescription = creator?.profileDescription ?? "xyz"
+    }
 }
 
 // MARK: - Hashable

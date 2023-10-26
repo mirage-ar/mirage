@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MirageAPI.Objects {
+extension MirageAPI.Objects {
   static let Modifier = Object(
     typename: "Modifier",
     implementedInterfaces: []

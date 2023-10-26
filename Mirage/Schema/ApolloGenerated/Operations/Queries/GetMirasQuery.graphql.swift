@@ -3,63 +3,12 @@
 
 @_exported import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   class GetMirasQuery: GraphQLQuery {
-    public static let operationName: String = "GetMiras"
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    static let operationName: String = "GetMiras"
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetMiras($getMirasQueryInput: GetMirasQueryInput!) {
-          getMiras(input: $getMirasQueryInput) {
-            __typename
-            id
-            miraMedia {
-              __typename
-              id
-              contentType
-              assetUrl
-              shape
-              position {
-                __typename
-                id
-                transform
-              }
-              modifier {
-                __typename
-                id
-                type
-                amount
-              }
-            }
-            creator {
-              __typename
-              id
-              phone
-              username
-              profileImage
-              profileDescription
-            }
-            location {
-              __typename
-              id
-              latitude
-              longitude
-              elevation
-              heading
-            }
-            viewed
-            isFriend
-            collectors {
-              __typename
-              id
-              phone
-              username
-              profileImage
-              profileDescription
-            }
-          }
-        }
-        """#
+        #"query GetMiras($getMirasQueryInput: GetMirasQueryInput!) { getMiras(input: $getMirasQueryInput) { __typename id miraMedia { __typename id contentType assetUrl shape position { __typename id transform } modifier { __typename id type amount } } creator { __typename id phone username profileImage profileDescription } location { __typename id latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
       ))
 
     public var getMirasQueryInput: GetMirasQueryInput
@@ -70,26 +19,27 @@ public extension MirageAPI {
 
     public var __variables: Variables? { ["getMirasQueryInput": getMirasQueryInput] }
 
-    public struct Data: MirageAPI.SelectionSet {
-      public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+    struct Data: MirageAPI.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
-      public static var __selections: [ApolloAPI.Selection] { [
+      static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Query }
+      static var __selections: [ApolloAPI.Selection] { [
         .field("getMiras", [GetMira?]?.self, arguments: ["input": .variable("getMirasQueryInput")]),
       ] }
 
-      public var getMiras: [GetMira?]? { __data["getMiras"] }
+      var getMiras: [GetMira?]? { __data["getMiras"] }
 
       /// GetMira
       ///
       /// Parent Type: `Mira`
-      public struct GetMira: MirageAPI.SelectionSet {
-        public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+      struct GetMira: MirageAPI.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
-        public static var __selections: [ApolloAPI.Selection] { [
+        static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Mira }
+        static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("id", MirageAPI.ID.self),
           .field("miraMedia", [MiraMedium]?.self),
           .field("creator", Creator?.self),
@@ -99,23 +49,24 @@ public extension MirageAPI {
           .field("collectors", [Collector]?.self),
         ] }
 
-        public var id: MirageAPI.ID { __data["id"] }
-        public var miraMedia: [MiraMedium]? { __data["miraMedia"] }
-        public var creator: Creator? { __data["creator"] }
-        public var location: Location? { __data["location"] }
-        public var viewed: Bool? { __data["viewed"] }
-        public var isFriend: Bool? { __data["isFriend"] }
-        public var collectors: [Collector]? { __data["collectors"] }
+        var id: MirageAPI.ID { __data["id"] }
+        var miraMedia: [MiraMedium]? { __data["miraMedia"] }
+        var creator: Creator? { __data["creator"] }
+        var location: Location? { __data["location"] }
+        var viewed: Bool? { __data["viewed"] }
+        var isFriend: Bool? { __data["isFriend"] }
+        var collectors: [Collector]? { __data["collectors"] }
 
         /// GetMira.MiraMedium
         ///
         /// Parent Type: `ArMedia`
-        public struct MiraMedium: MirageAPI.SelectionSet {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+        struct MiraMedium: MirageAPI.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.ArMedia }
-          public static var __selections: [ApolloAPI.Selection] { [
+          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.ArMedia }
+          static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("id", MirageAPI.ID.self),
             .field("contentType", GraphQLEnum<MirageAPI.ContentType>.self),
             .field("assetUrl", String.self),
@@ -124,59 +75,62 @@ public extension MirageAPI {
             .field("modifier", Modifier?.self),
           ] }
 
-          public var id: MirageAPI.ID { __data["id"] }
-          public var contentType: GraphQLEnum<MirageAPI.ContentType> { __data["contentType"] }
-          public var assetUrl: String { __data["assetUrl"] }
-          public var shape: GraphQLEnum<MirageAPI.Shape> { __data["shape"] }
-          public var position: Position? { __data["position"] }
-          public var modifier: Modifier? { __data["modifier"] }
+          var id: MirageAPI.ID { __data["id"] }
+          var contentType: GraphQLEnum<MirageAPI.ContentType> { __data["contentType"] }
+          var assetUrl: String { __data["assetUrl"] }
+          var shape: GraphQLEnum<MirageAPI.Shape> { __data["shape"] }
+          var position: Position? { __data["position"] }
+          var modifier: Modifier? { __data["modifier"] }
 
           /// GetMira.MiraMedium.Position
           ///
           /// Parent Type: `Position`
-          public struct Position: MirageAPI.SelectionSet {
-            public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+          struct Position: MirageAPI.SelectionSet {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Position }
-            public static var __selections: [ApolloAPI.Selection] { [
+            static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Position }
+            static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .field("id", MirageAPI.ID.self),
               .field("transform", [[Double]].self),
             ] }
 
-            public var id: MirageAPI.ID { __data["id"] }
-            public var transform: [[Double]] { __data["transform"] }
+            var id: MirageAPI.ID { __data["id"] }
+            var transform: [[Double]] { __data["transform"] }
           }
 
           /// GetMira.MiraMedium.Modifier
           ///
           /// Parent Type: `Modifier`
-          public struct Modifier: MirageAPI.SelectionSet {
-            public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+          struct Modifier: MirageAPI.SelectionSet {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Modifier }
-            public static var __selections: [ApolloAPI.Selection] { [
+            static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Modifier }
+            static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .field("id", MirageAPI.ID.self),
               .field("type", GraphQLEnum<MirageAPI.ModifierType>.self),
               .field("amount", Double.self),
             ] }
 
-            public var id: MirageAPI.ID { __data["id"] }
-            public var type: GraphQLEnum<MirageAPI.ModifierType> { __data["type"] }
-            public var amount: Double { __data["amount"] }
+            var id: MirageAPI.ID { __data["id"] }
+            var type: GraphQLEnum<MirageAPI.ModifierType> { __data["type"] }
+            var amount: Double { __data["amount"] }
           }
         }
 
         /// GetMira.Creator
         ///
         /// Parent Type: `User`
-        public struct Creator: MirageAPI.SelectionSet {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+        struct Creator: MirageAPI.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
-          public static var __selections: [ApolloAPI.Selection] { [
+          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
+          static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("id", MirageAPI.ID.self),
             .field("phone", String?.self),
             .field("username", String.self),
@@ -184,22 +138,23 @@ public extension MirageAPI {
             .field("profileDescription", String?.self),
           ] }
 
-          public var id: MirageAPI.ID { __data["id"] }
-          public var phone: String? { __data["phone"] }
-          public var username: String { __data["username"] }
-          public var profileImage: String? { __data["profileImage"] }
-          public var profileDescription: String? { __data["profileDescription"] }
+          var id: MirageAPI.ID { __data["id"] }
+          var phone: String? { __data["phone"] }
+          var username: String { __data["username"] }
+          var profileImage: String? { __data["profileImage"] }
+          var profileDescription: String? { __data["profileDescription"] }
         }
 
         /// GetMira.Location
         ///
         /// Parent Type: `Location`
-        public struct Location: MirageAPI.SelectionSet {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+        struct Location: MirageAPI.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Location }
-          public static var __selections: [ApolloAPI.Selection] { [
+          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.Location }
+          static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("id", MirageAPI.ID.self),
             .field("latitude", Double.self),
             .field("longitude", Double.self),
@@ -207,22 +162,23 @@ public extension MirageAPI {
             .field("heading", Double?.self),
           ] }
 
-          public var id: MirageAPI.ID { __data["id"] }
-          public var latitude: Double { __data["latitude"] }
-          public var longitude: Double { __data["longitude"] }
-          public var elevation: Double? { __data["elevation"] }
-          public var heading: Double? { __data["heading"] }
+          var id: MirageAPI.ID { __data["id"] }
+          var latitude: Double { __data["latitude"] }
+          var longitude: Double { __data["longitude"] }
+          var elevation: Double? { __data["elevation"] }
+          var heading: Double? { __data["heading"] }
         }
 
         /// GetMira.Collector
         ///
         /// Parent Type: `User`
-        public struct Collector: MirageAPI.SelectionSet {
-          public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+        struct Collector: MirageAPI.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
-          public static var __selections: [ApolloAPI.Selection] { [
+          static var __parentType: ApolloAPI.ParentType { MirageAPI.Objects.User }
+          static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("id", MirageAPI.ID.self),
             .field("phone", String?.self),
             .field("username", String.self),
@@ -230,11 +186,11 @@ public extension MirageAPI {
             .field("profileDescription", String?.self),
           ] }
 
-          public var id: MirageAPI.ID { __data["id"] }
-          public var phone: String? { __data["phone"] }
-          public var username: String { __data["username"] }
-          public var profileImage: String? { __data["profileImage"] }
-          public var profileDescription: String? { __data["profileDescription"] }
+          var id: MirageAPI.ID { __data["id"] }
+          var phone: String? { __data["phone"] }
+          var username: String { __data["username"] }
+          var profileImage: String? { __data["profileImage"] }
+          var profileDescription: String? { __data["profileDescription"] }
         }
       }
     }

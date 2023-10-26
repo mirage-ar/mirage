@@ -10,6 +10,7 @@ import SwiftUI
 struct UserProfileView: View {
     @EnvironmentObject var stateManager: StateManager
     @Environment(\.presentationMode) var presentationMode
+    @State var mapViewModel = MapViewModel()
 
     @ObservedObject private var viewModel = UserProfileViewModel()
 
@@ -41,7 +42,7 @@ struct UserProfileView: View {
                         if viewModel.user != nil {
                             Group {
                                 ZStack {
-                                    MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, user: viewModel.user)
+                                    MBSMapView(viewModel: mapViewModel, selectedMira: $selectedMira, showCollectedByList: $showCollectedByList, user: viewModel.user)
                                     
                                     VStack {
                                         Spacer()

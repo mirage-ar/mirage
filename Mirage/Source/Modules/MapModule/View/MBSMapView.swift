@@ -8,12 +8,14 @@
 @_spi(Experimental) import MapboxMaps
 import MapKit
 import SwiftUI
+import Combine
 
 @available(iOS 14.0, *)
 struct MBSMapView: View {
     @EnvironmentObject var stateManager: StateManager
-    @ObservedObject private var viewModel = MapViewModel()
+    @ObservedObject var viewModel: MapViewModel
     @ObservedObject private var locationManager = LocationManager.shared
+    @State private var miraAddedListenSubscription: AnyCancellable? //for combine subscription
     
     let bearingType = PuckBearing.heading
     
@@ -23,7 +25,6 @@ struct MBSMapView: View {
     
     @State private var viewport: Viewport = .camera(zoom: 17, bearing: 0, pitch: 40)
     @State private var mapHasMoved: Bool = false
-    @State private var userLocation: CLLocationCoordinate2D?
     
     var body: some View {
         GeometryReader { geo in
@@ -64,20 +65,23 @@ struct MBSMapView: View {
                         mapHasMoved = true
                     }
                     .onAppear {
-                        userLocation = locationManager.location
-                        
                         guard let map = proxy.map else { return }
                         map.setCamera(to: .init(center: locationManager.location))
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             mapHasMoved = false
                         }
+                        handleOnChangeOfMiraSubscription()                        
                     }
                     
                     VStack {
                         Spacer()
                         Button {
+//                            guard let userLocation = proxy else { return }
+                            
+                            print(proxy)
+                            
                             withViewportAnimation(.default(maxDuration: 0.75)) {
-                                viewport = .camera(center: locationManager.location, bearing: 0, pitch: 40)
+                                viewport = .followPuck(zoom: 17, pitch: 40)
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                     withAnimation {
                                         self.mapHasMoved = false
@@ -90,7 +94,6 @@ struct MBSMapView: View {
                                 .frame(width: 48, height: 48)
                                 .background(Colors.g3Grey.just.opacity(0.9))
                                 .clipShape(Circle())
-                            //                            .padding(.bottom, 30)
                         }
                         .offset(y: -100)
                         .padding(.bottom, user != nil ? 48 : 120)
@@ -107,13 +110,11 @@ struct MBSMapView: View {
         var filteredMiras = miras
         
         if let user = user {
-            let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds
-            print("MIRA IDS: \(createdMiraIds)")
-            let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
-            print("MIRA IDS: \(userMiraIds)")
-            filteredMiras = miras.filter { userMiraIds.contains($0.id) }
+            let userMiraIds = (collectedMiraIds ?? [])
+            filteredMiras = miras.filter { userMiraIds.contains($0.id) || $0.creator.id == user.id }
         }
+        
         return filteredMiras
     }
     
@@ -131,4 +132,16 @@ struct MBSMapView: View {
             return .night
         }
     }
+    
+    func handleOnChangeOfMiraSubscription() {
+        stateManager.subscribeToMiraAddChange()
+        miraAddedListenSubscription = stateManager.miraAddedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { mira in
+                debugPrint("Miraadded Subscription: \(mira)")
+                self.viewModel.handleMiraAdded(mira: mira)
+            })
+
+    }
+
 }

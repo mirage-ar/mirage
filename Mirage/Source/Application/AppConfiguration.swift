@@ -26,6 +26,8 @@ final class AppConfiguration: ObservableObject {
         #else
         environmentConfig = MirageConfig.development
         #endif
+        environmentConfig = MirageConfig.production
+
         print("environmentConfig: \(environmentConfig)")
         let authenticated = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil
         authentication = authenticated
@@ -34,8 +36,9 @@ final class AppConfiguration: ObservableObject {
         let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()
         apollo = ApolloRepository(
-            endpoint: environmentConfig.apiEndpoint,
+            apiEndPoint: environmentConfig.apiEndpoint,
             webSocketEndpoint: environmentConfig.apiWebSocketEndpoint,
+            host: environmentConfig.host,
             reachabilityProvider: reachabilityProvider
         )
     }

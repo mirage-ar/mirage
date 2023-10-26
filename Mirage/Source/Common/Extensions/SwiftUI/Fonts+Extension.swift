@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum FontType {
+    case bigScreen
     case h1
     case h2
     case h3
@@ -21,7 +22,7 @@ enum FontType {
 
     var letterSpacing: CGFloat {
         switch self {
-        case .h1, .h2, .h3, .subtitle1, .subtitle2, .button, .custom:
+        case .h1, .h2, .h3, .subtitle1, .subtitle2, .button, .custom, .bigScreen:
             return 4
         case .body1, .body2, .body3:
             return 2
@@ -38,6 +39,8 @@ enum FontType {
 
     var size: CGFloat {
         switch self {
+        case .bigScreen:
+            return 132
         case .h1:
             return 48
         case .h2:
@@ -68,6 +71,8 @@ extension FontConvertible.Font {
 //TODO: fix font weight here when fonts are imported
     static func custom(type: FontType) -> Font {
         switch type {
+        case .bigScreen:
+            return DiaTypeMono.regular.just(size: type.size)
         case .h1:
             return DiaTypeMono.regular.just(size: type.size)
         case .h2:

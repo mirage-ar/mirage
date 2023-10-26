@@ -3,15 +3,15 @@
 
 import ApolloAPI
 
-public extension MirageAPI {
+extension MirageAPI {
   struct VerificationInput: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       phone: String,
       code: String
     ) {
@@ -21,12 +21,12 @@ public extension MirageAPI {
       ])
     }
 
-    public var phone: String {
+    var phone: String {
       get { __data["phone"] }
       set { __data["phone"] = newValue }
     }
 
-    public var code: String {
+    var code: String {
       get { __data["code"] }
       set { __data["code"] = newValue }
     }

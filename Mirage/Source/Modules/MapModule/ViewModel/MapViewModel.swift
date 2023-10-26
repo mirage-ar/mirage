@@ -5,11 +5,10 @@
 //  Created by Saad on 20/04/2023.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 final class MapViewModel: ObservableObject {
-    
     @Published var isLoading = false
     @Published var hasLoadedMiras = false
     @Published var miras: [Mira]?
@@ -32,5 +31,12 @@ final class MapViewModel: ObservableObject {
                 print("Error: \(error)")
                 self.isLoading = false
             })
+    }
+
+    func handleMiraAdded(mira: Mira?) {
+        guard let mira = mira else { return }
+        var tempArray = self.miras
+        tempArray?.append(mira)
+        self.miras = tempArray
     }
 }
