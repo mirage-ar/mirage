@@ -28,7 +28,7 @@ enum MirageConfig: EnvironmentConfig {
     var apiEndpoint: String {
         switch self {
         case .production:
-            return "https://graph.protocol.im/"
+            return "https://sync.protocol.im/graphql/"
             
         case .staging:
             return "https://sync-dev.protocol.im/graphql/"
@@ -43,7 +43,7 @@ enum MirageConfig: EnvironmentConfig {
     var apiWebSocketEndpoint: String {
         switch self {
         case .production:
-            return "wss://sync-dev.protocol.im/graphql/realtime"
+            return "wss://sync.protocol.im/graphql/realtime"
             
         case .staging:
             return "wss://sync-dev.protocol.im/graphql/realtime"
