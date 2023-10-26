@@ -13,7 +13,7 @@ import Combine
 @available(iOS 14.0, *)
 struct MBSMapView: View {
     @EnvironmentObject var stateManager: StateManager
-    @ObservedObject private var viewModel = MapViewModel()
+    @ObservedObject var viewModel: MapViewModel
     @ObservedObject private var locationManager = LocationManager.shared
     @State private var miraAddedListenSubscription: AnyCancellable? //for combine subscription
     
@@ -70,7 +70,7 @@ struct MBSMapView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             mapHasMoved = false
                         }
-                        handleOnChangeOfMiraSubscription()
+                        handleOnChangeOfMiraSubscription()                        
                     }
                     
                     VStack {
@@ -94,7 +94,6 @@ struct MBSMapView: View {
                                 .frame(width: 48, height: 48)
                                 .background(Colors.g3Grey.just.opacity(0.9))
                                 .clipShape(Circle())
-                            //                            .padding(.bottom, 30)
                         }
                         .offset(y: -100)
                         .padding(.bottom, user != nil ? 48 : 120)
@@ -111,13 +110,11 @@ struct MBSMapView: View {
         var filteredMiras = miras
         
         if let user = user {
-            let createdMiraIds = user.createdMiraIds
             let collectedMiraIds = user.collectedMiraIds
-            print("MIRA IDS: \(createdMiraIds)")
-            let userMiraIds = (createdMiraIds ?? []) + (collectedMiraIds ?? [])
-            print("MIRA IDS: \(userMiraIds)")
-            filteredMiras = miras.filter { userMiraIds.contains($0.id) }
+            let userMiraIds = (collectedMiraIds ?? [])
+            filteredMiras = miras.filter { userMiraIds.contains($0.id) || $0.creator.id == user.id }
         }
+        
         return filteredMiras
     }
     

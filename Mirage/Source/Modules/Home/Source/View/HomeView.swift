@@ -15,13 +15,13 @@ struct HomeView: View {
     @State var showProfileView = false
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
-
+    @State var mapViewModel = MapViewModel()
     let buttonSize = 60.0
 
     var body: some View {
         NavigationStack {
             ZStack {
-                MBSMapView(selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
+                MBSMapView(viewModel: mapViewModel, selectedMira: $selectedMira, showCollectedByList: $showCollectedByList)
 
                 VStack {
                     HStack {
