@@ -83,6 +83,7 @@ struct MBSMapView: View {
                             withViewportAnimation(.default(maxDuration: 0.75)) {
                                 viewport = .followPuck(zoom: 17, pitch: 40)
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    viewport = .camera(zoom: 17, pitch: 40)
                                     withAnimation {
                                         self.mapHasMoved = false
                                     }
