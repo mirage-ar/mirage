@@ -16,10 +16,12 @@ struct UserProfileView: View {
     @State var gotoAotherUserProfile = false
     @State var selectedMira: Mira?
     @State var selectedUserOnMapId: UUID?
+    @State var showMoreActionSheet = false
     
     init(userId: UUID) {
         viewModel = UserProfileViewModel(userId: userId)
     }
+    
     var body: some View {
         GeometryReader { geo in
             NavigationStack {
@@ -79,6 +81,7 @@ struct UserProfileView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             debugPrint("more Button profile")
+                            showMoreActionSheet = true
                         } label: {
                             Images.more24.swiftUIImage
                                 .resizable()
@@ -98,10 +101,17 @@ struct UserProfileView: View {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                     gotoAotherUserProfile = true
                 }
-
             }.screen
                 .presentationDetents([.medium, .large])
+
         }
+        .confirmationDialog("", isPresented: $showMoreActionSheet, actions: {
+            Button("Add as Friend") {
+                if let id = self.viewModel.user?.id {
+                    viewModel.sendFriendRequest(userId: id)
+                }
+            }
+        })
         .fullScreenCover(isPresented: $gotoAotherUserProfile) {
             NavigationRoute.profile(userId: self.selectedUserOnMapId ?? UUID()).screen
         }
@@ -109,8 +119,5 @@ struct UserProfileView: View {
                 showCollectedByList = false
         }
         .background(Colors.black.swiftUIColor)
-
-        
     }
 }
-
