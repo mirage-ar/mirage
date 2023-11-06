@@ -1,22 +1,23 @@
 //
-//  UserProfileView.swift
+//  MyProfileView.swift
 //  Mirage
 //
-//  Created by Saad on 04/05/2023.
+//  Created by Saad on 06/11/2023.
 //
 
 import SwiftUI
 
-struct UserProfileView: View {
+struct MyProfileView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var mapViewModel = MapViewModel()
-    
+    @EnvironmentObject var stateManager: StateManager
     @ObservedObject private var viewModel: UserProfileViewModel
+    @State var mapViewModel = MapViewModel()
+    @State var goToSettings = false
     @State var showCollectedByList = false
     @State var gotoAotherUserProfile = false
     @State var selectedMira: Mira?
     @State var selectedUserOnMapId: UUID?
-    
+
     init(userId: UUID) {
         viewModel = UserProfileViewModel(userId: userId)
     }
@@ -25,20 +26,19 @@ struct UserProfileView: View {
             NavigationStack {
                 ZStack {
                     VStack {
-                        
-                        ProfileInfoView(imageUrl: viewModel.user?.profileImage ?? "", userName: viewModel.user?.userName ?? "", profileDescription: viewModel.user?.profileDescription ?? "", height: geo.size.height, width: geo.size.width)
+                        ProfileInfoView(imageUrl: stateManager.loggedInUser?.profileImage ?? "", userName: stateManager.loggedInUser?.userName ?? "", profileDescription: stateManager.loggedInUser?.profileDescription ?? "", height: geo.size.height, width: geo.size.width)
                         HStack {
+                            // TODO: update to collects and visits
                             Text("\((viewModel.user?.createdMiraIds?.count ?? 0) + (viewModel.user?.collectedMiraIds?.count ?? 0))")
                                 .foregroundColor(.white)
                                 .font(.body1)
-                            
+
                             Text("collects + visits")
                                 .foregroundColor(.gray)
                                 .font(.body1)
                             Spacer()
                         }
                         .padding(.leading, 10)
-                        
                         if viewModel.user != nil || viewModel.hasLoadedProfile {
                             Group {
                                 ZStack {
@@ -78,23 +78,28 @@ struct UserProfileView: View {
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            debugPrint("more Button profile")
+                                debugPrint("Button go to Settings")
+                                goToSettings = true
                         } label: {
-                            Images.more24.swiftUIImage
-                                .resizable()
-                                .scaledToFit()
+                                Images.settings24.swiftUIImage
+                                    .resizable()
+                                    .scaledToFit()
                         }
                     }
                 }
                 .background(Colors.black.swiftUIColor)
+                .navigationDestination(isPresented: $goToSettings) {
+                    if let user = stateManager.loggedInUser {
+                        NavigationRoute.settings(user: user).screen
+                    }
+                }
                 .edgesIgnoringSafeArea(.all)
             }
             .accentColor(Colors.white.swiftUIColor)
         }
         .sheet(isPresented: $showCollectedByList) {
             NavigationRoute.miraCollectedByUsersList(mira: $selectedMira) { selectedUser in
-                let id = selectedUser?.id
-                self.selectedUserOnMapId = id
+                self.selectedUserOnMapId = selectedUser?.id
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) {
                     gotoAotherUserProfile = true
                 }
@@ -103,14 +108,12 @@ struct UserProfileView: View {
                 .presentationDetents([.medium, .large])
         }
         .fullScreenCover(isPresented: $gotoAotherUserProfile) {
-            NavigationRoute.profile(userId: self.selectedUserOnMapId ?? UUID()).screen
+            NavigationRoute.profile(userId: selectedUserOnMapId ?? UUID()).screen
         }
         .onChange(of: selectedUserOnMapId) { newId in
                 showCollectedByList = false
         }
         .background(Colors.black.swiftUIColor)
 
-        
     }
 }
-

@@ -10,6 +10,7 @@ import SwiftUI
 struct CollectedByUsersView: View {
     @EnvironmentObject var stateManager: StateManager
     @Binding var selectedMira: Mira?
+    let selectedUserAction: ((User?) -> Void)
 
     let paddingMargin = 20.0
 
@@ -27,8 +28,7 @@ struct CollectedByUsersView: View {
                                 .padding([.leading, .trailing], -paddingMargin)
                                 .onTapGesture {
                                     print("UPDATE: selected user set to: \(String(describing: user.userName))")
-                                    // TODO: update to statemanager method (no mutations)
-                                    stateManager.selectedUserOnMap = user
+                                    self.selectedUserAction(user)
                                 }
                         }
                     }
@@ -44,9 +44,10 @@ struct CollectedByUsersView: View {
                             Spacer()
                             Button {
                                 if selectedMira?.creator.id == stateManager.loggedInUser?.id {
-                                    stateManager.selectedUserOnMap = stateManager.loggedInUser
+                                    self.selectedUserAction(stateManager.loggedInUser)
+
                                 } else {
-                                    stateManager.selectedUserOnMap = selectedMira?.creator
+                                    self.selectedUserAction(selectedMira?.creator)
                                 }
                             } label: {
                                 Text("Mira by " + (selectedMira?.creator.userName ?? "NaN"))
