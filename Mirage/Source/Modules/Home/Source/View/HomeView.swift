@@ -16,6 +16,8 @@ struct HomeView: View {
     @State var showCollectedByList = false
     @State var selectedMira: Mira?
     @State var mapViewModel = MapViewModel()
+    @State var selectedUserOnMapId: UUID?
+    
     let buttonSize = 60.0
 
     var body: some View {
@@ -28,7 +30,7 @@ struct HomeView: View {
                         Spacer()
                         if stateManager.loggedInUser != nil {
                             Button {
-                                stateManager.selectedUserOnMap = stateManager.loggedInUser
+                                selectedUserOnMapId = stateManager.loggedInUser?.id
                                 showProfileView = true
                             } label: {
                                 AsyncImage(url: URL(string: stateManager.loggedInUser!.profileImage)) { image in
@@ -71,25 +73,30 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showProfileView, onDismiss: {
                 stateManager.selectedUserOnMap = nil
             }, content: {
-                NavigationRoute.myProfile.screen
+                NavigationRoute.profile(userId: selectedUserOnMapId ?? UUID()).screen
             })
             .sheet(isPresented: $showCollectedByList) {
-                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira).screen
+                NavigationRoute.miraCollectedByUsersList(mira: $selectedMira) { selectedUser in
+                    
+                    showCollectedByList = false
+                    // TODO: need to be able to show profile view over ARView
+                    showArView = false
+                    debugPrint(selectedUser.debugDescription)
+                    self.selectedUserOnMapId = selectedUser?.id
+                    stateManager.selectedUserOnMap = selectedUser
+                    // fix for swiftUI animation collision
+                    if let _ = selectedUser {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            showProfileView = true
+                        }
+                    }
+
+                }.screen
                     .presentationDetents([.medium, .large])
             }
-            .onChange(of: stateManager.selectedUserOnMap) { [selectedUserOnMap = self.stateManager.selectedUserOnMap] selectedUser in
-                showCollectedByList = false
-
-                // TODO: need to be able to show profile view over ARView
-                showArView = false
-                debugPrint(selectedUserOnMap.debugDescription)
-                // fix for swiftUI animation collision
-                if let _ = selectedUser {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        showProfileView = true
-                    }
-                }
             }
+        .onChange(of: selectedUserOnMapId) { newId in
+                showCollectedByList = false
         }
         .accentColor(Colors.white.swiftUIColor)
         .onAppear {

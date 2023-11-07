@@ -26,7 +26,6 @@ final class AppConfiguration: ObservableObject {
         #else
         environmentConfig = MirageConfig.development
         #endif
-        environmentConfig = MirageConfig.production
 
         print("environmentConfig: \(environmentConfig)")
         let authenticated = UserDefaultsStorage().getString(for: .accessToken)?.isEmpty == false && UserDefaultsStorage().getUser() != nil

@@ -105,6 +105,8 @@
 		93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */; };
 		93537E5A29F91590000B08A4 /* GetMirasQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */; };
 		93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */; };
+		936C6A262AF93BC600305559 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A252AF93BC600305559 /* MyProfileView.swift */; };
+		936C6A282AF93BE500305559 /* ProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A272AF93BE500305559 /* ProfileInfoView.swift */; };
 		936D307B2A43AEA00041FC0C /* UserListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936D307A2A43AEA00041FC0C /* UserListRow.swift */; };
 		936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */; };
 		936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */; };
@@ -279,6 +281,8 @@
 		93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQuery.graphql.swift; sourceTree = "<group>"; };
 		93537E5929F91590000B08A4 /* GetMirasQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMirasQueryInput.graphql.swift; sourceTree = "<group>"; };
 		93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenInterceptor.swift; sourceTree = "<group>"; };
+		936C6A252AF93BC600305559 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		936C6A272AF93BE500305559 /* ProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoView.swift; sourceTree = "<group>"; };
 		936D307A2A43AEA00041FC0C /* UserListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRow.swift; sourceTree = "<group>"; };
 		936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserMutation.graphql.swift; sourceTree = "<group>"; };
 		936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyUserMutation.graphql.swift; sourceTree = "<group>"; };
@@ -687,6 +691,8 @@
 			isa = PBXGroup;
 			children = (
 				931359B22A03FDAA00A0F5E7 /* UserProfileView.swift */,
+				936C6A272AF93BE500305559 /* ProfileInfoView.swift */,
+				936C6A252AF93BC600305559 /* MyProfileView.swift */,
 				938DFCF32A0EB1BC00EF994A /* UpdateUserView.swift */,
 				93A4D3872A0A9EE700179536 /* SettingsView.swift */,
 				93A4D3892A0A9F7300179536 /* EditProfileView.swift */,
@@ -1318,6 +1324,7 @@
 				936E7DDD29C20A550008FBB9 /* UserQuery.graphql.swift in Sources */,
 				394EC76A2A5E50DF0002AAE1 /* PositionInput.graphql.swift in Sources */,
 				9310E5DD29CDD9A6000E6019 /* ActivityIndicator.swift in Sources */,
+				936C6A262AF93BC600305559 /* MyProfileView.swift in Sources */,
 				93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */,
 				935065162A43302700817130 /* CollectedByUsersView.swift in Sources */,
 				394EC76D2A5E532F0002AAE1 /* AddMiraMutation.graphql.swift in Sources */,
@@ -1341,6 +1348,7 @@
 				93B3794B2A210C3600C6C66C /* UserDefaultsStorage.swift in Sources */,
 				39BD18FB2A2D089100A9F95C /* ARViewBottomBar.swift in Sources */,
 				935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */,
+				936C6A282AF93BE500305559 /* ProfileInfoView.swift in Sources */,
 				931FF5D829B80037002C62AB /* AccountStage.graphql.swift in Sources */,
 				93AD50BA29C203B9002DA594 /* NavigationRoute.swift in Sources */,
 				93CD41AF2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift in Sources */,
