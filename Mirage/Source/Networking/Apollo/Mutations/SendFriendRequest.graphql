@@ -1,0 +1,6 @@
+mutation SendFriendRequestMutation($recipientId: ID!) {
+  sendFriendRequest(recipientId: $recipientId) {
+        id
+        status
+  }
+}

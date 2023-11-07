@@ -107,6 +107,11 @@
 		93593A8729B217ED0058C5C2 /* UserTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */; };
 		936C6A262AF93BC600305559 /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A252AF93BC600305559 /* MyProfileView.swift */; };
 		936C6A282AF93BE500305559 /* ProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A272AF93BE500305559 /* ProfileInfoView.swift */; };
+		936C6A2A2AF95EA300305559 /* SendFriendRequest.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 936C6A292AF95EA300305559 /* SendFriendRequest.graphql */; };
+		936C6A2E2AF961A100305559 /* FriendshipStatus.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A2D2AF961A100305559 /* FriendshipStatus.graphql.swift */; };
+		936C6A302AF961A900305559 /* FriendRequest.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A2F2AF961A900305559 /* FriendRequest.graphql.swift */; };
+		936C6A372AF9646600305559 /* FriendsApolloRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A362AF9646600305559 /* FriendsApolloRepository.swift */; };
+		936C6A392AF9674700305559 /* SendFriendRequestMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936C6A382AF9674700305559 /* SendFriendRequestMutation.graphql.swift */; };
 		936D307B2A43AEA00041FC0C /* UserListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936D307A2A43AEA00041FC0C /* UserListRow.swift */; };
 		936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */; };
 		936E7DDA29C20A4E0008FBB9 /* VerifyUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */; };
@@ -283,6 +288,11 @@
 		93593A8629B217ED0058C5C2 /* UserTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenInterceptor.swift; sourceTree = "<group>"; };
 		936C6A252AF93BC600305559 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		936C6A272AF93BE500305559 /* ProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoView.swift; sourceTree = "<group>"; };
+		936C6A292AF95EA300305559 /* SendFriendRequest.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SendFriendRequest.graphql; sourceTree = "<group>"; };
+		936C6A2D2AF961A100305559 /* FriendshipStatus.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendshipStatus.graphql.swift; sourceTree = "<group>"; };
+		936C6A2F2AF961A900305559 /* FriendRequest.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequest.graphql.swift; sourceTree = "<group>"; };
+		936C6A362AF9646600305559 /* FriendsApolloRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsApolloRepository.swift; sourceTree = "<group>"; };
+		936C6A382AF9674700305559 /* SendFriendRequestMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendFriendRequestMutation.graphql.swift; sourceTree = "<group>"; };
 		936D307A2A43AEA00041FC0C /* UserListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRow.swift; sourceTree = "<group>"; };
 		936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserMutation.graphql.swift; sourceTree = "<group>"; };
 		936E7DD829C20A4D0008FBB9 /* VerifyUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyUserMutation.graphql.swift; sourceTree = "<group>"; };
@@ -375,6 +385,7 @@
 				3942F75B2A5C871F007DB731 /* AuthorizeUser.graphql */,
 				3942F75C2A5C871F007DB731 /* UpdateUser.graphql */,
 				394EC7622A5E4FD30002AAE1 /* AddMira.graphql */,
+				936C6A292AF95EA300305559 /* SendFriendRequest.graphql */,
 			);
 			path = Mutations;
 			sourceTree = "<group>";
@@ -764,6 +775,7 @@
 			isa = PBXGroup;
 			children = (
 				3955F0E22A869758003555FA /* CollectMiraMutation.graphql.swift */,
+				936C6A382AF9674700305559 /* SendFriendRequestMutation.graphql.swift */,
 				931FF5C829B80037002C62AB /* AuthorizeUserMutation.graphql.swift */,
 				394EC76C2A5E532F0002AAE1 /* AddMiraMutation.graphql.swift */,
 				936E7DD729C20A4D0008FBB9 /* UpdateUserMutation.graphql.swift */,
@@ -789,6 +801,7 @@
 			children = (
 				931FF5CB29B80037002C62AB /* AccountStage.graphql.swift */,
 				3942F7542A5C8524007DB731 /* ContentType.graphql.swift */,
+				936C6A2D2AF961A100305559 /* FriendshipStatus.graphql.swift */,
 				3942F7552A5C8524007DB731 /* ModifierType.graphql.swift */,
 				3942F7562A5C8524007DB731 /* Shape.graphql.swift */,
 				3942F7492A5C5548007DB731 /* ContentType.graphql.swift */,
@@ -803,6 +816,7 @@
 			children = (
 				93CD41AB2AC0E040008F8F84 /* Subscription.graphql.swift */,
 				936E7DDE29C20A7A0008FBB9 /* Query.graphql.swift */,
+				936C6A2F2AF961A900305559 /* FriendRequest.graphql.swift */,
 				3942F74E2A5C851A007DB731 /* ArMedia.graphql.swift */,
 				3942F74F2A5C851A007DB731 /* Modifier.graphql.swift */,
 				3942F7502A5C851A007DB731 /* Position.graphql.swift */,
@@ -940,6 +954,7 @@
 				9300624329E43EA000816C46 /* MapModule */,
 				9331C48229AF8C0100F8EE72 /* OnBoarding */,
 				931359A72A03FD7400A0F5E7 /* UserProfile */,
+				936C6A312AF9639700305559 /* Friendship */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -976,6 +991,46 @@
 				93B24F0429B6175800CCDDB7 /* AddTokenInterceptor.swift */,
 			);
 			path = Interceptors;
+			sourceTree = "<group>";
+		};
+		936C6A312AF9639700305559 /* Friendship */ = {
+			isa = PBXGroup;
+			children = (
+				936C6A322AF9639700305559 /* ViewModel */,
+				936C6A332AF9639700305559 /* Repository */,
+				936C6A342AF9639700305559 /* Model */,
+				936C6A352AF9639700305559 /* View */,
+			);
+			path = Friendship;
+			sourceTree = "<group>";
+		};
+		936C6A322AF9639700305559 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		936C6A332AF9639700305559 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				936C6A362AF9646600305559 /* FriendsApolloRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		936C6A342AF9639700305559 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		936C6A352AF9639700305559 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		936E7DDB29C20A550008FBB9 /* Queries */ = {
@@ -1256,6 +1311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93AD50BF29C2087A002DA594 /* VerifyUser.graphql in Resources */,
+				936C6A2A2AF95EA300305559 /* SendFriendRequest.graphql in Resources */,
 				9318453129CB144B00DD07CB /* swiftgen.yml in Resources */,
 				394EC7632A5E4FD30002AAE1 /* AddMira.graphql in Resources */,
 				93CD41AA2AC0E031008F8F84 /* MiraAdded.graphql in Resources */,
@@ -1318,6 +1374,7 @@
 				931FF5DC29B80037002C62AB /* SchemaConfiguration.swift in Sources */,
 				9310E5D829CDD3F3000E6019 /* CustomText.swift in Sources */,
 				931472D629AFBFE3007ED805 /* NetworkInterceptorProvider.swift in Sources */,
+				936C6A2E2AF961A100305559 /* FriendshipStatus.graphql.swift in Sources */,
 				931FF5D929B80037002C62AB /* AuthorizationResult.graphql.swift in Sources */,
 				9331C48C29AF8C0100F8EE72 /* Publisher+Extension.swift in Sources */,
 				93537E5629F88691000B08A4 /* UIImageView+Extension.swift in Sources */,
@@ -1354,6 +1411,7 @@
 				93CD41AF2AC0E0AB008F8F84 /* OnMiraAddSubscription.graphql.swift in Sources */,
 				93B0936D2A07042F00DCE87F /* UserProfileApolloRepository.swift in Sources */,
 				39CA4F992A3106BB002CCE88 /* ARViewCamera.swift in Sources */,
+				936C6A392AF9674700305559 /* SendFriendRequestMutation.graphql.swift in Sources */,
 				9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */,
 				936D307B2A43AEA00041FC0C /* UserListRow.swift in Sources */,
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
@@ -1379,6 +1437,7 @@
 				394EC76B2A5E50DF0002AAE1 /* AddMiraInput.graphql.swift in Sources */,
 				3942F7572A5C8524007DB731 /* ContentType.graphql.swift in Sources */,
 				9310806929F183C40075C8DC /* HomeViewModel.swift in Sources */,
+				936C6A302AF961A900305559 /* FriendRequest.graphql.swift in Sources */,
 				394EC7682A5E50DF0002AAE1 /* ModifierInput.graphql.swift in Sources */,
 				93B24F1029B6304800CCDDB7 /* UserTokenNetworkRepository.swift in Sources */,
 				931FF5D729B80037002C62AB /* AuthorizeUserMutation.graphql.swift in Sources */,
@@ -1400,6 +1459,7 @@
 				9310E5E829D10955000E6019 /* HomeView.swift in Sources */,
 				3955F0E32A869758003555FA /* CollectMiraMutation.graphql.swift in Sources */,
 				9392633C29F01FD5005B1F3E /* LocationInput.graphql.swift in Sources */,
+				936C6A372AF9646600305559 /* FriendsApolloRepository.swift in Sources */,
 				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
 				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,
 				93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */,

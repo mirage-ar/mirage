@@ -6,7 +6,6 @@
 //
 
 import Combine
-import CoreLocation
 import Foundation
 
 protocol UserProfileApolloRepository {

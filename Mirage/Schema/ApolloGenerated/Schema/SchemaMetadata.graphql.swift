@@ -32,6 +32,7 @@ extension MirageAPI {
     static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "Mutation": return MirageAPI.Objects.Mutation
+      case "FriendRequest": return MirageAPI.Objects.FriendRequest
       case "AuthorizationResult": return MirageAPI.Objects.AuthorizationResult
       case "User": return MirageAPI.Objects.User
       case "Mira": return MirageAPI.Objects.Mira
