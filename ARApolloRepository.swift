@@ -43,7 +43,7 @@ extension ApolloRepository: ARApolloRepository {
         }
         let input = MirageAPI.AddMiraInput(location: location, arMedia: arMedia)
         let mutation = MirageAPI.AddMiraMutation(addMiraInput: input)
-        return perform(mutation: mutation)
+        return performAppsync(mutation: mutation)
             .map { data in
                 // assuming that 'addMira' is a property that returns an array of Mira
                 // and 'Mira' is a type that has an initializer accepting a 'Mira'

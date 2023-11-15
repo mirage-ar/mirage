@@ -35,7 +35,7 @@ final class AppConfiguration: ObservableObject {
         let _ = LocationManager.shared
         reachabilityProvider = ReachabilityProvider()
         apollo = ApolloRepository(
-            apiEndPoint: environmentConfig.apiEndpoint,
+            apiEndPoint: environmentConfig.apiEndpoint, apiEndPointAppSync: environmentConfig.apiEndpointAppSync,
             webSocketEndpoint: environmentConfig.apiWebSocketEndpoint,
             host: environmentConfig.host,
             reachabilityProvider: reachabilityProvider

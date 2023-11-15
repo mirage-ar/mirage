@@ -35,21 +35,22 @@ public class ApolloRepository {
 
     /// An HTTP transport to use for queries and mutations
     private lazy var normalTransport: RequestChainNetworkTransport = {
-        let sessionConfiguration = URLSessionConfiguration.default
-
-        let client = URLSessionClient(sessionConfiguration: sessionConfiguration, callbackQueue: nil)
-        let provider = NetworkInterceptorProvider(store: getSQLStore(),
-                                                  client: client,
-                                                  userTokenService: tokenService)
-        let url = URL(string: apiEndPoint)!
-
-        return RequestChainNetworkTransport(interceptorProvider: provider,
-                                            endpointURL: url)
+        return transportLayerWithUrl(apiEndPoint)
     }()
+    
+    /// An HTTP transport to use for queries and mutations for appsync conforming to subscriptions
+    private lazy var normalTransportAppsync: RequestChainNetworkTransport = {
+        return transportLayerWithUrl(apiEndPointAppSync)
+    }()
+    
+    /// A client to use for queries and mutations
+    private lazy var client: ApolloClient = getSQLClient(transport: normalTransport)
 
-    private lazy var client: ApolloClient = getSQLClient()
+    /// A client to use for queries and mutations for appsync conforming to subscriptions
+    private lazy var clientAppSync: ApolloClient = getSQLClient(transport: normalTransportAppsync)
 
     private let apiEndPoint: String
+    private let apiEndPointAppSync: String
     private let host: String
     private let webSocketEndpoint: String
 
@@ -60,11 +61,13 @@ public class ApolloRepository {
     public lazy var userAuthenticated = userAuthenticatedSubject.eraseToAnyPublisher()
 
     public init(apiEndPoint: String,
+                apiEndPointAppSync: String,
                 webSocketEndpoint: String,
                 host: String,
                 reachabilityProvider: ReachabilityProvider)
     {
         self.apiEndPoint = apiEndPoint
+        self.apiEndPointAppSync = apiEndPointAppSync
         self.host = host
         self.webSocketEndpoint = webSocketEndpoint
         self.reachabilityProvider = reachabilityProvider
@@ -83,7 +86,8 @@ public class ApolloRepository {
     /// Sets a new web socket connection and updates the client with it
     private func updateWebSocket() {
         webSocketTransport = getWebSocketTransport()
-        client = getClient()
+        client = getClient(transport: normalTransport)
+        clientAppSync = getClient(transport: normalTransportAppsync)
     }
 
     // MARK: App foreground/background handling
@@ -124,6 +128,20 @@ public class ApolloRepository {
         if let appRestoredFromBackgroundPhaseObserver = appRestoredFromBackgroundPhaseObserver {
             NotificationCenter.default.removeObserver(appRestoredFromBackgroundPhaseObserver)
         }
+    }
+    
+    private func transportLayerWithUrl(_ url: String) -> RequestChainNetworkTransport {
+        let sessionConfiguration = URLSessionConfiguration.default
+
+        let client = URLSessionClient(sessionConfiguration: sessionConfiguration, callbackQueue: nil)
+        let provider = NetworkInterceptorProvider(store: getSQLStore(),
+                                                  client: client,
+                                                  userTokenService: tokenService)
+        let url = URL(string: url)!
+
+        return RequestChainNetworkTransport(interceptorProvider: provider,
+                                            endpointURL: url)
+
     }
 
     // MARK: Token setup
@@ -194,24 +212,24 @@ public class ApolloRepository {
     ///
     ///  - returns: An Apollo client
     ///
-    private func getClient() -> ApolloClient {
+    private func getClient(transport: RequestChainNetworkTransport) -> ApolloClient {
         // A split network transport to allow the use of both of the above
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: transport,
                                                         webSocketNetworkTransport: webSocketTransport)
 
         return ApolloClient(networkTransport: splitNetworkTransport,
                             store: store)
     }
 
-    private func getSQLClient() -> ApolloClient {
+    private func getSQLClient(transport: RequestChainNetworkTransport) -> ApolloClient {
         // A split network transport to allow the use of both of the above
         // transports through a single `NetworkTransport` instance.
 
         // This code is commited to be used when subscriptions are there
-         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport,
+         let splitNetworkTransport = SplitNetworkTransport(uploadingNetworkTransport: transport,
                                                         webSocketNetworkTransport: webSocketTransport)
 
         do {
@@ -223,7 +241,7 @@ public class ApolloRepository {
                                 store: getSQLStore())
         } catch {
             print("Error creating ApolloSQLite Client: \(error)")
-            return getClient()
+            return getClient(transport: transport)
         }
     }
 
@@ -300,6 +318,34 @@ public class ApolloRepository {
         }.eraseToAnyPublisher()
     }
 
+    /// Performs the mutation on the server
+    ///
+    ///  - parameters:
+    ///     - mutation: The mutation to perform
+    ///     - callbackQueue: The dispatch queue to receive data on
+    ///
+    ///  - returns: A publisher of the mutation data or error
+    ///
+    func performAppsync<Mutation: GraphQLMutation>(mutation: Mutation,
+                                            cachePolicy: CachePolicy = .returnCacheDataAndFetch,
+                                            callbackQueue: DispatchQueue = .global(qos: .userInitiated))
+        -> AnyPublisher<Mutation.Data, Error>
+    {
+        Future<Mutation.Data, Error> { [weak self] promise in
+
+            guard let self else {
+                return
+            }
+
+            self.clientAppSync.perform(mutation: mutation, queue: callbackQueue) { response in
+                let result = self.handleGraphQLResponse(response)
+//                print("response: \(response)")
+                print("result: \(result)")
+                promise(result)
+            }
+
+        }.eraseToAnyPublisher()
+    }
     // MARK: Subscriptions
 
     /// Subscribes to the server event
@@ -318,7 +364,7 @@ public class ApolloRepository {
     {
         let subject = PassthroughSubject<Subscription.Data, Error>()
 
-        let cancellable = client.subscribe(subscription: subscription,
+        let cancellable = clientAppSync.subscribe(subscription: subscription,
                                            queue: callbackQueue) { [weak self] response in
             guard let result = self?.handleGraphQLResponse(response) else { return }
 
