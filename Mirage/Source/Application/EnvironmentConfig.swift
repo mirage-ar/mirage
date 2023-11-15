@@ -13,6 +13,7 @@ protocol EnvironmentConfig {
     
     // MARK: Apollo
     var apiEndpoint: String { get }
+    var apiEndpointAppSync: String { get }
     var apiWebSocketEndpoint: String { get }
     var host: String { get }
 }
@@ -26,6 +27,21 @@ enum MirageConfig: EnvironmentConfig {
     // MARK: Apollo
     
     var apiEndpoint: String {
+        switch self {
+        case .production:
+            return "https://graph.protocol.im/"
+            
+        case .staging:
+            return "https://graph-dev.protocol.im/"
+            
+            
+        case .development:
+            return "https://graph-dev.protocol.im/"
+            
+        }
+    }
+    
+    var apiEndpointAppSync: String {
         switch self {
         case .production:
             return "https://sync.protocol.im/graphql/"
