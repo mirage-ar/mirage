@@ -15,7 +15,11 @@ public struct User {
     let profileDescription: String?
     var collectedMiraCount = 0
     var mirasCount = 0
+    var friends: [User]?
+    var pendingRequests: [User]?
+    var sentRequests: [User]?
     
+    var friendshipStatus: FriendshipStatus = .none
     var createdMiraIds: [UUID]?
     var collectedMiraIds: [UUID]?
     
@@ -47,7 +51,9 @@ extension User {
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0
-        
+        if let status =  apiUser?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
         if let miras = apiUser?.miras, let collected = apiUser?.collected {
             createdMiraIds = miras.map { mira in
                 return UUID(uuidString: mira!.id) ?? UUID()
@@ -55,6 +61,52 @@ extension User {
             collectedMiraIds = collected.map { mira in
                 return UUID(uuidString: mira!.id) ?? UUID()
             }
+        }
+        if let userFriends = apiUser?.friends {
+            friends = userFriends.map{ friend in
+                User(apiUser: friend)
+            }
+        }
+        if let sentRequests = apiUser?.sentRequests {
+            self.sentRequests = sentRequests.map{ friend in
+                User(apiUser: friend)
+            }
+        }
+        if let pendingRequests = apiUser?.pendingRequests {
+            self.pendingRequests = pendingRequests.map{ friend in
+                User(apiUser: friend)
+            }
+        }
+    }
+    
+    init(apiUser: MirageAPI.UserQuery.Data.User.Friend?) {
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
+        userName = apiUser?.username ?? ""
+        profileImage = apiUser?.profileImage ?? ""
+        profileDescription = apiUser?.profileDescription
+        if let status =  apiUser?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
+    }
+    init(apiUser: MirageAPI.UserQuery.Data.User.SentRequest?) {
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
+        userName = apiUser?.username ?? ""
+        profileImage = apiUser?.profileImage ?? ""
+        profileDescription = apiUser?.profileDescription
+        if let status =  apiUser?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
+    }
+    init(apiUser: MirageAPI.UserQuery.Data.User.PendingRequest?) {
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
+        userName = apiUser?.username ?? ""
+        profileImage = apiUser?.profileImage ?? ""
+        profileDescription = apiUser?.profileDescription
+        if let status =  apiUser?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
         }
     }
     
@@ -74,7 +126,6 @@ extension User {
         profileDescription = apiUser?.profileDescription
         collectedMiraCount = apiUser?.collected?.count ?? 0
         mirasCount = apiUser?.miras?.count ?? 0
-        
         if let miras = apiUser?.miras, let collected = apiUser?.collected {
             createdMiraIds = miras.map { mira in
                 return UUID(uuidString: mira!.id) ?? UUID()
@@ -91,6 +142,9 @@ extension User {
         userName = creator?.username ?? ""
         profileImage = creator?.profileImage ?? ""
         profileDescription = creator?.profileDescription
+        if let status =  creator?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
     }
 
     init(collector: MirageAPI.GetMirasQuery.Data.GetMira.Collector?) {
@@ -99,6 +153,9 @@ extension User {
         userName = collector?.username ?? ""
         profileImage = collector?.profileImage ?? ""
         profileDescription = collector?.profileDescription
+        if let status =  collector?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
     }
     
     init(collector: MirageAPI.OnMiraAddSubscription.Data.MiraAdded.Collector?) {
@@ -107,6 +164,9 @@ extension User {
         userName = collector?.username ?? ""
         profileImage = collector?.profileImage ?? ""
         profileDescription = collector?.profileDescription
+        if let status =  collector?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
     }
     
     init(creator: MirageAPI.OnMiraAddSubscription.Data.MiraAdded.Creator?) {
@@ -115,6 +175,9 @@ extension User {
         userName = creator?.username ?? ""
         profileImage = creator?.profileImage ?? ""
         profileDescription = creator?.profileDescription ?? "xyz"
+        if let status =  creator?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
     }
 }
 
@@ -172,5 +235,70 @@ extension User: Codable {
         try container.encode(collectedMiraCount, forKey: .collectedMiraCount)
         try container.encode(mirasCount, forKey: .mirasCount)
 
+    }
+}
+
+enum FriendshipStatus: Int {
+    case none = 0, pending, requested, accepted, rejected
+    init(status: GraphQLEnum<MirageAPI.FriendshipStatus>) {
+        
+        switch status {
+        case .accepted:
+            self = .accepted
+        case .pending:
+            self = .pending
+
+        case .requested:
+            self = .requested
+
+        case .rejected:
+            self = .rejected
+
+        case .none:
+            self = .none
+
+        case .case(_):
+            self = .none
+
+        case .unknown(_):
+            self = .none
+        }
+        
+    }
+    init(stringValue: String) {
+        let status = MirageAPI.FriendshipStatus(rawValue: stringValue) ?? .none
+        switch status {
+        case .accepted:
+            self = .accepted
+        case .pending:
+            self = .pending
+
+        case .requested:
+            self = .requested
+
+        case .rejected:
+            self = .rejected
+
+        case .none:
+            self = .none
+
+        }
+    }
+    var stringValue: String{
+        switch self {
+        case .none:
+            return MirageAPI.FriendshipStatus.none.rawValue
+        case .pending:
+            return MirageAPI.FriendshipStatus.pending.rawValue
+        case .requested:
+            return MirageAPI.FriendshipStatus.requested.rawValue
+
+        case .accepted:
+            return MirageAPI.FriendshipStatus.accepted.rawValue
+
+        case .rejected:
+            return MirageAPI.FriendshipStatus.rejected.rawValue
+
+        }
     }
 }

@@ -16,6 +16,8 @@ public enum NavigationRoute {
     case settings(user: User)
     case editProfile(user: User)
     case miraCollectedByUsersList(mira: Binding<Mira?>, selectedUserAction: ((User?) -> Void))
+    case friendsListView(user: User)
+    case sentRequestsView(user: User)
 
     //MARK: Home
     case homeViewLanding
@@ -47,6 +49,15 @@ public enum NavigationRoute {
                 EditProfileView(user: user)
             case .miraCollectedByUsersList(let mira, let selectedUserAction):
                 CollectedByUsersView(selectedMira: mira, selectedUserAction: selectedUserAction)
+            case .friendsListView(let user):
+                let loggedInUserId = UserDefaultsStorage().getString(for: .userId) ?? ""
+                if user.id == UUID(uuidString: loggedInUserId) {
+                    MyFriendsListView(user: user)
+                } else {
+                    UserFriendsListView(user: user)
+                }
+            case .sentRequestsView(let user):
+                SentRequestsListView(user: user)
             }
         }
     }

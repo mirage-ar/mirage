@@ -1,0 +1,6 @@
+mutation UpdateFriendRequestMutation($input: UpdateFriendshipInput!) {
+  updateFriendRequest(input: $input) {
+        id
+        status
+  }
+}

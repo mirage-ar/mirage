@@ -17,6 +17,7 @@ struct MyProfileView: View {
     @State var gotoAotherUserProfile = false
     @State var selectedMira: Mira?
     @State var selectedUserOnMapId: UUID?
+    @State var gotoFriends = false
 
     init(userId: UUID) {
         viewModel = UserProfileViewModel(userId: userId)
@@ -28,15 +29,51 @@ struct MyProfileView: View {
                     VStack {
                         ProfileInfoView(imageUrl: stateManager.loggedInUser?.profileImage ?? "", userName: stateManager.loggedInUser?.userName ?? "", profileDescription: stateManager.loggedInUser?.profileDescription ?? "", height: geo.size.height, width: geo.size.width)
                         HStack {
-                            // TODO: update to collects and visits
-                            Text("\((viewModel.user?.createdMiraIds?.count ?? 0) + (viewModel.user?.collectedMiraIds?.count ?? 0))")
-                                .foregroundColor(.white)
-                                .font(.body1)
+                            HStack(spacing: 10) {
+                                Text("\(viewModel.user?.friends?.count ?? 0)")
+                                    .foregroundColor(.white)
+                                    .font(.subtitle2)
+                                    .lineLimit(1)
 
-                            Text("collects + visits")
-                                .foregroundColor(.gray)
-                                .font(.body1)
+                                
+                                Text("friends  ")
+                                    .foregroundColor(.gray)
+                                    .font(.body2)
+                                    .lineLimit(1)
+                                Spacer()
+                            }
+                            .frame(width: geo.size.width * 0.3)
+                            .onTapGesture {
+                                guard viewModel.user != nil else { return }
+                                gotoFriends = true
+                            }
+                            
+                            HStack (spacing: 10) {
+                                Text("\((viewModel.user?.createdMiraIds?.count ?? 0) + (viewModel.user?.collectedMiraIds?.count ?? 0))")
+                                    .foregroundColor(.white)
+                                    .font(.subtitle2)
+                                    .lineLimit(1)
+                                
+                                Text("views & col")
+                                    .foregroundColor(.gray)
+                                    .font(.body2)
+                                    .lineLimit(1)
+
+                                Spacer()
+                            }
+                            .frame(width: geo.size.width * 0.4)
+
                             Spacer()
+                            Button {
+                                debugPrint("Settings button")
+                                goToSettings = true
+                            } label: {
+                                Images.settings24.swiftUIImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+
+                            }
                         }
                         .padding(.leading, 10)
                         if viewModel.user != nil || viewModel.hasLoadedProfile {
@@ -78,10 +115,10 @@ struct MyProfileView: View {
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                                debugPrint("Button go to Settings")
-                                goToSettings = true
+                                debugPrint("Button more")
+//                                goToSettings = true
                         } label: {
-                                Images.settings24.swiftUIImage
+                                Images.more24.swiftUIImage
                                     .resizable()
                                     .scaledToFit()
                         }
@@ -92,6 +129,10 @@ struct MyProfileView: View {
                     if let user = stateManager.loggedInUser {
                         NavigationRoute.settings(user: user).screen
                     }
+                }
+                .navigationDestination(isPresented: $gotoFriends) {
+                    //TODO: fix the default user value here
+                    NavigationRoute.friendsListView(user: viewModel.user ?? User()).screen
                 }
                 .edgesIgnoringSafeArea(.all)
             }
@@ -111,7 +152,7 @@ struct MyProfileView: View {
             NavigationRoute.profile(userId: selectedUserOnMapId ?? UUID()).screen
         }
         .onChange(of: selectedUserOnMapId) { newId in
-                showCollectedByList = false
+            showCollectedByList = false
         }
         .background(Colors.black.swiftUIColor)
 

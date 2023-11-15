@@ -17,7 +17,10 @@ struct UserProfileView: View {
     @State var selectedMira: Mira?
     @State var selectedUserOnMapId: UUID?
     @State var showMoreActionSheet = false
-    
+    @State var gotoFriends = false
+    @State var showFriendshipAlert = false
+    @State private var needsUserRefresh: Bool = false
+
     init(userId: UUID) {
         viewModel = UserProfileViewModel(userId: userId)
     }
@@ -30,14 +33,43 @@ struct UserProfileView: View {
                         
                         ProfileInfoView(imageUrl: viewModel.user?.profileImage ?? "", userName: viewModel.user?.userName ?? "", profileDescription: viewModel.user?.profileDescription ?? "", height: geo.size.height, width: geo.size.width)
                         HStack {
-                            Text("\((viewModel.user?.createdMiraIds?.count ?? 0) + (viewModel.user?.collectedMiraIds?.count ?? 0))")
-                                .foregroundColor(.white)
-                                .font(.body1)
+                            HStack(spacing: 10) {
+                                Text("\(viewModel.user?.friends?.count ?? 0)")
+                                    .foregroundColor(.white)
+                                    .font(.subtitle2)
+                                    .lineLimit(1)
+
+                                
+                                Text("friends  ")
+                                    .foregroundColor(.gray)
+                                    .font(.body2)
+                                    .lineLimit(1)
+                                Spacer()
+                            }
+                            .frame(width: geo.size.width * 0.3)
+                            .onTapGesture {
+//                                guard viewModel.user != nil else { return }
+                                self.gotoFriends = true
+                            }
                             
-                            Text("collects + visits")
-                                .foregroundColor(.gray)
-                                .font(.body1)
+                            HStack (spacing: 10) {
+                                Text("\((viewModel.user?.createdMiraIds?.count ?? 0) + (viewModel.user?.collectedMiraIds?.count ?? 0))")
+                                    .foregroundColor(.white)
+                                    .font(.subtitle2)
+                                    .lineLimit(1)
+                                
+                                Text("views & col")
+                                    .foregroundColor(.gray)
+                                    .font(.body2)
+                                    .lineLimit(1)
+
+                                Spacer()
+                            }
+                            .frame(width: geo.size.width * 0.4)
+
                             Spacer()
+                            
+                            friendshipButton()
                         }
                         .padding(.leading, 10)
                         
@@ -91,8 +123,13 @@ struct UserProfileView: View {
                 }
                 .background(Colors.black.swiftUIColor)
                 .edgesIgnoringSafeArea(.all)
+                .navigationDestination(isPresented: $gotoFriends) {
+                    //TODO: fix the default user value here
+                    NavigationRoute.friendsListView(user: viewModel.user ?? User()).screen
+                }
             }
             .accentColor(Colors.white.swiftUIColor)
+            
         }
         .sheet(isPresented: $showCollectedByList) {
             NavigationRoute.miraCollectedByUsersList(mira: $selectedMira) { selectedUser in
@@ -106,9 +143,21 @@ struct UserProfileView: View {
 
         }
         .confirmationDialog("", isPresented: $showMoreActionSheet, actions: {
-            Button("Add as Friend") {
-                if let id = self.viewModel.user?.id {
-                    viewModel.sendFriendRequest(userId: id)
+            Button("Cancel") {
+            }
+        })
+        .alert(friendshipAlertTitle(userName: self.viewModel.user?.userName ?? ""), isPresented: $showFriendshipAlert, actions: {
+            Button("Cancel", role: .cancel) { }
+            if viewModel.user?.friendshipStatus == .pending {
+                Button(friendshipAlertButtonTitle, role: .cancel) {
+                    if let id = self.viewModel.user?.id {
+                        viewModel.updateFriendship(targetStatus: .accepted, userId: id)
+                    }
+                }
+            }
+            Button(friendshipAlertButtonTitle, role: .destructive) {
+                if let id = self.viewModel.user?.id, let status =  self.viewModel.user?.friendshipStatus{
+                    viewModel.updateFriendship(targetStatus: targetStatus(status), userId: id)
                 }
             }
         })
@@ -119,5 +168,116 @@ struct UserProfileView: View {
                 showCollectedByList = false
         }
         .background(Colors.black.swiftUIColor)
+        .onPreferenceChange(ProfilePreferenceKey.self) { (value: ProfilePreferenceKey.Value) in
+            needsUserRefresh = !value
+            if value == false && needsUserRefresh {
+                self.viewModel.refreshProfile()
+            }
+            print(needsUserRefresh)  // Prints: "New value! 🤓"
+        }
+    }
+    
+    func friendshipButton() -> some View {
+        var title = "ADD +"
+        switch viewModel.user?.friendshipStatus ?? .none {
+        case .accepted:
+            title = "UNFRIEND"
+        case .none:
+            title = "ADD +"
+
+        case .pending:
+            title = "ACCEPT"
+        case .requested:
+            title = "PENDING"
+        case .rejected:
+            title = "ADD +"
+
+        }
+        let tint = (viewModel.user?.friendshipStatus == FriendshipStatus.none || viewModel.user?.friendshipStatus == .rejected) ? Colors.white.swiftUIColor : Colors.g1DarkGrey.swiftUIColor
+        let foreground = (viewModel.user?.friendshipStatus == FriendshipStatus.none || viewModel.user?.friendshipStatus == .rejected) ? Colors.black.swiftUIColor : Colors.white.swiftUIColor
+        return Button {
+            debugPrint("Add Friend button")
+            guard let status = self.viewModel.user?.friendshipStatus else { return }
+            if status  == .pending || status == .requested || status == .accepted{
+                showFriendshipAlert = true
+            } else {
+                if let id = viewModel.user?.id {
+                    viewModel.updateFriendship(targetStatus: .requested, userId: id)
+                }
+            }
+
+        } label: {
+            if viewModel.updatingFriendship {
+                ActivityIndicator(color: Colors.green.swiftUIColor, size: 20)
+            } else {
+                Text(title)
+            }
+        }
+        .tint(tint)
+        .foregroundColor(foreground)
+        .controlSize(.small)
+        .buttonStyle(.borderedProminent)
+        
+    }
+    var friendshipAlertButtonTitle: String {
+        var title = ""
+        switch viewModel.user?.friendshipStatus ?? .none {
+        case .accepted:
+            title = "UNFRIEND"
+        case .pending:
+            title = "DELETE"
+        case .requested:
+            title = "DELETE"
+        default:
+           title = ""
+        }
+        return title
+    }
+    func friendshipAlertTitle(userName:String) -> String {
+        var title = ""
+        switch viewModel.user?.friendshipStatus ?? .none {
+        case .accepted:
+            title = "Unfriend \(userName)?"
+        case .pending:
+            title = "Decline friend request?"
+        case .requested:
+            title = "Delete send friend request?"
+        default:
+           title = ""
+        }
+        return title
+    }
+    func friendshipAlertMessage(userName:String) -> String {
+        var title = "Add"
+        switch viewModel.user?.friendshipStatus ?? .none {
+        case .accepted:
+            title = "Mirage won’t tell \(userName) that they have been unfriended by you"
+        case .pending:
+            title = "Mirage won’t tell \(userName) that their request is not accepted by you"
+        case .requested:
+            title = "\(userName) will not see your friend request anymore and will not be notified"
+        default:
+           title = "ADD"
+        }
+        return title
+    }
+    func targetStatus(_ status: FriendshipStatus) -> FriendshipStatus {
+        if status == .accepted {
+            return .rejected
+        } else if status == .pending {
+            return .rejected
+        } else if status == .requested {
+            return .rejected
+        }
+        return .none
+    }
+
+}
+
+struct ProfilePreferenceKey: PreferenceKey {
+    static var defaultValue: Bool = false
+    
+    static func reduce(value: inout Bool, nextValue: () -> Bool) {
+        value = nextValue()
     }
 }

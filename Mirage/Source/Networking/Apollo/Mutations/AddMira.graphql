@@ -20,6 +20,7 @@ mutation AddMira($addMiraInput: AddMiraInput!) {
       username
       profileImage
       profileDescription
+      friendshipStatus
     }
     location {
       latitude
