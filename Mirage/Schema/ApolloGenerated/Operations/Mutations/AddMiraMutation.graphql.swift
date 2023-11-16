@@ -8,7 +8,7 @@ extension MirageAPI {
     static let operationName: String = "AddMira"
     static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"mutation AddMira($addMiraInput: AddMiraInput!) { addMira(input: $addMiraInput) { __typename id miraMedia { __typename assetUrl contentType shape modifier { __typename id type } position { __typename id transform } } creator { __typename id phone username profileImage profileDescription } location { __typename latitude longitude elevation heading } } }"#
+        #"mutation AddMira($addMiraInput: AddMiraInput!) { addMira(input: $addMiraInput) { __typename id miraMedia { __typename assetUrl contentType shape modifier { __typename id type } position { __typename id transform } } creator { __typename id phone username profileImage profileDescription friendshipStatus } location { __typename latitude longitude elevation heading } } }"#
       ))
 
     public var addMiraInput: AddMiraInput
@@ -126,6 +126,7 @@ extension MirageAPI {
             .field("username", String.self),
             .field("profileImage", String?.self),
             .field("profileDescription", String?.self),
+            .field("friendshipStatus", GraphQLEnum<MirageAPI.FriendshipStatus>?.self),
           ] }
 
           var id: MirageAPI.ID { __data["id"] }
@@ -133,6 +134,7 @@ extension MirageAPI {
           var username: String { __data["username"] }
           var profileImage: String? { __data["profileImage"] }
           var profileDescription: String? { __data["profileDescription"] }
+          var friendshipStatus: GraphQLEnum<MirageAPI.FriendshipStatus>? { __data["friendshipStatus"] }
         }
 
         /// AddMira.Location

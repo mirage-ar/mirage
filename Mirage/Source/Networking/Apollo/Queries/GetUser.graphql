@@ -7,11 +7,37 @@ query User($userId: ID) {
     profileDescription
     accessToken
     verificationSid
+    friendshipStatus
     collected {
         id
     }
     miras {
         id
     }
+    friends {
+        id
+        phone
+        username
+        profileImage
+        profileDescription
+        friendshipStatus
+    }
+    sentRequests {
+        id
+        phone
+        username
+        profileImage
+        profileDescription
+        friendshipStatus
+    }
+    pendingRequests {
+        id
+        phone
+        username
+        profileImage
+        profileDescription
+        friendshipStatus
+    }
+
   }
 }

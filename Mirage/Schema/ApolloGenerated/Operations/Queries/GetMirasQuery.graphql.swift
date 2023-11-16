@@ -8,7 +8,7 @@ extension MirageAPI {
     static let operationName: String = "GetMiras"
     static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query GetMiras($getMirasQueryInput: GetMirasQueryInput!) { getMiras(input: $getMirasQueryInput) { __typename id miraMedia { __typename id contentType assetUrl shape position { __typename id transform } modifier { __typename id type amount } } creator { __typename id phone username profileImage profileDescription } location { __typename id latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
+        #"query GetMiras($getMirasQueryInput: GetMirasQueryInput!) { getMiras(input: $getMirasQueryInput) { __typename id miraMedia { __typename id contentType assetUrl shape position { __typename id transform } modifier { __typename id type amount } } creator { __typename id phone username profileImage profileDescription friendshipStatus } location { __typename id latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription friendshipStatus } } }"#
       ))
 
     public var getMirasQueryInput: GetMirasQueryInput
@@ -136,6 +136,7 @@ extension MirageAPI {
             .field("username", String.self),
             .field("profileImage", String?.self),
             .field("profileDescription", String?.self),
+            .field("friendshipStatus", GraphQLEnum<MirageAPI.FriendshipStatus>?.self),
           ] }
 
           var id: MirageAPI.ID { __data["id"] }
@@ -143,6 +144,7 @@ extension MirageAPI {
           var username: String { __data["username"] }
           var profileImage: String? { __data["profileImage"] }
           var profileDescription: String? { __data["profileDescription"] }
+          var friendshipStatus: GraphQLEnum<MirageAPI.FriendshipStatus>? { __data["friendshipStatus"] }
         }
 
         /// GetMira.Location
@@ -184,6 +186,7 @@ extension MirageAPI {
             .field("username", String.self),
             .field("profileImage", String?.self),
             .field("profileDescription", String?.self),
+            .field("friendshipStatus", GraphQLEnum<MirageAPI.FriendshipStatus>?.self),
           ] }
 
           var id: MirageAPI.ID { __data["id"] }
@@ -191,6 +194,7 @@ extension MirageAPI {
           var username: String { __data["username"] }
           var profileImage: String? { __data["profileImage"] }
           var profileDescription: String? { __data["profileDescription"] }
+          var friendshipStatus: GraphQLEnum<MirageAPI.FriendshipStatus>? { __data["friendshipStatus"] }
         }
       }
     }

@@ -8,7 +8,7 @@ extension MirageAPI {
     static let operationName: String = "OnMiraAdd"
     static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"subscription OnMiraAdd { miraAdded { __typename id miraMedia { __typename contentType assetUrl shape position { __typename id transform } modifier { __typename id type } } creator { __typename id phone username profileImage profileDescription } location { __typename latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription } } }"#
+        #"subscription OnMiraAdd { miraAdded { __typename id miraMedia { __typename contentType assetUrl shape position { __typename id transform } modifier { __typename id type } } creator { __typename id phone username profileImage profileDescription friendshipStatus } location { __typename latitude longitude elevation heading } viewed isFriend collectors { __typename id phone username profileImage profileDescription friendshipStatus } } }"#
       ))
 
     public init() {}
@@ -126,6 +126,7 @@ extension MirageAPI {
             .field("username", String.self),
             .field("profileImage", String?.self),
             .field("profileDescription", String?.self),
+            .field("friendshipStatus", GraphQLEnum<MirageAPI.FriendshipStatus>?.self),
           ] }
 
           var id: MirageAPI.ID { __data["id"] }
@@ -133,6 +134,7 @@ extension MirageAPI {
           var username: String { __data["username"] }
           var profileImage: String? { __data["profileImage"] }
           var profileDescription: String? { __data["profileDescription"] }
+          var friendshipStatus: GraphQLEnum<MirageAPI.FriendshipStatus>? { __data["friendshipStatus"] }
         }
 
         /// MiraAdded.Location
@@ -172,6 +174,7 @@ extension MirageAPI {
             .field("username", String.self),
             .field("profileImage", String?.self),
             .field("profileDescription", String?.self),
+            .field("friendshipStatus", GraphQLEnum<MirageAPI.FriendshipStatus>?.self),
           ] }
 
           var id: MirageAPI.ID { __data["id"] }
@@ -179,6 +182,7 @@ extension MirageAPI {
           var username: String { __data["username"] }
           var profileImage: String? { __data["profileImage"] }
           var profileDescription: String? { __data["profileDescription"] }
+          var friendshipStatus: GraphQLEnum<MirageAPI.FriendshipStatus>? { __data["friendshipStatus"] }
         }
       }
     }
