@@ -1,0 +1,10 @@
+query SearchUsersQuery($input: GetUsersQueryInput!) {
+  getUsers(input: $input) {
+    id
+    phone
+    username
+    profileImage
+    profileDescription
+    friendshipStatus
+  }
+}

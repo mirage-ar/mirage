@@ -11,7 +11,7 @@ import Combine
 protocol FriendsApolloRepository {
     func sendFriendRequest(userId: UUID) -> AnyPublisher<FriendshipStatus, Error>
     func  updateFriendRequest(userId: UUID, status: FriendshipStatus) -> AnyPublisher<FriendshipStatus, Error>
-
+    func searchUsers(userName: String?, phoneNumber: String?) -> AnyPublisher<[User]?, Error>
 }
 
 extension ApolloRepository: FriendsApolloRepository {
@@ -35,4 +35,19 @@ extension ApolloRepository: FriendsApolloRepository {
             }
             .eraseToAnyPublisher()
     }
+    
+    func searchUsers(userName: String?, phoneNumber: String?) -> AnyPublisher<[User]?, Error> {
+        let input = MirageAPI.GetUsersQueryInput(username: GraphQLNullable<String>(stringLiteral: userName ?? "") , phone: GraphQLNullable<String>(stringLiteral: phoneNumber ?? ""))
+        
+        let query = MirageAPI.SearchUsersQuery(input: input)
+        return fetch(query: query)
+            .map {
+                return $0.getUsers?.map({ user in
+                    return User(apiUser: user)
+                })
+            }
+            .eraseToAnyPublisher()
+           
+    }
+
 }

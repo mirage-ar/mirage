@@ -10,7 +10,6 @@ import SwiftUI
 struct UserFriendRowView: View {
     let user: User
     let imageSize = 48.0
-    let buttonTitles: [String]
     var action: (String, User) -> Void
 
     var body: some View {
@@ -35,6 +34,7 @@ struct UserFriendRowView: View {
                         .multilineTextAlignment(.leading)
                     
                     Spacer()
+                    let buttonTitles = buttonTitles(status: user.friendshipStatus)
                     ForEach(buttonTitles, id: \.self) { title in
                         Button(title) {
                             action(title, self.user)
@@ -48,6 +48,29 @@ struct UserFriendRowView: View {
                                 
                 }
                 .contentShape(Rectangle())
+        }
+    }
+    func buttonTitles(status: FriendshipStatus) -> [String] {
+        let isCurrentFriend = UserDefaultsStorage().getUser()?.friends?.contains(self.user)
+        if isCurrentFriend == true {
+            return ["UNFRIEND"]
+        }
+        switch status {
+        case .accepted:
+            return ["UNFRIEND"]
+            
+        case .none:
+            return ["ADD +"]
+
+        case .pending:
+            return ["ACCEPT", "-"]
+
+        case .requested:
+            return ["-"]
+
+        case .rejected:
+            return ["ADD +"]
+
         }
     }
 }

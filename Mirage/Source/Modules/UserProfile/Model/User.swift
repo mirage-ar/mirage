@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct User {
+public struct User: Equatable {
     let id: UUID
     let phone: String
     let userName: String?
@@ -37,6 +37,9 @@ public struct User {
         userName = nil
         profileImage = ""
         profileDescription = nil
+    }
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 
@@ -179,6 +182,16 @@ extension User {
             friendshipStatus = FriendshipStatus(status: status)
         }
     }
+    init(apiUser: MirageAPI.SearchUsersQuery.Data.GetUser?) {
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
+        userName = apiUser?.username ?? ""
+        profileImage = apiUser?.profileImage ?? ""
+        profileDescription = apiUser?.profileDescription
+        if let status =  apiUser?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
+    }
 }
 
 // MARK: - Hashable
@@ -211,6 +224,7 @@ extension User: Codable {
         case profileDescription
         case collectedMiraCount
         case mirasCount
+        case friends
     }
 
     public init(from decoder: Decoder) throws {
@@ -222,6 +236,7 @@ extension User: Codable {
         profileDescription = try? values.decode(String.self, forKey: .profileDescription)
         collectedMiraCount = (try? values.decode(Int.self, forKey: .collectedMiraCount)) ?? 0
         mirasCount = (try? values.decode(Int.self, forKey: .mirasCount)) ?? 0
+        friends = (try? values.decode([User].self, forKey: .friends)) ?? []
 
     }
 
@@ -234,6 +249,8 @@ extension User: Codable {
         try container.encode(profileDescription, forKey: .profileDescription)
         try container.encode(collectedMiraCount, forKey: .collectedMiraCount)
         try container.encode(mirasCount, forKey: .mirasCount)
+        try container.encode(friends, forKey: .friends)
+
 
     }
 }

@@ -140,8 +140,12 @@
 		9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA442A0E955F00EB4038 /* EditUserProfileViewModel.swift */; };
 		9396AA472A0E978800EB4038 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA462A0E978800EB4038 /* SettingsViewModel.swift */; };
 		93A3A8752AC6343D00B1570D /* AppSyncRequestBodyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */; };
+		93A42D8A2B0B86980028D2D7 /* SearchUsers.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93A42D892B0B86980028D2D7 /* SearchUsers.graphql */; };
+		93A42D8C2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A42D8B2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift */; };
+		93A42D8E2B0BB5C00028D2D7 /* SearchUsersQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A42D8D2B0BB5C00028D2D7 /* SearchUsersQuery.graphql.swift */; };
 		93A4D3882A0A9EE700179536 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3872A0A9EE700179536 /* SettingsView.swift */; };
 		93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A4D3892A0A9F7300179536 /* EditProfileView.swift */; };
+		93A887452B0CE89B00F9D03D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A887442B0CE89B00F9D03D /* SearchBar.swift */; };
 		93A9407D2A585FD2005B7D4D /* UserProfileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */; };
 		93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */; };
 		93AD50B829C20133002DA594 /* NavigationElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD50B729C20133002DA594 /* NavigationElement.swift */; };
@@ -331,8 +335,12 @@
 		9396AA442A0E955F00EB4038 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
 		9396AA462A0E978800EB4038 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSyncRequestBodyCreator.swift; sourceTree = "<group>"; };
+		93A42D892B0B86980028D2D7 /* SearchUsers.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SearchUsers.graphql; sourceTree = "<group>"; };
+		93A42D8B2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersQueryInput.graphql.swift; sourceTree = "<group>"; };
+		93A42D8D2B0BB5C00028D2D7 /* SearchUsersQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersQuery.graphql.swift; sourceTree = "<group>"; };
 		93A4D3872A0A9EE700179536 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		93A4D3892A0A9F7300179536 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		93A887442B0CE89B00F9D03D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		93A9407C2A585FD2005B7D4D /* UserProfileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStorage.swift; sourceTree = "<group>"; };
 		93AD50B429C1FF20002DA594 /* VerifyPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberView.swift; sourceTree = "<group>"; };
 		93AD50B729C20133002DA594 /* NavigationElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationElement.swift; sourceTree = "<group>"; };
@@ -599,6 +607,7 @@
 		9310E5CE29CDCEB7000E6019 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				93A887432B0CE89000F9D03D /* SearchBar */,
 				9310E5DB29CDD99A000E6019 /* ActivityIndicator */,
 				9310E5CF29CDCEB7000E6019 /* Buttons */,
 				9310E5D029CDCEB7000E6019 /* Text */,
@@ -863,6 +872,7 @@
 				931FF5D229B80037002C62AB /* AuthorizationInput.graphql.swift */,
 				394EC7672A5E50DF0002AAE1 /* AddMiraInput.graphql.swift */,
 				394EC7652A5E50DF0002AAE1 /* ArMediaInput.graphql.swift */,
+				93A42D8B2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift */,
 				394EC7642A5E50DF0002AAE1 /* ModifierInput.graphql.swift */,
 				938381F92B03BCF300BE9B6C /* UpdateFriendshipInput.graphql.swift */,
 				394EC7662A5E50DF0002AAE1 /* PositionInput.graphql.swift */,
@@ -913,6 +923,7 @@
 			children = (
 				9392633429F018C1005B1F3E /* GetMiras.graphql */,
 				93AD50BD29C2087A002DA594 /* GetUser.graphql */,
+				93A42D892B0B86980028D2D7 /* SearchUsers.graphql */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -1076,8 +1087,17 @@
 			children = (
 				936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */,
 				93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */,
+				93A42D8D2B0BB5C00028D2D7 /* SearchUsersQuery.graphql.swift */,
 			);
 			path = Queries;
+			sourceTree = "<group>";
+		};
+		93A887432B0CE89000F9D03D /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				93A887442B0CE89B00F9D03D /* SearchBar.swift */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		93AD50B629C20125002DA594 /* SwiftUI */ = {
@@ -1364,6 +1384,7 @@
 				9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */,
 				9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */,
 				93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */,
+				93A42D8A2B0B86980028D2D7 /* SearchUsers.graphql in Resources */,
 				938381F62B03BC7E00BE9B6C /* UpdateFriendRequest.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1433,6 +1454,7 @@
 				931359B72A03FDDB00A0F5E7 /* UserProfileViewModel.swift in Sources */,
 				936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */,
 				933E9CCF2B02DE4C00CD7437 /* MyFriendsListViewModel.swift in Sources */,
+				93A42D8C2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift in Sources */,
 				933E9CC62B026CD200CD7437 /* MyFriendsListView.swift in Sources */,
 				9327D4442A3209D4005D782D /* Float+Extension.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
@@ -1457,6 +1479,7 @@
 				39CA4F992A3106BB002CCE88 /* ARViewCamera.swift in Sources */,
 				936C6A392AF9674700305559 /* SendFriendRequestMutation.graphql.swift in Sources */,
 				938381F22B03993300BE9B6C /* UserFriendsListView.swift in Sources */,
+				93A887452B0CE89B00F9D03D /* SearchBar.swift in Sources */,
 				9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */,
 				936D307B2A43AEA00041FC0C /* UserListRow.swift in Sources */,
 				931FF5DA29B80037002C62AB /* User.graphql.swift in Sources */,
@@ -1482,6 +1505,7 @@
 				394EC76B2A5E50DF0002AAE1 /* AddMiraInput.graphql.swift in Sources */,
 				3942F7572A5C8524007DB731 /* ContentType.graphql.swift in Sources */,
 				9310806929F183C40075C8DC /* HomeViewModel.swift in Sources */,
+				93A42D8E2B0BB5C00028D2D7 /* SearchUsersQuery.graphql.swift in Sources */,
 				938381F82B03BCE300BE9B6C /* UpdateFriendRequestMutation.graphql.swift in Sources */,
 				938381F42B03A05900BE9B6C /* SentRequestsListView.swift in Sources */,
 				936C6A302AF961A900305559 /* FriendRequest.graphql.swift in Sources */,
