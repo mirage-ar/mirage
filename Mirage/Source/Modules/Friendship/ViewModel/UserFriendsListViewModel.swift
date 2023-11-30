@@ -6,24 +6,30 @@
 //
 
 import Foundation
-
 //Other User Friendslist
+
 class UserFriendsListViewModel: ObservableObject {
     var user: User
     let userProfileRepository: UserProfileApolloRepository = AppConfiguration.shared.apollo
     let friendsApolloRepository: FriendsApolloRepository = AppConfiguration.shared.apollo
-
+    
     @Published var segments: [String] = []
     @Published var updatingFriendship: Bool = false
     
+    @Published var searchedUsers: [User]?
+    @Published var mutalFriends: [User]?
+    @Published var filteredMutalFriends: [User]?
+    @Published var isSearchingUsers = false
+
     init(user: User) {
         self.user = user
+        self.loadMutualFriends()
         refreshSegmentTitles()
     }
     
     func refreshSegmentTitles() {
         let friends = "\((user.friends?.count ?? 0)) FRIENDS"
-        let mutual = "0 MUTUAL"
+        let mutual = "\((mutalFriends?.count ?? 0)) MUTUAL"
         self.segments = [friends, mutual]
     }
     
@@ -33,11 +39,12 @@ class UserFriendsListViewModel: ObservableObject {
             .receiveAndCancel { user in
                 self.user = user
                 self.updatingFriendship = false
+                self.loadMutualFriends()
             } receiveError: { error in
                 print("Get profile user error \(error)" )
             }
     }
-    func updateFriendRequestAgainstAction(_ action: String, userId: UUID) {
+    func updateFriendshipAgainstAction(_ action: String, userId: UUID) {
         updatingFriendship = true
         let status = statusForActoin(action)
         if status == .requested {
@@ -62,6 +69,25 @@ class UserFriendsListViewModel: ObservableObject {
                 }
         }
     }
+    func searchFriends(searchText: String?) {
+        filterFriends(searchText: searchText)
+    }
+    func filterFriends(searchText: String?) {
+        if searchText == nil || searchText?.isEmpty == true {
+            searchedUsers = user.friends
+            filteredMutalFriends = mutalFriends
+        }
+    }
+    func finishSearching() {
+        self.isSearchingUsers = false
+    }
+    
+    func loadMutualFriends() {
+        if let myFriends = UserDefaultsStorage().getUser()?.friends {
+            mutalFriends = user.friends?.filter(myFriends.contains)
+        }
+    }
+
     func statusForActoin(_ action: String) -> FriendshipStatus {
         switch action {
         case "ACCEPT":
@@ -75,4 +101,5 @@ class UserFriendsListViewModel: ObservableObject {
             return .none
         }
     }
+    
 }

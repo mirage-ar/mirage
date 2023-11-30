@@ -26,6 +26,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>AR View</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app needs access to contacts in order to fetch existing users.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Image Picker</string>
 </dict>

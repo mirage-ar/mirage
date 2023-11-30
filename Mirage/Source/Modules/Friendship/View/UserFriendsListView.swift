@@ -24,7 +24,9 @@ struct UserFriendsListView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                SegmentedView(segments: viewModel.segments, selected: $currentSegment)
+                SegmentedView(segments: viewModel.segments, selected: $currentSegment) { index in
+                    debugPrint("Index changed \(index)")
+                }
                 List {
                     Section {
                         switch currentSegment {
@@ -59,8 +61,8 @@ struct UserFriendsListView: View {
     
     func friendsListView() -> some View {
         ForEach(viewModel.user.friends ?? [], id: \.self) { user in
-            UserFriendRowView(user: user, buttonTitles: [user.friendshipStatus == .accepted ? "UNFRIEND" : "ADD +"], action: { action, user in
-                viewModel.updateFriendRequestAgainstAction(action, userId: user.id)
+            UserFriendRowView(user: user, action: { action, user in
+                viewModel.updateFriendshipAgainstAction(action, userId: user.id)
             })
             .listRowBackground(Color.clear)
             .onTapGesture {
@@ -74,10 +76,9 @@ struct UserFriendsListView: View {
     }
     
     func mutualFriendListView() -> some View {
-        ForEach(viewModel.user.friends ?? [], id: \.self) { user in
-            UserFriendRowView(user: user, buttonTitles: ["UNFRIEND"], action: { action, user in
-                viewModel.updateFriendRequestAgainstAction(action, userId: user.id)
-
+        ForEach(viewModel.mutalFriends ?? [], id: \.self) { user in
+            UserFriendRowView(user: user, action: { action, user in
+                viewModel.updateFriendshipAgainstAction(action, userId: user.id)
             })
             .listRowBackground(Color.clear)
             .onTapGesture {

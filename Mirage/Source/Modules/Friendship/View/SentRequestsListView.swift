@@ -46,8 +46,8 @@ struct SentRequestsListView: View {
     }
     func sentRequestsListView() -> some View {
         ForEach(viewModel.user.sentRequests ?? [], id: \.self) { user in
-            UserFriendRowView(user: user, buttonTitles: ["-"], action: { action, user in
-                viewModel.updateFriendRequestAgainstAction(action, userId: user.id)
+            UserFriendRowView(user: user, action: { action, user in
+                viewModel.updateFriendshipAgainstAction(action, userId: user.id)
             })
             .listRowBackground(Color.clear)
             .onTapGesture {
