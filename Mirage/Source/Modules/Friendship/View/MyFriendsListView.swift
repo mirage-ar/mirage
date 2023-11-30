@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Contacts
 
 struct MyFriendsListView: View {
     let viewModel: MyFriendsListViewModel
@@ -15,7 +16,8 @@ struct MyFriendsListView: View {
     @State var selectedUserId: UUID?
     @State private var searchText = ""
     @State private var isSearching = false
-
+    @State private var showContactsPermissinoAlert = false
+    
     init(user: User) {
         viewModel = MyFriendsListViewModel(user: user)
         currentSegment = ViewTag.friends.rawValue
@@ -25,8 +27,17 @@ struct MyFriendsListView: View {
             Colors.black.swiftUIColor
                 .edgesIgnoringSafeArea(.all)
             VStack {
-               
-                SegmentedView(segments: viewModel.segments, selected: $currentSegment)
+                
+                SegmentedView(segments: viewModel.segments, selected: $currentSegment) { index in
+                    if index == ViewTag.suggestions.rawValue {
+                        if !ContactsManager().isContactPermissionGranted() {
+                            showContactsPermissinoAlert = true
+                        } else {
+                            //Start loading contacts
+                            viewModel.fetchFriendSuggestions()
+                        }
+                    }
+                }
                 HStack {
                     Spacer()
                     Button {
@@ -40,8 +51,7 @@ struct MyFriendsListView: View {
                 .padding([.leading, .trailing], 20)
                 SearchBar(text: $searchText, onTextChanged: performSearch, onStateChanged: searchViewStateChanged)
                 List {
-                    self.generalUsersList()
-
+                    
                     if hasData() {
                         Section {
                             switch currentSegment {
@@ -49,6 +59,9 @@ struct MyFriendsListView: View {
                                 friendsListView()
                             case ViewTag.requests.rawValue:
                                 requestsListView()
+                            case ViewTag.suggestions.rawValue:
+                                generalUsersList(list: viewModel.suggestedUsers ?? [])
+
                             default:
                                 friendsListView()
                                 
@@ -58,32 +71,32 @@ struct MyFriendsListView: View {
                                 .foregroundColor(Colors.g2MediumGrey.swiftUIColor)
                             Divider()
                                 .overlay(Colors.g4LightGrey.swiftUIColor)
-
+                            
                         }
                         .background(.black)
-
+                        
                     }
                     if isSearching {
                         if viewModel.isSearchingUsers {
                             ActivityIndicator(color: Colors.green.swiftUIColor, size: 40)
-
+                            
                         } else if (viewModel.searchedUsers?.count ?? 0) > 0 {
                             Section {
-                                self.generalUsersList()
+                                self.generalUsersList(list: viewModel.searchedUsers ?? [])
                             } header: {
                                 Text("People you may know")
                                     .foregroundColor(Colors.g2MediumGrey.swiftUIColor)
                                 Divider()
                                     .overlay(Colors.g4LightGrey.swiftUIColor)
-
+                                
                             }
                             .background(.black)
-
+                            
                         } else {
                             Text("No contacts found")
                                 .font(.body1)
                         }
-                       
+                        
                     }
                 }
                 .background(.black)
@@ -106,6 +119,9 @@ struct MyFriendsListView: View {
             
         }
         .preference(key: ProfilePreferenceKey.self, value: viewModel.updatingFriendship)
+        .alert(isPresented: $showContactsPermissinoAlert) {
+            conactsPermissionAlert()
+        }
         
     }
     func performSearch(searchText: String?) {
@@ -148,8 +164,8 @@ struct MyFriendsListView: View {
         }
     }
     
-    func generalUsersList() -> some View {
-        ForEach(viewModel.searchedUsers ?? [], id: \.self) { user in
+    func generalUsersList(list: [User]) -> some View {
+        ForEach(list, id: \.self) { user in
             UserFriendRowView(user: user, action: { action, user in
                 viewModel.updateFriendshipAgainstAction(action, userId: user.id)
             })
@@ -170,7 +186,7 @@ struct MyFriendsListView: View {
             return (viewModel.user.pendingRequests?.count ?? 0) > 0
         case ViewTag.suggestions.rawValue:
             return (viewModel.suggestedUsers?.count ?? 0) > 0
-
+            
         default:
             return false
         }
@@ -183,11 +199,27 @@ struct MyFriendsListView: View {
             return "Pending Requests"
         case ViewTag.suggestions.rawValue:
             return "Suggestions"
-
+            
         default:
             return ""
         }
     }
+    
+    func conactsPermissionAlert() -> Alert {
+        return Alert(title: Text("Permission to Contacts"), message: Text("This app needs access to contacts in order to fetch existing users."), primaryButton: .default(
+            Text("Settings"),
+            action: {
+                
+            }
+        ), secondaryButton: .destructive(
+            Text("Cancel"),
+            action: {
+                
+            })
+        )
+        
+    }
+    
     enum ViewTag: Int {
         case friends = 0, requests, suggestions
     }

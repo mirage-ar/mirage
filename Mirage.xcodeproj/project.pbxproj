@@ -56,6 +56,7 @@
 		39FED8B82AAE5E560059DADB /* MBSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FED8B72AAE5E560059DADB /* MBSMapView.swift */; };
 		9300624929E43EA000816C46 /* MBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624829E43EA000816C46 /* MBMapView.swift */; };
 		9300624C29E43F0F00816C46 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300624B29E43F0F00816C46 /* LocationManager.swift */; };
+		9300D5822B13D1340074EA59 /* GetSuggestions.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9300D5812B13D1340074EA59 /* GetSuggestions.graphql */; };
 		93030BF82A125826002E25E1 /* UpdateUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */; };
 		9310806929F183C40075C8DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310806829F183C40075C8DC /* HomeViewModel.swift */; };
 		9310806B29F186100075C8DC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9310806A29F186100075C8DC /* MapViewModel.swift */; };
@@ -99,9 +100,7 @@
 		9331C49529AF8F2D00F8EE72 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 9331C49429AF8F2D00F8EE72 /* Reachability */; };
 		9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9331C49729AF8FEF00F8EE72 /* NetworkError.swift */; };
 		933E9CC62B026CD200CD7437 /* MyFriendsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E9CC52B026CD200CD7437 /* MyFriendsListView.swift */; };
-		933E9CC82B026CEF00CD7437 /* UserFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E9CC72B026CEF00CD7437 /* UserFriendsListViewModel.swift */; };
 		933E9CCB2B02705500CD7437 /* SegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E9CCA2B02705500CD7437 /* SegmentedView.swift */; };
-		933E9CCF2B02DE4C00CD7437 /* MyFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E9CCE2B02DE4C00CD7437 /* MyFriendsListViewModel.swift */; };
 		933E9CD52B02E24A00CD7437 /* UserFriendRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E9CD42B02E24A00CD7437 /* UserFriendRowView.swift */; };
 		935065142A43301700817130 /* CollectedByUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065132A43301700817130 /* CollectedByUsersViewModel.swift */; };
 		935065162A43302700817130 /* CollectedByUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935065152A43302700817130 /* CollectedByUsersView.swift */; };
@@ -139,6 +138,10 @@
 		9392634329F01FF5005B1F3E /* Mira.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392634129F01FF5005B1F3E /* Mira.graphql.swift */; };
 		9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA442A0E955F00EB4038 /* EditUserProfileViewModel.swift */; };
 		9396AA472A0E978800EB4038 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396AA462A0E978800EB4038 /* SettingsViewModel.swift */; };
+		93A2867E2B13D267003DCF7E /* GetSuggestionsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A2867D2B13D267003DCF7E /* GetSuggestionsQuery.graphql.swift */; };
+		93A286812B13D2E5003DCF7E /* UserFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A2867F2B13D2E5003DCF7E /* UserFriendsListViewModel.swift */; };
+		93A286822B13D2E5003DCF7E /* MyFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A286802B13D2E5003DCF7E /* MyFriendsListViewModel.swift */; };
+		93A286842B13D2F7003DCF7E /* ContactsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A286832B13D2F7003DCF7E /* ContactsManager.swift */; };
 		93A3A8752AC6343D00B1570D /* AppSyncRequestBodyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */; };
 		93A42D8A2B0B86980028D2D7 /* SearchUsers.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 93A42D892B0B86980028D2D7 /* SearchUsers.graphql */; };
 		93A42D8C2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A42D8B2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift */; };
@@ -252,6 +255,7 @@
 		39FED8B72AAE5E560059DADB /* MBSMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBSMapView.swift; sourceTree = "<group>"; };
 		9300624829E43EA000816C46 /* MBMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBMapView.swift; sourceTree = "<group>"; };
 		9300624B29E43F0F00816C46 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9300D5812B13D1340074EA59 /* GetSuggestions.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetSuggestions.graphql; sourceTree = "<group>"; };
 		93030BF72A125826002E25E1 /* UpdateUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserViewModel.swift; sourceTree = "<group>"; };
 		930D1220299A6A2F001A8D72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9310806829F183C40075C8DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -294,9 +298,7 @@
 		9331C49129AF8C4100F8EE72 /* ReachabilityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityProvider.swift; sourceTree = "<group>"; };
 		9331C49729AF8FEF00F8EE72 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		933E9CC52B026CD200CD7437 /* MyFriendsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsListView.swift; sourceTree = "<group>"; };
-		933E9CC72B026CEF00CD7437 /* UserFriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsListViewModel.swift; sourceTree = "<group>"; };
 		933E9CCA2B02705500CD7437 /* SegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedView.swift; sourceTree = "<group>"; };
-		933E9CCE2B02DE4C00CD7437 /* MyFriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsListViewModel.swift; sourceTree = "<group>"; };
 		933E9CD42B02E24A00CD7437 /* UserFriendRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendRowView.swift; sourceTree = "<group>"; };
 		935065132A43301700817130 /* CollectedByUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersViewModel.swift; sourceTree = "<group>"; };
 		935065152A43302700817130 /* CollectedByUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedByUsersView.swift; sourceTree = "<group>"; };
@@ -334,6 +336,10 @@
 		9392634129F01FF5005B1F3E /* Mira.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mira.graphql.swift; sourceTree = "<group>"; };
 		9396AA442A0E955F00EB4038 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
 		9396AA462A0E978800EB4038 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		93A2867D2B13D267003DCF7E /* GetSuggestionsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSuggestionsQuery.graphql.swift; sourceTree = "<group>"; };
+		93A2867F2B13D2E5003DCF7E /* UserFriendsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsListViewModel.swift; sourceTree = "<group>"; };
+		93A286802B13D2E5003DCF7E /* MyFriendsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFriendsListViewModel.swift; sourceTree = "<group>"; };
+		93A286832B13D2F7003DCF7E /* ContactsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsManager.swift; sourceTree = "<group>"; };
 		93A3A8742AC6343D00B1570D /* AppSyncRequestBodyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSyncRequestBodyCreator.swift; sourceTree = "<group>"; };
 		93A42D892B0B86980028D2D7 /* SearchUsers.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SearchUsers.graphql; sourceTree = "<group>"; };
 		93A42D8B2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUsersQueryInput.graphql.swift; sourceTree = "<group>"; };
@@ -924,6 +930,7 @@
 				9392633429F018C1005B1F3E /* GetMiras.graphql */,
 				93AD50BD29C2087A002DA594 /* GetUser.graphql */,
 				93A42D892B0B86980028D2D7 /* SearchUsers.graphql */,
+				9300D5812B13D1340074EA59 /* GetSuggestions.graphql */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -1050,6 +1057,9 @@
 		936C6A322AF9639700305559 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				93A286802B13D2E5003DCF7E /* MyFriendsListViewModel.swift */,
+				93A2867F2B13D2E5003DCF7E /* UserFriendsListViewModel.swift */,
+				93A286832B13D2F7003DCF7E /* ContactsManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1065,8 +1075,6 @@
 		936C6A342AF9639700305559 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				933E9CC72B026CEF00CD7437 /* UserFriendsListViewModel.swift */,
-				933E9CCE2B02DE4C00CD7437 /* MyFriendsListViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1087,6 +1095,7 @@
 			children = (
 				936E7DDC29C20A550008FBB9 /* UserQuery.graphql.swift */,
 				93537E5729F9156A000B08A4 /* GetMirasQuery.graphql.swift */,
+				93A2867D2B13D267003DCF7E /* GetSuggestionsQuery.graphql.swift */,
 				93A42D8D2B0BB5C00028D2D7 /* SearchUsersQuery.graphql.swift */,
 			);
 			path = Queries;
@@ -1382,6 +1391,7 @@
 				9318452E29CB12A000DD07CB /* Colors.xcassets in Resources */,
 				394B4960296CCAD400E2F8E4 /* Preview Assets.xcassets in Resources */,
 				9318452F29CB12A000DD07CB /* Assets.xcassets in Resources */,
+				9300D5822B13D1340074EA59 /* GetSuggestions.graphql in Resources */,
 				9392633529F018C1005B1F3E /* GetMiras.graphql in Resources */,
 				93B379442A21062E00C6C66C /* ABCDiatypeMono-Regular.otf in Resources */,
 				93A42D8A2B0B86980028D2D7 /* SearchUsers.graphql in Resources */,
@@ -1420,8 +1430,10 @@
 				9396AA452A0E955F00EB4038 /* EditUserProfileViewModel.swift in Sources */,
 				936E7DE529C20A870008FBB9 /* VerificationInput.graphql.swift in Sources */,
 				93CD41AC2AC0E040008F8F84 /* Subscription.graphql.swift in Sources */,
+				93A286842B13D2F7003DCF7E /* ContactsManager.swift in Sources */,
 				39FED8B42AAAAA4D0059DADB /* LocationPublisher.swift in Sources */,
 				3942F7582A5C8524007DB731 /* ModifierType.graphql.swift in Sources */,
+				93A286822B13D2E5003DCF7E /* MyFriendsListViewModel.swift in Sources */,
 				93B24F0D29B62F0400CCDDB7 /* Data+Extension.swift in Sources */,
 				93537E5829F9156B000B08A4 /* GetMirasQuery.graphql.swift in Sources */,
 				3942F7532A5C851A007DB731 /* Position.graphql.swift in Sources */,
@@ -1453,12 +1465,12 @@
 				93E216A129B6804100EE907D /* AuthenticationViewModel.swift in Sources */,
 				931359B72A03FDDB00A0F5E7 /* UserProfileViewModel.swift in Sources */,
 				936E7DE129C20A7A0008FBB9 /* VerificationResult.graphql.swift in Sources */,
-				933E9CCF2B02DE4C00CD7437 /* MyFriendsListViewModel.swift in Sources */,
 				93A42D8C2B0B95CD0028D2D7 /* GetUsersQueryInput.graphql.swift in Sources */,
 				933E9CC62B026CD200CD7437 /* MyFriendsListView.swift in Sources */,
 				9327D4442A3209D4005D782D /* Float+Extension.swift in Sources */,
 				93B24F0029B6123A00CCDDB7 /* KeyChainStorage.swift in Sources */,
 				9310E5DA29CDD464000E6019 /* Fonts+Extension.swift in Sources */,
+				93A2867E2B13D267003DCF7E /* GetSuggestionsQuery.graphql.swift in Sources */,
 				3942F7522A5C851A007DB731 /* Modifier.graphql.swift in Sources */,
 				39050FB82A4B6F2600AA8376 /* HomeApolloRepository.swift in Sources */,
 				394522742A4E967E00BBD587 /* ARMedia.swift in Sources */,
@@ -1520,7 +1532,6 @@
 				9318454329CB183800DD07CB /* Images.swift in Sources */,
 				9310E5D429CDCEFF000E6019 /* ButtonStyles.swift in Sources */,
 				394EC7692A5E50DF0002AAE1 /* ArMediaInput.graphql.swift in Sources */,
-				933E9CC82B026CEF00CD7437 /* UserFriendsListViewModel.swift in Sources */,
 				39FED8B82AAE5E560059DADB /* MBSMapView.swift in Sources */,
 				9300624929E43EA000816C46 /* MBMapView.swift in Sources */,
 				93BB0C5E2A4F366D008638D6 /* DownloadManager.swift in Sources */,
@@ -1534,6 +1545,7 @@
 				936C6A372AF9646600305559 /* FriendsApolloRepository.swift in Sources */,
 				93AD50B529C1FF20002DA594 /* VerifyPhoneNumberView.swift in Sources */,
 				936E7DD929C20A4E0008FBB9 /* UpdateUserMutation.graphql.swift in Sources */,
+				93A286812B13D2E5003DCF7E /* UserFriendsListViewModel.swift in Sources */,
 				93A4D38A2A0A9F7300179536 /* EditProfileView.swift in Sources */,
 				9327D4462A320F2B005D782D /* UILabel+Extension.swift in Sources */,
 				9331C49829AF8FEF00F8EE72 /* NetworkError.swift in Sources */,

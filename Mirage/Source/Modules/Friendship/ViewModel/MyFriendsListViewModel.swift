@@ -12,7 +12,7 @@ import Combine
 final class MyFriendsListViewModel: UserFriendsListViewModel {
     private var searchQueryCancellable: AnyCancellable?
     @Published var suggestedUsers: [User]?
-
+    
     override func refreshSegmentTitles() {
         let friends = "\((user.friends?.count ?? 0)) FRIENDS"
         let requests = "\((user.pendingRequests?.count ?? 0)) REQUESTS"
@@ -30,13 +30,33 @@ final class MyFriendsListViewModel: UserFriendsListViewModel {
             })
     }
     
+    func fetchFriendSuggestions() {
+        let contactsManager = ContactsManager()
+        contactsManager.fetchContacts { [weak self] conactNumbers in
+            if let contacts = conactNumbers {
+                self?.isSearchingUsers = true
+                
+                self?.friendsApolloRepository.getSuggestions(numbers: contacts)
+                    .receive(on: DispatchQueue.main)
+                    .receiveAndCancel(receiveOutput: { users in
+                        self?.suggestedUsers = users
+                        self?.isSearchingUsers = false
+                    }, receiveError: { error in
+                        print("Error: \(error)")
+                    })
+            }
+            
+        }
+        
+    }
+    
     override func finishSearching() {
         self.isSearchingUsers = false
-//        searchQueryCancellable?.cancel()
+        searchQueryCancellable?.cancel()
     }
     
     deinit {
-//        searchQueryCancellable?.cancel()
-//        searchQueryCancellable = nil
+        searchQueryCancellable?.cancel()
+        searchQueryCancellable = nil
     }
 }

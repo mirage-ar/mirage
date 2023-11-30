@@ -113,6 +113,17 @@ extension User {
         }
     }
     
+    init(apiUser: MirageAPI.GetSuggestionsQuery.Data.GetExistingUser?) {
+        id = UUID(uuidString: apiUser?.id ?? "") ?? UUID()
+        phone = apiUser?.phone ?? ""
+        userName = apiUser?.username ?? ""
+        profileImage = apiUser?.profileImage ?? ""
+        profileDescription = apiUser?.profileDescription
+        if let status =  apiUser?.friendshipStatus {
+            friendshipStatus = FriendshipStatus(status: status)
+        }
+    }
+    
     init(verifyUser: MirageAPI.VerifyUserMutation.Data.VerifyUser.User) {
         id = UUID(uuidString: verifyUser.id) ?? UUID()
         phone = verifyUser.phone ?? ""

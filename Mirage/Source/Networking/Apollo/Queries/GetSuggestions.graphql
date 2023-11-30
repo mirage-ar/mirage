@@ -1,0 +1,11 @@
+query GetSuggestionsQuery($phoneNumbers: [String!]!) {
+  getExistingUsers(phoneNumbers: $phoneNumbers) {
+    id
+    phone
+    username
+    profileImage
+    profileDescription
+    friendshipStatus
+  }
+}
+

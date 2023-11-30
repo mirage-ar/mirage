@@ -12,6 +12,7 @@ protocol FriendsApolloRepository {
     func sendFriendRequest(userId: UUID) -> AnyPublisher<FriendshipStatus, Error>
     func  updateFriendRequest(userId: UUID, status: FriendshipStatus) -> AnyPublisher<FriendshipStatus, Error>
     func searchUsers(userName: String?, phoneNumber: String?) -> AnyPublisher<[User]?, Error>
+    func getSuggestions(numbers: [String]) -> AnyPublisher<[User]?, Error>
 }
 
 extension ApolloRepository: FriendsApolloRepository {
@@ -43,6 +44,19 @@ extension ApolloRepository: FriendsApolloRepository {
         return fetch(query: query)
             .map {
                 return $0.getUsers?.map({ user in
+                    return User(apiUser: user)
+                })
+            }
+            .eraseToAnyPublisher()
+           
+    }
+    
+    func getSuggestions(numbers: [String]) -> AnyPublisher<[User]?, Error> {
+                
+        let query = MirageAPI.GetSuggestionsQuery(phoneNumbers: numbers)
+        return fetch(query: query)
+            .map {
+                return $0.getExistingUsers?.map({ user in
                     return User(apiUser: user)
                 })
             }

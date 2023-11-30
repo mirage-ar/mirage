@@ -24,7 +24,9 @@ struct UserFriendsListView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                SegmentedView(segments: viewModel.segments, selected: $currentSegment)
+                SegmentedView(segments: viewModel.segments, selected: $currentSegment) { index in
+                    debugPrint("Index changed \(index)")
+                }
                 List {
                     Section {
                         switch currentSegment {
